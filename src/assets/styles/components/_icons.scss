@@ -1,0 +1,92 @@
+@font-face {
+  font-family: 'novoglyphs';
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+  src: url('../../icons/tenant/default/novoglyphs-webicons.woff') format('woff'),
+    url('../../icons/tenant/default/novoglyphs-webicons.eot?#iefix') format('eot'),
+    url('../../icons/tenant/default/novoglyphs-webicons.ttf') format('truetype'),
+    url('../../icons/tenant/default/novoglyphs-webicons.svg') format('svg');
+}
+
+span[class^='icon-'],
+span[class*=' icon-'],
+i[class^='icon-'],
+i[class*=' icon-'] {
+  display: inline-flex;
+  font-family: $font-family-novoglyphs;
+  font-size: inherit;
+  font-style: normal;
+  font-weight: normal;
+  height: auto;
+  line-height: auto;
+  text-align: center;
+  vertical-align: middle;
+  width: auto;
+}
+
+span[class^='icon-']:before,
+span[class*=' icon-']:before,
+i[class^='icon-']:before,
+i[class*=' icon-']:before {
+  vertical-align: middle;
+}
+
+@import './iconList';
+
+.stylized-icon {
+  & span i {
+    align-items: center;
+    animation: stylized-icon 1s ease-out;
+    border-radius: 50%;
+    display: flex;
+    font-size: 2.5rem;
+    justify-content: center;
+    height: 65px;
+    margin: auto;
+    text-align: center;
+    width: 65px;
+  }
+}
+
+.rotate180 {
+  transform: rotate(180deg);
+}
+
+.rotate270 {
+  transform: rotate(270deg);
+}
+
+@-webkit-keyframes stylized-icon {
+  from {
+    padding-top: 40px;
+  }
+  to {
+    padding-top: 0px;
+  }
+}
+
+@keyframes stylized-icon {
+  from {
+    padding-top: 40px;
+  }
+  to {
+    padding-top: 0px;
+  }
+}
+
+.program-p {
+  background: linear-gradient(180deg, #cb801a 0%, #ffdd00 100%);
+}
+
+.program-pc {
+  background: linear-gradient(180deg, #465059 0%, #c7cbd2 100%);
+}
+
+.program-pa {
+  background: linear-gradient(180deg, #006d29 0%, #dbd600 100%);
+}
+
+.program-pg {
+  background: linear-gradient(180deg, #ac1015 0%, #ea917b 100%);
+}
