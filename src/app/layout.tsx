@@ -1,16 +1,11 @@
-import { MuiProvider } from "./MuiProvider"
+//Internal App
+import { RootLayout } from "@/interfaces";
 
-export const metadata = {
-  title: "Next Challenge",
-  description: "My description",
-}
+export default function RootLayout({ children }: RootLayout) {
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <body>
-        <MuiProvider theme={'ligth-theme'}>{children}</MuiProvider>
-      </body>
+    <html lang="es">
+      <body>{children}</body>
     </html>
-  )
+  );
 }
