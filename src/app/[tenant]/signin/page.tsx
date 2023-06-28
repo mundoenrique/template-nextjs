@@ -2,11 +2,22 @@
 
 import Image from "next/image";
 import { Button, Typography } from "@mui/material";
-//Internal App
-import { getDictionary } from "../dictionaries";
+import { useState } from "react";
+import { useTranslation } from "@/app/i18n/client";
+import { Container } from "@mui/system";
+import { useRouter } from "next/navigation";
 
-export default async function Signin({ params }: any) {
-  const t = await getDictionary(params.tenant, "es");
+export default function Signin({ params }: any) {
+
+ const router = useRouter()
+  
+ const [lang, setLang] = useState('es')
+
+  const { t } = useTranslation(lang, `${params.tenant}-signin`)
+  
+  const changeLanguage = (lang:string) => {
+   setLang(lang)
+  }
 
   return (
     <>
@@ -21,8 +32,18 @@ export default async function Signin({ params }: any) {
         priority
       />
       <Button type="submit" fullWidth size="large" variant="contained">
-        {t.buttons.accept}
+        {t('buttons.accept')}
       </Button>
+      
+      <Container sx={{mt: 2}}>
+       <Button onClick={() => changeLanguage('en')} size="large" variant="contained">
+         English
+       </Button>
+
+       <Button onClick={() => changeLanguage('es')} size="large" variant="contained">
+         Español
+       </Button>
+      </Container>
     </>
   );
 }
