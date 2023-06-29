@@ -1,6 +1,6 @@
 export const fallbackLng = 'en'
 export const languages = [fallbackLng, 'es']
-export const defaultNS = 'translation'
+export const defaultNS = 'novo-general'
 
 export function getOptions (lng = fallbackLng, ns = defaultNS) {
   return {

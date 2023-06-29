@@ -1,11 +1,12 @@
 'use client'
 
-import i18next from 'i18next'
-import { useEffect } from 'react'
-import { initReactI18next, useTranslation as useTranslationOrg } from 'react-i18next'
-import resourcesToBackend from 'i18next-resources-to-backend'
-import LanguageDetector from 'i18next-browser-languagedetector'
-import { getOptions, languages } from './settings'
+import i18next from 'i18next';
+import { useEffect } from 'react';
+import resourcesToBackend from 'i18next-resources-to-backend';
+import LanguageDetector from 'i18next-browser-languagedetector';
+import { initReactI18next, useTranslation as useTranslationOrg } from 'react-i18next';
+//Internal App
+import { getOptions, languages } from './settings';
 
 const runsOnServerSide = typeof window === 'undefined'
 
