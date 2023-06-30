@@ -1,5 +1,10 @@
 {
- "buttons":{
-  "accept": "Aceptar novo"
- }
+	"buttons": {
+		"accept": "Aceptar Novo",
+		"close": "Cerrar"
+	},
+	"titles": {
+		"master-acount":"Cuenta Principal",
+		"preferencial-acount":"Cuenta Secundaria"
+	}
 }

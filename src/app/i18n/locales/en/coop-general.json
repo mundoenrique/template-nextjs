@@ -1,5 +1,10 @@
 {
- "buttons":{
-  "accept": "Access App coop"
- }
+	"buttons": {
+		"accept": "Acess App Coop",
+		"close": "Exit"
+	},
+	"titles": {
+		"master-acount":"Primaria Account",
+		"preferencial-acount":"Secondary Account"
+	}
 }

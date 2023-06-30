@@ -1,5 +1,10 @@
 {
- "buttons":{
-  "accept": "Ingresar coop"
- }
+	"buttons": {
+		"accept": "Acceder App Coop",
+		"close": "Salir"
+	},
+	"titles": {
+		"master-acount":"Cuenta Primaria",
+		"preferencial-acount":"Cuenta Secundaria"
+	}
 }

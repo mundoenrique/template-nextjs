@@ -1,5 +1,5 @@
-export const fallbackLng = 'en'
-export const languages = [fallbackLng, 'es']
+export const fallbackLng = 'es'
+export const languages = [fallbackLng, 'en']
 export const defaultNS = 'novo-general'
 
 export function getOptions (lng = fallbackLng, ns = defaultNS) {

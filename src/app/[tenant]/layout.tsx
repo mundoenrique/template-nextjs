@@ -4,6 +4,7 @@ import { configTenant } from "@/config";
 import MuiProvider from "../MuiProvider";
 import { handleConfigTenant, handleMetaDataTenant } from "@/utils";
 import { GenerateMetadataProps, RootLayoutProps } from "@/interfaces";
+import SupporButton from '@/components/ui/Supportbutton'
 
 export async function generateMetadata({
   params,
@@ -34,5 +35,8 @@ export default async function SigninLayout({
   children,
   params,
 }: RootLayoutProps) {
-  return <MuiProvider theme={`theme-${params.tenant}`}>{children}</MuiProvider>;
+  return <MuiProvider theme={`theme-${params.tenant}`}>
+   {children}
+   <SupporButton />
+   </MuiProvider>;
 }

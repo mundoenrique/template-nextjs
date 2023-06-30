@@ -1,5 +1,10 @@
 {
- "buttons":{
-  "accept": "Login bdb"
- }
+	"buttons": {
+		"accept": "Login DBD",
+		"close": "Log Out BDB"
+	},
+	"titles": {
+		"master-acount":"Debit Account",
+		"preferencial-acount":"Credit Account"
+	}
 }

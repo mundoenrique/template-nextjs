@@ -1,5 +1,10 @@
 {
- "buttons":{
-  "accept": "Accept novo"
- }
+	"buttons": {
+		"accept": "Accept Novo",
+		"close": "Close"
+	},
+	"titles": {
+		"master-acount":"Master Account",
+		"preferencial-acount":"Preferencial Account"
+	}
 }

@@ -1,5 +1,10 @@
 {
- "buttons":{
-  "accept": "iniciar Sesión bdb"
- }
+	"buttons": {
+		"accept": "Iniciar Sesión BDB",
+		"close": "Cerrar Sesión"
+	},
+	"titles": {
+		"master-acount":"Cuenta Debito",
+		"preferencial-acount":"Cuenta Crédito"
+	}
 }

@@ -1,12 +1,12 @@
 "use client";
 
 import Image from "next/image";
-import { Button, Typography, Grid, Toolbar, Box } from "@mui/material";
+import { Button, Typography, Grid, Toolbar, Box, Card, CardContent } from "@mui/material";
 import { useTranslation } from "@/app/i18n/client";
 import { useLangStore } from '@/store/langStore'
 import { useRouter } from "next/navigation";
 
-export default function Signin({ params }: any) {
+export default function Dashboard({ params }: any) {
 
  const router = useRouter()
 
@@ -52,12 +52,31 @@ export default function Signin({ params }: any) {
      }}
     >
 
-     <Button onClick={() => router.push(`/${params.tenant}/dashboard`) } type="submit" fullWidth size="large" variant="contained">
-      {t('buttons.accept')}
+     <Grid direction="row" display="flex" gap={2} sx={{mb:5}}>
+     
+     <Card sx={{ minWidth: 275 }}>
+      <CardContent>
+       <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+       {t('titles.master-acount')}
+       </Typography>
+      </CardContent>
+     </Card>
+
+     <Card sx={{ minWidth: 275 }}>
+      <CardContent>
+       <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+       {t('titles.preferencial-acount')}
+       </Typography>
+      </CardContent>
+     </Card>
+
+     </Grid>
+
+     <Button onClick={() => router.push(`/${params.tenant}/signin`) } type="submit" fullWidth size="large" variant="contained">
+      {t('buttons.close')}
      </Button>
     </Box>
    </Box>
   </>
-
  );
 }
