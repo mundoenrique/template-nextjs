@@ -1,10 +1,11 @@
 {
 	"buttons": {
 		"accept": "Accept Novo",
-		"close": "Close"
+		"close": "Close Novo"
 	},
 	"titles": {
 		"master-acount":"Master Account",
 		"preferencial-acount":"Preferencial Account"
-	}
+	},
+	"lang": "Spanish Novo"
 }

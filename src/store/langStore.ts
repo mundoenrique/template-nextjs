@@ -14,5 +14,4 @@ export const useLangStore = create<LangState>((set) => ({
     Cookies.set('i18Next', lang)
     set({lang})
   }
-
 }))

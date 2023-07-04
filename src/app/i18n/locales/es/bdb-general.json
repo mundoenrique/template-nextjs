@@ -1,10 +1,11 @@
 {
 	"buttons": {
 		"accept": "Iniciar Sesión BDB",
-		"close": "Cerrar Sesión"
+		"close": "Cerrar Sesión BDB"
 	},
 	"titles": {
 		"master-acount":"Cuenta Debito",
 		"preferencial-acount":"Cuenta Crédito"
-	}
+	},
+	"lang": "Inglés BDB"
 }

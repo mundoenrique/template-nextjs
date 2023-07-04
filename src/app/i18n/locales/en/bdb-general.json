@@ -1,10 +1,11 @@
 {
 	"buttons": {
-		"accept": "Login DBD",
+		"accept": "Login BDB",
 		"close": "Log Out BDB"
 	},
 	"titles": {
 		"master-acount":"Debit Account",
 		"preferencial-acount":"Credit Account"
-	}
+	},
+	"lang": "Spanish BDB"
 }

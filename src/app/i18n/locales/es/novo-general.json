@@ -1,10 +1,11 @@
 {
 	"buttons": {
 		"accept": "Aceptar Novo",
-		"close": "Cerrar"
+		"close": "Cerrar Novo"
 	},
 	"titles": {
 		"master-acount":"Cuenta Principal",
 		"preferencial-acount":"Cuenta Secundaria"
-	}
+	},
+	"lang": "Inglés Novo"
 }
