@@ -1,11 +1,6 @@
 {
-	"buttons": {
-		"accept": "Login BDB",
-		"close": "Log Out BDB"
-	},
 	"titles": {
-		"master-acount":"Debit Account",
-		"preferencial-acount":"Credit Account"
-	},
-	"lang": "Spanish BDB"
+		"master-acount":"Debit Account BDB",
+		"preferencial-acount":"Credit Account BDB"
+	}
 }

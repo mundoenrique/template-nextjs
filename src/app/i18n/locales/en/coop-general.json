@@ -1,11 +1,6 @@
 {
-	"buttons": {
-		"accept": "Acess App Coop",
-		"close": "Exit Coop"
-	},
 	"titles": {
-		"master-acount":"Primaria Account",
-		"preferencial-acount":"Secondary Account"
-	},
-	"lang": "Spanish Coop"
+		"master-acount":"Primaria Account Coop",
+		"preferencial-acount":"Secondary Account Coop"
+	}
 }

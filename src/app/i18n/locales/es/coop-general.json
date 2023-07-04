@@ -1,11 +1,6 @@
 {
-	"buttons": {
-		"accept": "Acceder App Coop",
-		"close": "Salir Coop"
-	},
 	"titles": {
-		"master-acount":"Cuenta Primaria",
-		"preferencial-acount":"Cuenta Secundaria"
-	},
-	"lang": "Inglés Coop"
+		"master-acount":"Cuenta Primaria Coop",
+		"preferencial-acount":"Cuenta Secundaria Coop"
+	}
 }
