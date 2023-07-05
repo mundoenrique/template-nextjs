@@ -1,10 +1,13 @@
 import { Metadata } from "next";
+import dynamic from "next/dynamic";
 //Internal App
 import { configTenant } from "@/config";
 import MuiProvider from "../MuiProvider";
-import SupporButton from "../components/UI/SupportButton";
 import { handleConfigTenant, handleMetaDataTenant } from "@/utils";
 import { GenerateMetadataProps, RootLayoutProps } from "@/interfaces";
+const SupporButton = dynamic(() => import('../components/UI/SupportButton'), {
+ ssr: false
+})
 
 export async function generateMetadata({
   params,

@@ -26,7 +26,7 @@ export default function SupporButton({ tenant }: SupporButtonProps) {
         onClick={() => changeLang(alterLang)}
         key="lang"
         tooltipTitle={t('lang')}
-        icon={<Image src={nextLang === "en" ? logoEs : logoEn} alt='Client' />}
+        icon={<Image src={nextLang === "en" ? logoEs : logoEn} alt={nextLang} />}
       />
     </SpeedDial>
   );
