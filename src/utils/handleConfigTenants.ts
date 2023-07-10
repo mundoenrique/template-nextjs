@@ -1,6 +1,4 @@
 //Internal App
-import { configTenant, tenantInfo } from "@/config";
-
-export const handleMetaDataTenant = (tenant: any) => tenantInfo[tenant]
+import { configTenant } from "@/config";
 
 export const handleConfigTenant = (tenant: any) => configTenant[tenant]

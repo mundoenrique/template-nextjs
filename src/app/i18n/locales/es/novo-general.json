@@ -7,5 +7,6 @@
 		"master-acount":"Cuenta Principal Novo",
 		"preferencial-acount":"Cuenta Secundaria Novo"
 	},
-	"lang": "Inglés Novo"
+	"lang": "Inglés Novo",
+	"copyright": "© NovoPayment Inc. Todos los derechos reservados. - {{year}}"
 }

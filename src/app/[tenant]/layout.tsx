@@ -1,28 +1,24 @@
 import { Metadata } from "next";
-import dynamic from "next/dynamic";
 //Internal App
 import { configTenant } from "@/config";
 import MuiProvider from "../MuiProvider";
-import { handleConfigTenant, handleMetaDataTenant } from "@/utils";
+import { handleConfigTenant } from "@/utils";
 import { GenerateMetadataProps, RootLayoutProps } from "@/interfaces";
-const SupporButton = dynamic(() => import('../components/UI/SupportButton'), {
- ssr: false
-})
 
 export async function generateMetadata({
   params,
 }: GenerateMetadataProps): Promise<Metadata> {
-  const datos = handleMetaDataTenant(params.tenant);
-  const faviconTenant = handleConfigTenant(params.tenant);
+  const { title, description, favicon } = handleConfigTenant(params.tenant);
   const faviconDefault = handleConfigTenant("novo");
 
   const urlFavicon =
-    params.tenant in configTenant && faviconTenant?.favicon !== ""
-      ? faviconTenant?.favicon
+    params.tenant in configTenant && favicon !== ""
+      ? favicon
       : faviconDefault?.favicon;
 
   return {
-    title: datos?.title || "Admin Console",
+    title: title || "Admin Console",
+    description: description,
     icons: [
       {
         rel: "icon",
@@ -38,11 +34,9 @@ export default async function SigninLayout({
   children,
   params,
 }: RootLayoutProps) {
-
   return (
-    <MuiProvider theme={`theme-${params.tenant}`}>
+    <MuiProvider theme={params.tenant}>
       {children}
-      <SupporButton tenant={params.tenant} />
     </MuiProvider>
   );
 }
