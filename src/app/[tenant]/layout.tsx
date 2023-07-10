@@ -1,9 +1,13 @@
 import { Metadata } from "next";
+import dynamic from "next/dynamic";
 //Internal App
 import { configTenant } from "@/config";
-import MuiProvider from "../Providers/MuiProvider";
 import { handleConfigTenant } from "@/utils";
+import MuiProvider from "../Providers/MuiProvider";
 import { GenerateMetadataProps, RootLayoutProps } from "@/interfaces";
+const SupporButton = dynamic(() => import('../components/UI/SupportButton'), {
+  ssr: false
+ })
 
 export async function generateMetadata({
   params,
@@ -37,6 +41,7 @@ export default async function SigninLayout({
   return (
     <MuiProvider theme={params.tenant}>
       {children}
+      <SupporButton tenant={params.tenant} />
     </MuiProvider>
   );
 }

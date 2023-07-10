@@ -28,8 +28,13 @@ export default function SupporButton({ tenant }: UtilsProps) {
         tooltipTitle={t("lang")}
         icon={
           <Image
-            src={nextLang === "en" ? logoEs : logoEn}
-            alt={`${nextLang}`}
+            src={
+              nextLang === "en" ? logoEs : logoEn
+            }
+            width={25}
+            height={25}
+            alt={nextLang}
+            priority
           />
         }
       />

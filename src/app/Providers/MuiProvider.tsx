@@ -3,7 +3,7 @@
 import { Box, CssBaseline, ThemeProvider } from "@mui/material";
 //Internal App
 import { MuiProviderProps } from "@/interfaces";
-import { Footer, SupportButton } from "../components/UI";
+import { Footer } from "../components/UI";
 
 export default function MuiProvider({ children, theme }: MuiProviderProps) {
   let theTheme;
@@ -19,7 +19,6 @@ export default function MuiProvider({ children, theme }: MuiProviderProps) {
       <CssBaseline />
       <Box sx={{ height: "100vh" }}>
         {children}
-        <SupportButton tenant={theme} />
         <Footer tenant={theme} />
       </Box>
     </ThemeProvider>
