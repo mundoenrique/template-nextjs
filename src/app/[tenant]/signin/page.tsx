@@ -1,17 +1,34 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { Button, Box } from "@mui/material";
+import { Button, Box, Typography, Grid } from "@mui/material";
 //Internal App
 import NavBar from "@/app/components/UI/NavBar";
 import { useLangStore } from "@/store/langStore";
 import { useTranslation } from "@/app/i18n/client";
+import { Buttons } from "@/app/components/UI";
 
 export default function Signin({ params }: any) {
   const router = useRouter();
-
   const language = useLangStore((state: any) => state.lang);
   const { t } = useTranslation(language, `${params.tenant}-general`);
+
+  const buttonsView = [
+    {
+      type: "handle",
+      label: "Variant 'Text'",
+      variant: "text",
+    },
+    {
+      type: "handle",
+      label: "Variant 'Outlined'",
+      variant: "outlined",
+    },
+    {
+      type: "submit",
+      label: "Variant 'Contained'",
+    },
+  ];
 
   return (
     <>
@@ -26,6 +43,14 @@ export default function Signin({ params }: any) {
         >
           {t("buttons.accept")}
         </Button>
+      </Box>
+      <Box sx={{ m: 5 }}>
+        <Typography variant="h3">Botones</Typography>
+        <Grid container columns={12} spacing={2}>
+          <Grid item xs={4}>
+            <Buttons buttons={buttonsView} />
+          </Grid>
+        </Grid>
       </Box>
     </>
   );

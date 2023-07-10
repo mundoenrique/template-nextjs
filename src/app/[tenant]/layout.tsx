@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 //Internal App
 import { configTenant } from "@/config";
-import MuiProvider from "../MuiProvider";
+import MuiProvider from "../Providers/MuiProvider";
 import { handleConfigTenant } from "@/utils";
 import { GenerateMetadataProps, RootLayoutProps } from "@/interfaces";
 
