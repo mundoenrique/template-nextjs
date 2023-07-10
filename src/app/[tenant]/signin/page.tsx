@@ -3,10 +3,9 @@
 import { useRouter } from "next/navigation";
 import { Button, Box, Typography, Grid } from "@mui/material";
 //Internal App
-import NavBar from "@/app/components/UI/NavBar";
 import { useLangStore } from "@/store/langStore";
 import { useTranslation } from "@/app/i18n/client";
-import { Buttons } from "@/app/components/UI";
+import { Buttons, NavBar } from "@/app/components/UI";
 
 export default function Signin({ params }: any) {
   const router = useRouter();
