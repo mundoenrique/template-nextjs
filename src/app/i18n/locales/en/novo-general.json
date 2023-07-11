@@ -1,0 +1,12 @@
+{
+	"buttons": {
+		"accept": "Accept Novo",
+		"close": "Close Novo"
+	},
+	"titles": {
+		"master-acount":"Master Account Novo",
+		"preferencial-acount":"Preferencial Account Novo"
+	},
+	"lang": "Spanish Novo",
+	"copyright": "© NovoPayment Inc. All rights reserved. - {{year}}"
+}

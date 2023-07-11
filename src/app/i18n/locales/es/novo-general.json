@@ -1,0 +1,12 @@
+{
+	"buttons": {
+		"accept": "Aceptar Novo",
+		"close": "Cerrar Novo"
+	},
+	"titles": {
+		"master-acount":"Cuenta Principal Novo",
+		"preferencial-acount":"Cuenta Secundaria Novo"
+	},
+	"lang": "Inglés Novo",
+	"copyright": "© NovoPayment Inc. Todos los derechos reservados. - {{year}}"
+}
