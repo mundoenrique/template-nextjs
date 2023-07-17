@@ -15,10 +15,9 @@ import { useLangStore } from "@/store/langStore";
 import { useTranslation } from "@/app/i18n/client";
 
 export default function Dashboard({ params }: any) {
+  const { lang } = useLangStore();
+  const { t } = useTranslation(lang, `${params.tenant}-general`);
   const router = useRouter();
-
-  const language = useLangStore((state: any) => state.lang);
-  const { t } = useTranslation(language, `${params.tenant}-general`);
 
   return (
     <>

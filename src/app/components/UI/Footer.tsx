@@ -11,10 +11,10 @@ import { useTranslation } from "@/app/i18n/client";
 import { getImages, handleConfigTenant } from "@/utils";
 
 export default function Footer({ tenant }: UtilsProps) {
-  const nextLang = useLangStore((state: any) => state.lang);
-  const { t } = useTranslation(nextLang, `${tenant}-general`);
-  const { imagesFooter, networks } = handleConfigTenant(tenant);
   const theme = useTheme();
+  const { lang } = useLangStore();
+  const { t } = useTranslation(lang, `${tenant}-general`);
+  const { imagesFooter, networks } = handleConfigTenant(tenant);
 
   return (
     <Box

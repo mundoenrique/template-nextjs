@@ -10,11 +10,9 @@ import { useLangStore } from "@/store/langStore";
 import { useTranslation } from "@/app/i18n/client";
 
 export default function SupporButton({ tenant }: UtilsProps) {
-  const nextLang = useLangStore((state: any) => state.lang);
-  const { changeLang } = useLangStore();
-
-  const alterLang = nextLang === "en" ? "es" : "en";
-  const { t } = useTranslation(nextLang, `${tenant}-general`);
+  const { lang, changeLang } = useLangStore();
+  const alterLang = lang === "en" ? "es" : "en";
+  const { t } = useTranslation(lang, `${tenant}-general`);
 
   return (
     <SpeedDial
@@ -29,11 +27,11 @@ export default function SupporButton({ tenant }: UtilsProps) {
         icon={
           <Image
             src={
-              nextLang === "en" ? logoEs : logoEn
+              lang === "en" ? logoEs : logoEn
             }
             width={25}
             height={25}
-            alt={nextLang}
+            alt={lang}
             priority
           />
         }
