@@ -154,7 +154,60 @@ export function changeMode(mode: string) {
             borderColor: "rgba(0, 0, 0, 0.5)"
           }
         }
-      }
+      },
+      // Inputs styles
+      MuiInputBase: {
+        styleOverrides: {
+          input: {
+            borderRadius: borderRadius,
+            padding: '14.23px 14px !important'
+          },
+        },
+      },
+      MuiOutlinedInput: {
+        styleOverrides: {
+          input: {
+            color: mode === 'light' ? secondary : '',
+            '&:-webkit-autofill': {
+              WebkitTextFillColor: mode === 'light' ? secondary : '',
+              WebkitBoxShadow: mode === 'light' ? '' : `0 0 0 100px ${white} inset`,
+            },
+            '&.Mui-disabled': {
+              WebkitTextFillColor: mode === 'light' ? secondary : '',
+              opacity: 0.5,
+            },
+          },
+          root: {
+            backgroundColor: white,
+            ':hover': {
+              '& .MuiOutlinedInput-notchedOutline': {
+                borderColor: secondary,
+              },
+            },
+            '&.Mui-error': {
+              '& .MuiOutlinedInput-notchedOutline': {
+                borderColor: secondary,
+              },
+            },
+            fieldset: {
+              borderWidth: '.5px',
+            },
+            '&.Mui-disabled': {
+              backgroundColor: greyLight,
+              borderColor: secondary,
+              color: secondary,
+              '& .MuiOutlinedInput-notchedOutline': {
+                borderColor: secondary,
+              },
+            },
+            '&.Mui-focused': {
+              '& .MuiOutlinedInput-notchedOutline': {
+                borderColor: secondary,
+              },
+            },
+          },
+        },
+      },
     },
   });
 

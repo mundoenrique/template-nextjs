@@ -8,5 +8,20 @@
 		"preferencial-acount":"Preferencial Account Novo"
 	},
 	"lang": "Spanish Novo",
-	"copyright": "© NovoPayment Inc. All rights reserved. - {{year}}"
+	"copyright": "© NovoPayment Inc. All rights reserved. - {{year}}",
+	"form": {
+		"email_label": "Email"
+	},
+	"validation": {
+		"email_invalid": "Must be a valid email",
+		"email_required": "Enter an email",
+		"password_max": "The password must be 25 characters or less",
+		"password_min": "The password must be 8 characters at least",
+		"password_required": "Enter a password",
+		"passwordStrength": {
+			"0": "Must contain at least 8 characters.",
+			"1": "Have at least one capital letter.",
+			"2": "Contain a special character (!#$%&)."
+		}
+	}
 }

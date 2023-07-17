@@ -11,7 +11,7 @@ import { useTranslation } from "@/app/i18n/client";
 
 export default function SupporButton({ tenant }: UtilsProps) {
   const { lang, changeLang } = useLangStore();
-  const alterLang = lang === "en" ? "es" : "en";
+  const currentLang = lang === "en" ? "es" : "en";
   const { t } = useTranslation(lang, `${tenant}-general`);
 
   return (
@@ -21,7 +21,7 @@ export default function SupporButton({ tenant }: UtilsProps) {
       icon={<SpeedDialIcon />}
     >
       <SpeedDialAction
-        onClick={() => changeLang(alterLang)}
+        onClick={() => changeLang(currentLang)}
         key="lang"
         tooltipTitle={t("lang")}
         icon={

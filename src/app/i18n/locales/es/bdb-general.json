@@ -2,5 +2,8 @@
 	"titles": {
 		"master-acount":"Cuenta Debito BDB",
 		"preferencial-acount":"Cuenta Crédito BDB"
+	},
+	"form": {
+		"email_label": "Correo Personal"
 	}
 }

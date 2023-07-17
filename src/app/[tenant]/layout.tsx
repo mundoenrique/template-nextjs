@@ -2,12 +2,13 @@ import { Metadata } from "next";
 import dynamic from "next/dynamic";
 //Internal App
 import { configTenant } from "@/config";
+import { Footer } from "@/components/UI";
 import { handleConfigTenant } from "@/utils";
 import MuiProvider from "../Providers/MuiProvider";
 import { GenerateMetadataProps, RootLayoutProps } from "@/interfaces";
-const SupporButton = dynamic(() => import('../components/UI/SupportButton'), {
-  ssr: false
- })
+const Widget = dynamic(() => import("@/components/UI/SupportButton"), {
+  ssr: false,
+});
 
 export async function generateMetadata({
   params,
@@ -38,10 +39,12 @@ export default async function SigninLayout({
   children,
   params,
 }: RootLayoutProps) {
+
   return (
-    <MuiProvider theme={params.tenant}>
-      {children}
-      <SupporButton tenant={params.tenant} />
-    </MuiProvider>
+      <MuiProvider theme={params.tenant}>
+        {children}
+        <Widget tenant={params.tenant} />
+        <Footer tenant={params.tenant} />
+      </MuiProvider>
   );
 }

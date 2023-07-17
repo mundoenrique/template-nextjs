@@ -1,15 +1,17 @@
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { AppBar, Container, Toolbar } from "@mui/material";
-//Internal App
-import { NavBarProps } from "@/interfaces";
 
-export default function NavBar({tenant}: NavBarProps) {
+export default function NavBar() {
+  const router = usePathname();
+  const currentTenant = router.split('/')[1];
+
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Image
-            src={`/images/${tenant}/img-logo-color.svg`}
+            src={`/images/${currentTenant}/img-logo-color.svg`}
             fill
             alt="Picture of the author"
             priority
