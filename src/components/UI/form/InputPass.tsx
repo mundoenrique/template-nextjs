@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { Controller } from "react-hook-form";
+import { useState } from 'react';
+import { Controller } from 'react-hook-form';
 import {
   Box,
   ClickAwayListener,
@@ -13,25 +13,17 @@ import {
   OutlinedInput,
   Popper,
   Typography,
-  IconButton
-} from "@mui/material";
+  IconButton,
+} from '@mui/material';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 //Internal App
-import { TextFieldProps } from "@/interfaces";
-import { useLangStore } from "@/store/langStore";
-import { useTranslation } from "@/app/i18n/client";
+import { TextFieldProps } from '@/interfaces';
+import { useLangStore } from '@/store/langStore';
+import { useTranslation } from '@/app/i18n/client';
 
 export default function InputPassField(props: TextFieldProps) {
-  const {
-    name,
-    control,
-    label,
-    helperText,
-    onChange,
-    additionalInfo = false,
-    tenant,
-  } = props;
+  const { name, control, label, helperText, onChange, additionalInfo = false, tenant } = props;
   const { lang } = useLangStore();
   const { t } = useTranslation(lang, `${tenant}-general`);
   const [passwordShown, setPasswordShown] = useState(false);
@@ -54,7 +46,7 @@ export default function InputPassField(props: TextFieldProps) {
       <Fade in={openPopper} timeout={450}>
         <Box
           sx={{
-            backgroundColor: "white",
+            backgroundColor: 'white',
             borderRadius: 1,
             boxShadow: 3,
             m: 1,
@@ -81,16 +73,11 @@ export default function InputPassField(props: TextFieldProps) {
             name={name}
             control={control}
             render={({ field, fieldState: { error } }) => (
-              <FormControl
-                fullWidth
-                variant="outlined"
-                error={!!error}
-                sx={{ mb: 2 }}
-              >
+              <FormControl fullWidth variant='outlined' error={!!error} sx={{ mb: 2 }}>
                 <InputLabel htmlFor={name}>{inputLabel}</InputLabel>
                 <OutlinedInput
                   id={name}
-                  type={passwordShown ? "text" : "password"}
+                  type={passwordShown ? 'text' : 'password'}
                   label={inputLabel}
                   aria-describedby={`${name}-helperText`}
                   value={field.value}
@@ -100,22 +87,15 @@ export default function InputPassField(props: TextFieldProps) {
                   }}
                   error={!!error}
                   endAdornment={
-                    <InputAdornment position="end">
-                      <IconButton
-                        aria-label="toggle password visibility"
-                        onClick={togglePasswordVisiblity}
-                        edge="end"
-                      >
+                    <InputAdornment position='end'>
+                      <IconButton aria-label='toggle password visibility' onClick={togglePasswordVisiblity} edge='end'>
                         {passwordShown ? <VisibilityOff /> : <Visibility />}
                       </IconButton>
                     </InputAdornment>
                   }
                 />
-                <FormHelperText
-                  sx={{ height: "20px" }}
-                  id={`${name}-helperText`}
-                >
-                  {error ? t(`validation.${error.message}`) : helperText || ""}
+                <FormHelperText sx={{ height: '20px' }} id={`${name}-helperText`}>
+                  {error ? t(`validation.${error.message}`) : helperText || ''}
                 </FormHelperText>
               </FormControl>
             )}
@@ -125,31 +105,31 @@ export default function InputPassField(props: TextFieldProps) {
             <Popper
               open={openPopper}
               anchorEl={anchorEl}
-              placement="right-end"
+              placement='right-end'
               disablePortal={false}
-              sx={{ zIndex: "fab" }}
+              sx={{ zIndex: 'fab' }}
               modifiers={[
                 {
-                  name: "flip",
+                  name: 'flip',
                   enabled: true,
                   options: {
                     altBoundary: true,
-                    rootBoundary: "document",
-                    fallbackPlacements: ["top", "right-end"],
+                    rootBoundary: 'document',
+                    fallbackPlacements: ['top', 'right-end'],
                   },
                 },
                 {
-                  name: "preventOverflow",
+                  name: 'preventOverflow',
                   enabled: true,
                   options: {
                     altAxis: true,
                     altBoundary: true,
                     tether: true,
-                    rootBoundary: "document",
+                    rootBoundary: 'document',
                   },
                 },
                 {
-                  name: "arrow",
+                  name: 'arrow',
                   enabled: false,
                   options: {
                     element: arrowRef,
@@ -157,10 +137,10 @@ export default function InputPassField(props: TextFieldProps) {
                 },
               ]}
             >
-              <Typography variant="h3" component="span" ref={setArrowRef} />
+              <Typography variant='h3' component='span' ref={setArrowRef} />
 
               <PassStrength
-                object={t("validation.passwordStrength", {
+                object={t('validation.passwordStrength', {
                   returnObjects: true,
                 })}
               />

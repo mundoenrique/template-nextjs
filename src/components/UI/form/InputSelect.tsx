@@ -1,7 +1,7 @@
-'use client'
+'use client';
 
 import { Controller } from 'react-hook-form';
-import { useTranslation } from "@/app/i18n/client";
+import { useTranslation } from '@/app/i18n/client';
 import { FormControl, FormHelperText, InputLabel, Select } from '@mui/material';
 //Internal App
 import { InputSelectProps } from '@/interfaces';
@@ -16,12 +16,7 @@ function SelectMUI(props: InputSelectProps) {
   return (
     <FormControl error={!!error} variant='outlined' sx={{ mb: 2 }} fullWidth>
       <InputLabel htmlFor={name}>{textLabel}</InputLabel>
-      <Select
-        id={name}
-        native
-        value={value}
-        label={textLabel}
-      >
+      <Select id={name} native value={value} label={textLabel}>
         {options.map((option: any, i: number) => (
           <option value={option.value} key={i}>
             {option.text}
@@ -36,7 +31,7 @@ function SelectMUI(props: InputSelectProps) {
 }
 
 export default function InputSelect(props: InputSelectProps) {
-  const { name, control, onChange, tenant, options} = props;
+  const { name, control, onChange, tenant, options } = props;
 
   return (
     <>
@@ -59,7 +54,7 @@ export default function InputSelect(props: InputSelectProps) {
           )}
         />
       ) : (
-        <SelectMUI name={name} onChange={onChange} tenant={tenant} options={options}/>
+        <SelectMUI name={name} onChange={onChange} tenant={tenant} options={options} />
       )}
     </>
   );

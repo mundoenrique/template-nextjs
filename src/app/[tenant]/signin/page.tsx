@@ -1,19 +1,13 @@
-"use client";
+'use client';
 
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { Box, Typography, Grid } from "@mui/material";
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { Box, Typography, Grid } from '@mui/material';
 //Internal App
-import { useLangStore } from "@/store/langStore";
-import { useTranslation } from "@/app/i18n/client";
-import { getSchema } from "@/config/validationConfig";
-import {
-  Buttons,
-  InputPass,
-  InputSelect,
-  InputText,
-  NavBar,
-} from "@/components/UI";
+import { useLangStore } from '@/store/langStore';
+import { useTranslation } from '@/app/i18n/client';
+import { getSchema } from '@/config/validationConfig';
+import { Buttons, InputPass, InputSelect, InputText, NavBar } from '@/components/UI';
 
 export default function Signin({ params }: any) {
   const { lang } = useLangStore();
@@ -26,45 +20,45 @@ export default function Signin({ params }: any) {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      email: "",
-      password: "",
+      email: '',
+      password: '',
     },
     resolver: yupResolver(getSchema),
   });
 
   const buttonsView = [
     {
-      type: "handle",
+      type: 'handle',
       label: "Variant 'Text'",
-      variant: "text",
+      variant: 'text',
     },
     {
-      type: "handle",
+      type: 'handle',
       label: "Variant 'Outlined'",
-      variant: "outlined",
+      variant: 'outlined',
     },
     {
-      type: "submit",
+      type: 'submit',
       label: "Variant 'Contained'",
     },
   ];
 
   const buttonSubmit = [
     {
-      type: "submit",
-      label: t("buttons.accept"),
+      type: 'submit',
+      label: t('buttons.accept'),
       fullWidth: true,
     },
   ];
 
   const selectOptions = [
     {
-      value: "1",
-      text: "option 1",
+      value: '1',
+      text: 'option 1',
     },
     {
-      value: "2",
-      text: "option 2",
+      value: '2',
+      text: 'option 2',
     },
   ];
 
@@ -76,8 +70,8 @@ export default function Signin({ params }: any) {
     <>
       <NavBar />
 
-      <Box sx={{ m: 5 }} component="form" onSubmit={handleSubmit(onSubmit)}>
-        <Typography variant="h3" sx={{ mb: 3 }}>
+      <Box sx={{ m: 5 }} component='form' onSubmit={handleSubmit(onSubmit)}>
+        <Typography variant='h3' sx={{ mb: 3 }}>
           Componentes
         </Typography>
         <Grid container columns={3} spacing={2}>
@@ -85,22 +79,12 @@ export default function Signin({ params }: any) {
             <Buttons buttons={buttonsView} />
           </Grid>
           <Grid item xs={2}>
-            <InputText name="email" control={control} tenant={params.tenant} />
-            <InputSelect
-              name="select"
-              control={control}
-              tenant={params.tenant}
-              options={selectOptions}
-            />
-            <InputPass
-              name="password"
-              control={control}
-              tenant={params.tenant}
-              additionalInfo
-            />
+            <InputText name='email' control={control} tenant={params.tenant} />
+            <InputSelect name='select' control={control} tenant={params.tenant} options={selectOptions} />
+            <InputPass name='password' control={control} tenant={params.tenant} additionalInfo />
           </Grid>
           <Grid item xs={1}>
-            <Box sx={{ m: "auto", maxWidth: 700, width: "100%" }}>
+            <Box sx={{ m: 'auto', maxWidth: 700, width: '100%' }}>
               <Buttons buttons={buttonSubmit} />
             </Box>
           </Grid>

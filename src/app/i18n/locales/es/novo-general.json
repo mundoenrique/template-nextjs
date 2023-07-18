@@ -1,27 +1,27 @@
 {
-	"buttons": {
-		"accept": "Aceptar Novo",
-		"close": "Cerrar Novo"
-	},
-	"titles": {
-		"master-acount":"Cuenta Principal Novo",
-		"preferencial-acount":"Cuenta Secundaria Novo"
-	},
-	"lang": "Inglés Novo",
-	"copyright": "© NovoPayment Inc. Todos los derechos reservados. - {{year}}",
-	"form": {
-		"email_label": "Correo Electrónico"
-	},
-		"validation": {
-			"email_invalid": "Debe ser un correo electrónico válido",
-			"email_required": "Ingresa tu correo electrónico",
-			"password_max": "La contraseña debe tener máximo 25 caracteres",
-			"password_min": "La contraseña debe tener al menos 8 caracteres",
-			"password_required": "Ingresa una contraseña",
-			"passwordStrength": {
-				"0": "Debe contener mínimo 8 caracteres.",
-				"1": "Tener al menos una mayúscula.",
-				"2": "Contener un carácter especial (!#$%&)."
-			}
-	}
+  "buttons": {
+    "accept": "Aceptar Novo",
+    "close": "Cerrar Novo"
+  },
+  "titles": {
+    "master-acount": "Cuenta Principal Novo",
+    "preferencial-acount": "Cuenta Secundaria Novo"
+  },
+  "lang": "Inglés Novo",
+  "copyright": "© NovoPayment Inc. Todos los derechos reservados. - {{year}}",
+  "form": {
+    "email_label": "Correo Electrónico"
+  },
+  "validation": {
+    "email_invalid": "Debe ser un correo electrónico válido",
+    "email_required": "Ingresa tu correo electrónico",
+    "password_max": "La contraseña debe tener máximo 25 caracteres",
+    "password_min": "La contraseña debe tener al menos 8 caracteres",
+    "password_required": "Ingresa una contraseña",
+    "passwordStrength": {
+      "0": "Debe contener mínimo 8 caracteres.",
+      "1": "Tener al menos una mayúscula.",
+      "2": "Contener un carácter especial (!#$%&)."
+    }
+  }
 }

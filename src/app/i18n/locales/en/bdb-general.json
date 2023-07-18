@@ -1,9 +1,9 @@
 {
-	"titles": {
-		"master-acount":"Debit Account BDB",
-		"preferencial-acount":"Credit Account BDB"
-	},
-	"form": {
-		"email_label": "personal Email"
-	}
+  "titles": {
+    "master-acount": "Debit Account BDB",
+    "preferencial-acount": "Credit Account BDB"
+  },
+  "form": {
+    "email_label": "personal Email"
+  }
 }

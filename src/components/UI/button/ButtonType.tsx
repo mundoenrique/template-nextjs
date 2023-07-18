@@ -17,16 +17,9 @@ export default function ButtonType({
 }: ButtonProps) {
   const typeButton: TypeButtonProps = {
     handle: (
-      <Button
-        variant={variant}
-        onClick={onClick}
-        disabled={disabled}
-        fullWidth={fullWidth}>
+      <Button variant={variant} onClick={onClick} disabled={disabled} fullWidth={fullWidth}>
         {icon && (
-          <Typography
-            component='span'
-            variant='h3'
-            sx={{ color: 'primary.main', fontWeight: 700, mb: 0, pr: 1 }}>
+          <Typography component='span' variant='h3' sx={{ color: 'primary.main', fontWeight: 700, mb: 0, pr: 1 }}>
             <i className={`${icon}`}></i>
           </Typography>
         )}
@@ -40,17 +33,13 @@ export default function ButtonType({
         variant='contained'
         onClick={onClick}
         disabled={disabled || isLoading}
-        fullWidth={fullWidth}>
+        fullWidth={fullWidth}
+      >
         {isLoading ? <CircularProgress size={20} /> : label}
       </Button>
     ),
     reset: (
-      <Button
-        variant={variant}
-        onClick={onClick}
-        type='reset'
-        disabled={disabled}
-        fullWidth={fullWidth}>
+      <Button variant={variant} onClick={onClick} type='reset' disabled={disabled} fullWidth={fullWidth}>
         {label}
       </Button>
     ),
@@ -61,12 +50,10 @@ export default function ButtonType({
         disabled={disabled}
         component={Link}
         href={url || '/'}
-        fullWidth={fullWidth}>
+        fullWidth={fullWidth}
+      >
         {icon && (
-          <Typography
-            component='span'
-            variant='h3'
-            sx={{ color: 'primary.main', fontWeight: 700, mb: 0, pr: 1 }}>
+          <Typography component='span' variant='h3' sx={{ color: 'primary.main', fontWeight: 700, mb: 0, pr: 1 }}>
             <i className={`${icon}`}></i>
           </Typography>
         )}

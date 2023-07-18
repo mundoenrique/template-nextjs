@@ -7,20 +7,17 @@ export interface FormMUIProps {
   onChange?: (...e: any[]) => void;
   tenant: string;
   type?: string;
-  control?: any
+  control?: any;
 }
 
 export interface TextFieldProps extends FormMUIProps {
   optional?: boolean;
-  additionalInfo?: boolean
+  additionalInfo?: boolean;
 }
 
 export interface InputSelectProps extends FormMUIProps {
   options: { value: string; text: string }[];
 }
-
-
-
 
 export type UserSubmitForm = {
   email: string;

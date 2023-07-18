@@ -8,23 +8,23 @@ export interface ButtonProps {
   form?: any;
   url?: string;
   fullWidth?: boolean;
-  icon?: string | undefined
+  icon?: string | undefined;
 }
 
 export interface TypeButtonProps {
   handle: JSX.Element;
   submit: JSX.Element;
   reset: JSX.Element;
-  redirect: JSX.Element
+  redirect: JSX.Element;
 }
 
 export interface ButtonMoleculesProps {
   buttons: any;
-  sx?: string
+  sx?: string;
 }
 
 export interface ReturnButtonProps {
   title?: string;
   url?: string;
-  confirmToClose?: boolean
+  confirmToClose?: boolean;
 }
