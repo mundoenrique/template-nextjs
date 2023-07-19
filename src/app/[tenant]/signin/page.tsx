@@ -7,7 +7,7 @@ import { Box, Typography, Grid } from '@mui/material';
 import { useLangStore } from '@/store/langStore';
 import { useTranslation } from '@/app/i18n/client';
 import { getSchema } from '@/config/validationConfig';
-import { Buttons, InputPass, InputSelect, InputText, NavBar } from '@/components/UI';
+import { Buttons, InputDatePicker, InputPass, InputSelect, InputText, NavBar } from '@/components/UI';
 
 export default function Signin({ params }: any) {
   const { lang } = useLangStore();
@@ -82,6 +82,7 @@ export default function Signin({ params }: any) {
             <InputText name='email' control={control} tenant={params.tenant} />
             <InputSelect name='select' control={control} tenant={params.tenant} options={selectOptions} />
             <InputPass name='password' control={control} tenant={params.tenant} additionalInfo />
+            <InputDatePicker name='password' control={control} tenant={params.tenant} />
           </Grid>
           <Grid item xs={1}>
             <Box sx={{ m: 'auto', maxWidth: 700, width: '100%' }}>

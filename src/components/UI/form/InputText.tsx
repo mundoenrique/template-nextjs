@@ -8,7 +8,7 @@ import { useLangStore } from '@/store/langStore';
 import { useTranslation } from '@/app/i18n/client';
 
 function InputMUI(props: TextFieldProps): JSX.Element {
-  const { name, label, helperText, type, optional, error, value, tenant, onChange } = props;
+  const { name, label, labelError, type, optional, error, value, tenant, onChange } = props;
   const { lang } = useLangStore();
   const { t } = useTranslation(lang, `${tenant}-general`);
   const textLabel = label ?? t(`form.${name}_label`);
@@ -27,7 +27,7 @@ function InputMUI(props: TextFieldProps): JSX.Element {
         endAdornment={optional ? <InputAdornment position='end'>{t('form.optional_label')}</InputAdornment> : ''}
       />
       <FormHelperText sx={{ height: '20px' }} id={`${name}-helperText`}>
-        {error ? t(`validation.${error.message}`) : helperText || ''}
+        {error ? t(`validation.${error.message}`) : labelError || ''}
       </FormHelperText>
     </FormControl>
   );

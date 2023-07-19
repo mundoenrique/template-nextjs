@@ -1,6 +1,6 @@
 export const configTenant: any = {
   novo: {
-    title: '| Admin Console',
+    title: 'Admin Console',
     description: 'Descripción Novo',
     favicon: `${process.env.NEXT_PUBLIC_PATH_URL}/images/novo/favicon.ico`,
     imagesFooter: ['novopayment', 'pci'],

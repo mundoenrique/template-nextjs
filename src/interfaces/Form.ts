@@ -1,7 +1,9 @@
+import { DateView } from '@mui/x-date-pickers';
+
 export interface FormMUIProps {
   name: string;
   label?: string;
-  helperText?: string;
+  labelError?: string;
   error?: any;
   value?: any;
   onChange?: (...e: any[]) => void;
@@ -17,6 +19,11 @@ export interface TextFieldProps extends FormMUIProps {
 
 export interface InputSelectProps extends FormMUIProps {
   options: { value: string; text: string }[];
+}
+
+export interface InputDatePickerProps extends FormMUIProps {
+  views?: DateView[];
+  format?: string;
 }
 
 export type UserSubmitForm = {

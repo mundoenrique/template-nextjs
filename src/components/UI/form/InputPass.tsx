@@ -23,7 +23,7 @@ import { useLangStore } from '@/store/langStore';
 import { useTranslation } from '@/app/i18n/client';
 
 export default function InputPassField(props: TextFieldProps) {
-  const { name, control, label, helperText, onChange, additionalInfo = false, tenant } = props;
+  const { name, control, label, labelError, onChange, additionalInfo = false, tenant } = props;
   const { lang } = useLangStore();
   const { t } = useTranslation(lang, `${tenant}-general`);
   const [passwordShown, setPasswordShown] = useState(false);
@@ -95,7 +95,7 @@ export default function InputPassField(props: TextFieldProps) {
                   }
                 />
                 <FormHelperText sx={{ height: '20px' }} id={`${name}-helperText`}>
-                  {error ? t(`validation.${error.message}`) : helperText || ''}
+                  {error ? t(`validation.${error.message}`) : labelError || ''}
                 </FormHelperText>
               </FormControl>
             )}

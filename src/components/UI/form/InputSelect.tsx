@@ -8,7 +8,7 @@ import { InputSelectProps } from '@/interfaces';
 import { useLangStore } from '@/store/langStore';
 
 function SelectMUI(props: InputSelectProps) {
-  const { name, label, options, helperText, error, value, tenant } = props;
+  const { name, label, options, labelError, error, value, tenant } = props;
   const { lang } = useLangStore();
   const { t } = useTranslation(lang, `${tenant}-general`);
   const textLabel = label ?? t(`common:${name}_label`);
@@ -24,7 +24,7 @@ function SelectMUI(props: InputSelectProps) {
         ))}
       </Select>
       <FormHelperText sx={{ height: '20px' }}>
-        {error ? t(`validation:${error.message}`) : helperText || ''}
+        {error ? t(`validation:${error.message}`) : labelError || ''}
       </FormHelperText>
     </FormControl>
   );
