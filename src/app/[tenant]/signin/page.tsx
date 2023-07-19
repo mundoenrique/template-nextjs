@@ -2,12 +2,12 @@
 
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Box, Typography, Grid } from '@mui/material';
+import { Box, Typography, Grid, Button } from '@mui/material';
 //Internal App
 import { useLangStore } from '@/store/langStore';
 import { useTranslation } from '@/app/i18n/client';
 import { getSchema } from '@/config/validationConfig';
-import { Buttons, InputDatePicker, InputPass, InputSelect, InputText, NavBar } from '@/components/UI';
+import { InputDatePicker, InputPass, InputSelect, InputText, NavBar } from '@/components/UI';
 
 export default function Signin({ params }: any) {
   const { lang } = useLangStore();
@@ -25,31 +25,6 @@ export default function Signin({ params }: any) {
     },
     resolver: yupResolver(getSchema),
   });
-
-  const buttonsView = [
-    {
-      type: 'handle',
-      label: "Variant 'Text'",
-      variant: 'text',
-    },
-    {
-      type: 'handle',
-      label: "Variant 'Outlined'",
-      variant: 'outlined',
-    },
-    {
-      type: 'submit',
-      label: "Variant 'Contained'",
-    },
-  ];
-
-  const buttonSubmit = [
-    {
-      type: 'submit',
-      label: t('buttons.accept'),
-      fullWidth: true,
-    },
-  ];
 
   const selectOptions = [
     {
@@ -75,8 +50,16 @@ export default function Signin({ params }: any) {
           Componentes
         </Typography>
         <Grid container columns={3} spacing={2}>
-          <Grid item xs={2}>
-            <Buttons buttons={buttonsView} />
+          <Grid item xs={2} sx={{ display: 'flex', justifyContent: 'space-between' }}>
+            <Button variant='text' type='submit'>
+              Variant `Text`
+            </Button>
+            <Button variant='outlined' type='submit'>
+              Variant `Outlined`
+            </Button>
+            <Button variant='contained' type='submit'>
+              Variant `Contained`
+            </Button>
           </Grid>
           <Grid item xs={2}>
             <InputText name='email' control={control} tenant={params.tenant} />
@@ -86,7 +69,9 @@ export default function Signin({ params }: any) {
           </Grid>
           <Grid item xs={1}>
             <Box sx={{ m: 'auto', maxWidth: 700, width: '100%' }}>
-              <Buttons buttons={buttonSubmit} />
+              <Button variant='contained' type='submit' fullWidth>
+                {t('buttons.accept')}
+              </Button>
             </Box>
           </Grid>
         </Grid>
