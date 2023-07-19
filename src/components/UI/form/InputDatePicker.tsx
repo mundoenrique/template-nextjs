@@ -12,14 +12,14 @@ import { useLangStore } from '@/store/langStore';
 import { useTranslation } from '@/app/i18n/client';
 import { InputDatePickerProps } from '@/interfaces';
 
-function DatePickerMUI(props: InputDatePickerProps) {
+function DatePickerMUI(props: InputDatePickerProps): JSX.Element {
   const { name, label, labelError, error, tenant, onChange, value, views, format } = props;
   const { lang } = useLangStore();
   const { t } = useTranslation(lang, `${tenant}-general`);
   const inputLabel = label ?? t(`common.${name}_label`);
 
   return (
-    <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={t('common.localeLang')}>
+    <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={lang}>
       <DatePicker
         slotProps={{
           textField: {
@@ -30,7 +30,7 @@ function DatePickerMUI(props: InputDatePickerProps) {
         value={value}
         onChange={onChange}
         views={views}
-        format={format}
+        format={format ? format : 'DD/MM/YYYY'}
         sx={{ width: '100%' }}
       />
       <FormHelperText sx={{ height: '20px', pl: 2 }} id={`${label}-helperText`}>

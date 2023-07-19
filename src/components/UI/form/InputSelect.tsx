@@ -7,7 +7,7 @@ import { FormControl, FormHelperText, InputLabel, Select } from '@mui/material';
 import { InputSelectProps } from '@/interfaces';
 import { useLangStore } from '@/store/langStore';
 
-function SelectMUI(props: InputSelectProps) {
+function SelectMUI(props: InputSelectProps): JSX.Element {
   const { name, label, options, labelError, error, value, tenant } = props;
   const { lang } = useLangStore();
   const { t } = useTranslation(lang, `${tenant}-general`);

@@ -2,7 +2,7 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { AppBar, Container, Toolbar } from '@mui/material';
 
-export default function NavBar() {
+export default function NavBar(): JSX.Element {
   const router = usePathname();
   const currentTenant = router.split('/')[1];
 

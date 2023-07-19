@@ -22,7 +22,7 @@ import { TextFieldProps } from '@/interfaces';
 import { useLangStore } from '@/store/langStore';
 import { useTranslation } from '@/app/i18n/client';
 
-export default function InputPassField(props: TextFieldProps) {
+export default function InputPassField(props: TextFieldProps): JSX.Element {
   const { name, control, label, labelError, onChange, additionalInfo = false, tenant } = props;
   const { lang } = useLangStore();
   const { t } = useTranslation(lang, `${tenant}-general`);
