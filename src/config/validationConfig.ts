@@ -21,4 +21,7 @@ export const getSchema = yup.object().shape({
     .min(6, 'password_min')
     .max(25, 'password_max')
     .matches(regularExpressions.password, 'password_regex'),
+  programs: yup.string().required('programs_required'),
+  initialDate: yup.string().required('initialDate_required'),
+  roles: yup.string().required('roles_required'),
 });
