@@ -17,7 +17,7 @@ export interface TextFieldProps extends FormMUIProps {
   additionalInfo?: boolean;
 }
 
-export interface InputSelectProps extends FormMUIProps {
+export interface InputOptionsProps extends FormMUIProps {
   options: { value: string; text: string }[];
 }
 

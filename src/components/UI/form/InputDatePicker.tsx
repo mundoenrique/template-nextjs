@@ -3,8 +3,9 @@
 import 'dayjs/locale/en';
 import 'dayjs/locale/es';
 import { Controller } from 'react-hook-form';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { FormHelperText } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 //Internal App
@@ -13,17 +14,18 @@ import { useTranslation } from '@/app/i18n/client';
 import { InputDatePickerProps } from '@/interfaces';
 
 function DatePickerMUI(props: InputDatePickerProps): JSX.Element {
+  const theme = useTheme();
   const { name, label, labelError, error, tenant, onChange, value, views, format } = props;
   const { lang } = useLangStore();
   const { t } = useTranslation(lang, `${tenant}-general`);
-  const inputLabel = label ?? t(`common.${name}_label`);
+  const inputLabel = label ?? t(`form.${name}_label`);
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale={lang}>
       <DatePicker
         slotProps={{
           textField: {
-            error: error,
+            error: !!error,
           },
         }}
         label={inputLabel}
@@ -33,8 +35,8 @@ function DatePickerMUI(props: InputDatePickerProps): JSX.Element {
         format={format ? format : 'DD/MM/YYYY'}
         sx={{ width: '100%' }}
       />
-      <FormHelperText sx={{ height: '20px', pl: 2 }} id={`${label}-helperText`}>
-        {error ? labelError : ''}
+      <FormHelperText sx={{ color: theme.palette.error.main, height: '20px', pl: 2 }} id={`${label}-helperText`}>
+        {!!error ? t(`validation.${error.message}`) : labelError || ''}
       </FormHelperText>
     </LocalizationProvider>
   );
@@ -58,7 +60,7 @@ export default function InputDatePicker(props: InputDatePickerProps) {
                 field.onChange(e);
                 onChange && onChange(e);
               }}
-              error={!!error}
+              error={error}
               {...restProps}
             />
           )}

@@ -27,7 +27,6 @@ export default function Footer({ tenant }: UtilsProps): JSX.Element {
         padding: '1rem',
         textAlign: 'center',
         bottom: 0,
-        position: 'absolute',
         width: '100%',
       }}
     >

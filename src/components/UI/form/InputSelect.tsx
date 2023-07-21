@@ -2,35 +2,35 @@
 
 import { Controller } from 'react-hook-form';
 import { useTranslation } from '@/app/i18n/client';
-import { FormControl, FormHelperText, InputLabel, Select } from '@mui/material';
+import { FormControl, FormHelperText, InputLabel, Select, MenuItem } from '@mui/material';
 //Internal App
-import { InputSelectProps } from '@/interfaces';
+import { InputOptionsProps } from '@/interfaces';
 import { useLangStore } from '@/store/langStore';
 
-function SelectMUI(props: InputSelectProps): JSX.Element {
-  const { name, label, options, labelError, error, value, tenant } = props;
+function SelectMUI(props: InputOptionsProps): JSX.Element {
+  const { name, label, options, labelError, error, value, tenant, onChange } = props;
   const { lang } = useLangStore();
   const { t } = useTranslation(lang, `${tenant}-general`);
-  const textLabel = label ?? t(`common:${name}_label`);
+  const textLabel = label ?? t(`form.${name}_label`);
 
   return (
     <FormControl error={!!error} variant='outlined' sx={{ mb: 2 }} fullWidth>
-      <InputLabel htmlFor={name}>{textLabel}</InputLabel>
-      <Select id={name} native value={value} label={textLabel}>
+      <InputLabel id={name}>{textLabel}</InputLabel>
+      <Select labelId={name} value={value} label={textLabel} onChange={onChange}>
         {options.map((option: any, i: number) => (
-          <option value={option.value} key={i}>
+          <MenuItem value={option.value} key={i}>
             {option.text}
-          </option>
+          </MenuItem>
         ))}
       </Select>
       <FormHelperText sx={{ height: '20px' }}>
-        {error ? t(`validation:${error.message}`) : labelError || ''}
+        {error ? t(`validation.${error.message}`) : labelError || ''}
       </FormHelperText>
     </FormControl>
   );
 }
 
-export default function InputSelect(props: InputSelectProps) {
+export default function InputSelect(props: InputOptionsProps) {
   const { name, control, onChange, tenant, options } = props;
 
   return (

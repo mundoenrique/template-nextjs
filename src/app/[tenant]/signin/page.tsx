@@ -1,5 +1,6 @@
 'use client';
 
+import dayjs from 'dayjs';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Box, Typography, Grid, Button } from '@mui/material';
@@ -7,7 +8,7 @@ import { Box, Typography, Grid, Button } from '@mui/material';
 import { useLangStore } from '@/store/langStore';
 import { useTranslation } from '@/app/i18n/client';
 import { getSchema } from '@/config/validationConfig';
-import { InputDatePicker, InputPass, InputSelect, InputText, NavBar } from '@/components/UI';
+import { InputDatePicker, InputPass, InputSelect, InputText, NavBar, InputRadio } from '@/components/UI';
 
 export default function Signin({ params }: any) {
   const { lang } = useLangStore();
@@ -22,6 +23,9 @@ export default function Signin({ params }: any) {
     defaultValues: {
       email: '',
       password: '',
+      programs: '',
+      initialDate: '',
+      roles: '',
     },
     resolver: yupResolver(getSchema),
   });
@@ -37,7 +41,19 @@ export default function Signin({ params }: any) {
     },
   ];
 
+  const RadioOptions = [
+    {
+      text: t('form.roles_admin_label'),
+      value: 'A',
+    },
+    {
+      text: t('form.roles_operator_label'),
+      value: 'O',
+    },
+  ];
+
   const onSubmit = async (data: any) => {
+    data.initialDate = dayjs(data.initialDate).format('DD/MM/YYYY');
     console.log(data);
   };
 
@@ -63,9 +79,16 @@ export default function Signin({ params }: any) {
           </Grid>
           <Grid item xs={2}>
             <InputText name='email' control={control} tenant={params.tenant} />
-            <InputSelect name='select' control={control} tenant={params.tenant} options={selectOptions} />
             <InputPass name='password' control={control} tenant={params.tenant} additionalInfo />
-            <InputDatePicker name='password' control={control} tenant={params.tenant} />
+            <InputSelect name='programs' control={control} tenant={params.tenant} options={selectOptions} />
+            <InputDatePicker name='initialDate' control={control} tenant={params.tenant} />
+            <InputRadio
+              name='roles'
+              label='Seleciona el tipo de usuario'
+              control={control}
+              tenant={params.tenant}
+              options={RadioOptions}
+            />
           </Grid>
           <Grid item xs={1}>
             <Box sx={{ m: 'auto', maxWidth: 700, width: '100%' }}>
