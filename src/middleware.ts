@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { log_message } from "@/utils";
 
 const validTenants = ["novo", "bdb", "coop"];
 const tenantCookie = "tenant";
@@ -12,7 +13,7 @@ export async function middleware(request: NextRequest) {
   const defaultTenant = request.cookies.get(tenantCookie)?.value || "novo";
   const token = request.cookies.get("token")?.value || false;
 
-  console.log("middleware en url pathname:", url.pathname);
+  log_message(`middleware en url pathname: ${url.pathname}`,'','fetch')
 
   // Verificar si el tenant es válido
   if (!validTenants.includes(tenant)) {

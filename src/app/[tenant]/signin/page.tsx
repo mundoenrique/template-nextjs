@@ -6,8 +6,11 @@ import { Button, Box, Typography, Grid } from "@mui/material";
 import { useLangStore } from "@/store/langStore";
 import { useTranslation } from "@/app/i18n/client";
 import { Buttons, NavBar } from "@/app/components/UI";
+import { log_message } from "@/utils";
 
 export default function Signin({ params }: any) {
+
+  log_message('Accede a la pagin a SIG-IN', 'nameUser')
   const router = useRouter();
   const language = useLangStore((state: any) => state.lang);
   const { t } = useTranslation(language, `${params.tenant}-general`);

@@ -4,6 +4,7 @@ import { Box, CssBaseline, ThemeProvider } from "@mui/material";
 //Internal App
 import { MuiProviderProps } from "@/interfaces";
 import { Footer } from "../components/UI";
+import { log_message } from "@/utils";
 
 export default function MuiProvider({ children, theme }: MuiProviderProps) {
   let theTheme;
@@ -13,6 +14,8 @@ export default function MuiProvider({ children, theme }: MuiProviderProps) {
   } catch (error) {
     theTheme = require(`../../themes/theme-novo`);
   }
+
+  log_message(`Carga el tema ${theme}`)
 
   return (
     <ThemeProvider theme={theTheme.changeMode("light")}>
