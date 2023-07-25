@@ -24,61 +24,67 @@ export default function Footer({ tenant }: UtilsProps): JSX.Element {
         bottom: 0,
         display: 'flex',
         bgcolor: theme.palette.grey[50],
-        padding: '2rem',
+        padding: { xs: '1rem', sm: '2rem' },
         position: 'relative',
         textAlign: 'center',
         width: '100%',
       }}
     >
       <Grid container columns={12} spacing={2}>
-        <Grid item xs={12}>
-          <Stack
-            direction='row'
-            spacing={2}
-            divider={networks === '' ? '' : <Divider orientation='vertical' sx={{ ml: 2 }} />}
-            sx={{
-              alignItems: 'center',
-              height: '20px',
-              justifyContent: 'center',
-            }}
-          >
-            <Stack direction='row' spacing={2}>
-              {imagesFooter.map((img: string, i: number) => {
-                return (
-                  <Image
-                    key={i}
-                    src={getImages(tenant, `${img}.svg`)}
-                    style={{
-                      objectFit: 'contain',
-                      height: '20px',
-                      width: 'auto',
-                    }}
-                    alt={`${img}`}
-                    priority
-                  />
-                );
-              })}
-            </Stack>
+        <Grid
+          item
+          xs={12}
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexDirection: { xs: 'column', sm: 'row' },
+          }}
+        >
+          <Box sx={{ display: 'flex', m: { xs: 1, sm: 0 } }}>
+            {imagesFooter.map((img: string, i: number) => {
+              return (
+                <Image
+                  key={i}
+                  src={getImages(tenant, `${img}.svg`)}
+                  style={{
+                    objectFit: 'contain',
+                    height: '20px',
+                    margin: '0 8px',
+                    width: 'auto',
+                  }}
+                  alt={`${img}`}
+                  priority
+                />
+              );
+            })}
+          </Box>
 
-            <Stack direction='row' spacing={2}>
-              {Object.keys(networks).map((img, i) => (
-                <Link href={networks[img]} key={i} style={{ height: '20px' }}>
-                  <Image
-                    src={getImages(tenant, `${img}.svg`)}
-                    style={{
-                      objectFit: 'contain',
-                      height: '20px',
-                      width: 'auto',
-                    }}
-                    alt={`${img}`}
-                    priority
-                  />
-                </Link>
-              ))}
-            </Stack>
-          </Stack>
+          {networks !== '' ? (
+            <Divider orientation='vertical' sx={{ display: { xs: 'none', sm: 'block' }, m: 2 }} />
+          ) : (
+            ''
+          )}
+
+          <Box sx={{ display: networks !== '' ? 'flex' : 'contents', m: { xs: 1, sm: 0 } }}>
+            {Object.keys(networks).map((img, i) => (
+              <Link href={networks[img]} key={i} style={{ height: '20px' }}>
+                <Image
+                  src={getImages(tenant, `${img}.svg`)}
+                  style={{
+                    objectFit: 'contain',
+                    height: '20px',
+                    margin: '0 8px',
+                    width: 'auto',
+                  }}
+                  alt={`${img}`}
+                  priority
+                />
+              </Link>
+            ))}
+          </Box>
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12} sx={{ display: { xs: 'none', sm: 'block' } }}>
           {t('copyright', {
             year: new Date().getFullYear(),
           })}
