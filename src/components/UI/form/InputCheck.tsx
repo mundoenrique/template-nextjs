@@ -1,32 +1,43 @@
 'use client';
 
+import { useState } from 'react';
 import { Controller } from 'react-hook-form';
 import { useTheme } from '@mui/material/styles';
-import { FormControl, FormLabel, FormHelperText, Radio, FormControlLabel, RadioGroup } from '@mui/material';
+import { FormControl, FormLabel, FormHelperText, Checkbox, FormControlLabel, FormGroup } from '@mui/material';
 //Internal App
-import { InputOptionsProps } from '@/interfaces';
+import { InputCheckProps } from '@/interfaces';
 import { useLangStore } from '@/store/langStore';
 import { useTranslation } from '@/app/i18n/client';
 
-function InputRadioMUI(props: InputOptionsProps): JSX.Element {
+function InputCheckMUI(props: InputCheckProps): JSX.Element {
   const theme = useTheme();
-  const { name, label, labelError, error, value, onChange, options, tenant } = props;
+  const { name, label, labelError, onChange, onClick, checked, value, tenant, error, disabled } = props;
+  const [isChecked, setIsChecked] = useState(checked ? true : false);
   const { lang } = useLangStore();
   const { t } = useTranslation(lang, `${tenant}-general`);
+  const textLabel = t(`form.${name}_label`);
+
   return (
     <FormControl component='fieldset' variant='standard' fullWidth>
       {label && <FormLabel focused={false}>{label}</FormLabel>}
-      <RadioGroup name={name} value={value} onChange={onChange}>
-        {options.map((option, i: number) => (
-          <FormControlLabel
-            key={i}
-            value={option.value}
-            control={<Radio id={name + option.value} />}
-            label={option.text}
-            sx={{ mb: 0, pl: 2 }}
-          />
-        ))}
-      </RadioGroup>
+      <FormGroup onClick={onClick}>
+        <FormControlLabel
+          disabled={disabled}
+          label={textLabel}
+          sx={{ mb: 0, pl: 2 }}
+          control={
+            <Checkbox
+              id={name}
+              value={value}
+              checked={isChecked}
+              onChange={(e) => {
+                setIsChecked(!isChecked);
+                onChange && onChange(e);
+              }}
+            />
+          }
+        />
+      </FormGroup>
       <FormHelperText sx={{ color: theme.palette.error.main, height: '20px' }} id={`${label}-helperText`}>
         {error ? t(`validation.${error.message}`) : labelError || ''}
       </FormHelperText>
@@ -34,8 +45,8 @@ function InputRadioMUI(props: InputOptionsProps): JSX.Element {
   );
 }
 
-export default function InputRadio(props: InputOptionsProps) {
-  const { name, control, tenant, onChange, options, ...restProps } = props;
+export default function InputCheck(props: InputCheckProps) {
+  const { name, control, tenant, onChange, onClick, ...restProps } = props;
 
   return (
     <>
@@ -44,11 +55,11 @@ export default function InputRadio(props: InputOptionsProps) {
           name={name}
           control={control}
           render={({ field, fieldState: { error } }) => (
-            <InputRadioMUI
+            <InputCheckMUI
               name={name}
               value={field.value}
-              options={options}
               tenant={tenant}
+              onClick={onClick}
               onChange={(e) => {
                 field.onChange(e);
                 onChange && onChange(e);
@@ -59,7 +70,7 @@ export default function InputRadio(props: InputOptionsProps) {
           )}
         />
       ) : (
-        <InputRadioMUI name={name} onChange={onChange} options={options} tenant={tenant} />
+        <InputCheckMUI name={name} onChange={onChange} onClick={onClick} tenant={tenant} />
       )}
     </>
   );

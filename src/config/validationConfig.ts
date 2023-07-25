@@ -24,4 +24,5 @@ export const getSchema = yup.object().shape({
   programs: yup.string().required('programs_required'),
   initialDate: yup.string().required('initialDate_required'),
   roles: yup.string().required('roles_required'),
+  term: yup.string().required('term_required'),
 });

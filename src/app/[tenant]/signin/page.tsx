@@ -8,7 +8,7 @@ import { Box, Typography, Grid, Button } from '@mui/material';
 import { useLangStore } from '@/store/langStore';
 import { useTranslation } from '@/app/i18n/client';
 import { getSchema } from '@/config/validationConfig';
-import { InputDatePicker, InputPass, InputSelect, InputText, NavBar, InputRadio } from '@/components/UI';
+import { InputDatePicker, InputPass, InputSelect, InputText, NavBar, InputRadio, InputCheck } from '@/components/UI';
 
 export default function Signin({ params }: any) {
   const { lang } = useLangStore();
@@ -26,6 +26,7 @@ export default function Signin({ params }: any) {
       programs: '',
       initialDate: '',
       roles: '',
+      term: '',
     },
     resolver: yupResolver(getSchema),
   });
@@ -78,17 +79,18 @@ export default function Signin({ params }: any) {
             </Button>
           </Grid>
           <Grid item xs={2}>
-            <InputText name='email' control={control} tenant={params.tenant} />
+            <InputText name='email' control={control} tenant={params.tenant} optional />
             <InputPass name='password' control={control} tenant={params.tenant} additionalInfo />
             <InputSelect name='programs' control={control} tenant={params.tenant} options={selectOptions} />
             <InputDatePicker name='initialDate' control={control} tenant={params.tenant} />
             <InputRadio
               name='roles'
-              label='Seleciona el tipo de usuario'
               control={control}
+              label='Seleciona el tipo de usuario'
               tenant={params.tenant}
               options={RadioOptions}
             />
+            <InputCheck name='term' control={control} label='Seleciona el tipo de usuario' tenant={params.tenant} />
           </Grid>
           <Grid item xs={1}>
             <Box sx={{ m: 'auto', maxWidth: 700, width: '100%' }}>

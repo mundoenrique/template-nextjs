@@ -24,7 +24,7 @@ function InputMUI(props: TextFieldProps): JSX.Element {
         error={!!error}
         value={value}
         onChange={onChange}
-        endAdornment={optional ? <InputAdornment position='end'>{t('form.optional_label')}</InputAdornment> : ''}
+        endAdornment={optional ? <InputAdornment position='end'>{t('optional')}</InputAdornment> : ''}
       />
       <FormHelperText sx={{ height: '20px' }} id={`${name}-helperText`}>
         {error ? t(`validation.${error.message}`) : labelError || ''}
@@ -34,7 +34,7 @@ function InputMUI(props: TextFieldProps): JSX.Element {
 }
 
 export default function InputText(props: TextFieldProps) {
-  const { name, control, tenant, onChange } = props;
+  const { name, control, tenant, onChange, ...restProps } = props;
 
   return (
     <>
@@ -52,6 +52,7 @@ export default function InputText(props: TextFieldProps) {
                 onChange && onChange(e);
               }}
               error={error}
+              {...restProps}
             />
           )}
         />

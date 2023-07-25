@@ -26,6 +26,12 @@ export interface InputDatePickerProps extends FormMUIProps {
   format?: string;
 }
 
+export interface InputCheckProps extends FormMUIProps {
+  onClick?: (...e: any[]) => void;
+  checked?: boolean;
+  disabled?: boolean;
+}
+
 export type UserSubmitForm = {
   email: string;
   password: string;

@@ -16,7 +16,7 @@ export default function MuiProvider({ children, theme }: MuiProviderProps) {
   return (
     <ThemeProvider theme={theTheme.changeMode('light')}>
       <CssBaseline />
-      <Box sx={{ height: '100vh' }}>{children}</Box>
+      {children}
     </ThemeProvider>
   );
 }

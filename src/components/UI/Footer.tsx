@@ -21,12 +21,12 @@ export default function Footer({ tenant }: UtilsProps): JSX.Element {
       component='footer'
       sx={{
         alignItems: 'center',
-        bgcolor: theme.palette.grey[50],
-        display: 'flex',
-        height: '120px',
-        padding: '1rem',
-        textAlign: 'center',
         bottom: 0,
+        display: 'flex',
+        bgcolor: theme.palette.grey[50],
+        padding: '2rem',
+        position: 'relative',
+        textAlign: 'center',
         width: '100%',
       }}
     >

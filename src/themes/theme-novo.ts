@@ -96,6 +96,18 @@ export function changeMode(mode: string) {
           }
         `,
       },
+      // Main container styles
+      MuiContainer: {
+        styleOverrides: {
+          root: {
+            backgroundColor: mode === 'light' ? white : black,
+            maxWidth: 'initial !important',
+            flex: 'auto',
+            paddingLeft: '0 !important',
+            paddingRight: '0 !important',
+          },
+        },
+      },
       //NavBar
       MuiAppBar: {
         styleOverrides: {

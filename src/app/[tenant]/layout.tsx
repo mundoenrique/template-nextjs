@@ -6,7 +6,7 @@ import { Footer } from '@/components/UI';
 import { handleConfigTenant } from '@/utils';
 import MuiProvider from '../Providers/MuiProvider';
 import { GenerateMetadataProps, RootLayoutProps } from '@/interfaces';
-import { Container } from '@mui/material';
+import { Container, Box } from '@mui/material';
 const Widget = dynamic(() => import('@/components/UI/SupportButton'), {
   ssr: false,
 });
@@ -34,20 +34,18 @@ export async function generateMetadata({ params }: GenerateMetadataProps): Promi
 export default async function SigninLayout({ children, params }: RootLayoutProps) {
   return (
     <MuiProvider theme={params.tenant}>
-      <Container
-        maxWidth={false}
+      <Box
         sx={{
           display: 'flex',
           flexDirection: 'column',
           flexWrap: 'nowrap',
           height: '100vh',
-          p: '0 !important',
         }}
       >
-        {children}
-      </Container>
-      <Footer tenant={params.tenant} />
-      <Widget tenant={params.tenant} />
+        <Container>{children}</Container>
+        <Footer tenant={params.tenant} />
+        <Widget tenant={params.tenant} />
+      </Box>
     </MuiProvider>
   );
 }

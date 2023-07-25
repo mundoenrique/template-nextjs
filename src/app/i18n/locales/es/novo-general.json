@@ -9,13 +9,15 @@
   },
   "lang": "Inglés Novo",
   "copyright": "© NovoPayment Inc. Todos los derechos reservados. - {{year}}",
+  "optional": "Opcional",
   "form": {
     "email_label": "Correo Electrónico",
     "password_label": "Contraseña",
     "programs_label": "Programas",
     "initialDate_label": "Fecha inicial",
     "roles_admin_label": "Administrador",
-    "roles_operator_label": "Operador"
+    "roles_operator_label": "Operador",
+    "term_label": "Terminos y condiciones"
   },
   "validation": {
     "email_invalid": "Debe ser un correo electrónico válido",
@@ -30,6 +32,7 @@
     },
     "initialDate_required": "Ingresa una fecha",
     "programs_required": "Selecciona una opción",
-    "roles_required": "Selecciona una opción"
+    "roles_required": "Selecciona una opción",
+    "term_required": "Campo obligatorio"
   }
 }
