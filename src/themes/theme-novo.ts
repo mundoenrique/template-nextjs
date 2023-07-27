@@ -220,6 +220,41 @@ export function changeMode(mode: string) {
           },
         },
       },
+      //Modals
+      MuiModal: {
+        styleOverrides: {
+          root: {
+            '& > .container-modal': {
+              backgroundColor: white,
+              borderRadius: borderRadius,
+              left: '50%',
+              top: '50%',
+              transform: 'translate(-50%, -50%)',
+              position: 'absolute',
+              paddingTop: '16px',
+              paddingBottom: '16px',
+              width: '100%',
+              '& .modal-text': {
+                display: 'flex',
+                flexDirection: 'column',
+                height: 'auto',
+                overflowY: 'auto',
+              },
+            },
+          },
+        },
+      },
+      //Avatar
+      MuiAvatar: {
+        styleOverrides: {
+          root: {
+            backgroundColor: greyLight,
+            color: primary,
+            width: '44px',
+            height: '44px',
+          },
+        },
+      },
     },
   });
 

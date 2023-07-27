@@ -12,7 +12,7 @@ import { useTranslation } from '@/app/i18n/client';
 function InputCheckMUI(props: InputCheckProps): JSX.Element {
   const theme = useTheme();
   const { name, label, labelError, onChange, onClick, checked, value, tenant, error, disabled } = props;
-  const [isChecked, setIsChecked] = useState(checked ? true : false);
+
   const { lang } = useLangStore();
   const { t } = useTranslation(lang, `${tenant}-general`);
   const textLabel = t(`form.${name}_label`);
@@ -22,20 +22,12 @@ function InputCheckMUI(props: InputCheckProps): JSX.Element {
       {label && <FormLabel focused={false}>{label}</FormLabel>}
       <FormGroup onClick={onClick}>
         <FormControlLabel
+          value={value}
           disabled={disabled}
+          checked
+          control={<Checkbox id={name} checked={checked} onChange={onChange} />}
           label={textLabel}
           sx={{ mb: 0, pl: 2 }}
-          control={
-            <Checkbox
-              id={name}
-              value={value}
-              checked={isChecked}
-              onChange={(e) => {
-                setIsChecked(!isChecked);
-                onChange && onChange(e);
-              }}
-            />
-          }
         />
       </FormGroup>
       <FormHelperText sx={{ color: theme.palette.error.main, height: '20px' }} id={`${label}-helperText`}>
@@ -46,7 +38,7 @@ function InputCheckMUI(props: InputCheckProps): JSX.Element {
 }
 
 export default function InputCheck(props: InputCheckProps) {
-  const { name, control, tenant, onChange, onClick, ...restProps } = props;
+  const { name, control, tenant, onChange, onClick, checked, ...restProps } = props;
 
   return (
     <>
@@ -60,6 +52,7 @@ export default function InputCheck(props: InputCheckProps) {
               value={field.value}
               tenant={tenant}
               onClick={onClick}
+              checked={field.value === '' ? false : true}
               onChange={(e) => {
                 field.onChange(e);
                 onChange && onChange(e);
@@ -70,7 +63,7 @@ export default function InputCheck(props: InputCheckProps) {
           )}
         />
       ) : (
-        <InputCheckMUI name={name} onChange={onChange} onClick={onClick} tenant={tenant} />
+        <InputCheckMUI name={name} onChange={onChange} onClick={onClick} tenant={tenant} {...restProps} />
       )}
     </>
   );

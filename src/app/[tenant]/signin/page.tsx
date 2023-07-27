@@ -8,9 +8,22 @@ import { Box, Typography, Grid, Button } from '@mui/material';
 import { useLangStore } from '@/store/langStore';
 import { useTranslation } from '@/app/i18n/client';
 import { getSchema } from '@/config/validationConfig';
-import { InputDatePicker, InputPass, InputSelect, InputText, NavBar, InputRadio, InputCheck } from '@/components/UI';
+import {
+  InputDatePicker,
+  InputPass,
+  InputSelect,
+  InputText,
+  NavBar,
+  InputRadio,
+  InputCheck,
+  Modals,
+} from '@/components/UI';
+import { useState } from 'react';
 
 export default function Signin({ params }: any) {
+  const [showModal, setShowModal] = useState(false);
+  const [showModal200, setShowModal200] = useState(false);
+  const [formData, setFormData] = useState<any>({});
   const { lang } = useLangStore();
   const { t } = useTranslation(lang, `${params.tenant}-general`);
 
@@ -55,7 +68,8 @@ export default function Signin({ params }: any) {
 
   const onSubmit = async (data: any) => {
     data.initialDate = dayjs(data.initialDate).format('DD/MM/YYYY');
-    console.log(data);
+    setFormData(data);
+    setShowModal(true);
   };
 
   return (
@@ -68,15 +82,9 @@ export default function Signin({ params }: any) {
         </Typography>
         <Grid container columns={3} spacing={2}>
           <Grid item xs={2} sx={{ display: 'flex', justifyContent: 'space-between' }}>
-            <Button variant='text' type='submit'>
-              Variant `Text`
-            </Button>
-            <Button variant='outlined' type='submit'>
-              Variant `Outlined`
-            </Button>
-            <Button variant='contained' type='submit'>
-              Variant `Contained`
-            </Button>
+            <Button variant='text'>Variant `Text`</Button>
+            <Button variant='outlined'>Variant `Outlined`</Button>
+            <Button variant='contained'>Variant `Contained`</Button>
           </Grid>
           <Grid item xs={2}>
             <InputText name='email' control={control} tenant={params.tenant} optional />
@@ -101,6 +109,40 @@ export default function Signin({ params }: any) {
           </Grid>
         </Grid>
       </Box>
+
+      <Modals
+        msgModal={
+          <>
+            <Typography>{t('dataForm.email', { email: formData.email })}</Typography>
+            <Typography>{t('dataForm.password', { password: formData.password })}</Typography>
+            <Typography>{t('dataForm.programs', { programs: formData.programs })}</Typography>
+            <Typography>{t('dataForm.initialDate', { initialDate: formData.initialDate })}</Typography>
+            <Typography>{t('dataForm.roles', { roles: formData.roles })}</Typography>
+          </>
+        }
+        buttons={2}
+        showModal={showModal}
+      >
+        <Button variant='text' onClick={() => setShowModal(false)}>
+          {t('buttons.cancel')}
+        </Button>
+        <Button
+          variant='contained'
+          onClick={() => {
+            setShowModal(false);
+            setShowModal200(true);
+            reset();
+          }}
+        >
+          {t('buttons.accept')}
+        </Button>
+      </Modals>
+
+      <Modals msgModal='Formulario enviado' showModal={showModal200}>
+        <Button variant='contained' onClick={() => setShowModal200(false)}>
+          {t('buttons.accept')}
+        </Button>
+      </Modals>
     </>
   );
 }

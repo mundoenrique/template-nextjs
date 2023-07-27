@@ -1,7 +1,8 @@
 {
   "buttons": {
     "accept": "Aceptar Novo",
-    "close": "Cerrar Novo"
+    "close": "Cerrar Novo",
+    "cancel": "Cancelar"
   },
   "titles": {
     "master-acount": "Cuenta Principal Novo",
@@ -34,5 +35,12 @@
     "programs_required": "Selecciona una opción",
     "roles_required": "Selecciona una opción",
     "term_required": "Campo obligatorio"
+  },
+  "dataForm": {
+    "email": "Correo eléctronico: {{email}}",
+    "password": "Contraseña: {{password}}",
+    "programs": "Programa: {{programs}}",
+    "initialDate": "Fecha: {{initialDate}}",
+    "roles": "Rol: {{roles}}"
   }
 }

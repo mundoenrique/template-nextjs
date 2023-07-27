@@ -1,7 +1,8 @@
 {
   "buttons": {
     "accept": "Accept Novo",
-    "close": "Close Novo"
+    "close": "Close Novo",
+    "cancel": "Cancel"
   },
   "titles": {
     "master-acount": "Master Account Novo",
@@ -34,5 +35,12 @@
     "programs_required": "Select an option",
     "roles_required": "Select an option",
     "term_required": "Required fields"
+  },
+  "dataForm": {
+    "email": "Email: {{email}}",
+    "password": "Password: {{password}}",
+    "programs": "Program: {{programs}}",
+    "initialDate": "Date: {{initialDate}}",
+    "roles": "Rol: {{roles}}"
   }
 }

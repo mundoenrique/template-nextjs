@@ -7,3 +7,4 @@ export { default as InputSelect } from './form/InputSelect';
 export { default as InputDatePicker } from './form/InputDatePicker';
 export { default as InputRadio } from './form/InputRadio';
 export { default as InputCheck } from './form/InputCheck';
+export { default as Modals } from './Modals';
