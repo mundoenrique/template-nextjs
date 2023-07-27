@@ -1,39 +1,48 @@
 import { NextRequest, NextResponse } from "next/server";
 
-const validTenants = ["novo", "bdb", "coop"];
+import { configTenant } from "@/config";
+
+const tenants = Object.keys(configTenant);
+
+// ["novo", "bdb", "coop"];
+const validTenants = new Set(tenants) //Set verificación de validez del tenant
 const tenantCookie = "tenant";
+const routeCookie = "currentRoute";
 const SIGNIN_ROUTE = "/signin";
-const DASHBOARD_ROUTE = "/dashboard";
-const INICIO_ROUTE = "/inicio";
+const ROUTES = ['/signin','/dashboard', '/create-password'];
 
-export async function middleware(request: NextRequest) {
-  const url = request.nextUrl.clone();
-  const tenant = url.pathname.split("/")[1];
-  const defaultTenant = request.cookies.get(tenantCookie)?.value || "novo";
-  const token = request.cookies.get("token")?.value || false;
-
-  console.log("middleware en url pathname:", url.pathname);
-
+export function middleware(req: NextRequest) {
+  const url = req.nextUrl.clone();  
+  const tenant = getPathName(url);
+  console.log('tenant:', tenant)
+  
+  const defaultTenant = req.cookies.get(tenantCookie)?.value || "novo";
+  console.log('defaultTenant:', defaultTenant);
+  
+  const route = req.nextUrl.pathname.replace(`/${tenant}`, "");
+  console.log('route:', route);
+  
   // Verificar si el tenant es válido
-  if (!validTenants.includes(tenant)) {
+  if (validTenants.has(tenant)) {
+    console.log("tenant valido, estableciendo cookie...");
+    const response = NextResponse.next()
+    setTenantCookie(response, tenant);
+
+    if (req.nextUrl.pathname.startsWith(`/${tenant}`)) {
+      if (ROUTES.includes(route) ){
+        console.log('Existe la ruta');
+        const [,nameRoute] = route.split('/');
+        console.log('nameRoute:', nameRoute);
+        setCurrentRoute(response, nameRoute);
+      }
+    }  
+    return response;
+  } else {
     console.log("tenant no valido, redireccionando a tenant valido...");
     const response = redirectTo(url, `/${defaultTenant}${SIGNIN_ROUTE}`);
-    if (!request.cookies.get(tenantCookie))
+    if (!req.cookies.get(tenantCookie))
       setTenantCookie(response, defaultTenant);
     return response;
-  }
-
-  // Redirigir según el estado de autenticación del usuario
-  if (token) {
-    if (shouldRedirect(url.pathname, tenant, [SIGNIN_ROUTE, INICIO_ROUTE])) {
-      console.log("Usuario autenticado, redirigiendo a dashboard...");
-      return redirectTo(url, `/${tenant}${DASHBOARD_ROUTE}`);
-    }
-  } else {
-    if (shouldRedirect(url.pathname, tenant, [DASHBOARD_ROUTE, INICIO_ROUTE])) {
-      console.log("No hay usuario autenticado, redirigiendo a signin...");
-      return redirectTo(url, `/${tenant}${SIGNIN_ROUTE}`);
-    }
   }
 }
 
@@ -49,7 +58,6 @@ function redirectTo(url: URL, path: string): NextResponse {
  * Establece la cookie del tenant en la respuesta.
  */
 function setTenantCookie(response: NextResponse, tenant: string): void {
-  console.log("tenant no encontrado en cookie, estableciendo cookie...");
   response.cookies.set({
     name: tenantCookie,
     value: tenant,
@@ -57,20 +65,21 @@ function setTenantCookie(response: NextResponse, tenant: string): void {
   });
 }
 
-/**
- * Determina si se debe realizar una redirección en función del estado de autenticación del usuario y de la ruta actual.
- */
-function shouldRedirect(
-  pathname: string,
-  tenant: string,
-  routes: string[]
-): boolean {
-  return routes.some((route) => pathname === `/${tenant}${route}`);
+function setCurrentRoute(response: NextResponse, route: string): void { 
+  response.cookies.set({
+    name: routeCookie,
+    value: route,
+    path: "/",
+  });
+}
+
+function getPathName(url: URL): string {
+  const [, pathname] = url.pathname.split("/");
+  return pathname;
 }
 
 export const config = {
   matcher: [
-    // "/((?!api|_next/static|_next/image|images|favicon|fonts).*)",
     "/:tenant/(inicio|signin|dashboard)",
   ],
 };
