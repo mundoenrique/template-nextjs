@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-
+//Internal app
 import { configTenant } from "@/config";
-
 const tenants = Object.keys(configTenant);
 
 // ["novo", "bdb", "coop"];
@@ -9,19 +8,19 @@ const validTenants = new Set(tenants) //Set verificación de validez del tenant
 const tenantCookie = "tenant";
 const routeCookie = "currentRoute";
 const SIGNIN_ROUTE = "/signin";
-const ROUTES = ['/signin','/dashboard', '/create-password'];
+const ROUTES = ['/signin', '/dashboard', '/create-password'];
 
 export function middleware(req: NextRequest) {
-  const url = req.nextUrl.clone();  
+  const url = req.nextUrl.clone();
   const tenant = getPathName(url);
   console.log('tenant:', tenant)
-  
+
   const defaultTenant = req.cookies.get(tenantCookie)?.value || "novo";
   console.log('defaultTenant:', defaultTenant);
-  
+
   const route = req.nextUrl.pathname.replace(`/${tenant}`, "");
   console.log('route:', route);
-  
+
   // Verificar si el tenant es válido
   if (validTenants.has(tenant)) {
     console.log("tenant valido, estableciendo cookie...");
@@ -35,7 +34,7 @@ export function middleware(req: NextRequest) {
         console.log('nameRoute:', nameRoute);
         setCurrentRoute(response, nameRoute);
       }
-    }  
+    }
     return response;
   } else {
     console.log("tenant no valido, redireccionando a tenant valido...");
@@ -74,7 +73,7 @@ function setCurrentRoute(response: NextResponse, route: string): void {
 }
 
 function getPathName(url: URL): string {
-  const [, pathname] = url.pathname.split("/");
+  const [pathname] = url.pathname.split("/");
   return pathname;
 }
 
