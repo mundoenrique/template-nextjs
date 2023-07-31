@@ -1,6 +1,6 @@
 'use client';
 
-import { Modal, Box, Avatar, Typography } from '@mui/material';
+import { Modal, Box, Avatar } from '@mui/material';
 //Internal app
 import { ModalProps } from '@/interfaces';
 

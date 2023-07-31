@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useTheme } from '@mui/material/styles';
-import { Box, Divider, Grid, Stack } from '@mui/material';
+import { Box, Divider, Grid } from '@mui/material';
 //Internal App
 import { UtilsProps } from '@/interfaces';
 import { useLangStore } from '@/store/langStore';
