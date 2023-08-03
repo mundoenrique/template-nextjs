@@ -8,5 +8,5 @@ export const metadata: Metadata = {
 };
 
 export default function Signinlayout({ children }: RootLayout) {
-  return <div>{children}</div>;
+  return <>{children}</>;
 }
