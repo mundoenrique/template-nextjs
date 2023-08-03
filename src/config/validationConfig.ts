@@ -26,10 +26,6 @@ const validationRules: ValidationRule = {
 	initialDate: yup.string().required('initialDate_required'),
 	roles: yup.string().required('roles_required'),
 	term: yup.string().required('term_required'),
-	username: yup.string().required('username_required'),
-	code: yup.string().required('Code is required'),
-	city: yup.string().required('City is required'),
-	address: yup.string().required('Address is required'),
 };
 
 /**
