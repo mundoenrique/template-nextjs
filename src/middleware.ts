@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { configTenant } from "@/config";
 const tenants = Object.keys(configTenant);
 
-// ["novo", "bdb", "coop"];
+// ["novo", "bdb", "coop"]; // variable de entorno
 const validTenants = new Set(tenants) //Set verificación de validez del tenant
 const tenantCookie = "tenant";
 const routeCookie = "currentRoute";
@@ -15,7 +15,7 @@ export function middleware(req: NextRequest) {
   const tenant = getPathName(url);
   console.log('tenant:', tenant)
 
-  const defaultTenant = req.cookies.get(tenantCookie)?.value || "novo";
+  const defaultTenant = req.cookies.get(tenantCookie)?.value || "novo"; //default variable de entorno
   console.log('defaultTenant:', defaultTenant);
 
   const route = req.nextUrl.pathname.replace(`/${tenant}`, "");
@@ -31,7 +31,6 @@ export function middleware(req: NextRequest) {
       if (ROUTES.includes(route) ){
         console.log('Existe la ruta');
         const [,nameRoute] = route.split('/');
-        console.log('nameRoute:', nameRoute);
         setCurrentRoute(response, nameRoute);
       }
     }
@@ -73,7 +72,7 @@ function setCurrentRoute(response: NextResponse, route: string): void {
 }
 
 function getPathName(url: URL): string {
-  const [pathname] = url.pathname.split("/");
+  const [, pathname] = url.pathname.split("/");
   return pathname;
 }
 
