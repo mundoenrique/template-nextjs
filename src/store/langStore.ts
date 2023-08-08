@@ -6,7 +6,7 @@ lang: string
 changeLang: (lang: string) => void
 }
 
-const defaultLang = Cookies.get('i18Next') || 'es'
+const defaultLang = Cookies.get('i18Next') || 'es';
 
 export const useLangStore = create<LangState>((set) => ({
   lang: defaultLang,

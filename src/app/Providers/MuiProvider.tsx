@@ -1,9 +1,8 @@
-"use client";
+'use client';
 
-import { Box, CssBaseline, ThemeProvider } from "@mui/material";
+import { Box, CssBaseline, ThemeProvider } from '@mui/material';
 //Internal App
-import { MuiProviderProps } from "@/interfaces";
-import { Footer } from "../components/UI";
+import { MuiProviderProps } from '@/interfaces';
 import { log_message } from "@/utils";
 
 export default function MuiProvider({ children, theme }: MuiProviderProps) {
@@ -18,12 +17,9 @@ export default function MuiProvider({ children, theme }: MuiProviderProps) {
   log_message(`Carga el tema ${theme}`)
 
   return (
-    <ThemeProvider theme={theTheme.changeMode("light")}>
+    <ThemeProvider theme={theTheme.changeMode('light')}>
       <CssBaseline />
-      <Box sx={{ height: "100vh" }}>
-        {children}
-        <Footer tenant={theme} />
-      </Box>
+      {children}
     </ThemeProvider>
   );
 }

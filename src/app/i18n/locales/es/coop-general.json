@@ -1,6 +1,6 @@
 {
-	"titles": {
-		"master-acount":"Cuenta Primaria Coop",
-		"preferencial-acount":"Cuenta Secundaria Coop"
-	}
+  "titles": {
+    "master-acount": "Cuenta Primaria Coop",
+    "preferencial-acount": "Cuenta Secundaria Coop"
+  }
 }

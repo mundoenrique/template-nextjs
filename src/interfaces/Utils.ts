@@ -1,3 +1,3 @@
 export interface UtilsProps {
-  tenant: string
+  tenant: string;
 }
