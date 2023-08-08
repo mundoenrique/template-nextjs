@@ -1,12 +1,14 @@
 export type GenerateMetadataProps = {
-  params: { tenant: string }
+  params: { tenant: string };
 };
 
 export type RootLayoutProps = {
   children: React.ReactNode;
-  params: any
+  params: {
+    tenant: string;
+  };
 };
 
 export type RootLayout = {
-  children: React.ReactNode
+  children: React.ReactNode;
 };

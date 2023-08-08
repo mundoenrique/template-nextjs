@@ -1,3 +1,3 @@
 export interface NavBarProps {
-  tenant: string
+  tenant: string;
 }

@@ -1,7 +1,7 @@
 import { createTheme } from '@mui/material';
 
 const white = '#fff';
-const black = '#000'
+const black = '#000';
 
 // Primary color - Tenant
 const primary = '#1C83E1';
@@ -36,10 +36,10 @@ export function changeMode(mode: string) {
         main: secondary,
       },
       grey: {
-        50:  greyLight,
+        50: greyLight,
         100: greyNormal,
         200: greyDark,
-      }
+      },
     },
     //Custom typography
     typography: {
@@ -68,7 +68,7 @@ export function changeMode(mode: string) {
       },
       caption: {
         fontSize: small,
-      }
+      },
     },
     // Border radius
     shape: {
@@ -124,23 +124,21 @@ export function changeMode(mode: string) {
         styleOverrides: {
           root: {
             background: primary,
-            height: "40px",
-            width: "40px",
-          }
-        }
+            height: '40px',
+            width: '40px',
+          },
+        },
       },
       //Divider - hr
       MuiDivider: {
         styleOverrides: {
           root: {
-            borderColor: "rgba(0, 0, 0, 0.5)"
-          }
-        }
-      }
+            borderColor: 'rgba(0, 0, 0, 0.5)',
+          },
+        },
+      },
     },
   });
 
   return theme;
 }
-
-

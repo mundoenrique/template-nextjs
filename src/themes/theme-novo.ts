@@ -1,7 +1,7 @@
 import { createTheme } from '@mui/material';
 
 const white = '#fff';
-const black = '#000'
+const black = '#000';
 
 // Primary color - Tenant
 const primary = '#0A60F9';
@@ -36,10 +36,10 @@ export function changeMode(mode: string) {
         main: secondary,
       },
       grey: {
-        50:  greyLight,
+        50: greyLight,
         100: greyNormal,
         200: greyDark,
-      }
+      },
     },
     //Custom typography
     typography: {
@@ -68,7 +68,7 @@ export function changeMode(mode: string) {
       },
       caption: {
         fontSize: small,
-      }
+      },
     },
     // Border radius
     shape: {
@@ -96,15 +96,27 @@ export function changeMode(mode: string) {
           }
         `,
       },
+      // Main container styles
+      MuiContainer: {
+        styleOverrides: {
+          root: {
+            backgroundColor: mode === 'light' ? white : black,
+            maxWidth: 'initial !important',
+            flex: 'auto',
+            paddingLeft: '0 !important',
+            paddingRight: '0 !important',
+          },
+        },
+      },
       //NavBar
       MuiAppBar: {
         styleOverrides: {
-          root:{
+          root: {
             background: white,
             boxShadow: 'none',
             height: '88px',
-          }
-        }
+          },
+        },
       },
       //Button
       MuiButton: {
@@ -142,23 +154,109 @@ export function changeMode(mode: string) {
         styleOverrides: {
           root: {
             background: primary,
-            height: "40px",
-            width: "40px",
-          }
-        }
+            height: '40px',
+            width: '40px',
+          },
+        },
       },
       //Divider - hr
       MuiDivider: {
         styleOverrides: {
           root: {
-            borderColor: "rgba(0, 0, 0, 0.5)"
-          }
-        }
-      }
+            borderColor: 'rgba(0, 0, 0, 0.5)',
+          },
+        },
+      },
+      // Inputs styles
+      MuiInputBase: {
+        styleOverrides: {
+          input: {
+            borderRadius: borderRadius,
+            padding: '14.23px 14px !important',
+          },
+        },
+      },
+      MuiOutlinedInput: {
+        styleOverrides: {
+          input: {
+            color: mode === 'light' ? secondary : '',
+            '&:-webkit-autofill': {
+              WebkitTextFillColor: mode === 'light' ? secondary : '',
+              WebkitBoxShadow: mode === 'light' ? '' : `0 0 0 100px ${white} inset`,
+            },
+            '&.Mui-disabled': {
+              WebkitTextFillColor: mode === 'light' ? secondary : '',
+              opacity: 0.5,
+            },
+          },
+          root: {
+            backgroundColor: white,
+            ':hover': {
+              '& .MuiOutlinedInput-notchedOutline': {
+                borderColor: secondary,
+              },
+            },
+            '&.Mui-error': {
+              '& .MuiOutlinedInput-notchedOutline': {
+                borderColor: secondary,
+              },
+            },
+            fieldset: {
+              borderWidth: '.5px',
+            },
+            '&.Mui-disabled': {
+              backgroundColor: greyLight,
+              borderColor: secondary,
+              color: secondary,
+              '& .MuiOutlinedInput-notchedOutline': {
+                borderColor: secondary,
+              },
+            },
+            '&.Mui-focused': {
+              '& .MuiOutlinedInput-notchedOutline': {
+                borderColor: secondary,
+              },
+            },
+          },
+        },
+      },
+      //Modals
+      MuiModal: {
+        styleOverrides: {
+          root: {
+            '& > .container-modal': {
+              backgroundColor: white,
+              borderRadius: borderRadius,
+              left: '50%',
+              top: '50%',
+              transform: 'translate(-50%, -50%)',
+              position: 'absolute',
+              paddingTop: '16px',
+              paddingBottom: '16px',
+              width: '100%',
+              '& .modal-text': {
+                display: 'flex',
+                flexDirection: 'column',
+                height: 'auto',
+                overflowY: 'auto',
+              },
+            },
+          },
+        },
+      },
+      //Avatar
+      MuiAvatar: {
+        styleOverrides: {
+          root: {
+            backgroundColor: greyLight,
+            color: primary,
+            width: '44px',
+            height: '44px',
+          },
+        },
+      },
     },
   });
 
   return theme;
 }
-
-
