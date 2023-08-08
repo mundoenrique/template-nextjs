@@ -1,17 +1,17 @@
-import Cookies from 'js-cookie'
-import {create} from 'zustand'
+import Cookies from 'js-cookie';
+import { create } from 'zustand';
 
-interface LangState {
-lang: string
-changeLang: (lang: string) => void
-}
+type LangState = {
+  lang: string;
+  changeLang: (lang: string) => void;
+};
 
-const defaultLang = Cookies.get('i18Next') || 'es'
+const defaultLang = Cookies.get('i18Next') || 'es';
 
 export const useLangStore = create<LangState>((set) => ({
   lang: defaultLang,
-  changeLang: (lang:string) => {
-    Cookies.set('i18Next', lang)
-    set({lang})
-  }
-}))
+  changeLang: (lang) => {
+    Cookies.set('i18Next', lang);
+    set({ lang });
+  },
+}));

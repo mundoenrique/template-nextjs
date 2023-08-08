@@ -1,4 +1,4 @@
 //Internal App
-import { configTenant } from "@/config";
+import { configTenant } from '@/config';
 
-export const handleConfigTenant = (tenant: any) => configTenant[tenant]
+export const handleConfigTenant = (tenant: any) => configTenant[tenant];

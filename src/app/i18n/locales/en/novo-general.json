@@ -1,12 +1,46 @@
 {
-	"buttons": {
-		"accept": "Accept Novo",
-		"close": "Close Novo"
-	},
-	"titles": {
-		"master-acount":"Master Account Novo",
-		"preferencial-acount":"Preferencial Account Novo"
-	},
-	"lang": "Spanish Novo",
-	"copyright": "© NovoPayment Inc. All rights reserved. - {{year}}"
+  "buttons": {
+    "accept": "Accept Novo",
+    "close": "Close Novo",
+    "cancel": "Cancel"
+  },
+  "titles": {
+    "master-acount": "Master Account Novo",
+    "preferencial-acount": "Preferencial Account Novo"
+  },
+  "lang": "Spanish Novo",
+  "copyright": "© NovoPayment Inc. All rights reserved. - {{year}}",
+  "optional": "Optinal",
+  "form": {
+    "email_label": "Email",
+    "password_label": "Password",
+    "programs_label": "Programs",
+    "initialDate_label": "Initial date",
+    "roles_admin_label": "Admin",
+    "roles_operator_label": "Operator",
+    "term_label": "Terms and conditions"
+  },
+  "validation": {
+    "email_invalid": "Must be a valid email",
+    "email_required": "Enter an email",
+    "password_max": "The password must be 25 characters or less",
+    "password_min": "The password must be 8 characters at least",
+    "password_required": "Enter a password",
+    "passwordStrength": {
+      "0": "Must contain at least 8 characters.",
+      "1": "Have at least one capital letter.",
+      "2": "Contain a special character (!#$%&)."
+    },
+    "initialDate_required": "Enter a date",
+    "programs_required": "Select an option",
+    "roles_required": "Select an option",
+    "term_required": "Required fields"
+  },
+  "dataForm": {
+    "email": "Email: {{email}}",
+    "password": "Password: {{password}}",
+    "programs": "Program: {{programs}}",
+    "initialDate": "Date: {{initialDate}}",
+    "roles": "Rol: {{roles}}"
+  }
 }
