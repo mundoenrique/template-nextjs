@@ -8,7 +8,7 @@ const validTenants = new Set(tenants); //Set verificación de validez del tenant
 const tenantCookie = 'tenant';
 const routeCookie = 'currentRoute';
 const SIGNIN_ROUTE = '/signin';
-const ROUTES = ['/signin', '/dashboard', '/create-password'];
+const ROUTES = ['/signin'];
 
 export function middleware(req: NextRequest) {
 	const url = req.nextUrl.clone();
@@ -18,38 +18,16 @@ export function middleware(req: NextRequest) {
 	const defaultTenant = req.cookies.get(tenantCookie)?.value || 'novo'; //default variable de entorno
 	console.log('defaultTenant:', defaultTenant);
 
-	const route = req.nextUrl.pathname.replace(`/${tenant}`, '');
-	console.log('route:', route);
-
 	// Verificar si el tenant es válido
 	if (validTenants.has(tenant)) {
 		console.log('tenant valido, estableciendo cookie...');
 		const response = NextResponse.next();
 		setTenantCookie(response, tenant);
-
-		if (req.nextUrl.pathname.startsWith(`/${tenant}`)) {
-			if (ROUTES.includes(route)) {
-				console.log('Existe la ruta');
-				const [, nameRoute] = route.split('/');
-				setCurrentRoute(response, nameRoute);
-			}
-		}
 		return response;
 	} else {
-		console.log('tenant no valido, redireccionando a tenant valido...');
-		const response = redirectTo(url, `/${defaultTenant}${SIGNIN_ROUTE}`);
-		if (!req.cookies.get(tenantCookie))
-			setTenantCookie(response, defaultTenant);
-		return response;
+		console.log('tenant invalido, redirigiendo...');
+		return redirectTo(url, `/${defaultTenant}${SIGNIN_ROUTE}`);
 	}
-}
-
-/**
- * Redirige a la ruta especificada.
- */
-function redirectTo(url: URL, path: string): NextResponse {
-	url.pathname = path;
-	return NextResponse.redirect(url);
 }
 
 /**
@@ -63,19 +41,16 @@ function setTenantCookie(response: NextResponse, tenant: string): void {
 	});
 }
 
-function setCurrentRoute(response: NextResponse, route: string): void {
-	response.cookies.set({
-		name: routeCookie,
-		value: route,
-		path: '/',
-	});
-}
-
 function getPathName(url: URL): string {
 	const [, pathname] = url.pathname.split('/');
 	return pathname;
 }
 
+function redirectTo(url: URL, path: string): NextResponse {
+	url.pathname = path;
+	return NextResponse.redirect(url);
+}
+
 export const config = {
-	matcher: ['/:tenant/(inicio|signin|dashboard)'],
+	matcher: ['/:tenant/(signin)'],
 };
