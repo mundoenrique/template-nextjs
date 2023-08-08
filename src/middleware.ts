@@ -6,9 +6,7 @@ const tenants = Object.keys(configTenant);
 // ["novo", "bdb", "coop"]; // variable de entorno
 const validTenants = new Set(tenants); //Set verificación de validez del tenant
 const tenantCookie = 'tenant';
-const routeCookie = 'currentRoute';
 const SIGNIN_ROUTE = '/signin';
-const ROUTES = ['/signin'];
 
 export function middleware(req: NextRequest) {
 	const url = req.nextUrl.clone();
@@ -30,9 +28,6 @@ export function middleware(req: NextRequest) {
 	}
 }
 
-/**
- * Establece la cookie del tenant en la respuesta.
- */
 function setTenantCookie(response: NextResponse, tenant: string): void {
 	response.cookies.set({
 		name: tenantCookie,
