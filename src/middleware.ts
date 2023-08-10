@@ -1,39 +1,20 @@
 import { NextRequest, NextResponse } from 'next/server';
-//Internal app
-import { configTenant } from '@/config';
-const tenants = Object.keys(configTenant);
 
-// ["novo", "bdb", "coop"]; // variable de entorno
-const validTenants = new Set(tenants); //Set verificación de validez del tenant
-const tenantCookie = 'tenant';
+const access_url = process.env.ACCESS_URL;
+const validTenants = access_url?.split(',');
+
 const SIGNIN_ROUTE = '/signin';
 
 export function middleware(req: NextRequest) {
 	const url = req.nextUrl.clone();
 	const tenant = getPathName(url);
-	console.log('tenant:', tenant);
 
-	const defaultTenant = req.cookies.get(tenantCookie)?.value || 'novo'; //default variable de entorno
-	console.log('defaultTenant:', defaultTenant);
+	const defaultTenant = validTenants?.[0];
 
-	// Verificar si el tenant es válido
-	if (validTenants.has(tenant)) {
-		console.log('tenant valido, estableciendo cookie...');
-		const response = NextResponse.next();
-		setTenantCookie(response, tenant);
-		return response;
-	} else {
-		console.log('tenant invalido, redirigiendo...');
+	if (!validTenants?.includes(tenant)) {
+		//Redirect Tenant default
 		return redirectTo(url, `/${defaultTenant}${SIGNIN_ROUTE}`);
 	}
-}
-
-function setTenantCookie(response: NextResponse, tenant: string): void {
-	response.cookies.set({
-		name: tenantCookie,
-		value: tenant,
-		path: '/',
-	});
 }
 
 function getPathName(url: URL): string {
