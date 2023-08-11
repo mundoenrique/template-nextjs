@@ -1,0 +1,75 @@
+#notfound {
+	background-color: white
+}
+
+.notfound {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  text-align: center;
+	line-height: 1.4;
+  transform: translate(-50%, -50%);
+	padding-left: 15px;
+  padding-right: 15px
+}
+
+.notfound-404 {
+  position: absolute;
+  height: 100px;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: -1
+}
+
+.notfound h1{
+  color: #ececec;
+  font-weight: 900;
+  font-size: 276px;
+  margin: 0;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.notfound h2{
+  font-size: 46px;
+  color: #000;
+  font-weight: 900;
+  text-transform: uppercase;
+  margin: 0
+}
+
+.notfound p {
+  font-size: 18px;
+  color: #000;
+  font-weight: 400;
+  margin-top: 15px;
+}
+
+.notfound a {
+  font-size: 14px;
+  text-decoration: none;
+  background: #190935;
+  display: inline-block;
+  padding: 7px 25px;
+  border: 2px solid transparent;
+  border-radius: 5px;
+  color: #fff
+}
+
+.notfound a:hover {
+  font-size: 14px;
+  color: #fff
+}
+
+@media (max-width: 480px) {
+  .notfound .notfound-404 h1 {
+    font-size: 162px;
+  }
+
+  .notfound h2 {
+    font-size: 26px;
+  }
+}

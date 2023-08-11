@@ -21,7 +21,7 @@ export default function Footer({ tenant }: UtilsProps): JSX.Element {
       component='footer'
       sx={{
         alignItems: 'center',
-        bottom: 0,
+        marginTop: 'auto',
         display: 'flex',
         bgcolor: theme.palette.grey[50],
         padding: { xs: '1rem', sm: '2rem' },

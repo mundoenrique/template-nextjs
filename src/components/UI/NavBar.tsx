@@ -4,7 +4,7 @@ import { AppBar, Container, Toolbar } from '@mui/material';
 
 export default function NavBar(): JSX.Element {
   const router = usePathname();
-  const currentTenant = router.split('/')[1];
+  const currentTenant = router.split('/')[1] || 'novo';
 
   return (
     <AppBar position='static'>
