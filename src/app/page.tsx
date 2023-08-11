@@ -8,17 +8,17 @@ import { validateTenant } from '@/utils';
 import { useLangStore } from '@/store/langStore';
 import { useTranslation } from '@/app/i18n/client';
 
-export default function NotFoundPage (): JSX.Element  {
+export default function HomePage (): JSX.Element  {
 	const router = usePathname();
 	const currentTenant = validateTenant(router.split('/')[1]);
 	const { lang } = useLangStore();
   const { t } = useTranslation(lang, `${currentTenant}-general`);
 
 	const info = {
-		status : '404',
-		title: t('page_not_found'),
-		description: t('message_not_found'),
-		btnName: t('buttons.homepage')
+		status: '',
+		title: t('title_error_general'),
+		description: t('desc_error_general'),
+		btnName: t('buttons.return')
 	}
 
 	return (
