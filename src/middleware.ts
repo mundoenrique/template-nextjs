@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-const access_url = process.env.ACCESS_URL;
+const access_url = process.env.NEXT_PUBLIC_ACCESS_URL;
 const validTenants = access_url?.split(',');
 
 const SIGNIN_ROUTE = '/signin';

@@ -11,8 +11,9 @@ export function getImages(tenant: string, file: string) {
 }
 
 export function validateTenant(tenant:string) {
-	const access_url = process.env.ACCESS_URL;
+	const access_url = process.env.NEXT_PUBLIC_ACCESS_URL;
 	const validTenants = access_url?.split(',');
+
 	let viewTenant
 
 	if (validTenants?.includes(tenant)) {

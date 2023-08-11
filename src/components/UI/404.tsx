@@ -1,24 +1,19 @@
 'use client';
 
 import styles from '@/styles/not-found.module.scss';
-import { useLangStore } from '@/store/langStore';
-import { useTranslation } from '@/app/i18n/client';
 
-export default function PageNotFound({ tenant }: any) {
-
-  const { lang } = useLangStore();
-  const { t } = useTranslation(lang, `${tenant}-general`);
+export default function PageNotFound({ params }: any) {
 
   return (
     <div id="notfound">
       <div className={styles.notfound}>
         <div className={styles['notfound-404']}>
-          <h1>404</h1>
+          <h1>{ params.status }</h1>
         </div>
-        <h2>{ t('page-not_found') }</h2>
-        <p> { t('message-not-found') } </p>
+        <h2>{ params.title }</h2>
+        <p> { params.description } </p>
         <a href="/" className={styles['notfound-a']}>
-          { t('buttons.homepage') }
+          { params.btnName }
         </a>
       </div>
     </div>
