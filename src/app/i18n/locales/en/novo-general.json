@@ -2,7 +2,8 @@
   "buttons": {
     "accept": "Accept Novo",
     "close": "Close Novo",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "homepage": "Go To Homepage"
   },
   "titles": {
     "master-acount": "Master Account Novo",
@@ -10,7 +11,9 @@
   },
   "lang": "Spanish Novo",
   "copyright": "© NovoPayment Inc. All rights reserved. - {{year}}",
-  "optional": "Optinal",
+  "optional": "Optional",
+  "page-not_found": "Page not found",
+  "message-not-found": "The page you are looking for might have been removed had its name changed or is temporarily unavailable.",
   "form": {
     "email_label": "Email",
     "password_label": "Password",

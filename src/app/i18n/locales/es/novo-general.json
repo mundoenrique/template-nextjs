@@ -2,7 +2,8 @@
   "buttons": {
     "accept": "Aceptar Novo",
     "close": "Cerrar Novo",
-    "cancel": "Cancelar"
+    "cancel": "Cancelar",
+    "homepage": "Ir a página principal"
   },
   "titles": {
     "master-acount": "Cuenta Principal Novo",
@@ -11,6 +12,8 @@
   "lang": "Inglés Novo",
   "copyright": "© NovoPayment Inc. Todos los derechos reservados. - {{year}}",
   "optional": "Opcional",
+  "page-not_found": "Página no encontrada",
+  "message-not-found": "Es posible que la página que está buscando haya sido eliminada debido a un cambio de nombre o no esté disponible temporalmente.",
   "form": {
     "email_label": "Correo Electrónico",
     "password_label": "Contraseña",

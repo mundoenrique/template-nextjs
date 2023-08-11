@@ -9,3 +9,17 @@ export function getImages(tenant: string, file: string) {
 
   return validateImage;
 }
+
+export function validateTenant(tenant:string) {
+	const access_url = process.env.ACCESS_URL;
+	const validTenants = access_url?.split(',');
+	let viewTenant
+
+	if (validTenants?.includes(tenant)) {
+		viewTenant = tenant
+	} else {
+		viewTenant = 'novo'
+	}
+
+	return viewTenant
+}
