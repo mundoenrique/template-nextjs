@@ -1,10 +1,12 @@
 import { Metadata } from 'next';
 import dynamic from 'next/dynamic';
+import { getServerSession } from "next-auth/next"
 //Internal App
 import { configTenant } from '@/config';
 import { Footer } from '@/components/UI';
 import { handleConfigTenant } from '@/utils';
 import MuiProvider from '../Providers/MuiProvider';
+import { options } from "@/utils/nextAuth";
 import { GenerateMetadataProps, RootLayoutProps } from '@/interfaces';
 import { Container, Box } from '@mui/material';
 const Widget = dynamic(() => import('@/components/UI/SupportButton'), {
@@ -32,8 +34,9 @@ export async function generateMetadata({ params }: GenerateMetadataProps): Promi
 }
 
 export default async function SigninLayout({ children, params }: RootLayoutProps) {
+	const session = await getServerSession(options)
   return (
-    <MuiProvider theme={params.tenant}>
+    <MuiProvider theme={params.tenant} session={session}>
       <Box
         sx={{
           display: 'flex',
@@ -41,8 +44,10 @@ export default async function SigninLayout({ children, params }: RootLayoutProps
           flexWrap: 'nowrap',
           height: '100vh',
         }}
-      >
-        <Container>{children}</Container>
+			>
+					<Container>
+						{children}
+					</Container>
         <Footer tenant={params.tenant} />
         <Widget tenant={params.tenant} />
       </Box>

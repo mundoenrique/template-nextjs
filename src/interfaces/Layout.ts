@@ -3,7 +3,8 @@ export type GenerateMetadataProps = {
 };
 
 export type RootLayoutProps = {
-  children: React.ReactNode;
+	children: React.ReactNode;
+	session: any;
   params: {
     tenant: string;
   };
