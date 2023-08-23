@@ -1,4 +1,6 @@
 import connectApi from '@/services/connectApi';
+import { signOut } from "next-auth/react"
+import Cookies from 'js-cookie'
 
 export function getImages(tenant: string, file: string) {
   let validateImage;
@@ -12,9 +14,9 @@ export function getImages(tenant: string, file: string) {
   return validateImage;
 }
 
-export function log_message(msg: string, user: string = '', action: string = 'axios') {
+export function log_message(type:string, msg: string, action: string = 'axios') {
 
-	const data = { msg, user }
+	const data = { type, msg }
 
 	action === 'axios'
 		? connectApi.post('/logger', data)

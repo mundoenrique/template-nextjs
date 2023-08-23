@@ -11,7 +11,7 @@ const defaultLang = Cookies.get('i18Next') || 'es';
 export const useLangStore = create<LangState>((set) => ({
   lang: defaultLang,
   changeLang: (lang:string) => {
-   log_message(`Realiza cambio de idioma - ${lang}`)
+   log_message('debug', `Realiza cambio de idioma - ${lang}`)
     Cookies.set('i18Next', lang)
     set({lang})
   }

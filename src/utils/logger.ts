@@ -30,10 +30,12 @@ const myFormat = printf(({
  level,
  message,
  user,
+	ip,
+ tenant,
  timestamp
 }: any) => {
  if (user) {
-  return `${level} - ${timestamp} --> [${user}] ${message}`;
+  return `${level} - ${timestamp} --> [${user}] IP: ${ip}, TENANT: ${tenant},  ${message}`;
  } else {
   return `${level} - ${timestamp} --> ${message}`;
  }
