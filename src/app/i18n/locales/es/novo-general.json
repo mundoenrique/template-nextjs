@@ -2,7 +2,12 @@
   "buttons": {
     "accept": "Aceptar Novo",
     "close": "Cerrar Novo",
-    "cancel": "Cancelar"
+    "cancel": "Cancelar",
+    "acceptAllCookies": "Aceptar todas las cookies",
+    "personalizeCookies": "Personalizar cookies",
+    "acceptAll": "Aceptar todas",
+    "rejectAll": "Rechazar todas",
+    "saveAndExit": "Guardar y salir"
   },
   "titles": {
     "master-acount": "Cuenta Principal Novo",
@@ -42,5 +47,20 @@
     "programs": "Programa: {{programs}}",
     "initialDate": "Fecha: {{initialDate}}",
     "roles": "Rol: {{roles}}"
+  },
+  "cookies": { 
+    "titles": {
+      "privacy": "Aviso de privacidad",
+      "config": "Configuración de cookies"
+    },
+    "dialog1": { 
+      "info1": "Utilizamos cookies propias y de terceros para obtener datos estadísticos de la navegación de nuestros usuarios y mejorar nuestros servicios. Si acepta, consideramos que acepta su uso. Puede cambiar la configuración u obtener más información ",
+      "here": "aquí "
+    },
+    "dialog2": { 
+      "info1": "Las cookies y tecnologías similares recopilan cierta información sobre cómo está utilizando nuestro sitio web. Algunos de ellos son esenciales, y sin ellos no podrías usar NEXTJS TEMPLATE. Pero otros son opcionales, y puedes elegir si los usamos o no.",
+      "info2": "Quieres saber más?  ",
+      "info3": " Lea nuestra Política de Cookies completa "
+    }
   }
 }
