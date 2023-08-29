@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getToken } from "next-auth/jwt"
 import { log_message } from "@/utils"
+import { validToken } from './utils/jwt';
 
 const access_url = process.env.NEXT_PUBLIC_ACCESS_URL
 const validTenants = access_url?.split(',')
@@ -9,14 +9,11 @@ const SIGNIN_ROUTE = '/signin'
 
 export async function middleware(req: NextRequest) {
 
-	console.log('HEADEERS -> ', req)
-
-
 	const url = req.nextUrl.clone();
 	const tenant = getPathName(url);
 	const requireAuth: string[] = [`/${tenant}/dashboard`]
 
-  log_message('debug',`middleware en url pathname: ${url.pathname}`,'fetch')
+  log_message('debug',`middleware en url pathname: ${url.pathname}`)
 
 	if (!validTenants?.includes(tenant)) {
 		//Redirect Tenant default
@@ -26,7 +23,6 @@ export async function middleware(req: NextRequest) {
 	if (requireAuth.some((path) => url.pathname.startsWith(path))) {
 		return validateSession(url, tenant, req)
 	}
-
 }
 
 function getPathName(url: URL): string {
@@ -41,24 +37,24 @@ function redirectTo(url: URL, path: string, cookies: string[] = []): NextRespons
 
 	if (cookies.length > 0) {
 		cookies.forEach((element: any) => {
-			response.cookies.set(element, '', { expires: new Date(Date.now()) });
+			response.cookies.set(element, '', { expires: new Date(Date.now()) })
 		});
 	}
 
 	return response
 }
 
-async function validateSession(url: URL, tenant:string, req:any) {
+async function validateSession(url: URL, tenant: string, req: any) {
 
+	const token = req.cookies.get('next-auth.session-token')
+	const payload: any = await validToken(token?.value)
 	const ip = req.headers.get('x-forwarded-for');
-	const token: any = await getToken({ req, secret: process.env.NEXTAUTH_SECRET })
-	console.log('ES EL TOKEN NUEVO ', token)
 
-	if (!token || (token.ip != ip)) {
+	if (!token || (payload.ip != ip)) {
 		return redirectTo(url,`/${tenant}${SIGNIN_ROUTE}`,['next-auth.session-token'])
 	}
 }
 
 export const config = {
 	matcher: ['/:tenant/signin', '/:tenant/dashboard', '/:tenant/dashboard/:path*']
-};
+}
