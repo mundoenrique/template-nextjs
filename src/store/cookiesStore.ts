@@ -1,35 +1,25 @@
-import { useState } from 'react';
 import Cookies from 'js-cookie'
-import {create} from 'zustand'
+import { create } from 'zustand'
 
-interface cookiesState {
-  necessaryCookies: string,
-  analyticsCookies: string,
-  onlyNecessary: () => void,
-  acceptAll: () => void,
-  removeCookies: () => void
+type cookiesState = {
+  allCookies: any,
+  acceptAll: (options: any, allCookies: number) => void,
 }
 
-const nCookies = Cookies.get('necessaryCookies')
-const aCookies = Cookies.get('analyticsCookies');
+const nCookies = Cookies.get('necessaryCookies}') || ''
+const fCookies = Cookies.get('functionalCookies') || ''
+const pCookies = Cookies.get('performanceCookies') || ''
 
 export const useCookiesStore = create<cookiesState>((set) => ({
-  necessaryCookies: nCookies,
-  analyticsCookies: aCookies,
-  onlyNecessary: (necessaryCookies:string) => {
-    Cookies.set('necessaryCookies', necessaryCookies)
-    set({necessaryCookies: necessaryCookies})
-    // showModal(false);
-  },
-  acceptAll: (allCookies:string) => {
-    Cookies.set('necessaryCookies', allCookies)
-    Cookies.set('analyticsCookies', allCookies)
-    set({necessaryCookies: allCookies, analyticsCookies: allCookies})
-    // showModal(false)
-  },
-  removeCookies: (remove:string) => {
-    Cookies.remove('necessaryCookies')
-    Cookies.remove('analyticsCookies')
-    set({necessaryCookies: remove, analyticsCookies: remove})
-  }
+  allCookies: [{}],
+  acceptAll: (options, allCookies) => {
+    for (let i = 0; i < options.length; i++) {
+      if (allCookies === 1) {
+        options[i].value = true
+        Cookies.set(options[i].name, 'accepted', { secure: true, sameSite: 'strict', path: '/' })
+      } else if (allCookies === 2 && options[i].value === true)
+        Cookies.set(options[i].name, 'accepted', { secure: true, sameSite: 'strict', path: '/' })
+    }
+    set({ allCookies })
+  } 
 }))
