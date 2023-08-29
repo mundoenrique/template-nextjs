@@ -8,3 +8,5 @@ export { default as InputDatePicker } from './form/InputDatePicker';
 export { default as InputRadio } from './form/InputRadio';
 export { default as InputCheck } from './form/InputCheck';
 export { default as Modals } from './Modals';
+export { default as InputSwitch } from './form/InputSwitch';
+export { default as Dialogs } from './Dialogs';
