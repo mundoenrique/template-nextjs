@@ -4,6 +4,11 @@ import dayjs from 'dayjs';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Box, Typography, Grid, Button } from '@mui/material';
+//Icons
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+import AddIcon from '@mui/icons-material/Add';
+
 //Internal App
 import { useLangStore } from '@/store/langStore';
 import { useTranslation } from '@/app/i18n/client';
@@ -19,10 +24,11 @@ import {
 	Modals,
 } from '@/components/UI';
 import { useState } from 'react';
+import TablePagination from '@/components/UI/table/TablePagination';
 
 export default function Signin({ params }: any) {
 	const [showModal, setShowModal] = useState(false);
-	const [showModal200, setShowModal200] = useState(false);
+	const [showModal200, setShowModal200] = useState(true);
 	const [formData, setFormData] = useState<any>({});
 	const { lang } = useLangStore();
 	const { t } = useTranslation(lang, `${params.tenant}-general`);
@@ -79,6 +85,107 @@ export default function Signin({ params }: any) {
 		setFormData(data);
 		setShowModal(true);
 	};
+
+	// Table
+	const columns = [
+		{ id: 'description', label: 'Description' },
+		{ id: 'date', label: 'Date' },
+		{ id: 'amount', label: 'Amount' },
+	];
+
+	const data = [
+		{
+			cardId: 4,
+			amount: 185000,
+			date: '2022-09-17',
+			description: 'Pay 1 service Disney Plus',
+			type: 'D',
+			options: ['edit'],
+			id: 8,
+		},
+		{
+			cardId: 4,
+			amount: 185000,
+			date: '2022-09-17',
+			description: 'Pay 2 service Disney Plus',
+			type: 'D',
+			id: 9,
+		},
+		{
+			cardId: 4,
+			amount: 185000,
+			date: '2022-09-17',
+			description: 'Pay 3 service Disney Plus',
+			type: 'D',
+			id: 10,
+		},
+		{
+			cardId: 4,
+			amount: 185000,
+			date: '2022-09-17',
+			description: 'Pay 4 service Disney Plus',
+			type: 'D',
+			options: ['edit', 'delete', 'create'],
+			id: 11,
+		},
+		{
+			cardId: 4,
+			amount: 185000,
+			date: '2022-09-17',
+			description: 'Pay 5 service Disney Plus',
+			type: 'D',
+			options: ['edit', 'delete'],
+			id: 12,
+		},
+		{
+			cardId: 4,
+			amount: 185000,
+			date: '2022-09-17',
+			description: 'Pay 6 service Disney Plus',
+			type: 'D',
+			options: ['edit', 'delete'],
+			id: 13,
+		},
+		{
+			cardId: 4,
+			amount: 185000,
+			date: '2022-09-17',
+			description: 'Pay 7 service Disney Plus',
+			type: 'D',
+			options: ['edit'],
+			id: 14,
+		},
+		{
+			cardId: 4,
+			amount: 185000,
+			date: '2022-09-17',
+			description: 'Pay 8 service Disney Plus',
+			type: 'D',
+			options: ['edit'],
+			id: 15,
+		},
+	];
+
+	const actionOptions = [
+		{
+			field: 'edit',
+			label: 'Editar',
+			icon: <EditIcon />,
+			action: 2,
+		},
+		{
+			field: 'delete',
+			label: 'Eliminar',
+			icon: <DeleteIcon />,
+			action: 1,
+		},
+		{
+			field: 'create',
+			label: 'Crear',
+			action: 3,
+			icon: <AddIcon />,
+		},
+	];
 
 	return (
 		<>
@@ -189,6 +296,12 @@ export default function Signin({ params }: any) {
 					{t('buttons.accept')}
 				</Button>
 			</Modals>
+
+			<TablePagination
+				data={data}
+				columns={columns}
+				actionOptions={actionOptions}
+			/>
 		</>
 	);
 }
