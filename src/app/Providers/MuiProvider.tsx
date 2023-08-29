@@ -1,12 +1,12 @@
 'use client';
 
 import { CssBaseline, ThemeProvider } from '@mui/material';
-import { SessionProvider } from "next-auth/react"
+
 //Internal App
 import { MuiProviderProps } from '@/interfaces';
 import { log_message } from "@/utils";
 
-export default function MuiProvider({ children, theme, session }: MuiProviderProps) {
+export default function MuiProvider({ children, theme }: MuiProviderProps) {
   let theTheme;
 
   try {
@@ -20,9 +20,7 @@ export default function MuiProvider({ children, theme, session }: MuiProviderPro
   return (
     <ThemeProvider theme={theTheme.changeMode('light')}>
 			<CssBaseline />
-			<SessionProvider session={session}>
 				{children}
-			</SessionProvider>
     </ThemeProvider>
   );
 }
