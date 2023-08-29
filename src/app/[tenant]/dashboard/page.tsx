@@ -4,6 +4,7 @@ import dayjs from 'dayjs';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Box, Typography, Grid, Button } from '@mui/material';
+import { useSession } from "next-auth/react"
 //Internal App
 import { log_message } from "@/utils";
 import { useLangStore } from '@/store/langStore';
@@ -24,6 +25,7 @@ import { useState } from 'react';
 export default function Signin({ params }: any) {
 
 	log_message('debug', 'Accede a la pagina Componentes')
+	const { data: session, status } = useSession()
 	const [showModal, setShowModal] = useState(false);
 	const [showModal200, setShowModal200] = useState(false);
 	const [formData, setFormData] = useState<any>({});
@@ -89,6 +91,7 @@ export default function Signin({ params }: any) {
 
 			<Box sx={{ m: 5 }} component="form" onSubmit={handleSubmit(onSubmit)}>
 				<Typography variant="h3" sx={{ mb: 3 }}>
+					Hola {session?.user?.name}
 					Componentes
 				</Typography>
 				<Grid container columns={3} spacing={2}>
