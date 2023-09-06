@@ -32,8 +32,7 @@ export async function generateMetadata({ params }: GenerateMetadataProps): Promi
 
 export default async function SigninLayout({ children, params }: RootLayoutProps) {
 	return (
-		<ZustandProvider>
-			<MuiProvider theme={params.tenant}>
+		<MuiProvider theme={params.tenant}>
 				<Box
 					sx={{
 						display: 'flex',
@@ -41,16 +40,17 @@ export default async function SigninLayout({ children, params }: RootLayoutProps
 						flexWrap: 'nowrap',
 						height: '100vh',
 					}}
-			>
-					<AuthProvider>
-						<Container>
+					>
+					<ZustandProvider>
+						<AuthProvider>
+							<Container>
 							{children}
-						</Container>
-					</AuthProvider>
+							</Container>
+						</AuthProvider>
+						<SupperButton tenant={params.tenant} />
+					</ZustandProvider>
 					<Footer tenant={params.tenant} />
-					<SupperButton tenant={params.tenant} />
 				</Box>
 			</MuiProvider>
-		</ZustandProvider>
   );
 }
