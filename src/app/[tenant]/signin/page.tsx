@@ -35,12 +35,7 @@ export default function Signin({ params }: any) {
 		currentTenant
 	);
 
-	const {
-		handleSubmit,
-		control,
-		reset,
-		formState: { errors },
-	} = useForm({
+	const { handleSubmit, control, reset } = useForm({
 		defaultValues: {
 			email: '',
 			password: '',
