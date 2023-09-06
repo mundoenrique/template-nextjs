@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { log_message } from "@/utils"
-import { validToken } from './utils/jwt';
+import { validToken } from './utils/jwt'
 
 const access_url = process.env.NEXT_PUBLIC_ACCESS_URL
 const validTenants = access_url?.split(',')
@@ -44,7 +44,7 @@ function redirectTo(url: URL, path: string, cookies: string[] = []): NextRespons
 	return response
 }
 
-async function validateSession(url: URL, tenant: string, req: any) {
+async function validateSession(url: URL, tenant: string, req: NextRequest) {
 
 	const token = req.cookies.get('next-auth.session-token')
 	const payload: any = await validToken(token?.value)
