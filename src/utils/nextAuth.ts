@@ -44,7 +44,7 @@ export const options: NextAuthOptions = {
 			name: `next-auth.session-token`,
 			options: {
 				httpOnly: true,
-				sameSite: process.env.NODE_ENV != 'production' ? "Lax" : "Strict",
+				sameSite: process.env.NODE_ENV != 'production' ? "lax" : "strict",
 				path: '/',
 				secure: true
 			}
@@ -53,7 +53,7 @@ export const options: NextAuthOptions = {
       name: `next-auth.csrf-token`,
       options: {
         httpOnly: true,
-        sameSite: process.env.NODE_ENV != 'production' ? "Lax" : "Strict",
+        sameSite: process.env.NODE_ENV != 'production' ? "lax" : "strict",
         path: "/",
         secure: true,
       },
@@ -62,8 +62,8 @@ export const options: NextAuthOptions = {
 	callbacks: {
 		async jwt({ token, user }: any) {
 			if (user) {
-      	token.ip = user.ip
-    	}
+				token.ip = user.ip
+			}
 			return token
 		}
 	}
