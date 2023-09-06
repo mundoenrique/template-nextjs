@@ -1,70 +1,80 @@
-import React, { useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
+import TableFooter from '@mui/material/TableFooter';
+import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
 //Internal App
 import ActionOptions from './ActionOptions';
-import { SvgIconProps } from '@mui/material';
+import PaginationActions from './ActionPagination';
+import {
+	DataTable,
+	RowTable,
+	ColumnTable,
+	ActionOption,
+	InfoRow,
+} from '@/interfaces';
 
-interface Column {
-	id: string;
-	label: string;
-}
-
-interface Data {
-	id: number;
-	description: string;
-	date: string;
-	amount: number;
-	options?: string[];
-}
-
-interface Row {
-	id: number;
-	[key: string]: any;
-}
-
-interface ActionOption {
-	field: string;
-	label: string;
-	icon: React.ReactElement<SvgIconProps>;
-	action: number;
-}
-
-interface Props {
-	columns: Column[];
-	data: Data[];
-	actionOptions?: ActionOption[];
-}
-
-const PaginationTable: React.FC<Props> = ({ data, columns, actionOptions }) => {
+const PaginationTable = ({
+	columns,
+	data,
+	actionOptions,
+	rowPages,
+	isByService,
+	handleChangePage,
+}: DataTable) => {
 	const verify_option = (options: string[], field: string) => {
 		return options?.includes(field) ? true : false;
 	};
 
-	const onModal = (row: Row) => {
+	const onModal = (row: RowTable) => {
 		console.log('Abrir modal', row);
 	};
 
-	const onRedirect = (row: Row) => {
+	const onRedirect = (row: RowTable) => {
 		console.log('Redireccionar', row);
 	};
 
-	const onFunction = (row: Row) => {
+	const onFunction = (row: RowTable) => {
 		console.log('Ejecutar funcion', row);
 	};
+
+	const totalRows = data.length;
+
+	const [page, setPage] = useState<number>(0);
+	const [dataTable, setDataTable] = useState<InfoRow[]>([]);
+
+	const pagedData = () => {
+		const copy = [...data];
+		const rows = copy.slice(
+			rowPages * (page + 1) - rowPages,
+			rowPages * (page + 1)
+		);
+		setDataTable(rows);
+	};
+
+	const changePaged = (newPage: number) => {
+		if (isByService) {
+			handleChangePage(newPage);
+		}
+		setPage(newPage);
+	};
+
+	useEffect(() => {
+		pagedData();
+	}, [page]);
 
 	return (
 		<TableContainer component={Paper}>
 			<Table aria-label="pagination table">
 				<TableHead>
 					<TableRow>
-						{columns.map((column: Column) => (
+						{columns.map((column: ColumnTable) => (
 							<TableCell key={column.id}>{column.label}</TableCell>
 						))}
 						{actionOptions ? (
@@ -73,9 +83,9 @@ const PaginationTable: React.FC<Props> = ({ data, columns, actionOptions }) => {
 					</TableRow>
 				</TableHead>
 				<TableBody>
-					{data.map((row: Row) => (
+					{dataTable.map((row: RowTable) => (
 						<TableRow key={row.id}>
-							{columns.map((column: Column) => (
+							{columns.map((column: ColumnTable) => (
 								<TableCell key={column.id}>{row[column.id]}</TableCell>
 							))}
 							{actionOptions ? (
@@ -99,6 +109,17 @@ const PaginationTable: React.FC<Props> = ({ data, columns, actionOptions }) => {
 						</TableRow>
 					))}
 				</TableBody>
+				<TableFooter>
+					<TableRow>
+						<TablePagination
+							count={totalRows}
+							page={page}
+							rowsPerPage={rowPages}
+							onPageChange={changePaged}
+							ActionsComponent={PaginationActions}
+						/>
+					</TableRow>
+				</TableFooter>
 			</Table>
 		</TableContainer>
 	);

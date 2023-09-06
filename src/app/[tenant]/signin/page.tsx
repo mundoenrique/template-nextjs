@@ -4,6 +4,8 @@ import dayjs from 'dayjs';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Box, Typography, Grid, Button } from '@mui/material';
+import axios from 'axios';
+
 //Icons
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
@@ -23,8 +25,9 @@ import {
 	InputCheck,
 	Modals,
 } from '@/components/UI';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import TablePagination from '@/components/UI/table/TablePagination';
+import { Movements } from '@/interfaces';
 
 export default function Signin({ params }: any) {
 	const [showModal, setShowModal] = useState(false);
@@ -93,7 +96,7 @@ export default function Signin({ params }: any) {
 		{ id: 'amount', label: 'Amount' },
 	];
 
-	const data = [
+	const infoTable = [
 		{
 			cardId: 4,
 			amount: 185000,
@@ -164,7 +167,183 @@ export default function Signin({ params }: any) {
 			options: ['edit'],
 			id: 15,
 		},
+		{
+			cardId: 4,
+			amount: 185000,
+			date: '2022-09-17',
+			description: 'Pay 9 service Disney Plus',
+			type: 'D',
+			options: ['edit'],
+			id: 16,
+		},
+		{
+			cardId: 4,
+			amount: 185000,
+			date: '2022-09-17',
+			description: 'Pay 10 service Disney Plus',
+			type: 'D',
+			id: 17,
+		},
+		{
+			cardId: 4,
+			amount: 185000,
+			date: '2022-09-17',
+			description: 'Pay 11 service Disney Plus',
+			type: 'D',
+			id: 18,
+		},
+		{
+			cardId: 4,
+			amount: 185000,
+			date: '2022-09-17',
+			description: 'Pay 12 service Disney Plus',
+			type: 'D',
+			options: ['edit', 'delete', 'create'],
+			id: 19,
+		},
+		{
+			cardId: 4,
+			amount: 185000,
+			date: '2022-09-17',
+			description: 'Pay 13 service Disney Plus',
+			type: 'D',
+			options: ['edit', 'delete'],
+			id: 20,
+		},
+		{
+			cardId: 4,
+			amount: 185000,
+			date: '2022-09-17',
+			description: 'Pay 14 service Disney Plus',
+			type: 'D',
+			options: ['edit', 'delete'],
+			id: 21,
+		},
+		{
+			cardId: 4,
+			amount: 185000,
+			date: '2022-09-17',
+			description: 'Pay 15 service Disney Plus',
+			type: 'D',
+			options: ['edit'],
+			id: 22,
+		},
+		{
+			cardId: 4,
+			amount: 185000,
+			date: '2022-09-17',
+			description: 'Pay 16 service Disney Plus',
+			type: 'D',
+			options: ['edit'],
+			id: 23,
+		},
+		{
+			cardId: 4,
+			amount: 185000,
+			date: '2022-09-17',
+			description: 'Pay 17 service Disney Plus',
+			type: 'D',
+			options: ['edit'],
+			id: 24,
+		},
+		{
+			cardId: 4,
+			amount: 185000,
+			date: '2022-09-17',
+			description: 'Pay 18 service Disney Plus',
+			type: 'D',
+			id: 25,
+		},
+		{
+			cardId: 4,
+			amount: 185000,
+			date: '2022-09-17',
+			description: 'Pay 19 service Disney Plus',
+			type: 'D',
+			id: 26,
+		},
+		{
+			cardId: 4,
+			amount: 185000,
+			date: '2022-09-17',
+			description: 'Pay 20 service Disney Plus',
+			type: 'D',
+			options: ['edit', 'delete', 'create'],
+			id: 27,
+		},
+		{
+			cardId: 4,
+			amount: 185000,
+			date: '2022-09-17',
+			description: 'Pay 21 service Disney Plus',
+			type: 'D',
+			options: ['edit', 'delete'],
+			id: 28,
+		},
+		{
+			cardId: 4,
+			amount: 185000,
+			date: '2022-09-17',
+			description: 'Pay 22 service Disney Plus',
+			type: 'D',
+			options: ['edit', 'delete'],
+			id: 29,
+		},
+		{
+			cardId: 4,
+			amount: 185000,
+			date: '2022-09-17',
+			description: 'Pay 23 service Disney Plus',
+			type: 'D',
+			options: ['edit'],
+			id: 30,
+		},
+		{
+			cardId: 4,
+			amount: 185000,
+			date: '2022-09-17',
+			description: 'Pay 24 service Disney Plus',
+			type: 'D',
+			options: ['edit'],
+			id: 31,
+		},
 	];
+
+	// const defaulValues = {
+	// 	data: [],
+	// 	page: 0,
+	// 	total: 0,
+	// };
+
+	// const [dataMovement, setMovementState] = useState<Movements>(defaulValues);
+
+	// const getData = async (page: number): Promise<Movements> => {
+	// 	const response = await axios.get(
+	// 		`https://api-services-kfmf.onrender.com/cards/${4}/movements?_limit=10&_page=${
+	// 			page + 1
+	// 		}`
+	// 	);
+	// 	const res = await axios.get(
+	// 		`https://api-services-kfmf.onrender.com/cards/${4}/movements`
+	// 	);
+
+	// 	const data = response.data.data.map((item: any) => {
+	// 		return {
+	// 			description: item.description,
+	// 			date: item.date,
+	// 			amount: item.amount,
+	// 		};
+	// 	});
+	// 	const total = res.data.data.length;
+
+	// 	return { data, page, total };
+	// };
+
+	const handleChangePage = async (newPage: number) => {
+		console.log('Llamar al servicio, en la pagina:', newPage);
+
+		// 	await getData(newPage).then((data) => setMovementState(data));
+	};
 
 	const actionOptions = [
 		{
@@ -298,9 +477,12 @@ export default function Signin({ params }: any) {
 			</Modals>
 
 			<TablePagination
-				data={data}
+				data={infoTable}
 				columns={columns}
 				actionOptions={actionOptions}
+				rowPages={10}
+				isByService={false}
+				handleChangePage={handleChangePage}
 			/>
 		</>
 	);
