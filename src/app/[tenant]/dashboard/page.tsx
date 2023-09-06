@@ -21,6 +21,7 @@ import {
 	Modals,
 } from '@/components/UI';
 import { useState } from 'react';
+import useGetFormStore from '@/hooks/zustanHooks';
 
 export default function Signin({ params }: any) {
 
@@ -29,8 +30,9 @@ export default function Signin({ params }: any) {
 	const [showModal, setShowModal] = useState(false);
 	const [showModal200, setShowModal200] = useState(false);
 	const [formData, setFormData] = useState<any>({});
-	const { lang } = useLangStore();
-	const { t } = useTranslation(lang, `${params.tenant}-general`);
+
+	const lang = useGetFormStore(useLangStore, (state) => state.lang)
+	const { t } = useTranslation(lang!, `${params.tenant}-general`);
 	const schema = getSchema([
 		'email',
 		'password',

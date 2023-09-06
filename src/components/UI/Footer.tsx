@@ -9,11 +9,12 @@ import { UtilsProps } from '@/interfaces';
 import { useLangStore } from '@/store/langStore';
 import { useTranslation } from '@/app/i18n/client';
 import { getImages, handleConfigTenant } from '@/utils';
+import useGetFormStore from '@/hooks/zustanHooks';
 
 export default function Footer({ tenant }: UtilsProps): JSX.Element {
   const theme = useTheme();
-  const { lang } = useLangStore();
-  const { t } = useTranslation(lang, `${tenant}-general`);
+  const lang = useGetFormStore(useLangStore, (state) => state.lang)
+  const { t } = useTranslation(lang!, `${tenant}-general`);
   const { imagesFooter, networks } = handleConfigTenant(tenant);
 
   return (

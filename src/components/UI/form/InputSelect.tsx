@@ -6,11 +6,12 @@ import { FormControl, FormHelperText, InputLabel, Select, MenuItem } from '@mui/
 //Internal App
 import { InputOptionsProps } from '@/interfaces';
 import { useLangStore } from '@/store/langStore';
+import useGetFormStore from '@/hooks/zustanHooks';
 
 function SelectMUI(props: InputOptionsProps): JSX.Element {
   const { name, label, options, labelError, error, value, tenant, onChange } = props;
-  const { lang } = useLangStore();
-  const { t } = useTranslation(lang, `${tenant}-general`);
+  const lang = useGetFormStore(useLangStore, (state) => state.lang)
+  const { t } = useTranslation(lang!, `${tenant}-general`);
   const textLabel = label ?? t(`form.${name}_label`);
 
   return (
