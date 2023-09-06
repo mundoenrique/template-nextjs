@@ -1,4 +1,7 @@
-import axios, { AxiosInstance, AxiosError } from 'axios';
+
+import { cookies } from 'next/headers'
+import axios, { AxiosInstance, AxiosError } from 'axios'
+import { createRedisInstance } from '@/services/redis'
 
 const axiosInstance: AxiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_BASE_URL,
@@ -18,9 +21,11 @@ axiosInstance.interceptors.response.use(
 
 // Interceptor para manejar timeout
 axiosInstance.interceptors.request.use(
-  (config) => {
+	async (config) => {
+		const uid = await callOuth()
     const timeout = 50000
-    config.timeout = timeout;
+		config.timeout = timeout;
+		config.headers["Authorization"] = `Bearer ${uid}`;
     return config;
   },
   (error) => {
@@ -30,5 +35,21 @@ axiosInstance.interceptors.request.use(
     });
   }
 );
+
+
+async function callOuth() {
+	const cookieStore = cookies()
+	const uidvdo = cookieStore.get('uidvdo')?.value
+
+	try {
+		const redis = createRedisInstance()
+		const OuthToken: any = await redis.get(`session:${uidvdo}`)
+
+		return OuthToken.accesToken
+	} catch (error) {
+		return null
+	}
+
+}
 
 export default axiosInstance;
