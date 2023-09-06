@@ -1,6 +1,4 @@
-import connectApi from '@/services/connectApi';
-import { signOut } from "next-auth/react"
-import Cookies from 'js-cookie'
+import connectApi from '@/services/connectApi'
 
 export function getImages(tenant: string, file: string) {
   let validateImage;
@@ -33,4 +31,15 @@ export function validateTenant(tenant:string) {
 	}
 
 	return viewTenant
+}
+
+export function ramdomData(length:number, format:string = 'alpha'): string | number {
+	let result: string | number = '';
+	let characters = (format == 'alpha') ? 'ABCDEFGHIJKLMNOPQRSTUVWXYabcdefghijklmnopqrstuvwxyzZ0123456789' : '0123456789';
+	let charactersLength = characters.length;
+	for (let i = 0; i < length; i++) {
+		result += characters.charAt(Math.floor(Math.random() * charactersLength));
+	}
+	result = (format == 'alpha') ? result : parseInt(result)
+	return result;
 }
