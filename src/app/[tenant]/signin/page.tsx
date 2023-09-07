@@ -7,7 +7,7 @@ import { Box, Typography, Grid, Button } from '@mui/material';
 //Internal App
 import { useLangStore } from '@/store/langStore';
 import { useTranslation } from '@/app/i18n/client';
-import { getSchema } from '@/config/validationConfig';
+import { getSchema } from '@/config/validation/validationConfig';
 import {
 	InputDatePicker,
 	InputPass,
@@ -19,28 +19,23 @@ import {
 	Modals,
 } from '@/components/UI';
 import { useState } from 'react';
+import { usePathname } from 'next/navigation';
+import { validateTenant } from '@/utils';
 
 export default function Signin({ params }: any) {
 	const [showModal, setShowModal] = useState(false);
 	const [showModal200, setShowModal200] = useState(false);
 	const [formData, setFormData] = useState<any>({});
+	const router = usePathname();
+	const currentTenant = validateTenant(router.split('/')[1]);
 	const { lang } = useLangStore();
 	const { t } = useTranslation(lang, `${params.tenant}-general`);
-	const schema = getSchema([
-		'email',
-		'password',
-		'programs',
-		'initialDate',
-		'roles',
-		'term',
-	]);
+	const schema = getSchema(
+		['email', 'password', 'programs', 'initialDate', 'roles', 'term'],
+		currentTenant
+	);
 
-	const {
-		handleSubmit,
-		control,
-		reset,
-		formState: { errors },
-	} = useForm({
+	const { handleSubmit, control, reset } = useForm({
 		defaultValues: {
 			email: '',
 			password: '',
