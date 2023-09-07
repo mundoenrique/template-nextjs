@@ -19,8 +19,6 @@ import {
 	NavBar,
 	Modals
 } from '@/components/UI';
-import { usePathname } from 'next/navigation';
-import { validateTenant } from '@/utils';
 
 type FormData = {
 	email: string,
@@ -49,17 +47,15 @@ export default function LoginPage({ params }: any) {
     });
   }, []);
 
-	const router = useRouter()
 
 	log_message('info', 'Access the SIG-IN page')
-	const routerPath = usePathname();
-	const currentTenant = validateTenant(routerPath.split('/')[1]);
+	const router = useRouter()
 	const lang = useGetFormStore(useLangStore, (state) => state.lang)
 	const { t } = useTranslation(lang!, `${params.tenant}-general`);
 	const schema = getSchema([
 		'email',
 		'password'
-	], currentTenant);
+	], params.tenant);
 
 	const { handleSubmit, control, reset } = useForm({
 		defaultValues: {

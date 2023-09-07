@@ -5,10 +5,9 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Box, Typography, Grid, Button } from '@mui/material';
 //Internal App
-import { log_message } from "@/utils";
 import { useLangStore } from '@/store/langStore';
 import { useTranslation } from '@/app/i18n/client';
-import { getSchema } from '@/config/validationConfig';
+import { getSchema } from '@/config/validation/validationConfig';
 import {
 	InputDatePicker,
 	InputPass,
@@ -20,32 +19,19 @@ import {
 	Modals,
 } from '@/components/UI';
 import { useState } from 'react';
-import useGetFormStore from '@/hooks/zustanHooks';
 
 export default function Signin({ params }: any) {
-
-	log_message('debug', 'Access the Components page')
 	const [showModal, setShowModal] = useState(false);
 	const [showModal200, setShowModal200] = useState(false);
 	const [formData, setFormData] = useState<any>({});
+	const { lang } = useLangStore();
+	const { t } = useTranslation(lang, `${params.tenant}-general`);
+	const schema = getSchema(
+		['email', 'password', 'programs', 'initialDate', 'roles', 'term'],
+		params.tenant
+	);
 
-	const lang = useGetFormStore(useLangStore, (state) => state.lang)
-	const { t } = useTranslation(lang!, `${params.tenant}-general`);
-	const schema = getSchema([
-		'email',
-		'password',
-		'programs',
-		'initialDate',
-		'roles',
-		'term',
-	]);
-
-	const {
-		handleSubmit,
-		control,
-		reset,
-		formState: { errors },
-	} = useForm({
+	const { handleSubmit, control, reset } = useForm({
 		defaultValues: {
 			email: '',
 			password: '',
