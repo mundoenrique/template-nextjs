@@ -340,7 +340,7 @@ export default function Signin({ params }: any) {
 	// };
 
 	const handleChangePage = async (newPage: number) => {
-		console.log('Llamar al servicio, en la pagina:', newPage);
+		console.log('Llamar al servicio, en la pagina:', newPage + 1);
 
 		// 	await getData(newPage).then((data) => setMovementState(data));
 	};
@@ -481,7 +481,7 @@ export default function Signin({ params }: any) {
 				columns={columns}
 				actionOptions={actionOptions}
 				rowPages={10}
-				isByService={false}
+				isByService={true}
 				handleChangePage={handleChangePage}
 			/>
 		</>

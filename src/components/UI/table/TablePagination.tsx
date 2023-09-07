@@ -58,7 +58,7 @@ const PaginationTable = ({
 		setDataTable(rows);
 	};
 
-	const changePaged = (newPage: number) => {
+	const changePaged = (event: unknown, newPage: number) => {
 		if (isByService) {
 			handleChangePage(newPage);
 		}
@@ -117,6 +117,7 @@ const PaginationTable = ({
 							rowsPerPage={rowPages}
 							onPageChange={changePaged}
 							ActionsComponent={PaginationActions}
+							rowsPerPageOptions={[]}
 						/>
 					</TableRow>
 				</TableFooter>

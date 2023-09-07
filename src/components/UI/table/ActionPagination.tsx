@@ -9,12 +9,16 @@ export default function TablePaginationActions(props: IPaginationActions) {
 	const theme = useTheme();
 	const { count, page, rowsPerPage, onPageChange } = props;
 
-	const handleBackButtonClick = () => {
-		onPageChange(page - 1);
+	const handleBackButtonClick = (
+		event: React.MouseEvent<HTMLButtonElement>
+	) => {
+		onPageChange(event, page - 1);
 	};
 
-	const handleNextButtonClick = () => {
-		onPageChange(page + 1);
+	const handleNextButtonClick = (
+		event: React.MouseEvent<HTMLButtonElement>
+	) => {
+		onPageChange(event, page + 1);
 	};
 
 	return (

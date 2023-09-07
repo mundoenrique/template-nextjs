@@ -44,5 +44,8 @@ export interface IPaginationActions {
 	count: number;
 	page: number;
 	rowsPerPage: number;
-	onPageChange: (newPage: number) => void;
+	onPageChange: (
+		event: React.MouseEvent<HTMLButtonElement>,
+		newPage: number
+	) => void;
 }
