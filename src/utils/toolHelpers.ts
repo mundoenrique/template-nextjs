@@ -12,10 +12,14 @@ export function getImages(tenant: string, file: string) {
   return validateImage;
 }
 
-export function log_message(type:string, msg: string) {
-
+export function log_message(type:string, msg: string, action: string = 'axios') {
 	const data = { type, msg }
-	connectApi.post('/logger', data)
+	action === 'axios'
+		? connectApi.post('/logger', data)
+		: fetch(process.env.NEXT_PUBLIC_PATH_URL + '/api/logger', {
+			method: "POST",
+			body: JSON.stringify(data)
+		})
 }
 
 export function validateTenant(tenant:string) {
