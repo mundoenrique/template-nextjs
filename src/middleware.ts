@@ -13,11 +13,11 @@ export async function middleware(req: NextRequest) {
 	const tenant = getPathName(url);
 	const requireAuth: string[] = [`/${tenant}/dashboard`]
 
-  log_message('debug',`middleware en url pathname: ${url.pathname}`)
+  log_message('debug',`Middleware in url pathname: ${url.pathname}`,'fetch')
 
 	if (!validTenants?.includes(tenant)) {
 		//Redirect Tenant default
-		return redirectTo(url, `/${defaultTenant}${SIGNIN_ROUTE}`, [])
+		return redirectTo(url, `/${defaultTenant}${SIGNIN_ROUTE}`)
 	}
 
 	if (requireAuth.some((path) => url.pathname.startsWith(path))) {
@@ -46,11 +46,14 @@ function redirectTo(url: URL, path: string, cookies: string[] = []): NextRespons
 
 async function validateSession(url: URL, tenant: string, req: NextRequest) {
 
+	log_message('debug',`Validating the user session`,'fetch')
+
 	const token = req.cookies.get('next-auth.session-token')
 	const payload: any = await validToken(token?.value)
 	const ip = req.headers.get('x-forwarded-for');
 
 	if (!token || (payload.ip != ip)) {
+		log_message('debug',`The session is not valid`,'fetch')
 		return redirectTo(url,`/${tenant}${SIGNIN_ROUTE}`,['next-auth.session-token'])
 	}
 }
