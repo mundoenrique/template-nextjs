@@ -5,5 +5,14 @@
   },
   "form": {
     "email_label": "Correo Personal"
+  },
+  "validation": {
+    "password_min": "La contraseña debe tener al menos 6 caracteres",
+    "password_required": "Ingresa una contraseña",
+    "passwordStrength": {
+      "0": "Debe contener mínimo 6 caracteres.",
+      "1": "Tener al menos una mayúscula.",
+      "2": "Contener un carácter especial (!#$%&)."
+    }
   }
 }

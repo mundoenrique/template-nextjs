@@ -14,7 +14,7 @@ import AddIcon from '@mui/icons-material/Add';
 //Internal App
 import { useLangStore } from '@/store/langStore';
 import { useTranslation } from '@/app/i18n/client';
-import { getSchema } from '@/config/validationConfig';
+import { getSchema } from '@/config/validation/validationConfig';
 import {
 	InputDatePicker,
 	InputPass,
@@ -25,31 +25,26 @@ import {
 	InputCheck,
 	Modals,
 } from '@/components/UI';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import TablePagination from '@/components/UI/table/TablePagination';
 import { Movements } from '@/interfaces';
+import { usePathname } from 'next/navigation';
+import { validateTenant } from '@/utils';
 
 export default function Signin({ params }: any) {
 	const [showModal, setShowModal] = useState(false);
 	const [showModal200, setShowModal200] = useState(true);
 	const [formData, setFormData] = useState<any>({});
+	const router = usePathname();
+	const currentTenant = validateTenant(router.split('/')[1]);
 	const { lang } = useLangStore();
 	const { t } = useTranslation(lang, `${params.tenant}-general`);
-	const schema = getSchema([
-		'email',
-		'password',
-		'programs',
-		'initialDate',
-		'roles',
-		'term',
-	]);
+	const schema = getSchema(
+		['email', 'password', 'programs', 'initialDate', 'roles', 'term'],
+		currentTenant
+	);
 
-	const {
-		handleSubmit,
-		control,
-		reset,
-		formState: { errors },
-	} = useForm({
+	const { handleSubmit, control, reset } = useForm({
 		defaultValues: {
 			email: '',
 			password: '',
