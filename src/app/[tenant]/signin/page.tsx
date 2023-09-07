@@ -10,15 +10,17 @@ import { useEffect, useState } from "react";
 import { log_message } from "@/utils";
 import { useLangStore } from '@/store/langStore';
 import { useTranslation } from '@/app/i18n/client';
-import { getSchema } from '@/config/validationConfig';
 import connectApi from "@/services/connectApi";
 import useGetFormStore from "@/hooks/zustanHooks";
+import { getSchema } from '@/config/validation/validationConfig';
 import {
 	InputPass,
 	InputText,
 	NavBar,
 	Modals
 } from '@/components/UI';
+import { usePathname } from 'next/navigation';
+import { validateTenant } from '@/utils';
 
 type FormData = {
 	email: string,
@@ -49,20 +51,17 @@ export default function LoginPage({ params }: any) {
 
 	const router = useRouter()
 
-	log_message('info','Access the SIG-IN page')
+	log_message('info', 'Access the SIG-IN page')
+	const routerPath = usePathname();
+	const currentTenant = validateTenant(routerPath.split('/')[1]);
 	const lang = useGetFormStore(useLangStore, (state) => state.lang)
 	const { t } = useTranslation(lang!, `${params.tenant}-general`);
 	const schema = getSchema([
 		'email',
 		'password'
-	]);
+	], currentTenant);
 
-	const {
-		handleSubmit,
-		control,
-		reset,
-		formState: { errors },
-	} = useForm({
+	const { handleSubmit, control, reset } = useForm({
 		defaultValues: {
 			email: '',
 			password: ''
