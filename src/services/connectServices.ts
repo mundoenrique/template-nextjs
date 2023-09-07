@@ -31,7 +31,7 @@ axiosInstance.interceptors.request.use(
   (error) => {
     return Promise.reject({
       status: -1,
-      data: 'Error al configurar la solicitud: ' + error.message
+      data: 'Error configuring the request: ' + error.message
     });
   }
 );
