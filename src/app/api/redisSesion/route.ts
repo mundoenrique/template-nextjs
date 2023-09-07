@@ -5,58 +5,59 @@ import { accessToken } from '@/services/oauth'
 import { cookies } from 'next/headers'
 const Logger = require("@/utils/logger")
 
-export async function GET(req: NextRequest, res: NextResponse) {
+export async function GET() {
 
 	const cookieStore = cookies()
 	const uid = cookieStore.get('uidvdo')?.value
 
-	Logger.info('Inicia registro de sesion cliente')
+	Logger.info('Log in customer session in Redis')
 	const redis = createRedisInstance()
 	const oauthUser = await redis.get(`session:${uid}`)
 	redis.quit()
 
 	if (!oauthUser) {
-		Logger.info('Solita servicio de Oauth')
+		Logger.info('Request Oauth service')
 		const resOauth: any = await accessToken()
 
 		switch (resOauth.code) {
 			case 0:
 				return await connectRedis(resOauth.data.accessToken)
 			default:
-				return new NextResponse(JSON.stringify({code:1, msg:'Error en solicitud Oauth'}), {
+				return new NextResponse(JSON.stringify({code:1, msg:'Oauth request error'}), {
   			status: 200
  				});
 		}
 	} else {
 		Logger.info(`Existe sesion en redis UID: ${uid}`)
-		return new NextResponse(JSON.stringify({code:0, msg:'existe sesion Oauth'}), {
+		return new NextResponse(JSON.stringify({code:0, msg:'Oauth session exists'}), {
   		status: 200
  		});
 	}
 }
 
-async function connectRedis( token: string) {
+async function connectRedis(token: string) {
+
+	const expireSesion = process.env.REDIS_EXIPRE || 3600
 	try {
-		Logger.info('Inicia conexion a Redis')
+		Logger.info('Start connection to Redis')
 		const redis = createRedisInstance()
 		const uid = ramdomData(70)
 		await redis.set(`session:${uid}`, JSON.stringify({ accesToken: token }));
-		Logger.info(`Registra oauth en redis UID: ${uid}`)
-		await redis.expire(`session:${uid}`, 3600)
+		Logger.info(`Register oauth in Redis UID: ${uid}`)
+		await redis.expire(`session:${uid}`, expireSesion)
 		redis.quit()
 
 		const strict = process.env.NODE_ENV != 'production' ? "lax" : "strict"
 
-		return new NextResponse(JSON.stringify({code:0, msg:'Proceso Ok' }), {
+		return new NextResponse(JSON.stringify({code:0, msg:'Successful Redis registration process' }), {
 			status: 200,
 			headers: {
-				'Set-Cookie': `uidvdo=${uid}; HttpOnly=true; Path=/; Secure=true; SameSite=${strict}`,
-				'x-hash': 'ELHASHDINAMICO'
+				'Set-Cookie': `uidvdo=${uid}; HttpOnly=true; Path=/; Secure=true; SameSite=${strict}`
 			}
   	})
 	} catch (error) {
-		Logger.info(`No registro oauth en redis`)
-		return new NextResponse(JSON.stringify({code:1, msg:'Error en conexion a redis'}), {
+		Logger.info(`No oauth record in redis`)
+		return new NextResponse(JSON.stringify({code:1, msg:'Error in connection to Redis'}), {
   	status: 200
  	});
 	}

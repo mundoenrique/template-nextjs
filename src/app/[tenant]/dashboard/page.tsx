@@ -24,7 +24,7 @@ import useGetFormStore from '@/hooks/zustanHooks';
 
 export default function Signin({ params }: any) {
 
-	log_message('debug', 'Accede a la pagina Componentes')
+	log_message('debug', 'Access the Components page')
 	const [showModal, setShowModal] = useState(false);
 	const [showModal200, setShowModal200] = useState(false);
 	const [formData, setFormData] = useState<any>({});

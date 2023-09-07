@@ -49,7 +49,7 @@ export default function LoginPage({ params }: any) {
 
 	const router = useRouter()
 
-	log_message('info','Accede a la pagin a SIG-IN')
+	log_message('info','Access the SIG-IN page')
 	const lang = useGetFormStore(useLangStore, (state) => state.lang)
 	const { t } = useTranslation(lang!, `${params.tenant}-general`);
 	const schema = getSchema([
@@ -110,7 +110,7 @@ export default function LoginPage({ params }: any) {
 			</Box>
 
 			<Modals
-				msgModal={'En este momento no podemos procesar tu solicitud'}
+				msgModal={'We are unable to process your request at this time'}
 				buttons={1}
 				showModal={showModal}
 			>
