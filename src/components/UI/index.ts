@@ -10,3 +10,4 @@ export { default as InputCheck } from './form/InputCheck';
 export { default as Modals } from './Modals';
 export { default as InputSwitch } from './form/InputSwitch';
 export { default as Dialogs } from './Dialogs';
+export { default as PageNotFound } from './404';

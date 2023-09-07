@@ -1,6 +1,5 @@
 'use client';
 
-import { useState } from 'react';
 import dayjs from 'dayjs';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -9,11 +8,9 @@ import { Box, Typography, Grid, Button, Stack } from '@mui/material';
 //Internal App
 import { useLangStore } from '@/store/langStore';
 import { useTranslation } from '@/app/i18n/client';
-import { getSchema } from '@/config/validationConfig';
-import { Buttons } from "@/app/components/UI";
-import { ModalCookies } from "@/app/components/UI";
 import { useCookiesStore } from "@/store/cookiesStore";
 // import { useRouter } from "next/navigation";
+import { getSchema } from '@/config/validation/validationConfig';
 
 import {
 	InputDatePicker,
@@ -26,32 +23,28 @@ import {
 	Modals,
 } from '@/components/UI';
 
+import { useState } from 'react';
+import { usePathname } from 'next/navigation';
+import { validateTenant } from '@/utils';
+
 export default function Signin({ params }: any) {
 	const [showModal, setShowModal] = useState(false);
 	const [showModal200, setShowModal200] = useState(false);
 	const [formData, setFormData] = useState<any>({});
+	const router = usePathname();
+	const currentTenant = validateTenant(router.split('/')[1]);
 	const { lang } = useLangStore();
   // const language = useLangStore((state: any) => state.lang);
 	const { t } = useTranslation(lang, `${params.tenant}-general`);
   // const { t } = useTranslation(language, `${params.tenant}-general`);
   // const router = useRouter();
-  const { removeCookies } = useCookiesStore();
-	const schema = getSchema([
-		'email',
-		'password',
-		'programs',
-		'initialDate',
-		'roles',
-		'term',
-	]);
+  
+	const schema = getSchema(
+		['email', 'password', 'programs', 'initialDate', 'roles', 'term'],
+		currentTenant
+	);
 
-
-	const {
-		handleSubmit,
-		control,
-		reset,
-		formState: { errors },
-	} = useForm({
+	const { handleSubmit, control, reset } = useForm({
 		defaultValues: {
 			email: '',
 			password: '',

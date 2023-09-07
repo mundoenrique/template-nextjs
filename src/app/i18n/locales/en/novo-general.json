@@ -4,10 +4,12 @@
     "close": "Close Novo",
     "cancel": "Cancel",
     "acceptAllCookies": "Accept all cookies",
-     "personalizeCookies": "Personalize Cookies",
-     "acceptAll": "Accept all",
-     "rejectAll": "Reject All",
-     "saveAndExit": "Save and Exit"
+    "personalizeCookies": "Personalize Cookies",
+    "acceptAll": "Accept all",
+    "rejectAll": "Reject All",
+    "saveAndExit": "Save and Exit",
+    "homepage": "Go To Homepage",
+    "return": "Return"
   },
   "titles": {
     "master-acount": "Master Account Novo",
@@ -15,7 +17,11 @@
   },
   "lang": "Spanish Novo",
   "copyright": "© NovoPayment Inc. All rights reserved. - {{year}}",
-  "optional": "Optinal",
+  "optional": "Optional",
+  "page_not_found": "Page not found",
+  "message_not_found": "The page you are looking for might have been removed had its name changed or is temporarily unavailable.",
+  "title_error_general": "General error",
+  "desc_error_general": "An unexpected technical problem has occurred. Go back to the previous page and try again.",
   "form": {
     "email_label": "Email",
     "password_label": "Password",

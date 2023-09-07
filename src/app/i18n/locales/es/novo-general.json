@@ -7,7 +7,9 @@
     "personalizeCookies": "Personalizar cookies",
     "acceptAll": "Aceptar todas",
     "rejectAll": "Rechazar todas",
-    "saveAndExit": "Guardar y salir"
+    "saveAndExit": "Guardar y salir",
+    "homepage": "Ir a página principal",
+    "return": "Regresar"
   },
   "titles": {
     "master-acount": "Cuenta Principal Novo",
@@ -16,6 +18,10 @@
   "lang": "Inglés Novo",
   "copyright": "© NovoPayment Inc. Todos los derechos reservados. - {{year}}",
   "optional": "Opcional",
+  "page_not_found": "Página no encontrada",
+  "message_not_found": "Es posible que la página que está buscando haya sido eliminada debido a un cambio de nombre o no esté disponible temporalmente.",
+  "title_error_general": "Error General",
+  "desc_error_general": "Ha ocurrido un problema técnico inesperado. Regrese a la página anterior e intenta nuevamente.",
   "form": {
     "email_label": "Correo Electrónico",
     "password_label": "Contraseña",
