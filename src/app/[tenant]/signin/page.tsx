@@ -1,5 +1,6 @@
 'use client';
 
+import React, { useEffect, useState } from "react";
 import dayjs from 'dayjs';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -8,7 +9,6 @@ import { Box, Typography, Grid, Button, Stack } from '@mui/material';
 //Internal App
 import { useLangStore } from '@/store/langStore';
 import { useTranslation } from '@/app/i18n/client';
-import { useCookiesStore } from "@/store/cookiesStore";
 // import { useRouter } from "next/navigation";
 import { getSchema } from '@/config/validation/validationConfig';
 
@@ -20,16 +20,19 @@ import {
 	NavBar,
 	InputRadio,
 	InputCheck,
+	InputSwitch,
 	Modals,
+	Dialogs
 } from '@/components/UI';
 
-import { useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { validateTenant } from '@/utils';
 
 export default function Signin({ params }: any) {
 	const [showModal, setShowModal] = useState(false);
 	const [showModal200, setShowModal200] = useState(false);
+	const [open, dialogAccept] = useState(false);
+	const [personalize, dialogPersonalize] = useState(false);
 	const [formData, setFormData] = useState<any>({});
 	const router = usePathname();
 	const currentTenant = validateTenant(router.split('/')[1]);
@@ -78,11 +81,80 @@ export default function Signin({ params }: any) {
 		},
 	];
 
+	const cookiesList = [
+		{
+			id: 1,
+			name: 'necessaryCookies',
+			title: "Cookies necesarias",
+			info: "",
+			value: true,
+			required: true
+		},
+		{
+			id: 2,
+			name: 'functionalyCookies',
+			title: "Cookies funcionales",
+			info: "",
+			value: false,
+			required: false
+		},
+		{
+			id: 3,
+			name: 'performanceCookies',
+			title: "Cookies de rendimiento",
+			info: "",
+			value: false,
+			required: false
+		},
+	];
+
 	const onSubmit = async (data: any) => {
 		data.initialDate = dayjs(data.initialDate).format('DD/MM/YYYY');
 		setFormData(data);
 		setShowModal(true);
 	};
+
+	const getCookiesList = async () => {
+		const response = await fetch(process.env.NEXT_PUBLIC_PATH_URL + '/api/cookies', {
+			method: 'GET',
+		})
+		const data = await response.json()
+		const list = data.data
+		let existCookies: any
+		
+		switch (list.length) {
+			case 0:
+				existCookies = true
+				break
+				default:
+				let findState: any
+				findState = list.filter((item: any) => item.name === 'necessaryCookies');
+				existCookies = (findState[0].name === 'necessaryCookies') ? false : true
+				break
+		}
+		dialogAccept(existCookies)
+	}
+
+	const setCookies = async (options: any, type: number) => {
+		const response = await fetch(process.env.NEXT_PUBLIC_PATH_URL + '/api/cookies', {
+			method: 'POST',
+			body: JSON.stringify({options, type})
+		})	
+		const data = await response.json()
+		const value = (data.code === 0) ? false : true
+		if (type === 1) {
+			dialogAccept(value)
+		} else {
+			dialogPersonalize(value)
+		}
+	}
+
+	const acceptAll = async () => {}
+	const rejecttAll = async () => {}
+
+	useEffect(() => {
+		getCookiesList()
+  },[])
 
 	return (
 		<>
@@ -196,7 +268,61 @@ export default function Signin({ params }: any) {
 			</Modals>
 
       <>
-      {/* <ModalCookies params={params}/> */}
+				<Dialogs
+					open={open}
+					title={t('cookies.titles.privacy')}
+					info1={<>{t('cookies.dialog1.info1')} <a href="/" target="_blank">{t('cookies.dialog1.here')}</a></>}
+					info2=""
+					maxWidth="xl"
+					buttonActions1=""
+					buttonActions2={<>
+						<Button
+							variant="contained"
+							onClick={() => {
+								setCookies(cookiesList, 1)
+							}
+						}>
+							{t('buttons.acceptAllCookies')}
+						</Button>
+						<Button variant="outlined" onClick={() => {
+								dialogAccept(false)
+								dialogPersonalize(true)
+							}
+						}>
+							{t('buttons.personalizeCookies')}
+						</Button>
+					</>}
+				>
+				</Dialogs>
+
+				<Dialogs
+					open={personalize}
+					title={t('cookies.titles.config')}
+					info1={t('cookies.dialog2.info1')}
+					info2={<>{t('cookies.dialog2.info2')}<a href="/" target="_blank">{t('cookies.dialog2.info3')}</a></>}
+					maxWidth="sm"
+					buttonActions1={<>
+						<Button variant="outlined" onClick={() => acceptAll()}>
+							{t('buttons.acceptAll')}
+						</Button>
+						<Button variant="outlined" onClick={() => rejectAll()}>
+							{t('buttons.rejectAll')}
+						</Button>
+					</>}
+					buttonActions2={<>
+						<Button variant="contained" onClick={() => setCookies(cookiesList, 2)}>
+							{t('buttons.saveAndExit')}
+						</Button>
+					</>}
+				>
+					<InputSwitch
+						name="cookies"
+						control={control}
+						tenant={params.tenant}
+						options={cookiesList}
+					/>
+				</Dialogs>
+			
       
       <Box sx={{ m: 5 }}>
         <Typography variant="h3">Botones</Typography>
