@@ -1,41 +1,14 @@
 import { NextRequest, NextResponse } from "next/server"
 import { cookies } from 'next/headers'
 
-	const cookiesList = [
-		{
-			id: 1,
-			name: 'necessaryCookies',
-			title: "Cookies necesarias",
-			info: "",
-			value: true,
-			required: true
-		},
-		{
-			id: 2,
-			name: 'functionalyCookies',
-			title: "Cookies funcionales",
-			info: "",
-			value: false,
-			required: false
-		},
-		{
-			id: 3,
-			name: 'performanceCookies',
-			title: "Cookies de rendimiento",
-			info: "",
-			value: false,
-			required: false
-		},
-];
-  
 export async function GET(req: NextRequest, res: NextResponse) {
   try {
-    return await getCookies(cookiesList)
+    return await getCookies()
   } catch (error) {
     return new NextResponse(JSON.stringify({ code: 1, msg: 'Error' }), { status: 200 });
   }
 
-  async function getCookies(data: any) {
+  async function getCookies() {
     const cookieStore = cookies()
     try {
       const listCookies = cookieStore.getAll()
