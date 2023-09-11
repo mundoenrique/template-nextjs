@@ -120,19 +120,19 @@ export default function Signin({ params }: any) {
 		})
 		const data = await response.json()
 		const list = data.data
-		let existCookies: any
+		let showDialog: any
 		
 		switch (list.length) {
 			case 0:
-				existCookies = true
+				showDialog = true
 				break
-				default:
+			default:
 				let findState: any
 				findState = list.filter((item: any) => item.name === 'necessaryCookies');
-				existCookies = (findState[0].name === 'necessaryCookies') ? false : true
+				showDialog = (findState[0].name === 'necessaryCookies') ? false : true
 				break
 		}
-		dialogAccept(existCookies)
+		dialogAccept(showDialog)
 	}
 
 	const setCookies = async (options: any, type: number) => {
