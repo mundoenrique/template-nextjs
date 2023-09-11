@@ -8,6 +8,7 @@ import TableFooter from '@mui/material/TableFooter';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import { Typography } from '@mui/material';
 
 //Internal App
 import ActionOptions from './ActionOptions';
@@ -48,6 +49,7 @@ const PaginationTable = ({
 
 	const [page, setPage] = useState<number>(0);
 	const [dataTable, setDataTable] = useState<InfoRow[]>([]);
+	const [countColumns, setCountColumns] = useState<number>(0);
 
 	const pagedData = () => {
 		const copy = [...data];
@@ -56,6 +58,14 @@ const PaginationTable = ({
 			rowPages * (page + 1)
 		);
 		setDataTable(rows);
+	};
+
+	const getColumns = () => {
+		if (actionOptions) {
+			setCountColumns(columns.length + 1);
+		} else {
+			setCountColumns(columns.length);
+		}
 	};
 
 	const changePaged = (event: unknown, newPage: number) => {
@@ -67,6 +77,7 @@ const PaginationTable = ({
 
 	useEffect(() => {
 		pagedData();
+		getColumns();
 	}, [page]);
 
 	return (
@@ -108,19 +119,34 @@ const PaginationTable = ({
 							) : null}
 						</TableRow>
 					))}
+					{dataTable.length === 0 && (
+						<TableRow>
+							<TableCell colSpan={countColumns}>
+								<Typography
+									variant="h5"
+									color="custom.tertiary"
+									style={{ textAlign: 'center' }}
+								>
+									No recent activity yet
+								</Typography>
+							</TableCell>
+						</TableRow>
+					)}
 				</TableBody>
-				<TableFooter>
-					<TableRow>
-						<TablePagination
-							count={totalRows}
-							page={page}
-							rowsPerPage={rowPages}
-							onPageChange={changePaged}
-							ActionsComponent={PaginationActions}
-							rowsPerPageOptions={[]}
-						/>
-					</TableRow>
-				</TableFooter>
+				{dataTable.length > 10 && (
+					<TableFooter>
+						<TableRow>
+							<TablePagination
+								count={totalRows}
+								page={page}
+								rowsPerPage={rowPages}
+								onPageChange={changePaged}
+								ActionsComponent={PaginationActions}
+								rowsPerPageOptions={[]}
+							/>
+						</TableRow>
+					</TableFooter>
+				)}
 			</Table>
 		</TableContainer>
 	);
