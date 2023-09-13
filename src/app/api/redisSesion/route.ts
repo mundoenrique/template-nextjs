@@ -1,14 +1,13 @@
-import { NextRequest, NextResponse } from "next/server"
+import { NextResponse } from "next/server"
 import { createRedisInstance } from '@/services/redis'
-import { ramdomData } from "@/utils"
+import { encryptToView, ramdomData } from "@/utils"
 import { accessToken } from '@/services/oauth'
 import { cookies } from 'next/headers'
 const Logger = require("@/utils/logger")
 
 export async function GET() {
 
-	const cookieStore = cookies()
-	const uid = cookieStore.get('uidvdo')?.value
+	const uid = cookies().get('uidvdo')?.value
 
 	Logger.info('Log in customer session in Redis')
 	const redis = createRedisInstance()
@@ -23,15 +22,17 @@ export async function GET() {
 			case 0:
 				return await connectRedis(resOauth.data.accessToken)
 			default:
-				return new NextResponse(JSON.stringify({code:1, msg:'Oauth request error'}), {
+				const cifrado = encryptToView({code:1, msg:'Oauth request error'})
+				return new NextResponse(JSON.stringify(cifrado), {
   			status: 200
  				});
 		}
 	} else {
+		const cifrado = encryptToView({code:0, msg:'Oauth session exists'})
 		Logger.info(`Existe sesion en redis UID: ${uid}`)
-		return new NextResponse(JSON.stringify({code:0, msg:'Oauth session exists'}), {
+		return new NextResponse(JSON.stringify(cifrado),{
   		status: 200
- 		});
+ 		})
 	}
 }
 
@@ -48,16 +49,17 @@ async function connectRedis(token: string) {
 		redis.quit()
 
 		const strict = process.env.NODE_ENV != 'production' ? "lax" : "strict"
-
-		return new NextResponse(JSON.stringify({code:0, msg:'Successful Redis registration process' }), {
+		const cifrado = encryptToView({code:0, msg:'Successful Redis registration process'})
+		return new NextResponse(JSON.stringify(cifrado), {
 			status: 200,
 			headers: {
 				'Set-Cookie': `uidvdo=${uid}; HttpOnly=true; Path=/; Secure=true; SameSite=${strict}`
 			}
   	})
 	} catch (error) {
+		const cifrado = encryptToView({code:1, msg:'Error in connection to Redis'})
 		Logger.info(`No oauth record in redis`)
-		return new NextResponse(JSON.stringify({code:1, msg:'Error in connection to Redis'}), {
+		return new NextResponse(JSON.stringify(cifrado), {
   	status: 200
  	});
 	}

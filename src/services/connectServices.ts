@@ -3,35 +3,37 @@ import { cookies } from 'next/headers'
 import axios, { AxiosInstance, AxiosError } from 'axios'
 import { createRedisInstance } from '@/services/redis'
 
-const axiosInstance: AxiosInstance = axios.create({
+const connectServices: AxiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_BASE_URL,
-  timeout: 50000
+  timeout: parseInt(process.env.TIMEOUT_API || '50000')
 });
 
 // Interceptor para manejar errores de respuesta
-axiosInstance.interceptors.response.use(
-  (response) => response.data,
+connectServices.interceptors.response.use(
+  (response) => {
+    return response.data
+  },
   (error: AxiosError) => {
       return Promise.resolve({
         code: -1,
-        data: 'At this time we are unable to accommodate your request, please try again later.',
+        data: "At this time we are unable to accommodate your request, please try again later.",
       });
   }
 );
 
 // Interceptor para manejar timeout
-axiosInstance.interceptors.request.use(
+connectServices.interceptors.request.use(
 	async (config) => {
-		const uid = await callOuth()
-    const timeout = 50000
-		config.timeout = timeout;
-		config.headers["Authorization"] = `Bearer ${uid}`;
-    return config;
+    const uid = await callOuth()
+		config.timeout = parseInt(process.env.TIMEOUT_API || '50000')
+    config.headers["Content-Type"] = "application/json"
+		config.headers["Authorization"] = `Bearer ${uid}`
+  return config;
   },
   (error) => {
     return Promise.reject({
       status: -1,
-      data: 'Error configuring the request: ' + error.message
+      data: `Error configuring the request: ${error.message}`
     });
   }
 );
@@ -52,4 +54,4 @@ async function callOuth() {
 
 }
 
-export default axiosInstance;
+export default connectServices;

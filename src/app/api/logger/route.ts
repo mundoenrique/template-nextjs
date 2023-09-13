@@ -1,26 +1,27 @@
-import { NextRequest, NextResponse } from "next/server";
-import { validToken } from "@/utils/jwt";
-const logger = require("@/utils/logger");
+import { NextRequest, NextResponse } from "next/server"
+import { getServerSession } from "next-auth/next"
+import { options } from "@/utils/nextAuth"
+import { decrypt, encryptToView } from "@/utils";
+const logger = require("@/utils/logger")
 
 export async function POST(req: NextRequest) {
 
+	const { payload } = await req.json()
+	const reqData = JSON.parse(decrypt(payload))
+	const session = await getServerSession(options)
 	const url = req.headers.get('referer') || ''
 	const tenant = url.split('/')[3]
-	const ipAddress = req.headers.get('x-forwarded-for');
-	const token = req.cookies.get('next-auth.session-token')
-	const payload:any = await validToken(token?.value)
-	const json = await req.json();
-	let msg
+	const ip = req.headers.get('x-forwarded-for')
 
-	if(payload){
-		msg = { message: json.msg, user: payload.name, ip: ipAddress, tenant}
+	if(session){
+		logger[reqData.type]({ message: reqData.msg, user: session.user?.name, ip, tenant});
 	} else {
-		msg = { message: json.msg }
+		logger[reqData.type]({ message: reqData.msg })
 	}
 
- 	logger[json.type](msg);
+	const cifrado = encryptToView({ code: 0, msg: 'ok' })
 
- 	return new NextResponse(JSON.stringify({msg: 'ok'}), {
+ 	return new NextResponse(JSON.stringify(cifrado), {
   	status: 200
  	});
 };

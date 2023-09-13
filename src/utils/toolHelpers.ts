@@ -1,3 +1,4 @@
+import CryptoJS from "crypto-js"
 import connectApi from '@/services/connectApi'
 
 export function getImages(tenant: string, file: string) {
@@ -18,7 +19,7 @@ export function log_message(type:string, msg: string, action: string = 'axios') 
 		? connectApi.post('/logger', data)
 		: fetch(process.env.NEXT_PUBLIC_PATH_URL + '/api/logger', {
 			method: "POST",
-			body: JSON.stringify(data)
+			body: JSON.stringify({payload: encrypt(JSON.stringify(data))})
 		})
 }
 
@@ -47,3 +48,37 @@ export function ramdomData(length:number, format:string = 'alpha'): string | num
 	result = (format == 'alpha') ? result : parseInt(result)
 	return result;
 }
+
+export const encrypt = (data:any, secret:string = process.env.NEXT_PUBLIC_SECRET_KEY || '') => {
+
+	const key = CryptoJS.enc.Base64.parse(secret);
+  const iv = CryptoJS.enc.Base64.parse(process.env.NEXT_PUBLIC_SECRET_IV || '');
+	var ciphertext = CryptoJS.AES.encrypt(data, key, { iv });
+	return ciphertext.toString()
+}
+
+export const decrypt = (crypted:any, secret:string = process.env.NEXT_PUBLIC_SECRET_KEY || '') => {
+
+	const key = CryptoJS.enc.Base64.parse(secret);
+  const iv = CryptoJS.enc.Base64.parse(process.env.NEXT_PUBLIC_SECRET_IV || '');
+	var bytes = CryptoJS.AES.decrypt(crypted, key, {iv});
+	var decryptedData = bytes.toString(CryptoJS.enc.Utf8);
+	return decryptedData
+}
+
+export const encryptToView = (data: any) => {
+
+	try {
+		const decode = ramdomData(22).toString()
+		const encryptData = encrypt(JSON.stringify(data), decode)
+		const encryptResponse = {
+			payload: encryptData,
+			code: decode
+		}
+		return encryptResponse
+	} catch (e) {
+		log_message('error',`Error encrypt to view ${e}`)
+	}
+}
+
+
