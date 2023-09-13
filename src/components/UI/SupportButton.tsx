@@ -12,7 +12,7 @@ import { useTranslation } from '@/app/i18n/client';
 export default function SupporButton({ tenant }: UtilsProps): JSX.Element {
   const { lang, changeLang } = useLangStore();
   const currentLang = lang === 'en' ? 'es' : 'en';
-  const { t } = useTranslation(lang, `${tenant}-general`);
+  const { t } = useTranslation(`${tenant}-general`);
 
   return (
     <SpeedDial

@@ -19,14 +19,11 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 //Internal App
 import { TextFieldProps } from '@/interfaces';
-import { useLangStore } from '@/store/langStore';
 import { useTranslation } from '@/app/i18n/client';
-import useGetFormStore from '@/hooks/zustanHooks';
 
 export default function InputPassField(props: TextFieldProps): JSX.Element {
   const { name, control, label, labelError, onChange, additionalInfo = false, tenant } = props;
-  const lang = useGetFormStore(useLangStore, (state) => state.lang)
-  const { t } = useTranslation(lang!, `${tenant}-general`);
+  const { t } = useTranslation(`${tenant}-general`);
   const [passwordShown, setPasswordShown] = useState(false);
   const [openPopper, setOpenPopper] = useState(false);
   const [arrowRef, setArrowRef] = useState<any>(null);

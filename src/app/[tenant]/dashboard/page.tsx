@@ -5,7 +5,6 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Box, Typography, Grid, Button } from '@mui/material';
 //Internal App
-import { useLangStore } from '@/store/langStore';
 import { useTranslation } from '@/app/i18n/client';
 import { getSchema } from '@/config/validation/validationConfig';
 import {
@@ -27,8 +26,7 @@ export default function Signin({ params }: any) {
 	const [showModal, setShowModal] = useState(false);
 	const [showModal200, setShowModal200] = useState(false);
 	const [formData, setFormData] = useState<any>({});
-	const { lang } = useLangStore();
-	const { t } = useTranslation(lang, `${params.tenant}-general`);
+	const { t } = useTranslation(`${params.tenant}-general`);
 	const schema = getSchema(
 		['email', 'password', 'programs', 'initialDate', 'roles', 'term'],
 		params.tenant

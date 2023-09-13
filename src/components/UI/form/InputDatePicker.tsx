@@ -18,7 +18,7 @@ function DatePickerMUI(props: InputDatePickerProps): JSX.Element {
   const theme = useTheme();
   const { name, label, labelError, error, tenant, onChange, value, views, format } = props;
   const lang = useGetFormStore(useLangStore, (state) => state.lang)
-  const { t } = useTranslation(lang!, `${tenant}-general`);
+  const { t } = useTranslation(`${tenant}-general`);
   const inputLabel = label ?? t(`form.${name}_label`);
 
   return (

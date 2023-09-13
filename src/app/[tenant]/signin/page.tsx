@@ -11,7 +11,6 @@ import { log_message } from "@/utils";
 import { useLangStore } from '@/store/langStore';
 import { useTranslation } from '@/app/i18n/client';
 import connectApi from "@/services/connectApi";
-import useGetFormStore from "@/hooks/zustanHooks";
 import { getSchema } from '@/config/validation/validationConfig';
 import {
 	InputPass,
@@ -50,8 +49,7 @@ export default function LoginPage({ params }: any) {
 
 	log_message('info', 'Access the SIG-IN page')
 	const router = useRouter()
-	const lang = useGetFormStore(useLangStore, (state) => state.lang)
-	const { t } = useTranslation(lang!, `${params.tenant}-general`);
+	const { t } = useTranslation(`${params.tenant}-general`)
 	const schema = getSchema([
 		'email',
 		'password'
