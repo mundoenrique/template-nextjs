@@ -15,7 +15,7 @@ export default function MuiProvider({ children, theme }: MuiProviderProps) {
     theTheme = require(`../../themes/theme-novo`);
   }
 
-  log_message('debug',`Carga el tema ${theme}`)
+  log_message('debug',`Load the theme ${theme}`)
 
   return (
     <ThemeProvider theme={theTheme.changeMode('light')}>
