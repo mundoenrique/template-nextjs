@@ -1,9 +1,9 @@
-import axiosInstance from "./connectServices";
+import connectServices from "./connectServices"
 
 export const authenticate = async (email: string, password: string, req: any) => {
 
 	const ipAddress = req.headers['x-forwarded-for'];
-	const response: any = await axiosInstance.get(`/users?user=${email}&password=${password}`);
+	const response: any = await connectServices.get(`/users?user=${email}&password=${password}`);
 
 	switch (response.code) {
       case 0:
