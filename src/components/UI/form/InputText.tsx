@@ -4,13 +4,11 @@ import { Controller } from 'react-hook-form';
 import { FormControl, FormHelperText, InputAdornment, InputLabel, OutlinedInput } from '@mui/material';
 //Internal app
 import { TextFieldProps } from '@/interfaces';
-import { useLangStore } from '@/store/langStore';
 import { useTranslation } from '@/app/i18n/client';
 
 function InputMUI(props: TextFieldProps): JSX.Element {
   const { name, label, labelError, type, optional, error, value, tenant, onChange } = props;
-  const { lang } = useLangStore();
-  const { t } = useTranslation(lang, `${tenant}-general`);
+  const { t } = useTranslation(`${tenant}-general`);
   const textLabel = label ?? t(`form.${name}_label`);
 
   return (
