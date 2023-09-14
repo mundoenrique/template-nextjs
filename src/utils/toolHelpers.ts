@@ -66,7 +66,7 @@ export const decrypt = (crypted:any, secret:string = process.env.NEXT_PUBLIC_SEC
 	return decryptedData
 }
 
-export const encryptToView = (data: any) => {
+export const encryptToView = (data:string) => {
 
 	try {
 		const decode = ramdomData(22).toString()
@@ -80,5 +80,3 @@ export const encryptToView = (data: any) => {
 		log_message('error',`Error encrypt to view ${e}`)
 	}
 }
-
-
