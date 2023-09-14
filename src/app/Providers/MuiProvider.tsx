@@ -1,10 +1,13 @@
 'use client';
 
-import { Box, CssBaseline, ThemeProvider } from '@mui/material';
+import { CssBaseline, ThemeProvider } from '@mui/material';
 //Internal App
+import { useModeStore } from '@/store';
 import { MuiProviderProps } from '@/interfaces';
+import useGetFormStore from '@/hooks/zustanHooks';
 
 export default function MuiProvider({ children, theme }: MuiProviderProps) {
+  const currentMode = useGetFormStore(useModeStore, (state) => state.mode);
   let theTheme;
 
   try {
@@ -14,7 +17,7 @@ export default function MuiProvider({ children, theme }: MuiProviderProps) {
   }
 
   return (
-    <ThemeProvider theme={theTheme.changeMode('light')}>
+    <ThemeProvider theme={theTheme.changeMode(currentMode || 'light')}>
       <CssBaseline />
       {children}
     </ThemeProvider>

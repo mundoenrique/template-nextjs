@@ -6,8 +6,14 @@ const black = '#000';
 // Primary color - Tenant
 const primary = '#0A60F9';
 
-// Text color variables
+// Primary color mode dark
+const primaryDark = '#0F1924';
+
+//Secondary color - Tenant
 const secondary = '#A19DA2';
+
+// Text color variables
+const textColor = '#A19DA2';
 
 // Grayscale variables
 const greyLight = '#f3f3f3';
@@ -39,6 +45,7 @@ export function changeMode(mode: string) {
         50: greyLight,
         100: greyNormal,
         200: greyDark,
+        300: textColor,
       },
     },
     //Custom typography
@@ -100,7 +107,7 @@ export function changeMode(mode: string) {
       MuiContainer: {
         styleOverrides: {
           root: {
-            backgroundColor: mode === 'light' ? white : black,
+            backgroundColor: mode === 'light' ? white : primaryDark,
             maxWidth: 'initial !important',
             flex: 'auto',
             paddingLeft: '0 !important',
@@ -136,7 +143,7 @@ export function changeMode(mode: string) {
             background: primary,
           },
           textPrimary: {
-            color: primary,
+            color: mode === 'light' ? '' : white,
             ':hover': {
               background: 'transparent',
             },
@@ -176,10 +183,35 @@ export function changeMode(mode: string) {
           },
         },
       },
+      MuiInputLabel: {
+        styleOverrides: {
+          root: {
+            color: mode === 'light' ? '' : secondary,
+            backgroundColor: mode === 'light' ? '' : white,
+            borderRadius: mode === 'light' ? '' : borderRadius,
+            paddingLeft: mode === 'light' ? '' : 8,
+            paddingRight: mode === 'light' ? '' : 8,
+            '&.Mui-focused': {
+              color: mode === 'light' ? '' : secondary,
+              backgroundColor: mode === 'light' ? '' : white,
+              borderRadius: mode === 'light' ? '' : borderRadius,
+              paddingLeft: mode === 'light' ? '' : 8,
+              paddingRight: mode === 'light' ? '' : 8,
+            },
+          },
+        },
+      },
+      MuiMenuItem: {
+        styleOverrides: {
+          root: {
+            color: mode === 'light' ? '' : secondary,
+          },
+        },
+      },
       MuiOutlinedInput: {
         styleOverrides: {
           input: {
-            color: mode === 'light' ? secondary : '',
+            color: secondary,
             '&:-webkit-autofill': {
               WebkitTextFillColor: mode === 'light' ? secondary : '',
               WebkitBoxShadow: mode === 'light' ? '' : `0 0 0 100px ${white} inset`,
@@ -217,6 +249,20 @@ export function changeMode(mode: string) {
                 borderColor: secondary,
               },
             },
+          },
+        },
+      },
+      MuiRadio: {
+        styleOverrides: {
+          root: {
+            color: mode === 'light' ? '' : secondary,
+          },
+        },
+      },
+      MuiCheckbox: {
+        styleOverrides: {
+          root: {
+            color: mode === 'light' ? '' : secondary,
           },
         },
       },

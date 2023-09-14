@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useTheme } from '@mui/material/styles';
-import { Box, Divider, Grid } from '@mui/material';
+import { Box, Divider, Grid, Typography } from '@mui/material';
 //Internal App
 import { UtilsProps } from '@/interfaces';
 import { useLangStore } from '@/store/langStore';
@@ -85,9 +85,11 @@ export default function Footer({ tenant }: UtilsProps): JSX.Element {
           </Box>
         </Grid>
         <Grid item xs={12} sx={{ display: { xs: 'none', sm: 'block' } }}>
-          {t('copyright', {
-            year: new Date().getFullYear(),
-          })}
+          <Typography color={theme.palette.grey[300]}>
+            {t('copyright', {
+              year: new Date().getFullYear(),
+            })}
+          </Typography>
         </Grid>
       </Grid>
     </Box>
