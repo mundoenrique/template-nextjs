@@ -6,9 +6,9 @@ import resourcesToBackend from 'i18next-resources-to-backend';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import { initReactI18next, useTranslation as useTranslationOrg } from 'react-i18next';
 //Internal App
-import { getOptions, languages } from './settings';
 import { useLangStore } from '@/store/langStore';
 import useGetFormStore from '@/hooks/zustanHooks';
+import { getOptions, languages } from './settings';
 
 const runsOnServerSide = typeof window === 'undefined';
 
@@ -27,7 +27,7 @@ i18next
   });
 
 export function useTranslation(ns: any) {
-	const lang = useGetFormStore(useLangStore, (state) => state.lang)
+  const lang = useGetFormStore(useLangStore, (state) => state.lang);
   const ret = useTranslationOrg(ns);
   const { i18n } = ret;
   if (runsOnServerSide && i18n.resolvedLanguage !== lang) {

@@ -1,4 +1,7 @@
-export type MuiProviderProps = {
+export type ProviderProps = {
   children: React.ReactNode;
-	theme: string;
+};
+
+export type ThemeProviderProps = {
+  theme: string;
 };

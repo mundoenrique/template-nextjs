@@ -1,19 +1,17 @@
 // useStore.ts
-"use client"
-import { useState, useEffect } from 'react'
+'use client';
 
-const useGetFormStore = <T, F>(
-  store: (callback: (state: T) => unknown) => unknown,
-  callback: (state: T) => F
-) => {
-  const result = store(callback) as F
-  const [state, setState] = useState<F>()
+import { useState, useEffect } from 'react';
+
+const useGetFormStore = <T, F>(store: (callback: (state: T) => unknown) => unknown, callback: (state: T) => F) => {
+  const result = store(callback) as F;
+  const [state, setState] = useState<F>();
 
   useEffect(() => {
-    setState(result)
-  }, [result])
+    setState(result);
+  }, [result]);
 
-  return state
-}
+  return state;
+};
 
-export default useGetFormStore
+export default useGetFormStore;
