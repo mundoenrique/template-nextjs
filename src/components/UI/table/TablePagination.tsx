@@ -127,13 +127,13 @@ const PaginationTable = ({
 									color="custom.tertiary"
 									style={{ textAlign: 'center' }}
 								>
-									No recent activity yet
+									No data available
 								</Typography>
 							</TableCell>
 						</TableRow>
 					)}
 				</TableBody>
-				{dataTable.length > 10 && (
+				{dataTable.length !== 0 && (
 					<TableFooter>
 						<TableRow>
 							<TablePagination
