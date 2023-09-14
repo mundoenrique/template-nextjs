@@ -1,10 +1,11 @@
 'use client';
 
-import { Box, CssBaseline, ThemeProvider } from '@mui/material';
+import { CssBaseline, ThemeProvider } from '@mui/material';
 //Internal App
-import { MuiProviderProps } from '@/interfaces';
+import { log_message } from '@/utils';
+import { ProviderProps, ThemeProviderProps } from '@/interfaces';
 
-export default function MuiProvider({ children, theme }: MuiProviderProps) {
+export default function MuiProvider({ children, theme }: ProviderProps & ThemeProviderProps) {
   let theTheme;
 
   try {
@@ -12,6 +13,8 @@ export default function MuiProvider({ children, theme }: MuiProviderProps) {
   } catch (error) {
     theTheme = require(`../../themes/theme-novo`);
   }
+
+  log_message('debug', `Load the theme ${theme}`);
 
   return (
     <ThemeProvider theme={theTheme.changeMode('light')}>

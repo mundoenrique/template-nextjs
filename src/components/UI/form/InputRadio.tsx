@@ -5,14 +5,12 @@ import { useTheme } from '@mui/material/styles';
 import { FormControl, FormLabel, FormHelperText, Radio, FormControlLabel, RadioGroup } from '@mui/material';
 //Internal App
 import { InputOptionsProps } from '@/interfaces';
-import { useLangStore } from '@/store/langStore';
 import { useTranslation } from '@/app/i18n/client';
 
 function InputRadioMUI(props: InputOptionsProps): JSX.Element {
   const theme = useTheme();
   const { name, label, labelError, error, value, onChange, options, tenant } = props;
-  const { lang } = useLangStore();
-  const { t } = useTranslation(lang, `${tenant}-general`);
+  const { t } = useTranslation(`${tenant}-general`);
   return (
     <FormControl component='fieldset' variant='standard' fullWidth>
       {label && <FormLabel focused={false}>{label}</FormLabel>}

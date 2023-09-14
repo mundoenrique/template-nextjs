@@ -12,12 +12,13 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { useLangStore } from '@/store/langStore';
 import { useTranslation } from '@/app/i18n/client';
 import { InputDatePickerProps } from '@/interfaces';
+import useGetFormStore from '@/hooks/zustanHooks';
 
 function DatePickerMUI(props: InputDatePickerProps): JSX.Element {
   const theme = useTheme();
   const { name, label, labelError, error, tenant, onChange, value, views, format } = props;
-  const { lang } = useLangStore();
-  const { t } = useTranslation(lang, `${tenant}-general`);
+  const lang = useGetFormStore(useLangStore, (state) => state.lang)
+  const { t } = useTranslation(`${tenant}-general`);
   const inputLabel = label ?? t(`form.${name}_label`);
 
   return (
