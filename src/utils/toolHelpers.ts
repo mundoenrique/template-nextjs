@@ -65,7 +65,7 @@ export const decrypt = (crypted: any, secret: string = process.env.NEXT_PUBLIC_S
   return decryptedData;
 };
 
-export const encryptToView = (data: string) => {
+export const encryptToView = (data: any) => {
   try {
     const decode = ramdomData(22).toString();
     const encryptData = encrypt(JSON.stringify(data), decode);
