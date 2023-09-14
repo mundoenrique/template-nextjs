@@ -1,5 +1,5 @@
-// useStore.ts
 'use client';
+
 import { useState, useEffect } from 'react';
 
 const useGetFormStore = <T, F>(store: (callback: (state: T) => unknown) => unknown, callback: (state: T) => F) => {

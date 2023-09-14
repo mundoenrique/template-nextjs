@@ -23,7 +23,7 @@ export default function Modals({
         <Box sx={{ mb: 3, display: 'flex', justifyContent: 'center' }}>
           <Avatar>i</Avatar>
         </Box>
-        <Box sx={{ maxHeight: { xs: 260, sm: 330 } }} className='modal-text'>
+        <Box sx={{ maxHeight: { xs: 260, sm: 330 }, marginBottom:3 }} className='modal-text'>
           {msgModal}
         </Box>
         <Box

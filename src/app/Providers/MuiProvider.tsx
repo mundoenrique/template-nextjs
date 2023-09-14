@@ -2,11 +2,12 @@
 
 import { CssBaseline, ThemeProvider } from '@mui/material';
 //Internal App
+import { log_message } from '@/utils';
 import { useModeStore } from '@/store';
-import { MuiProviderProps } from '@/interfaces';
 import useGetFormStore from '@/hooks/zustanHooks';
+import { ProviderProps, ThemeProviderProps } from '@/interfaces';
 
-export default function MuiProvider({ children, theme }: MuiProviderProps) {
+export default function MuiProvider({ children, theme }: ProviderProps & ThemeProviderProps) {
   const currentMode = useGetFormStore(useModeStore, (state) => state.mode);
   let theTheme;
 
@@ -15,6 +16,8 @@ export default function MuiProvider({ children, theme }: MuiProviderProps) {
   } catch (error) {
     theTheme = require(`../../themes/theme-novo`);
   }
+
+  log_message('debug', `Load the theme ${theme}`);
 
   return (
     <ThemeProvider theme={theTheme.changeMode(currentMode || 'light')}>

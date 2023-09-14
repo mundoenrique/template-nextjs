@@ -16,7 +16,7 @@ export default function SupporButton({ tenant }: UtilsProps): JSX.Element {
   const { mode, changeMode } = useModeStore();
   const currentLang = lang === 'en' ? 'es' : 'en';
   const currentMode = mode === 'light' ? 'dark' : 'light';
-  const { t } = useTranslation(lang, `${tenant}-general`);
+  const { t } = useTranslation(`${tenant}-general`);
   const changeTextMode = mode === 'light' ? t('modeDark') : t('modeLight');
 
   return (
