@@ -7,22 +7,17 @@ import { FormControl, FormGroup, FormControlLabel, Switch } from '@mui/material'
 import { SwitchListProps } from '@/interfaces';
 
 function SwitchMUI(props: SwitchListProps): JSX.Element {
-  const { name, setValue, options } = props;  
-  const [checkedSwitch, setCheckedSwitch] = useState({
-    necessaryCookies: options[0].value,
-    functionalyCookies: options[1].value,
-    performanceCookies: options[2].value,
-  });
+  const { name, options } = props;
+  let data: any = {}
+  options.map((option: any) => {
+    data[option.name] = option.value;
+  })
+  const [checkedSwitch, setCheckedSwitch] = useState<any>(data);
 
-  const handleSelect = (option: any, index: number, type: string) => {
+  const handleSelect = (option: any, index: number) => {
     options[index].value = option.value === true ? false : true
     setCheckedSwitch({ ...checkedSwitch, [options[index].name]: options[index].value })
   };
-
-  // setting form value manually here
-  useEffect(() => {
-    setValue(options[0].name, options[1].name, options[2].name, checkedSwitch);
-  }, [options, checkedSwitch, setValue]);
 
   return (
     <FormControl component='fieldset' variant='standard' fullWidth>
@@ -40,7 +35,7 @@ function SwitchMUI(props: SwitchListProps): JSX.Element {
               id={name + option.id}
               disabled={option.required}
               checked={option.value}
-              onChange={() => handleSelect(option, index, 'null')} />}
+              onChange={() => handleSelect(option, index)} />}
           />
         ))}
       </FormGroup>
