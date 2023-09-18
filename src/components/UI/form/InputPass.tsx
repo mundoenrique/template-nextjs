@@ -15,7 +15,6 @@ import {
   Typography,
   IconButton,
 } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 //Internal App
@@ -30,7 +29,6 @@ export default function InputPassField(props: TextFieldProps): JSX.Element {
   const [arrowRef, setArrowRef] = useState<any>(null);
   const [anchorEl, setAnchorEl] = useState(null);
   const inputLabel = label ?? t(`form.${name}_label`);
-  const theme = useTheme();
 
   const togglePasswordVisiblity = () => {
     setPasswordShown(!passwordShown);
@@ -54,7 +52,7 @@ export default function InputPassField(props: TextFieldProps): JSX.Element {
           }}
         >
           {Object.entries(props.object).map(([key, value]: any) => (
-            <Typography key={key} component='li' color={theme.palette.grey[300]}>
+            <Typography key={key} component='li'>
               {value}
             </Typography>
           ))}

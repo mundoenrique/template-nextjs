@@ -1,7 +1,6 @@
 'use client';
 
 import { Controller } from 'react-hook-form';
-import { useTheme } from '@mui/material/styles';
 import { useTranslation } from '@/app/i18n/client';
 import { FormControl, FormHelperText, InputLabel, Select, MenuItem } from '@mui/material';
 //Internal App
@@ -11,14 +10,13 @@ function SelectMUI(props: InputOptionsProps): JSX.Element {
   const { name, label, options, labelError, error, value, tenant, onChange } = props;
   const { t } = useTranslation(`${tenant}-general`);
   const textLabel = label ?? t(`form.${name}_label`);
-  const theme = useTheme();
 
   return (
     <FormControl error={!!error} variant='outlined' sx={{ mb: 2 }} fullWidth>
       <InputLabel id={name}>{textLabel}</InputLabel>
       <Select labelId={name} value={value} label={textLabel} onChange={onChange}>
         {options.map((option: any, i: number) => (
-          <MenuItem value={option.value} color={theme.palette.grey[300]} key={i}>
+          <MenuItem value={option.value} key={i}>
             {option.text}
           </MenuItem>
         ))}

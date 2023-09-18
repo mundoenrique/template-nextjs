@@ -8,7 +8,6 @@ import { Box, Divider, Grid, Typography } from '@mui/material';
 import { UtilsProps } from '@/interfaces';
 import { useTranslation } from '@/app/i18n/client';
 import { getImages, handleConfigTenant } from '@/utils';
-import useGetFormStore from '@/hooks/zustanHooks';
 
 export default function Footer({ tenant }: UtilsProps): JSX.Element {
   const theme = useTheme();
@@ -84,7 +83,7 @@ export default function Footer({ tenant }: UtilsProps): JSX.Element {
           </Box>
         </Grid>
         <Grid item xs={12} sx={{ display: { xs: 'none', sm: 'block' } }}>
-          <Typography color={theme.palette.grey[300]}>
+          <Typography>
             {t('copyright', {
               year: new Date().getFullYear(),
             })}

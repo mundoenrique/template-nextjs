@@ -52,7 +52,7 @@ export function changeMode(mode: string) {
     typography: {
       fontFamily: 'Prelo',
       allVariants: {
-        color: mode === 'light' ? secondary : white,
+        color: mode === 'light' ? textColor : white,
         fontSize: text,
       },
       h1: {
@@ -82,7 +82,15 @@ export function changeMode(mode: string) {
       borderRadius: borderRadius,
     },
     components: {
-      //Global component styles
+      // Typography
+      MuiTypography: {
+        styleOverrides: {
+          root: {
+            color: textColor,
+          },
+        },
+      },
+      // Global component styles
       MuiCssBaseline: {
         styleOverrides: `
           @font-face {
@@ -177,6 +185,9 @@ export function changeMode(mode: string) {
       // Inputs styles
       MuiInputBase: {
         styleOverrides: {
+          root: {
+            color: textColor,
+          },
           input: {
             borderRadius: borderRadius,
             padding: '14.23px 14px !important',
@@ -186,13 +197,13 @@ export function changeMode(mode: string) {
       MuiInputLabel: {
         styleOverrides: {
           root: {
-            color: mode === 'light' ? '' : secondary,
+            color: mode === 'light' ? '' : textColor,
             backgroundColor: mode === 'light' ? '' : white,
             borderRadius: mode === 'light' ? '' : borderRadius,
             paddingLeft: mode === 'light' ? '' : 8,
             paddingRight: mode === 'light' ? '' : 8,
             '&.Mui-focused': {
-              color: mode === 'light' ? '' : secondary,
+              color: mode === 'light' ? '' : textColor,
               backgroundColor: mode === 'light' ? '' : white,
               borderRadius: mode === 'light' ? '' : borderRadius,
               paddingLeft: mode === 'light' ? '' : 8,
@@ -204,20 +215,20 @@ export function changeMode(mode: string) {
       MuiMenuItem: {
         styleOverrides: {
           root: {
-            color: mode === 'light' ? '' : secondary,
+            color: mode === 'light' ? '' : textColor,
           },
         },
       },
       MuiOutlinedInput: {
         styleOverrides: {
           input: {
-            color: secondary,
+            color: textColor,
             '&:-webkit-autofill': {
-              WebkitTextFillColor: mode === 'light' ? secondary : '',
+              WebkitTextFillColor: mode === 'light' ? textColor : '',
               WebkitBoxShadow: mode === 'light' ? '' : `0 0 0 100px ${white} inset`,
             },
             '&.Mui-disabled': {
-              WebkitTextFillColor: mode === 'light' ? secondary : '',
+              WebkitTextFillColor: mode === 'light' ? textColor : '',
               opacity: 0.5,
             },
           },
@@ -239,7 +250,7 @@ export function changeMode(mode: string) {
             '&.Mui-disabled': {
               backgroundColor: greyLight,
               borderColor: secondary,
-              color: secondary,
+              color: textColor,
               '& .MuiOutlinedInput-notchedOutline': {
                 borderColor: secondary,
               },
@@ -281,6 +292,7 @@ export function changeMode(mode: string) {
               paddingBottom: '16px',
               width: '100%',
               '& .modal-text': {
+                color: textColor,
                 display: 'flex',
                 flexDirection: 'column',
                 height: 'auto',

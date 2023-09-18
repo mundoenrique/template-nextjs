@@ -6,8 +6,14 @@ const black = '#000';
 // Primary color - Tenant
 const primary = '#0D5D56';
 
-// Text color variables
+// Primary color mode dark
+const primaryDark = '#002522';
+
+//Secondary color - Tenant
 const secondary = '#A19DA2';
+
+// Text color variables
+const textColor = '#A19DA2';
 
 // Grayscale variables
 const greyLight = '#f3f3f3';
@@ -39,13 +45,14 @@ export function changeMode(mode: string) {
         50: greyLight,
         100: greyNormal,
         200: greyDark,
+        300: textColor,
       },
     },
     //Custom typography
     typography: {
       fontFamily: 'Prelo',
       allVariants: {
-        color: mode === 'light' ? secondary : white,
+        color: mode === 'light' ? textColor : white,
         fontSize: text,
       },
       h1: {
@@ -75,18 +82,56 @@ export function changeMode(mode: string) {
       borderRadius: borderRadius,
     },
     components: {
-      //Global component styles
+      // Typography
+      MuiTypography: {
+        styleOverrides: {
+          root: {
+            color: textColor,
+          },
+        },
+      },
+      // Global component styles
       MuiCssBaseline: {
         styleOverrides: `
-        @font-face {
-          font-family: 'Myriad';
-          font-style: normal;
-          font-display: swap;
-          font-weight: 400;
-          src: local('Myriad'), local('Myriad-regular'), url(/fonts/coop/Myriad-Pro-Regular.woff) format('woff');
-          unicodeRange: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF;
-        }
+          @font-face {
+            font-family: 'Prelo';
+            font-style: normal;
+            font-display: swap;
+            font-weight: 400;
+            src: local('Prelo'), local('Prelo-Regular'), url(/fonts/novo/prelo-book-webfont.woff2) format('woff2');
+            unicodeRange: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF;
+          }
+          @font-face {
+            font-family: 'Prelo';
+            font-style: normal;
+            font-display: swap;
+            font-weight: 700;
+            src: local('Prelo'), local('Prelo-Bold'), url(/fonts/novo/prelo-semibold-webfont.woff2) format('woff2');
+            unicodeRange: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF;
+          }
         `,
+      },
+      // Main container styles
+      MuiContainer: {
+        styleOverrides: {
+          root: {
+            backgroundColor: mode === 'light' ? white : primaryDark,
+            maxWidth: 'initial !important',
+            flex: 'auto',
+            paddingLeft: '0 !important',
+            paddingRight: '0 !important',
+          },
+        },
+      },
+      //NavBar
+      MuiAppBar: {
+        styleOverrides: {
+          root: {
+            background: white,
+            boxShadow: 'none',
+            height: '88px',
+          },
+        },
       },
       //Button
       MuiButton: {
@@ -106,7 +151,7 @@ export function changeMode(mode: string) {
             background: primary,
           },
           textPrimary: {
-            color: primary,
+            color: mode === 'light' ? '' : white,
             ':hover': {
               background: 'transparent',
             },
@@ -134,6 +179,137 @@ export function changeMode(mode: string) {
         styleOverrides: {
           root: {
             borderColor: 'rgba(0, 0, 0, 0.5)',
+          },
+        },
+      },
+      // Inputs styles
+      MuiInputBase: {
+        styleOverrides: {
+          root: {
+            color: textColor,
+          },
+          input: {
+            borderRadius: borderRadius,
+            padding: '14.23px 14px !important',
+          },
+        },
+      },
+      MuiInputLabel: {
+        styleOverrides: {
+          root: {
+            color: mode === 'light' ? '' : textColor,
+            backgroundColor: mode === 'light' ? '' : white,
+            borderRadius: mode === 'light' ? '' : borderRadius,
+            paddingLeft: mode === 'light' ? '' : 8,
+            paddingRight: mode === 'light' ? '' : 8,
+            '&.Mui-focused': {
+              color: mode === 'light' ? '' : textColor,
+              backgroundColor: mode === 'light' ? '' : white,
+              borderRadius: mode === 'light' ? '' : borderRadius,
+              paddingLeft: mode === 'light' ? '' : 8,
+              paddingRight: mode === 'light' ? '' : 8,
+            },
+          },
+        },
+      },
+      MuiMenuItem: {
+        styleOverrides: {
+          root: {
+            color: mode === 'light' ? '' : textColor,
+          },
+        },
+      },
+      MuiOutlinedInput: {
+        styleOverrides: {
+          input: {
+            color: textColor,
+            '&:-webkit-autofill': {
+              WebkitTextFillColor: mode === 'light' ? textColor : '',
+              WebkitBoxShadow: mode === 'light' ? '' : `0 0 0 100px ${white} inset`,
+            },
+            '&.Mui-disabled': {
+              WebkitTextFillColor: mode === 'light' ? textColor : '',
+              opacity: 0.5,
+            },
+          },
+          root: {
+            backgroundColor: white,
+            ':hover': {
+              '& .MuiOutlinedInput-notchedOutline': {
+                borderColor: secondary,
+              },
+            },
+            '&.Mui-error': {
+              '& .MuiOutlinedInput-notchedOutline': {
+                borderColor: secondary,
+              },
+            },
+            fieldset: {
+              borderWidth: '.5px',
+            },
+            '&.Mui-disabled': {
+              backgroundColor: greyLight,
+              borderColor: secondary,
+              color: textColor,
+              '& .MuiOutlinedInput-notchedOutline': {
+                borderColor: secondary,
+              },
+            },
+            '&.Mui-focused': {
+              '& .MuiOutlinedInput-notchedOutline': {
+                borderColor: secondary,
+              },
+            },
+          },
+        },
+      },
+      MuiRadio: {
+        styleOverrides: {
+          root: {
+            color: mode === 'light' ? '' : secondary,
+          },
+        },
+      },
+      MuiCheckbox: {
+        styleOverrides: {
+          root: {
+            color: mode === 'light' ? '' : secondary,
+          },
+        },
+      },
+      //Modals
+      MuiModal: {
+        styleOverrides: {
+          root: {
+            '& > .container-modal': {
+              backgroundColor: white,
+              borderRadius: borderRadius,
+              left: '50%',
+              top: '50%',
+              transform: 'translate(-50%, -50%)',
+              position: 'absolute',
+              paddingTop: '16px',
+              paddingBottom: '16px',
+              width: '100%',
+              '& .modal-text': {
+                color: textColor,
+                display: 'flex',
+                flexDirection: 'column',
+                height: 'auto',
+                overflowY: 'auto',
+              },
+            },
+          },
+        },
+      },
+      //Avatar
+      MuiAvatar: {
+        styleOverrides: {
+          root: {
+            backgroundColor: greyLight,
+            color: primary,
+            width: '44px',
+            height: '44px',
           },
         },
       },
