@@ -51,5 +51,7 @@
   },
   "mode": "Modo {{mode}}",
   "modeLight": "claro",
-  "modeDark": "oscuro"
+  "modeDark": "oscuro",
+  "textIncrease": "Aumentar texto",
+  "textDecrease": "Disminuir texto"
 }

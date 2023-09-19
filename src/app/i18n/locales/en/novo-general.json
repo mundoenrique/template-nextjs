@@ -51,5 +51,7 @@
   },
   "mode": "{{mode}} mode",
   "modeLight": "Light",
-  "modeDark": "Dark"
+  "modeDark": "Dark",
+  "textIncrease": "Text increase",
+  "textDecrease": "Text decrease"
 }

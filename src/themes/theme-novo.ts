@@ -24,15 +24,15 @@ const greyDark = '#c4c4c4';
 const borderRadius = 4;
 
 // Font size variables
-const h1 = '3rem'; //28px
-const h2 = '1.75rem'; //24px
-const h3 = '1.5rem'; //22px
-const h4 = '1.25rem'; //20px
-const h5 = '1.125rem'; //18px
-const text = '0.938rem'; //16px
-const small = '0.75rem'; //12px
+const h1 = 28; //28px
+const h2 = 24; //24px
+const h3 = 22; //22px
+const h4 = 20; //20px
+const h5 = 18; //18px
+const text = 16; //16px
+const small = 12; //12px
 
-export function changeMode(mode: string) {
+export function changeMode(mode: string, count: number) {
   const theme = createTheme({
     palette: {
       primary: {
@@ -53,28 +53,28 @@ export function changeMode(mode: string) {
       fontFamily: 'Prelo',
       allVariants: {
         color: mode === 'light' ? textColor : white,
-        fontSize: text,
+        fontSize: `${count + text}px`,
       },
       h1: {
-        fontSize: h1,
+        fontSize: `${count + h1}px`,
       },
       h2: {
-        fontSize: h2,
+        fontSize: `${count + h2}px`,
       },
       h3: {
-        fontSize: h3,
+        fontSize: `${count + h3}px`,
       },
       h4: {
-        fontSize: h4,
+        fontSize: `${count + h4}px`,
       },
       h5: {
-        fontSize: h5,
+        fontSize: `${count + h5}px`,
       },
       body1: {
-        fontSize: text,
+        fontSize: `${count + text}px`,
       },
       caption: {
-        fontSize: small,
+        fontSize: `${count + small}px`,
       },
     },
     // Border radius
@@ -138,7 +138,7 @@ export function changeMode(mode: string) {
         styleOverrides: {
           root: {
             color: mode === 'light' ? '' : white,
-            fontSize: text,
+            fontSize: `${count + text}px`,
             height: '50px',
             letterSpacing: 'normal',
             minWidth: '115px',

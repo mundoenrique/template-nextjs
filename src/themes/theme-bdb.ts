@@ -24,15 +24,15 @@ const greyDark = '#c4c4c4';
 const borderRadius = 4;
 
 // Font size variables
-const h1 = '3rem'; //28px
-const h2 = '1.75rem'; //24px
-const h3 = '1.5rem'; //22px
-const h4 = '1.25rem'; //20px
-const h5 = '1.125rem'; //18px
-const text = '0.938rem'; //16px
-const small = '0.75rem'; //12px
+const h1 = 28; //28px
+const h2 = 24; //24px
+const h3 = 22; //22px
+const h4 = 20; //20px
+const h5 = 18; //18px
+const text = 16; //16px
+const small = 12; //12px
 
-export function changeMode(mode: string) {
+export function changeMode(mode: string, count: number) {
   const theme = createTheme({
     palette: {
       primary: {
@@ -50,31 +50,31 @@ export function changeMode(mode: string) {
     },
     //Custom typography
     typography: {
-      fontFamily: 'Prelo',
+      fontFamily: 'OpenSans',
       allVariants: {
         color: mode === 'light' ? textColor : white,
-        fontSize: text,
+        fontSize: `${count + text}px`,
       },
       h1: {
-        fontSize: h1,
+        fontSize: `${count + h1}px`,
       },
       h2: {
-        fontSize: h2,
+        fontSize: `${count + h2}px`,
       },
       h3: {
-        fontSize: h3,
+        fontSize: `${count + h3}px`,
       },
       h4: {
-        fontSize: h4,
+        fontSize: `${count + h4}px`,
       },
       h5: {
-        fontSize: h5,
+        fontSize: `${count + h5}px`,
       },
       body1: {
-        fontSize: text,
+        fontSize: `${count + text}px`,
       },
       caption: {
-        fontSize: small,
+        fontSize: `${count + small}px`,
       },
     },
     // Border radius
@@ -93,22 +93,22 @@ export function changeMode(mode: string) {
       // Global component styles
       MuiCssBaseline: {
         styleOverrides: `
-          @font-face {
-            font-family: 'Prelo';
-            font-style: normal;
-            font-display: swap;
-            font-weight: 400;
-            src: local('Prelo'), local('Prelo-Regular'), url(/fonts/novo/prelo-book-webfont.woff2) format('woff2');
-            unicodeRange: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF;
-          }
-          @font-face {
-            font-family: 'Prelo';
-            font-style: normal;
-            font-display: swap;
-            font-weight: 700;
-            src: local('Prelo'), local('Prelo-Bold'), url(/fonts/novo/prelo-semibold-webfont.woff2) format('woff2');
-            unicodeRange: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF;
-          }
+        @font-face {
+          font-family: 'OpenSans';
+          font-style: normal;
+          font-display: swap;
+          font-weight: 400;
+          src: local('OpenSans'), local('OpenSans-Regular'), url(/fonts/bdb/OpenSans-Regular.ttf) format('ttf');
+          unicodeRange: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF;
+        }
+				@font-face {
+          font-family: 'OpenSans';
+          font-style: Bold;
+          font-display: swap;
+          font-weight: 700;
+          src: local('OpenSans'), local('OpenSans-Bold'), url(/fonts/bdb/OpenSans-Bold.ttf) format('ttf');
+          unicodeRange: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF;
+        }
         `,
       },
       // Main container styles
@@ -138,7 +138,7 @@ export function changeMode(mode: string) {
         styleOverrides: {
           root: {
             color: mode === 'light' ? '' : white,
-            fontSize: text,
+            fontSize: `${count + text}px`,
             height: '50px',
             letterSpacing: 'normal',
             minWidth: '115px',

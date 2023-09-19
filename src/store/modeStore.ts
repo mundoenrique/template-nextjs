@@ -13,7 +13,8 @@ export const useModeStore = create<ModeState>()(
       changeMode: (mode) => set(() => ({ mode: mode })),
     }),
     {
-      name: 'mode',
+      name: 'accessibility',
+      version: undefined,
     }
   )
 );
