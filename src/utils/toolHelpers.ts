@@ -77,4 +77,17 @@ export const encryptToView = (data: any) => {
   } catch (e) {
     log_message('error', `Error encrypt to view ${e}`);
   }
-};
+}
+
+export const requestGet = async (data: any) => {
+
+	const params = encrypt(data)
+
+	const response: any = await connectApi.get('/connectService', {
+			params: {
+				url: params
+			}
+	})
+
+	return response
+}

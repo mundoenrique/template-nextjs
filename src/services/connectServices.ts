@@ -2,6 +2,7 @@ import { cookies } from 'next/headers';
 import axios, { AxiosInstance, AxiosError } from 'axios';
 //Internal app
 import { createRedisInstance } from '@/services/redis';
+const Logger = require('@/utils/logger');
 
 const connectServices: AxiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_BASE_URL,
@@ -10,45 +11,53 @@ const connectServices: AxiosInstance = axios.create({
 
 // Interceptor to handle response errors
 connectServices.interceptors.response.use(
-  (response) => {
-    return response.data;
+	(response):any => {
+    return {data: response.data, status: response.status};
   },
   (error: AxiosError) => {
-    return Promise.resolve({
-      code: -1,
-      data: 'At this time we are unable to accommodate your request, please try again later.',
-    });
+		return Promise.resolve({
+			data: {
+				code: -1,
+				data: 'At this time we are unable to accommodate your request, please try again later.',
+			}
+		});
   }
 );
 
 // Interceptor to handle timeout
 connectServices.interceptors.request.use(
   async (config) => {
-    const uid = await callOuth();
+		const uid = await callOuth();
     config.timeout = parseInt(process.env.TIMEOUT_API || '50000');
     config.headers['Content-Type'] = 'application/json';
     config.headers['Authorization'] = `Bearer ${uid}`;
     return config;
   },
   (error) => {
-    return Promise.reject({
-      status: -1,
-      data: `Error configuring the request: ${error.message}`,
-    });
+		return Promise.reject({
+			data: {
+				status: -1,
+				data: `Error configuring the request: ${error.message}`,
+			}
+		});
   }
 );
 
 async function callOuth() {
-  const cookieStore = cookies();
-  const uidvdo = cookieStore.get('uidvdo')?.value;
 
-  try {
-    const redis = createRedisInstance();
-    const OuthToken: any = await redis.get(`session:${uidvdo}`);
+	const redis = createRedisInstance();
 
-    return OuthToken.accesToken;
-  } catch (error) {
-    return null;
+	try {
+		const cookieStore = cookies();
+  	const uidvdo = cookieStore.get('uidvdo')?.value;
+		const OuthToken: any = await redis.get(`session:${uidvdo}`);
+		redis.quit();
+		return OuthToken.accesToken;
+
+	} catch (error) {
+		redis.quit();
+		Logger.error('Error in connection to Redis, access token was not obtained.')
+    throw new Error(JSON.stringify({ errors: 'Error in redis', code: -1 }));
   }
 }
 
