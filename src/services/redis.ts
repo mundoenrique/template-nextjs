@@ -2,7 +2,6 @@ import Redis, { RedisOptions } from 'ioredis';
 //Internal app
 const Logger = require('@/utils/logger');
 
-const attemp = parseInt(process.env.REDIS_ATTEMPT || '') || 3;
 const redis = {
   host: process.env.REDIS_HOST || '',
   password: process.env.REDIS_PASSWORD || '',
@@ -31,20 +30,21 @@ export function createRedisInstance(config = getRedisConfiguration()) {
       keyPrefix: config.prefix,
       lazyConnect: true,
       showFriendlyErrorStack: true,
-      enableAutoPipelining: true,
-      maxRetriesPerRequest: 0,
-      retryStrategy: () => {
-        if (attemp > 3) {
+			enableAutoPipelining: false,
+			maxRetriesPerRequest: null,
+      retryStrategy: (times: number) => {
+				if (times > 2) {
+					Logger.warn(`[Redis] Could not connect after ${times} attempts`)
           return undefined;
-        }
-        return Math.min(attemp * 200, 1000);
+				}
+        return Math.min(times * 200, 1000);
       },
     };
 
     const redis = new Redis(options);
 
     redis.on('error', (error: unknown) => {
-      Logger.warn('[Redis] Error connecting', error);
+			Logger.error('[Redis] Error connecting', error);
       return false;
     });
 
