@@ -2,16 +2,11 @@
 
 import React, { useEffect, useState } from "react";
 import dayjs from 'dayjs';
+import { signIn } from 'next-auth/react';
 import { useForm } from 'react-hook-form';
+import { useRouter } from 'next/navigation';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Box, Typography, Grid, Button, Stack } from '@mui/material';
-
-//Internal App
-import { useLangStore } from '@/store/langStore';
-import { useTranslation } from '@/app/i18n/client';
-// import { useRouter } from "next/navigation";
-import { getSchema } from '@/config/validation/validationConfig';
-
 import {
 	InputDatePicker,
 	InputPass,
@@ -25,6 +20,11 @@ import {
 	Dialogs
 } from '@/components/UI';
 
+//Internal App
+import { log_message } from '@/utils';
+import connectApi from '@/services/connectApi';
+import { useTranslation } from '@/app/i18n/client';
+import { getSchema } from '@/config/validation/validationConfig';
 import { usePathname } from 'next/navigation';
 import { validateTenant } from '@/utils';
 
@@ -34,52 +34,26 @@ export default function Signin({ params }: any) {
 	const [open, dialogAccept] = useState(false);
 	const [personalize, dialogPersonalize] = useState(false);
 	const [formData, setFormData] = useState<any>({});
-	const router = usePathname();
-	const currentTenant = validateTenant(router.split('/')[1]);
-	const { lang } = useLangStore();
-  // const language = useLangStore((state: any) => state.lang);
-	const { t } = useTranslation(lang, `${params.tenant}-general`);
-  // const { t } = useTranslation(language, `${params.tenant}-general`);
-  // const router = useRouter();
-  
-	const schema = getSchema(
-		['email', 'password', 'programs', 'initialDate', 'roles', 'term'],
-		currentTenant
-	);
+  const router = useRouter();
+  log_message('info', 'Access the SIG-IN page');
+	// const currentTenant = validateTenant(router.split('/')[1]);
+  const { t } = useTranslation(`${params.tenant}-general`);
+  const schema = getSchema(['email', 'password'], params.tenant); //currentTenant
 
-	const { handleSubmit, control, reset } = useForm({
-		defaultValues: {
-			email: '',
-			password: '',
-			programs: '',
-			initialDate: '',
-			roles: '',
-			term: '',
-		},
-		resolver: yupResolver(schema),
-	});
+  type FormData = {
+    email: string;
+    password: string;
+  };
 
-	const selectOptions = [
-		{
-			value: '1',
-			text: 'option 1',
-		},
-		{
-			value: '2',
-			text: 'option 2',
-		},
-	];
+  type resData = {
+    code: number;
+    msg: string;
+  };
 
-	const RadioOptions = [
-		{
-			text: t('form.roles_admin_label'),
-			value: 'A',
-		},
-		{
-			text: t('form.roles_operator_label'),
-			value: 'O',
-		},
-	];
+  const sesionClient = async () => {
+    const res: resData = await connectApi.get(`/redisSesion`);
+    return res;
+  };
 
 	const cookiesList = [
 		{
@@ -119,16 +93,19 @@ export default function Signin({ params }: any) {
 			method: 'GET',
 		})
 		const data = await response.json()
-		const list = data.data
+    const list = data.data
+    console.log('data: ', list)
 		let showDialog: any
 		
+    console.log('list.length: ', list.length)
 		switch (list.length) {
 			case 0:
 				showDialog = true
 				break
 			default:
-				let findState: any
+        let findState: any
 				findState = list.filter((item: any) => item.name === 'necessaryCookies');
+        console.log('findState: ', findState)
 				showDialog = (findState[0].name === 'necessaryCookies') ? false : true
 				break
 		}
@@ -162,116 +139,62 @@ export default function Signin({ params }: any) {
 	// 	setValue(cookiesList)
 	// }
 
-	useEffect(() => {
-		getCookiesList()
-  },[])
+  const { handleSubmit, control, reset } = useForm({
+    defaultValues: {
+      email: '',
+      password: '',
+    },
+    resolver: yupResolver(schema),
+  });
 
-	return (
-		<>
-			<NavBar />
-      {/* <NavBar tenant={params.tenant} /> */}
+  const onLoginUser = async ({ email, password }: FormData) => {
+    let nuevo = await signIn('credentials', { redirect: false, email, password });
 
-			<Box sx={{ m: 5 }} component="form" onSubmit={handleSubmit(onSubmit)}>
-				<Typography variant="h3" sx={{ mb: 3 }}>
-					Componentes
-				</Typography>
-				<Grid container columns={3} spacing={2}>
-					<Grid
-						item
-						xs={2}
-						sx={{ display: 'flex', justifyContent: 'space-between' }}
-					>
-						<Button variant="text">Variant `Text`</Button>
-						<Button variant="outlined">Variant `Outlined`</Button>
-						<Button variant="contained">Variant `Contained`</Button>
-					</Grid>
-					<Grid item xs={2}>
-						<InputText
-							name="email"
-							control={control}
-							tenant={params.tenant}
-							optional
-						/>
-						<InputPass
-							name="password"
-							control={control}
-							tenant={params.tenant}
-							additionalInfo
-						/>
-						<InputSelect
-							name="programs"
-							control={control}
-							tenant={params.tenant}
-							options={selectOptions}
-						/>
-						<InputDatePicker
-							name="initialDate"
-							control={control}
-							tenant={params.tenant}
-						/>
-						<InputRadio
-							name="roles"
-							control={control}
-							label="Seleciona el tipo de usuario"
-							tenant={params.tenant}
-							options={RadioOptions}
-						/>
-						<InputCheck
-							name="term"
-							control={control}
-							label="Seleciona el tipo de usuario"
-							tenant={params.tenant}
-						/>
-					</Grid>
-					<Grid item xs={1}>
-						<Box sx={{ m: 'auto', maxWidth: 700, width: '100%' }}>
-							<Button variant="contained" type="submit" fullWidth>
-								{t('buttons.accept')}
-							</Button>
-						</Box>
-					</Grid>
-				</Grid>
-			</Box>
+    if (nuevo?.error === null) {
+      router.push(`dashboard`);
+    }
+  };
 
-			<Modals
-				msgModal={
-					<>
-						<Typography>
-							{t('dataForm.email', { email: formData.email })}
-						</Typography>
-						<Typography>
-							{t('dataForm.password', { password: formData.password })}
-						</Typography>
-						<Typography>
-							{t('dataForm.programs', { programs: formData.programs })}
-						</Typography>
-						<Typography>
-							{t('dataForm.initialDate', { initialDate: formData.initialDate })}
-						</Typography>
-						<Typography>
-							{t('dataForm.roles', { roles: formData.roles })}
-						</Typography>
-					</>
-				}
-				buttons={2}
-				showModal={showModal}
-			>
-				<Button variant="text" onClick={() => setShowModal(false)}>
-					{t('buttons.cancel')}
-				</Button>
-				<Button
-					variant="contained"
-					onClick={() => {
-						setShowModal(false);
-						setShowModal200(true);
-						reset();
-					}}
-				>
-					{t('buttons.accept')}
-				</Button>
-			</Modals>
+  useEffect(() => {
+    getCookiesList()
 
-			<Modals msgModal="Formulario enviado" showModal={showModal200}>
+    sesionClient().then((data) => {
+      if (data.code != 0) {
+        setShowModal(true);
+      }
+    });
+  }, []);
+
+  return (
+    <>
+      <NavBar />
+
+      <Box sx={{ m: 5 }} component='form' onSubmit={handleSubmit(onLoginUser)}>
+        Sign-in
+        <Typography variant='h3' sx={{ mb: 3 }}></Typography>
+        <Grid container columns={1} spacing={2}>
+          <Grid item xs={2}>
+            <InputText name='email' control={control} tenant={params.tenant} optional />
+            <InputPass name='password' control={control} tenant={params.tenant} additionalInfo />
+
+            <Button variant='contained' type='submit' fullWidth>
+              {t('buttons.accept')}
+            </Button>
+          </Grid>
+        </Grid>
+      </Box>
+
+      <Modals msgModal={'We are unable to process your request at this time'} buttons={1} showModal={showModal}>
+        <Button
+          variant='contained'
+          onClick={() => {
+            setShowModal(false);
+          }}
+        >
+          {t('buttons.accept')}
+        </Button>
+      </Modals>
+      <Modals msgModal="Formulario enviado" showModal={showModal200}>
 				<Button variant="contained" onClick={() => setShowModal200(false)}>
 					{t('buttons.accept')}
 				</Button>
@@ -304,7 +227,6 @@ export default function Signin({ params }: any) {
 					</>}
 				>
 				</Dialogs>
-
 				<Dialogs
 					open={personalize}
 					title={t('cookies.titles.config')}
@@ -332,18 +254,7 @@ export default function Signin({ params }: any) {
 						options={cookiesList}
 					/>
 				</Dialogs>
-			
-      
-      <Box sx={{ m: 5 }}>
-        <Typography variant="h3">Botones</Typography>
-        <Grid container columns={12} spacing={2}>
-          <Grid item xs={4}>
-            {/* <Buttons buttons={buttonsView} /> */}
-          </Grid>
-        </Grid>
-      </Box>
+      </>
     </>
-
-		</>
-	);
+  );
 }

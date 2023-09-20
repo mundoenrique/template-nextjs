@@ -5,12 +5,10 @@ import { useTranslation } from '@/app/i18n/client';
 import { FormControl, FormHelperText, InputLabel, Select, MenuItem } from '@mui/material';
 //Internal App
 import { InputOptionsProps } from '@/interfaces';
-import { useLangStore } from '@/store/langStore';
 
 function SelectMUI(props: InputOptionsProps): JSX.Element {
   const { name, label, options, labelError, error, value, tenant, onChange } = props;
-  const { lang } = useLangStore();
-  const { t } = useTranslation(lang, `${tenant}-general`);
+  const { t } = useTranslation(`${tenant}-general`);
   const textLabel = label ?? t(`form.${name}_label`);
 
   return (
