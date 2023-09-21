@@ -14,8 +14,8 @@ export const useFontSizeStore = create<Store & Actions>()(
   persist(
     (set) => ({
       fontSize: 0,
-      addCount: () => set((state: any) => ({ fontSize: state.fontSize + 1 })),
-      removeCount: () => set((state: any) => ({ fontSize: state.fontSize - 1 })),
+      addCount: () => set((state) => ({ fontSize: state.fontSize + 1 })),
+      removeCount: () => set((state) => ({ fontSize: state.fontSize - 1 })),
     }),
     {
       name: 'accessibility',
