@@ -17,10 +17,12 @@ import {
 	InputRadio,
 	InputCheck,
 	Modals,
+	Menu,
 } from '@/components/UI';
 import { useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { validateTenant } from '@/utils';
+import { menuData } from '@/config';
 
 export default function Signin({ params }: any) {
 	const [showModal, setShowModal] = useState(false);
@@ -184,6 +186,7 @@ export default function Signin({ params }: any) {
 					{t('buttons.accept')}
 				</Button>
 			</Modals>
+			<Menu menuItems={menuData} />
 		</>
 	);
 }

@@ -48,5 +48,22 @@
     "programs": "Programa: {{programs}}",
     "initialDate": "Fecha: {{initialDate}}",
     "roles": "Rol: {{roles}}"
+  },
+  "menu": {
+    "companies": "Empresas",
+    "manage_companies": "Administrar empresas",
+    "create_company": "Crear Empresa",
+    "users": "Usuarios",
+    "manage_users": "Administrar Usuarios",
+    "create_user": "Crear Usuario",
+    "requests": "Solicitudes",
+    "unnamed_emission": "Emision Innominada",
+    "create_unnamed_emission": "Crear emision innominada",
+    "cards": "Tarjetas",
+    "beneficiary_account": "Cuenta beneficiario",
+    "view_fixes": "Consulta de ajustes",
+    "reports": "Reportes",
+    "cards_emmited": "Tarjetas emitidas",
+    "online_trasanctions": "Transacciones en linea"
   }
 }

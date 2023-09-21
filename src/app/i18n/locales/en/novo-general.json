@@ -48,5 +48,22 @@
     "programs": "Program: {{programs}}",
     "initialDate": "Date: {{initialDate}}",
     "roles": "Rol: {{roles}}"
+  },
+  "menu": {
+    "companies": "Companies",
+    "manage_companies": "Manage Companies",
+    "create_company": "Create companie",
+    "users": "Users",
+    "manage_users": "Manage users",
+    "create_user": "Create User",
+    "request": "Request",
+    "unnamed_emission": "Unnamed emision",
+    "create_unnamed_emission": "Create Unnamed emision",
+    "card": "Card",
+    "beneficiary_account": "Beneficiary Account",
+    "view_fixes": "View Adjustments",
+    "reports": "Reports",
+    "cards_emmited": "Emmitted Cards",
+    "online_trasanctions": "Online Transactions"
   }
 }
