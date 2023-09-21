@@ -65,8 +65,9 @@ export default function LoginPage({ params }: any) {
       <NavBar />
 
       <Box sx={{ m: 5 }} component='form' onSubmit={handleSubmit(onLoginUser)}>
-        Sign-in
-        <Typography variant='h3' sx={{ mb: 3 }}></Typography>
+        <Typography variant='h3' sx={{ mb: 3 }}>
+          Sign-in
+        </Typography>
         <Grid container columns={1} spacing={2}>
           <Grid item xs={2}>
             <InputText name='email' control={control} tenant={params.tenant} optional />

@@ -5,16 +5,12 @@ import { useTheme } from '@mui/material/styles';
 import { FormControl, FormLabel, FormHelperText, Checkbox, FormControlLabel, FormGroup } from '@mui/material';
 //Internal App
 import { InputCheckProps } from '@/interfaces';
-import { useLangStore } from '@/store/langStore';
 import { useTranslation } from '@/app/i18n/client';
-import useGetFormStore from '@/hooks/zustanHooks';
 
 function InputCheckMUI(props: InputCheckProps): JSX.Element {
   const theme = useTheme();
   const { name, label, labelError, onChange, onClick, checked, value, tenant, error, disabled } = props;
-
-  const  lang  = useGetFormStore(useLangStore, (state) => state.lang)
-  const { t } = useTranslation(lang!, `${tenant}-general`);
+  const { t } = useTranslation(`${tenant}-general`);
   const textLabel = t(`form.${name}_label`);
 
   return (

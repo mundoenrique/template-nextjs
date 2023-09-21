@@ -4,7 +4,7 @@ import { Container, Box } from '@mui/material';
 import { configTenant } from '@/config';
 import { Footer } from '@/components/UI';
 import { handleConfigTenant } from '@/utils';
-import SupperButton from '@/components/UI/SupportButton';
+import SupportButton from '@/components/UI/SupportButton';
 import { GenerateMetadataProps, RootLayoutProps } from '@/interfaces';
 import { AuthProvider, MuiProvider, ZustandProvider } from '../Providers';
 
@@ -42,7 +42,7 @@ export default async function SigninLayout({ children, params }: RootLayoutProps
           <AuthProvider>
             <Container>{children}</Container>
           </AuthProvider>
-          <SupperButton tenant={params.tenant} />
+          <SupportButton tenant={params.tenant} />
         </ZustandProvider>
         <Footer tenant={params.tenant} />
       </Box>

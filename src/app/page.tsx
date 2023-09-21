@@ -1,10 +1,9 @@
 'use client';
 
-import Box from '@mui/material/Box';
+import { Box } from '@mui/material';
 import { usePathname } from 'next/navigation';
 //Internal app
 import { validateTenant } from '@/utils';
-import Footer from '@/components/UI/Footer';
 import { PageNotFound } from '@/components/UI';
 import MuiProvider from './Providers/MuiProvider';
 import { useTranslation } from '@/app/i18n/client';
@@ -32,7 +31,6 @@ export default function HomePage(): JSX.Element {
         }}
       >
         <PageNotFound params={info} />
-        <Footer tenant={currentTenant} />
       </Box>
     </MuiProvider>
   );

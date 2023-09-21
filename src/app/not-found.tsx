@@ -1,6 +1,6 @@
 'use client';
 
-import Box from '@mui/material/Box';
+import { Box } from '@mui/material';
 import { usePathname } from 'next/navigation';
 //Internal app
 import { validateTenant } from '@/utils';
