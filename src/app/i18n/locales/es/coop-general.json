@@ -1,8 +1,13 @@
 {
+  "buttons": {
+    "accept": "Aceptar COOP",
+    "close": "Cerrar COOP"
+  },
   "titles": {
     "master-acount": "Cuenta Primaria Coop",
     "preferencial-acount": "Cuenta Secundaria Coop"
   },
+  "copyright": "© Banco CoopCentral. Todos los derechos reservados. - {{year}}",
   "validation": {
     "password_min": "La contraseña debe tener al menos 8 caracteres",
     "password_required": "Ingresa una contraseña",

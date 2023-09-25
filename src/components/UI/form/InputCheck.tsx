@@ -9,8 +9,8 @@ import { useTranslation } from '@/app/i18n/client';
 
 function InputCheckMUI(props: InputCheckProps): JSX.Element {
   const theme = useTheme();
-  const { name, label, labelError, onChange, onClick, checked, value, tenant, error, disabled } = props;
-  const { t } = useTranslation(`${tenant}-general`);
+  const { name, label, labelError, onChange, onClick, checked, value, error, disabled } = props;
+  const { t } = useTranslation();
   const textLabel = t(`form.${name}_label`);
 
   return (
@@ -34,7 +34,7 @@ function InputCheckMUI(props: InputCheckProps): JSX.Element {
 }
 
 export default function InputCheck(props: InputCheckProps) {
-  const { name, control, tenant, onChange, onClick, checked, ...restProps } = props;
+  const { name, control, onChange, onClick, checked, ...restProps } = props;
 
   return (
     <>
@@ -46,7 +46,6 @@ export default function InputCheck(props: InputCheckProps) {
             <InputCheckMUI
               name={name}
               value={field.value}
-              tenant={tenant}
               onClick={onClick}
               checked={field.value === '' ? false : true}
               onChange={(e) => {
@@ -59,7 +58,7 @@ export default function InputCheck(props: InputCheckProps) {
           )}
         />
       ) : (
-        <InputCheckMUI name={name} onChange={onChange} onClick={onClick} tenant={tenant} {...restProps} />
+        <InputCheckMUI name={name} onChange={onChange} onClick={onClick} {...restProps} />
       )}
     </>
   );

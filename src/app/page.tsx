@@ -11,7 +11,7 @@ import { useTranslation } from '@/app/i18n/client';
 export default function HomePage(): JSX.Element {
   const router = usePathname();
   const currentTenant = validateTenant(router.split('/')[1]);
-  const { t } = useTranslation(`${currentTenant}-general`);
+  const { t } = useTranslation();
 
   const info = {
     status: '',

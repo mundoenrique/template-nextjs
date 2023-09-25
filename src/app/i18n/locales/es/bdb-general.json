@@ -1,4 +1,8 @@
 {
+  "buttons": {
+    "accept": "Aceptar BDB",
+    "close": "Cerrar BDB"
+  },
   "titles": {
     "master-acount": "Cuenta Debito BDB",
     "preferencial-acount": "Cuenta Crédito BDB"
@@ -6,6 +10,7 @@
   "form": {
     "email_label": "Correo Personal"
   },
+  "copyright": "© Banco de Bogotá. Todos los derechos reservados. - {{year}}",
   "validation": {
     "password_min": "La contraseña debe tener al menos 6 caracteres",
     "password_required": "Ingresa una contraseña",

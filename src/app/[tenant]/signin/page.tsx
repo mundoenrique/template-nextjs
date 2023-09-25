@@ -41,7 +41,7 @@ export default function LoginPage({ params }: any) {
 
   log_message('info', 'Access the SIG-IN page');
   const router = useRouter();
-  const { t } = useTranslation(`${params.tenant}-general`);
+  const { t } = useTranslation();
   const schema = getSchema(['email', 'password'], params.tenant);
 
   const { handleSubmit, control, reset } = useForm({
@@ -70,8 +70,8 @@ export default function LoginPage({ params }: any) {
         </Typography>
         <Grid container columns={1} spacing={2}>
           <Grid item xs={2}>
-            <InputText name='email' control={control} tenant={params.tenant} optional />
-            <InputPass name='password' control={control} tenant={params.tenant} additionalInfo />
+            <InputText name='email' control={control} optional />
+            <InputPass name='password' control={control} additionalInfo />
 
             <Button variant='contained' type='submit' fullWidth>
               {t('buttons.accept')}

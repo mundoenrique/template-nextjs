@@ -5,13 +5,14 @@ import Image from 'next/image';
 import { useTheme } from '@mui/material/styles';
 import { Box, Divider, Grid, Typography } from '@mui/material';
 //Internal App
-import { UtilsProps } from '@/interfaces';
+import { useTenantStore } from '@/store';
 import { useTranslation } from '@/app/i18n/client';
 import { getImages, handleConfigTenant } from '@/utils';
 
-export default function Footer({ tenant }: UtilsProps): JSX.Element {
+export default function Footer(): JSX.Element {
   const theme = useTheme();
-  const { t } = useTranslation(`${tenant}-general`);
+  const { t } = useTranslation();
+  const { tenant } = useTenantStore();
   const { imagesFooter, networks } = handleConfigTenant(tenant);
 
   return (

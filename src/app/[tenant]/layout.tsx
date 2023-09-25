@@ -1,10 +1,8 @@
 import { Metadata } from 'next';
-import { Container, Box } from '@mui/material';
+import { Container } from '@mui/material';
 //Internal App
 import { configTenant } from '@/config';
-import { Footer } from '@/components/UI';
 import { handleConfigTenant } from '@/utils';
-import SupportButton from '@/components/UI/SupportButton';
 import { GenerateMetadataProps, RootLayoutProps } from '@/interfaces';
 import { AuthProvider, MuiProvider, ZustandProvider } from '../Providers';
 
@@ -30,22 +28,11 @@ export async function generateMetadata({ params }: GenerateMetadataProps): Promi
 export default async function SigninLayout({ children, params }: RootLayoutProps) {
   return (
     <MuiProvider theme={params.tenant}>
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          flexWrap: 'nowrap',
-          height: '100vh',
-        }}
-      >
-        <ZustandProvider>
-          <AuthProvider>
-            <Container>{children}</Container>
-          </AuthProvider>
-          <SupportButton tenant={params.tenant} />
-        </ZustandProvider>
-        <Footer tenant={params.tenant} />
-      </Box>
+      <ZustandProvider theme={params.tenant}>
+        <AuthProvider>
+          <Container>{children}</Container>
+        </AuthProvider>
+      </ZustandProvider>
     </MuiProvider>
   );
 }

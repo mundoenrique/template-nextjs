@@ -7,8 +7,8 @@ import { TextFieldProps } from '@/interfaces';
 import { useTranslation } from '@/app/i18n/client';
 
 function InputMUI(props: TextFieldProps): JSX.Element {
-  const { name, label, labelError, type, optional, error, value, tenant, onChange } = props;
-  const { t } = useTranslation(`${tenant}-general`);
+  const { name, label, labelError, type, optional, error, value, onChange } = props;
+  const { t } = useTranslation();
   const textLabel = label ?? t(`form.${name}_label`);
 
   return (
@@ -32,7 +32,7 @@ function InputMUI(props: TextFieldProps): JSX.Element {
 }
 
 export default function InputText(props: TextFieldProps) {
-  const { name, control, tenant, onChange, ...restProps } = props;
+  const { name, control, onChange, ...restProps } = props;
 
   return (
     <>
@@ -44,7 +44,6 @@ export default function InputText(props: TextFieldProps) {
             <InputMUI
               name={name}
               value={field.value}
-              tenant={tenant}
               onChange={(e) => {
                 field.onChange(e);
                 onChange && onChange(e);
@@ -55,7 +54,7 @@ export default function InputText(props: TextFieldProps) {
           )}
         />
       ) : (
-        <InputMUI name={name} onChange={onChange} tenant={tenant} />
+        <InputMUI name={name} onChange={onChange} />
       )}
     </>
   );

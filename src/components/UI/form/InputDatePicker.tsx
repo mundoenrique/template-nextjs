@@ -16,9 +16,9 @@ import useGetFormStore from '@/hooks/zustanHooks';
 
 function DatePickerMUI(props: InputDatePickerProps): JSX.Element {
   const theme = useTheme();
-  const { name, label, labelError, error, tenant, onChange, value, views, format } = props;
-  const lang = useGetFormStore(useLangStore, (state) => state.lang)
-  const { t } = useTranslation(`${tenant}-general`);
+  const { name, label, labelError, error, onChange, value, views, format } = props;
+  const lang = useGetFormStore(useLangStore, (state) => state.lang);
+  const { t } = useTranslation();
   const inputLabel = label ?? t(`form.${name}_label`);
 
   return (
@@ -44,7 +44,7 @@ function DatePickerMUI(props: InputDatePickerProps): JSX.Element {
 }
 
 export default function InputDatePicker(props: InputDatePickerProps) {
-  const { name, control, onChange, tenant, ...restProps } = props;
+  const { name, control, onChange, ...restProps } = props;
 
   return (
     <>
@@ -56,7 +56,6 @@ export default function InputDatePicker(props: InputDatePickerProps) {
             <DatePickerMUI
               name={name}
               value={field.value}
-              tenant={tenant}
               onChange={(e) => {
                 field.onChange(e);
                 onChange && onChange(e);
@@ -67,7 +66,7 @@ export default function InputDatePicker(props: InputDatePickerProps) {
           )}
         />
       ) : (
-        <DatePickerMUI name={name} onChange={onChange} tenant={tenant} {...restProps} />
+        <DatePickerMUI name={name} onChange={onChange} {...restProps} />
       )}
     </>
   );

@@ -25,7 +25,7 @@ export default function Signin({ params }: any) {
   const [showModal, setShowModal] = useState(false);
   const [showModal200, setShowModal200] = useState(false);
   const [formData, setFormData] = useState<any>({});
-  const { t } = useTranslation(`${params.tenant}-general`);
+  const { t } = useTranslation();
   const schema = getSchema(['email', 'password', 'programs', 'initialDate', 'roles', 'term'], params.tenant);
 
   const { handleSubmit, control, reset } = useForm({
@@ -83,18 +83,12 @@ export default function Signin({ params }: any) {
             <Button variant='contained'>Variant `Contained`</Button>
           </Grid>
           <Grid item xs={2}>
-            <InputText name='email' control={control} tenant={params.tenant} optional />
-            <InputPass name='password' control={control} tenant={params.tenant} additionalInfo />
-            <InputSelect name='programs' control={control} tenant={params.tenant} options={selectOptions} />
-            <InputDatePicker name='initialDate' control={control} tenant={params.tenant} />
-            <InputRadio
-              name='roles'
-              control={control}
-              label='Seleciona el tipo de usuario'
-              tenant={params.tenant}
-              options={RadioOptions}
-            />
-            <InputCheck name='term' control={control} label='Seleciona el tipo de usuario' tenant={params.tenant} />
+            <InputText name='email' control={control} optional />
+            <InputPass name='password' control={control} additionalInfo />
+            <InputSelect name='programs' control={control} options={selectOptions} />
+            <InputDatePicker name='initialDate' control={control} />
+            <InputRadio name='roles' control={control} label='Seleciona el tipo de usuario' options={RadioOptions} />
+            <InputCheck name='term' control={control} label='Seleciona el tipo de usuario' />
           </Grid>
           <Grid item xs={1}>
             <Box sx={{ m: 'auto', maxWidth: 700, width: '100%' }}>

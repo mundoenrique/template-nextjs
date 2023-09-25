@@ -10,17 +10,16 @@ import { SpeedDial, SpeedDialAction } from '@mui/material';
 //Internal App
 import logoEn from '%/images/lang/en.png';
 import logoEs from '%/images/lang/es.png';
-import { UtilsProps } from '@/interfaces';
 import { useTranslation } from '@/app/i18n/client';
 import { useFontSizeStore, useLangStore, useModeStore } from '@/store';
 
-export default function SupporButton({ tenant }: UtilsProps): JSX.Element {
+export default function SupporButton(): JSX.Element {
   const { lang, changeLang } = useLangStore();
   const { mode, changeMode } = useModeStore();
   const { addCount, removeCount, fontSize } = useFontSizeStore();
   const currentLang = lang === 'en' ? 'es' : 'en';
   const currentMode = mode === 'light' ? 'dark' : 'light';
-  const { t } = useTranslation(`${tenant}-general`);
+  const { t } = useTranslation();
   const changeTextMode = mode === 'light' ? t('modeDark') : t('modeLight');
 
   return (
