@@ -5,9 +5,10 @@ import Image from 'next/image';
 import { useTheme } from '@mui/material/styles';
 import { Box, Divider, Grid, Typography } from '@mui/material';
 //Internal App
+import { getImages } from '@/utils';
 import { useTenantStore } from '@/store';
+import { handleConfigTenant } from '@/config';
 import { useTranslation } from '@/app/i18n/client';
-import { getImages, handleConfigTenant } from '@/utils';
 
 export default function Footer(): JSX.Element {
   const theme = useTheme();

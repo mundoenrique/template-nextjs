@@ -1,19 +1,21 @@
 import { Metadata } from 'next';
 import { Container } from '@mui/material';
 //Internal App
-import { configTenant } from '@/config';
-import { handleConfigTenant } from '@/utils';
+import { handleConfigTenant } from '@/config';
 import { GenerateMetadataProps, RootLayoutProps } from '@/interfaces';
 import { AuthProvider, MuiProvider, ZustandProvider } from '../Providers';
 
 export async function generateMetadata({ params }: GenerateMetadataProps): Promise<Metadata> {
-  const { title, description, favicon } = handleConfigTenant(params.tenant);
+  const { favicon } = handleConfigTenant(params.tenant);
   const faviconDefault = handleConfigTenant('novo');
-  const urlFavicon = params.tenant in configTenant && favicon !== '' ? favicon : faviconDefault?.favicon;
+  const urlFavicon = params.tenant && favicon !== '' ? favicon : faviconDefault?.favicon;
 
   return {
-    title: title || 'Admin Console',
-    description: description,
+    title: {
+      template: '%s | Consola administrativa',
+      default: 'Consola administrativa',
+    },
+    description: 'Consola para el manejo de efectivo...',
     icons: [
       {
         rel: 'icon',
