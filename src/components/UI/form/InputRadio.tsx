@@ -9,8 +9,8 @@ import { useTranslation } from '@/app/i18n/client';
 
 function InputRadioMUI(props: InputOptionsProps): JSX.Element {
   const theme = useTheme();
-  const { name, label, labelError, error, value, onChange, options, tenant } = props;
-  const { t } = useTranslation(`${tenant}-general`);
+  const { name, label, labelError, error, value, onChange, options } = props;
+  const { t } = useTranslation();
   return (
     <FormControl component='fieldset' variant='standard' fullWidth>
       {label && <FormLabel focused={false}>{label}</FormLabel>}
@@ -33,7 +33,7 @@ function InputRadioMUI(props: InputOptionsProps): JSX.Element {
 }
 
 export default function InputRadio(props: InputOptionsProps) {
-  const { name, control, tenant, onChange, options, ...restProps } = props;
+  const { name, control, onChange, options, ...restProps } = props;
 
   return (
     <>
@@ -46,7 +46,6 @@ export default function InputRadio(props: InputOptionsProps) {
               name={name}
               value={field.value}
               options={options}
-              tenant={tenant}
               onChange={(e) => {
                 field.onChange(e);
                 onChange && onChange(e);
@@ -57,7 +56,7 @@ export default function InputRadio(props: InputOptionsProps) {
           )}
         />
       ) : (
-        <InputRadioMUI name={name} onChange={onChange} options={options} tenant={tenant} />
+        <InputRadioMUI name={name} onChange={onChange} options={options} />
       )}
     </>
   );

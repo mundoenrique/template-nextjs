@@ -6,8 +6,14 @@ const black = '#000';
 // Primary color - Tenant
 const primary = '#0A60F9';
 
-// Text color variables
+// Primary color mode dark
+const primaryDark = '#0F1924';
+
+//Secondary color - Tenant
 const secondary = '#A19DA2';
+
+// Text color variables
+const textColor = '#A19DA2';
 
 // Grayscale variables
 const greyLight = '#f3f3f3';
@@ -18,15 +24,15 @@ const greyDark = '#c4c4c4';
 const borderRadius = 4;
 
 // Font size variables
-const h1 = '3rem'; //28px
-const h2 = '1.75rem'; //24px
-const h3 = '1.5rem'; //22px
-const h4 = '1.25rem'; //20px
-const h5 = '1.125rem'; //18px
-const text = '0.938rem'; //16px
-const small = '0.75rem'; //12px
+const h1 = 28; //28px
+const h2 = 24; //24px
+const h3 = 22; //22px
+const h4 = 20; //20px
+const h5 = 18; //18px
+const text = 16; //16px
+const small = 12; //12px
 
-export function changeMode(mode: string) {
+export function changeMode(mode: string, count: number) {
   const theme = createTheme({
     palette: {
       primary: {
@@ -39,35 +45,36 @@ export function changeMode(mode: string) {
         50: greyLight,
         100: greyNormal,
         200: greyDark,
+        300: textColor,
       },
     },
     //Custom typography
     typography: {
       fontFamily: 'Prelo',
       allVariants: {
-        color: mode === 'light' ? secondary : white,
-        fontSize: text,
+        color: mode === 'light' ? textColor : white,
+        fontSize: `${count + text}px`,
       },
       h1: {
-        fontSize: h1,
+        fontSize: `${count + h1}px`,
       },
       h2: {
-        fontSize: h2,
+        fontSize: `${count + h2}px`,
       },
       h3: {
-        fontSize: h3,
+        fontSize: `${count + h3}px`,
       },
       h4: {
-        fontSize: h4,
+        fontSize: `${count + h4}px`,
       },
       h5: {
-        fontSize: h5,
+        fontSize: `${count + h5}px`,
       },
       body1: {
-        fontSize: text,
+        fontSize: `${count + text}px`,
       },
       caption: {
-        fontSize: small,
+        fontSize: `${count + small}px`,
       },
     },
     // Border radius
@@ -75,7 +82,15 @@ export function changeMode(mode: string) {
       borderRadius: borderRadius,
     },
     components: {
-      //Global component styles
+      // Typography
+      MuiTypography: {
+        styleOverrides: {
+          root: {
+            color: textColor,
+          },
+        },
+      },
+      // Global component styles
       MuiCssBaseline: {
         styleOverrides: `
           @font-face {
@@ -100,7 +115,7 @@ export function changeMode(mode: string) {
       MuiContainer: {
         styleOverrides: {
           root: {
-            backgroundColor: mode === 'light' ? white : black,
+            backgroundColor: mode === 'light' ? white : primaryDark,
             maxWidth: 'initial !important',
             flex: 'auto',
             paddingLeft: '0 !important',
@@ -123,7 +138,7 @@ export function changeMode(mode: string) {
         styleOverrides: {
           root: {
             color: mode === 'light' ? '' : white,
-            fontSize: text,
+            fontSize: `${count + text}px`,
             height: '50px',
             letterSpacing: 'normal',
             minWidth: '115px',
@@ -136,7 +151,7 @@ export function changeMode(mode: string) {
             background: primary,
           },
           textPrimary: {
-            color: primary,
+            color: mode === 'light' ? '' : white,
             ':hover': {
               background: 'transparent',
             },
@@ -170,22 +185,50 @@ export function changeMode(mode: string) {
       // Inputs styles
       MuiInputBase: {
         styleOverrides: {
+          root: {
+            color: textColor,
+          },
           input: {
             borderRadius: borderRadius,
             padding: '14.23px 14px !important',
           },
         },
       },
+      MuiInputLabel: {
+        styleOverrides: {
+          root: {
+            color: mode === 'light' ? '' : textColor,
+            backgroundColor: mode === 'light' ? '' : white,
+            borderRadius: mode === 'light' ? '' : borderRadius,
+            paddingLeft: mode === 'light' ? '' : 8,
+            paddingRight: mode === 'light' ? '' : 8,
+            '&.Mui-focused': {
+              color: mode === 'light' ? '' : textColor,
+              backgroundColor: mode === 'light' ? '' : white,
+              borderRadius: mode === 'light' ? '' : borderRadius,
+              paddingLeft: mode === 'light' ? '' : 8,
+              paddingRight: mode === 'light' ? '' : 8,
+            },
+          },
+        },
+      },
+      MuiMenuItem: {
+        styleOverrides: {
+          root: {
+            color: mode === 'light' ? '' : textColor,
+          },
+        },
+      },
       MuiOutlinedInput: {
         styleOverrides: {
           input: {
-            color: mode === 'light' ? secondary : '',
+            color: textColor,
             '&:-webkit-autofill': {
-              WebkitTextFillColor: mode === 'light' ? secondary : '',
+              WebkitTextFillColor: mode === 'light' ? textColor : '',
               WebkitBoxShadow: mode === 'light' ? '' : `0 0 0 100px ${white} inset`,
             },
             '&.Mui-disabled': {
-              WebkitTextFillColor: mode === 'light' ? secondary : '',
+              WebkitTextFillColor: mode === 'light' ? textColor : '',
               opacity: 0.5,
             },
           },
@@ -207,7 +250,7 @@ export function changeMode(mode: string) {
             '&.Mui-disabled': {
               backgroundColor: greyLight,
               borderColor: secondary,
-              color: secondary,
+              color: textColor,
               '& .MuiOutlinedInput-notchedOutline': {
                 borderColor: secondary,
               },
@@ -217,6 +260,20 @@ export function changeMode(mode: string) {
                 borderColor: secondary,
               },
             },
+          },
+        },
+      },
+      MuiRadio: {
+        styleOverrides: {
+          root: {
+            color: mode === 'light' ? '' : secondary,
+          },
+        },
+      },
+      MuiCheckbox: {
+        styleOverrides: {
+          root: {
+            color: mode === 'light' ? '' : secondary,
           },
         },
       },
@@ -235,6 +292,7 @@ export function changeMode(mode: string) {
               paddingBottom: '16px',
               width: '100%',
               '& .modal-text': {
+                color: textColor,
                 display: 'flex',
                 flexDirection: 'column',
                 height: 'auto',
