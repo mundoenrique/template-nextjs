@@ -18,7 +18,7 @@ connectServices.interceptors.response.use(
 		return Promise.resolve({
 			data: {
 				code: -1,
-				data: 'At this time we are unable to accommodate your request, please try again later.',
+				data: 'At this time we are unable to accommodate your request, please try again later. ConnectServices',
 			}
 		});
   }
@@ -51,11 +51,11 @@ async function callOuth() {
 		const cookieStore = cookies();
   	const uidvdo = cookieStore.get('uidvdo')?.value;
 		const OuthToken: any = await redis.get(`session:${uidvdo}`);
+		await redis.expire(`session:${uidvdo}`, parseInt(process.env.REDIS_EXPIRE || '600'));
 		redis.quit();
 		return OuthToken.accesToken;
 
 	} catch (error) {
-		redis.quit();
 		Logger.error('Error in connection to Redis, access token was not obtained.')
     throw new Error(JSON.stringify({ errors: 'Error in redis', code: -1 }));
   }

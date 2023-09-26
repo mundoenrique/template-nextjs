@@ -17,7 +17,8 @@ import {
   NavBar,
   InputRadio,
   InputCheck,
-  Modals,
+	Modals,
+	TimmerSession
 } from '@/components/UI';
 import connectApi from '@/services/connectApi';
 
@@ -99,7 +100,8 @@ export default function Signin({ params }: any) {
   };
 
   return (
-    <>
+		<>
+			<TimmerSession tenant={params.tenant} />
       <NavBar />
 
       <Box sx={{ m: 5 }} component='form' onSubmit={handleSubmit(onSubmit)}>

@@ -33,8 +33,7 @@ export function createRedisInstance(config = getRedisConfiguration()) {
 			enableAutoPipelining: false,
 			maxRetriesPerRequest: null,
       retryStrategy: (times: number) => {
-				if (times > 2) {
-					Logger.warn(`[Redis] Could not connect after ${times} attempts`)
+				if (times == 1) {
           return undefined;
 				}
         return Math.min(times * 200, 1000);
