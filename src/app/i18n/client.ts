@@ -6,9 +6,9 @@ import resourcesToBackend from 'i18next-resources-to-backend';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import { initReactI18next, useTranslation as useTranslationOrg } from 'react-i18next';
 //Internal App
-import { useLangStore, useTenantStore } from '@/store';
 import useGetFormStore from '@/hooks/zustanHooks';
 import { getOptions, languages } from './settings';
+import { useLangStore, useTenantStore } from '@/store';
 
 const runsOnServerSide = typeof window === 'undefined';
 

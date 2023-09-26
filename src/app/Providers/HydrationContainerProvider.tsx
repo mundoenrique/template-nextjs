@@ -8,7 +8,7 @@ import { useTenantStore } from '@/store';
 import { ProviderProps } from '@/interfaces';
 import { Footer, SupportButton } from '@/components/UI';
 
-const HydrationZustand = ({ children, theme }: ProviderProps & any) => {
+const HydrationContainerProvider = ({ children, theme }: ProviderProps & any) => {
   const [isHydrated, setIsHydrated] = useState(true);
 
   const handleCurrentTenant = () => {
@@ -72,4 +72,4 @@ const HydrationZustand = ({ children, theme }: ProviderProps & any) => {
   );
 };
 
-export default HydrationZustand;
+export default HydrationContainerProvider;

@@ -68,7 +68,7 @@ export default function Footer(): JSX.Element {
 
           <Box sx={{ display: networks !== '' ? 'flex' : 'contents', m: { xs: 1, sm: 0 } }}>
             {Object.keys(networks).map((img, i) => (
-              <Link href={networks[img]} key={i} style={{ height: '20px' }}>
+              <Link href={networks[img as keyof typeof networks]} key={i} style={{ height: '20px' }}>
                 <Image
                   src={getImages(tenant, `${img}.svg`)}
                   style={{

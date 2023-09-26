@@ -4,9 +4,9 @@ import Image from 'next/image';
 import Sun from '@mui/icons-material/WbSunny';
 import Moon from '@mui/icons-material/Nightlight';
 import Settings from '@mui/icons-material/SettingsSuggest';
+import { SpeedDial, SpeedDialAction } from '@mui/material';
 import TextIncrease from '@mui/icons-material/TextIncrease';
 import TextDecrease from '@mui/icons-material/TextDecrease';
-import { SpeedDial, SpeedDialAction } from '@mui/material';
 //Internal App
 import logoEn from '%/images/lang/en.png';
 import logoEs from '%/images/lang/es.png';

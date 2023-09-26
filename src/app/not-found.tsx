@@ -6,7 +6,7 @@ import { validateTenant } from '@/utils';
 import { PageNotFound } from '@/components/UI';
 import MuiProvider from './Providers/MuiProvider';
 import { useTranslation } from '@/app/i18n/client';
-import ZustandProvider from './Providers/ZustandProvider';
+import { HydrationContainerProvider } from './Providers';
 
 export default function NotFoundPage(): JSX.Element {
   const router = usePathname();
@@ -22,9 +22,9 @@ export default function NotFoundPage(): JSX.Element {
 
   return (
     <MuiProvider theme={currentTenant}>
-      <ZustandProvider theme={currentTenant}>
+      <HydrationContainerProvider theme={currentTenant}>
         <PageNotFound params={info} />
-      </ZustandProvider>
+      </HydrationContainerProvider>
     </MuiProvider>
   );
 }

@@ -3,7 +3,7 @@ import { Container } from '@mui/material';
 //Internal App
 import { handleConfigTenant } from '@/config';
 import { GenerateMetadataProps, RootLayoutProps } from '@/interfaces';
-import { AuthProvider, MuiProvider, ZustandProvider } from '../Providers';
+import { AuthProvider, MuiProvider, HydrationContainerProvider } from '../Providers';
 
 export async function generateMetadata({ params }: GenerateMetadataProps): Promise<Metadata> {
   const { favicon } = handleConfigTenant(params.tenant);
@@ -30,11 +30,11 @@ export async function generateMetadata({ params }: GenerateMetadataProps): Promi
 export default async function SigninLayout({ children, params }: RootLayoutProps) {
   return (
     <MuiProvider theme={params.tenant}>
-      <ZustandProvider theme={params.tenant}>
+      <HydrationContainerProvider theme={params.tenant}>
         <AuthProvider>
           <Container>{children}</Container>
         </AuthProvider>
-      </ZustandProvider>
+      </HydrationContainerProvider>
     </MuiProvider>
   );
 }
