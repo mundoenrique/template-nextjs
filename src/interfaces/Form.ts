@@ -7,7 +7,6 @@ export interface FormMUIProps {
   error?: any;
   value?: any;
   onChange?: (...e: any[]) => void;
-  tenant: string;
   type?: string;
   control?: any;
 }

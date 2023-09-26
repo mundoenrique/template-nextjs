@@ -68,5 +68,10 @@
       "info2": "Quieres saber más?  ",
       "info3": " Lea nuestra Política de Cookies completa "
     }
-  }
+  },
+  "mode": "Modo {{mode}}",
+  "modeLight": "claro",
+  "modeDark": "oscuro",
+  "textIncrease": "Aumentar texto",
+  "textDecrease": "Disminuir texto"
 }

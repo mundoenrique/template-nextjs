@@ -1,7 +1,17 @@
-export const configTenant: any = {
+type ConfigProps = {
+  favicon: string;
+  imagesFooter: string[];
+  networks: { facebook?: string; instagram?: string; twitter?: string; youtube?: string; linkedin?: string } | string;
+};
+
+type TenantProps = {
+  novo: ConfigProps;
+  bdb: ConfigProps;
+  coop: ConfigProps;
+};
+
+const configTenant: TenantProps = {
   novo: {
-    title: 'Admin Console',
-    description: 'Descripción Novo',
     favicon: `${process.env.NEXT_PUBLIC_PATH_URL}/images/novo/favicon.ico`,
     imagesFooter: ['novopayment', 'pci'],
     networks: {
@@ -13,8 +23,6 @@ export const configTenant: any = {
     },
   },
   bdb: {
-    title: 'Empresas Banco de Bogotá',
-    description: 'Descripción BDB',
     favicon: `${process.env.NEXT_PUBLIC_PATH_URL}/images/bdb/favicon.ico`,
     imagesFooter: ['img-logo-color'],
     networks: {
@@ -24,10 +32,10 @@ export const configTenant: any = {
     },
   },
   coop: {
-    title: 'Empresas Coopcentral',
-    description: 'Descripción Coop',
     favicon: '',
     imagesFooter: ['img-logo-color', 'pci'],
     networks: '',
   },
 };
+
+export const handleConfigTenant = (tenant: string) => configTenant[tenant as keyof typeof configTenant];

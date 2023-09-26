@@ -68,5 +68,10 @@
       "info2": "Do you want to know more?",
       "info3": "Read our complete Cookies Policy"
     }
-  }
+  },
+  "mode": "{{mode}} mode",
+  "modeLight": "Light",
+  "modeDark": "Dark",
+  "textIncrease": "Text increase",
+  "textDecrease": "Text decrease"
 }

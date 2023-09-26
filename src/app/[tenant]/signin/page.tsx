@@ -153,12 +153,13 @@ export default function Signin({ params }: any) {
       <NavBar />
 
       <Box sx={{ m: 5 }} component='form' onSubmit={handleSubmit(onLoginUser)}>
-        Sign-in
-        <Typography variant='h3' sx={{ mb: 3 }}></Typography>
+        <Typography variant='h3' sx={{ mb: 3 }}>
+          Sign-in
+        </Typography>
         <Grid container columns={1} spacing={2}>
           <Grid item xs={2}>
-            <InputText name='email' control={control} tenant={params.tenant} optional />
-            <InputPass name='password' control={control} tenant={params.tenant} additionalInfo />
+            <InputText name='email' control={control} optional />
+            <InputPass name='password' control={control} additionalInfo />
 
             <Button variant='contained' type='submit' fullWidth>
               {t('buttons.accept')}
