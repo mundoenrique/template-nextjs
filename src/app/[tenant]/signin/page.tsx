@@ -1,20 +1,15 @@
 'use client';
 
 import React, { useEffect, useState } from "react";
-import dayjs from 'dayjs';
 import { signIn } from 'next-auth/react';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Box, Typography, Grid, Button, Stack } from '@mui/material';
 import {
-	InputDatePicker,
 	InputPass,
-	InputSelect,
 	InputText,
 	NavBar,
-	InputRadio,
-	InputCheck,
 	InputSwitch,
 	Modals,
 	Dialogs
@@ -25,8 +20,6 @@ import { log_message } from '@/utils';
 import connectApi from '@/services/connectApi';
 import { useTranslation } from '@/app/i18n/client';
 import { getSchema } from '@/config/validation/validationConfig';
-import { usePathname } from 'next/navigation';
-import { validateTenant } from '@/utils';
 
 export default function Signin({ params }: any) {
 	const [showModal, setShowModal] = useState(false);
@@ -36,7 +29,6 @@ export default function Signin({ params }: any) {
 	const [formData, setFormData] = useState<any>({});
   const router = useRouter();
   log_message('info', 'Access the SIG-IN page');
-	// const currentTenant = validateTenant(router.split('/')[1]);
   const { t } = useTranslation(`${params.tenant}-general`);
   const schema = getSchema(['email', 'password'], params.tenant); //currentTenant
 
@@ -82,31 +74,22 @@ export default function Signin({ params }: any) {
 		},
 	];
 
-	const onSubmit = async (data: any) => {
-		data.initialDate = dayjs(data.initialDate).format('DD/MM/YYYY');
-		setFormData(data);
-		setShowModal(true);
-	};
-
 	const getCookiesList = async () => {
 		const response = await fetch(process.env.NEXT_PUBLIC_PATH_URL + '/api/cookies', {
 			method: 'GET',
 		})
 		const data = await response.json()
     const list = data.data
-    console.log('data: ', list)
-		let showDialog: any
-		
-    console.log('list.length: ', list.length)
+    let showDialog: any
+
 		switch (list.length) {
 			case 0:
 				showDialog = true
 				break
 			default:
         let findState: any
-				findState = list.filter((item: any) => item.name === 'necessaryCookies');
-        console.log('findState: ', findState)
-				showDialog = (findState[0].name === 'necessaryCookies') ? false : true
+        findState = list.filter((item: any) => item.name === 'necessaryCookies');
+        showDialog = (findState[0].name === 'necessaryCookies') ? false : true;
 				break
 		}
 		dialogAccept(showDialog)
