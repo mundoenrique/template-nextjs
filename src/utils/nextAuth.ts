@@ -14,7 +14,7 @@ export const options: NextAuthOptions = {
         password: { label: 'Password', type: 'password' },
       },
       async authorize(credentials, req): Promise<any> {
-        const response = await authenticate(credentials!.email, credentials!.password, req);
+				const response = await authenticate(credentials!.email, credentials!.password, req);
 
         if (response.code === 0) {
           return { ...response.user, ip: response.ipAddress };

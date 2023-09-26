@@ -1,6 +1,7 @@
 import { cookies } from 'next/headers';
 import axios, { AxiosInstance, AxiosError } from 'axios';
 //Internal app
+const Logger = require('@/utils/logger');
 import { createRedisInstance } from '@/services/redis';
 
 const connectServices: AxiosInstance = axios.create({
@@ -10,13 +11,15 @@ const connectServices: AxiosInstance = axios.create({
 
 // Interceptor to handle response errors
 connectServices.interceptors.response.use(
-  (response) => {
-    return response.data;
+  (response): any => {
+    return { data: response.data, status: response.status };
   },
   (error: AxiosError) => {
     return Promise.resolve({
-      code: -1,
-      data: 'At this time we are unable to accommodate your request, please try again later.',
+      data: {
+        code: -1,
+        data: 'At this time we are unable to accommodate your request, please try again later.',
+      },
     });
   }
 );
@@ -32,23 +35,27 @@ connectServices.interceptors.request.use(
   },
   (error) => {
     return Promise.reject({
-      status: -1,
-      data: `Error configuring the request: ${error.message}`,
+      data: {
+        status: -1,
+        data: `Error configuring the request: ${error.message}`,
+      },
     });
   }
 );
 
 async function callOuth() {
-  const cookieStore = cookies();
-  const uidvdo = cookieStore.get('uidvdo')?.value;
+  const redis = createRedisInstance();
 
   try {
-    const redis = createRedisInstance();
+    const cookieStore = cookies();
+    const uidvdo = cookieStore.get('uidvdo')?.value;
     const OuthToken: any = await redis.get(`session:${uidvdo}`);
-
+    redis.quit();
     return OuthToken.accesToken;
   } catch (error) {
-    return null;
+    redis.quit();
+    Logger.error('Error in connection to Redis, access token was not obtained.');
+    throw new Error(JSON.stringify({ errors: 'Error in redis', code: -1 }));
   }
 }
 
