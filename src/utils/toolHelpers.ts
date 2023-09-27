@@ -14,7 +14,7 @@ export function getImages(tenant: string, file: string) {
   return validateImage;
 }
 
-export function log_message(type: string, msg: string, action: string = 'axios') {
+export function log_message(type: string, msg: string) {
   const data = { type, msg };
   fetch(`${process.env.NEXT_PUBLIC_PATH_URL}/api/logger`, {
     method: 'POST',
