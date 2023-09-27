@@ -22,8 +22,8 @@ import { TextFieldProps } from '@/interfaces';
 import { useTranslation } from '@/app/i18n/client';
 
 export default function InputPassField(props: TextFieldProps): JSX.Element {
-  const { name, control, label, labelError, onChange, additionalInfo = false, tenant } = props;
-  const { t } = useTranslation(`${tenant}-general`);
+  const { name, control, label, labelError, onChange, additionalInfo = false } = props;
+  const { t } = useTranslation();
   const [passwordShown, setPasswordShown] = useState(false);
   const [openPopper, setOpenPopper] = useState(false);
   const [arrowRef, setArrowRef] = useState<any>(null);
@@ -52,7 +52,9 @@ export default function InputPassField(props: TextFieldProps): JSX.Element {
           }}
         >
           {Object.entries(props.object).map(([key, value]: any) => (
-            <li key={key}>{value}</li>
+            <Typography key={key} component='li'>
+              {value}
+            </Typography>
           ))}
         </Box>
       </Fade>

@@ -1,21 +1,21 @@
 import { Metadata } from 'next';
-import { Container, Box } from '@mui/material';
+import { Container } from '@mui/material';
 //Internal App
-import { configTenant } from '@/config';
-import { Footer } from '@/components/UI';
-import { handleConfigTenant } from '@/utils';
-import SupperButton from '@/components/UI/SupportButton';
+import { handleConfigTenant } from '@/config';
 import { GenerateMetadataProps, RootLayoutProps } from '@/interfaces';
-import { AuthProvider, MuiProvider, ZustandProvider } from '../Providers';
+import { AuthProvider, MuiProvider, HydrationContainerProvider } from '../Providers';
 
 export async function generateMetadata({ params }: GenerateMetadataProps): Promise<Metadata> {
-  const { title, description, favicon } = handleConfigTenant(params.tenant);
+  const { favicon } = handleConfigTenant(params.tenant);
   const faviconDefault = handleConfigTenant('novo');
-  const urlFavicon = params.tenant in configTenant && favicon !== '' ? favicon : faviconDefault?.favicon;
+  const urlFavicon = params.tenant && favicon !== '' ? favicon : faviconDefault?.favicon;
 
   return {
-    title: title || 'Admin Console',
-    description: description,
+    title: {
+      template: '%s | Consola administrativa',
+      default: 'Consola administrativa',
+    },
+    description: 'Consola para el manejo de efectivo...',
     icons: [
       {
         rel: 'icon',
@@ -30,22 +30,11 @@ export async function generateMetadata({ params }: GenerateMetadataProps): Promi
 export default async function SigninLayout({ children, params }: RootLayoutProps) {
   return (
     <MuiProvider theme={params.tenant}>
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          flexWrap: 'nowrap',
-          height: '100vh',
-        }}
-      >
-        <ZustandProvider>
-          <AuthProvider>
-            <Container>{children}</Container>
-          </AuthProvider>
-          <SupperButton tenant={params.tenant} />
-        </ZustandProvider>
-        <Footer tenant={params.tenant} />
-      </Box>
+      <HydrationContainerProvider theme={params.tenant}>
+        <AuthProvider>
+          <Container>{children}</Container>
+        </AuthProvider>
+      </HydrationContainerProvider>
     </MuiProvider>
   );
 }

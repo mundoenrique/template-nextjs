@@ -13,7 +13,8 @@ export const useLangStore = create<LangState>()(
       changeLang: (lang) => set(() => ({ lang: lang })),
     }),
     {
-      name: 'languaje',
+      name: 'accessibility',
+      version: undefined,
     }
   )
 );
