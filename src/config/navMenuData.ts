@@ -29,18 +29,18 @@ const profile = {
 export const menuData: NavMenuItems = [
 	{
 		title: 'companies',
-
+		icon: 'HomeWorkOutlined',
+		enable: true,
 		children: [
 			{
 				title: 'manage_companies',
 				url: '/companies',
-				icon: 'HomeWorkOutlined',
-				enable: false,
+				enable: true,
 				children: [
 					{
 						title: 'create_company',
 						url: '/companies/create',
-						enable: false,
+						enable: true,
 					},
 				],
 			},
@@ -48,17 +48,18 @@ export const menuData: NavMenuItems = [
 	},
 	{
 		title: 'users',
+		icon: 'PersonSearchOutlined',
+		enable: true,
 		children: [
 			{
 				title: 'manage_users',
 				url: '/users',
-				icon: 'PersonSearchOutlined',
-				enable: false,
+				enable: true,
 				children: [
 					{
 						title: 'create_user',
 						url: '/users/create',
-						enable: false,
+						enable: true,
 					},
 				],
 			},
@@ -66,17 +67,18 @@ export const menuData: NavMenuItems = [
 	},
 	{
 		title: 'requests',
+		icon: 'FeaturedPlayListOutlined',
+		enable: true,
 		children: [
 			{
 				title: 'unnamed_emission',
 				url: '/unnamedemission',
-				icon: 'FeaturedPlayListOutlined',
-				enable: false,
+				enable: true,
 				children: [
 					{
 						title: 'create_unnamed_emission',
 						url: '/unnamedemission/create',
-						enable: false,
+						enable: true,
 					},
 				],
 			},
@@ -84,35 +86,48 @@ export const menuData: NavMenuItems = [
 	},
 	{
 		title: 'cards',
-		enable: false,
+		icon: 'CreditCardOutlined',
+		enable: true,
 		children: [
 			{
 				title: 'beneficiary_account',
-				url: '/beneficiaryaccount',
+				url: '/cards/beneficiaryaccount',
 				icon: 'AccountBalanceWalletOutlined',
-				enable: false,
+				enable: true,
 			},
 			{
 				title: 'view_fixes',
 				icon: 'AppSettingsAltOutlined',
-				url: '/viewfixes',
-				enable: false,
+				url: '/cards/viewfixes',
+				enable: true,
 			},
 		],
 	},
 	{
 		title: 'reports',
-		enable: false,
+		icon: 'AssessmentOutlined',
+		enable: true,
 		children: [
 			{
 				title: 'cards_emmited',
-				url: '/report/viewfixes',
-				enable: false,
+				url: '/report/cards_emmited',
+				enable: true,
 			},
-			{ title: 'online_trasanctions', url: '/report/viewfixes', enable: false },
+			{
+				title: 'online_trasanctions',
+				url: '/report/online_trasanctions',
+				enable: true,
+			},
+			{ title: 'account_status', url: '/report/account_status', enable: true },
+			{ title: 'income_reports', url: '/report/income_reports', enable: true },
+			{
+				title: 'closing_balance',
+				url: '/report/closing_balance',
+				enable: true,
+			},
 		],
 	},
-	{
+	/*{
 		title: 'Level 0',
 		children: [
 			{ title: 'Level 1a' },
@@ -133,7 +148,7 @@ export const menuData: NavMenuItems = [
 			},
 			{ title: 'Level 1c' },
 		],
-	},
+	},*/
 ];
 
 const getNestedPath = (arr, name) => {

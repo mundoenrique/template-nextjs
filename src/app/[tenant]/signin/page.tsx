@@ -17,7 +17,7 @@ import {
 	InputRadio,
 	InputCheck,
 	Modals,
-	Menu,
+	NavMenu,
 } from '@/components/UI';
 import { useState } from 'react';
 import { usePathname } from 'next/navigation';
@@ -186,7 +186,7 @@ export default function Signin({ params }: any) {
 					{t('buttons.accept')}
 				</Button>
 			</Modals>
-			<Menu menuItems={menuData} />
+			<NavMenu menuList={menuData} />
 		</>
 	);
 }

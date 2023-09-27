@@ -64,6 +64,9 @@
     "view_fixes": "Consulta de ajustes",
     "reports": "Reportes",
     "cards_emmited": "Tarjetas emitidas",
-    "online_trasanctions": "Transacciones en linea"
+    "online_trasanctions": "Transacciones en linea",
+    "account_status": "Estados de cuenta",
+    "income_reports": "Reporte de Ingresos",
+    "closing_balance": "Estados de cuenta"
   }
 }

@@ -1,2 +1,2 @@
 export * from './configTenant';
-export * from './menu';
+export * from './navMenuData';

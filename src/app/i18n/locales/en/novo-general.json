@@ -64,6 +64,9 @@
     "view_fixes": "View Adjustments",
     "reports": "Reports",
     "cards_emmited": "Emmitted Cards",
-    "online_trasanctions": "Online Transactions"
+    "online_trasanctions": "Online Transactions",
+    "account_status": "Account status",
+    "income_reports": "Income reports",
+    "closing_balance": "Balances at closing"
   }
 }

@@ -8,6 +8,9 @@ import {
 	List,
 	ListItem,
 	Typography,
+	Stack,
+	Item,
+	Paper,
 } from '@mui/material';
 
 import 'material-icons/iconfont/material-icons.css';
@@ -23,7 +26,11 @@ import IconComponent from './Icon';
 
 */
 const StyleMenu = {
-	display: 'block',
+	display: 'flex',
+
+	flexDirection: 'column',
+	flexWrap: 'wrap',
+	height: '250px',
 	'& ul li': {
 		p: 0,
 	},
@@ -35,7 +42,8 @@ const StyleMenu = {
 		fontWeight: '600',
 		lineHeight: '20px',
 		p: 0,
-		pt: '12px',
+
+		pl: '60px',
 	},
 	'& .level-2': {
 		py: '0px',
@@ -50,20 +58,25 @@ const StyleMenu = {
 	},
 };
 
-export default function Menu({ menuItems }): JSX.Element {
+export default function NavMenu({ menuList }): JSX.Element {
 	const depthLevel = 0;
 	return (
-		<Box id="Menu" sx={StyleMenu}>
-			{menuItems.map((el) => {
-				return (
-					<ParentItem
-						item={el}
-						key={el.title}
-						depthLevel={depthLevel}
-					></ParentItem>
-				);
-			})}
-		</Box>
+		<Paper elevation={3} sx={{ padding: '16px', margin: '24px' }}>
+			<Box id="Menu" sx={StyleMenu}>
+				{menuList.map((menuItem) => {
+					return (
+						<Box key={menuItem.title}>
+							{menuItem.enable && (
+								<ParentItem
+									item={menuItem}
+									depthLevel={depthLevel}
+								></ParentItem>
+							)}
+						</Box>
+					);
+				})}
+			</Box>
+		</Paper>
 	);
 }
 
@@ -84,7 +97,14 @@ function ParentItem({ item, depthLevel }: MenuParentItem): JSX.Element {
 					<Link href={item.url}>{t(`menu.${item.title}`)}</Link>
 				</ListItem>
 			) : (
-				<Typography variant="h5">{t(`menu.${item.title}`)}</Typography>
+				<Box sx={{ display: 'flex', alignItems: 'center' }}>
+					<Box sx={{ width: 60 }}>
+						<Avatar sx={{ width: 44, height: 44 }}>
+							<IconComponent iconName={item.icon}></IconComponent>
+						</Avatar>
+					</Box>
+					<Typography variant="h5">{t(`menu.${item.title}`)}</Typography>
+				</Box>
 			)}
 			{item.hasOwnProperty('children') && (
 				<ChildrenItem item={item} depthLevel={depthLevel}></ChildrenItem>
@@ -102,20 +122,8 @@ function ChildrenItem({ item, depthLevel }: MenuParentItem): JSX.Element {
 				<>
 					{item.children.map((menuItem) => {
 						return (
-							<Grid
-								container
-								spacing={0}
-								key={menuItem.title}
-								sx={{ my: '8px' }}
-							>
-								<Grid item xs="auto">
-									<Box sx={{ width: 60 }}>
-										<Avatar sx={{ width: 44, height: 44 }}>
-											<IconComponent iconName={menuItem.icon}></IconComponent>
-										</Avatar>
-									</Box>
-								</Grid>
-								<Grid item xs>
+							<Box key={menuItem.title} sx={{ my: '8px' }}>
+								<Box>
 									<List
 										className={`level-${depthLevel}`}
 										sx={{
@@ -128,8 +136,8 @@ function ChildrenItem({ item, depthLevel }: MenuParentItem): JSX.Element {
 											depthLevel={depthLevel}
 										></ParentItem>
 									</List>
-								</Grid>
-							</Grid>
+								</Box>
+							</Box>
 						);
 					})}
 				</>
