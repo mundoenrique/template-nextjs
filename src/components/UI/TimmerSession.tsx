@@ -9,7 +9,7 @@ import { useTranslation } from "@/app/i18n/client";
 export default function TimmerSession(tenant:any) {
 
 	const { update } = useSession();
-	const { t } = useTranslation(`${tenant}-general`);
+	const { t } = useTranslation();
 	const [showModal, setShowModal] = useState(false);
 	const ref: any = useRef(null);
 
