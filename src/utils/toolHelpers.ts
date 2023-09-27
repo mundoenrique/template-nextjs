@@ -14,14 +14,12 @@ export function getImages(tenant: string, file: string) {
   return validateImage;
 }
 
-export function log_message(type: string, msg: string, action: string = 'axios') {
+export function log_message(type: string, msg: string) {
   const data = { type, msg };
-  action === 'axios'
-    ? connectApi.post('/logger', data)
-    : fetch(`${process.env.NEXT_PUBLIC_PATH_URL}/api/logger`, {
-        method: 'POST',
-        body: JSON.stringify({ payload: encrypt(JSON.stringify(data)) }),
-      });
+  fetch(`${process.env.NEXT_PUBLIC_PATH_URL}/api/logger`, {
+    method: 'POST',
+    body: JSON.stringify({ payload: encrypt(JSON.stringify(data)) }),
+  });
 }
 
 export function validateTenant(tenant: string) {

@@ -2,10 +2,10 @@
 
 import { signIn } from 'next-auth/react';
 import { useForm } from 'react-hook-form';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Box, Typography, Grid, Button } from '@mui/material';
+import { Box, Typography, Grid, Button, CircularProgress } from '@mui/material';
 //Internal App
 import { log_message } from '@/utils';
 import connectApi from '@/services/connectApi';
@@ -30,14 +30,8 @@ const sesionClient = async () => {
 
 export default function LoginPage({ params }: any) {
   const [showModal, setShowModal] = useState(false);
-
-  useEffect(() => {
-    sesionClient().then((data) => {
-      if (data.code != 0) {
-        setShowModal(true);
-      }
-    });
-  }, []);
+	const [loading, setLoading] = useState(false);
+	const [msgModal, setmsgModal] = useState('');
 
   log_message('info', 'Access the SIG-IN page');
   const router = useRouter();
@@ -49,15 +43,29 @@ export default function LoginPage({ params }: any) {
       email: '',
       password: '',
     },
-    resolver: yupResolver(schema),
+    resolver: yupResolver(schema)
   });
 
-  const onLoginUser = async ({ email, password }: FormData) => {
-    let nuevo = await signIn('credentials', { redirect: false, email, password });
+	const onLoginUser = async ({ email, password }: FormData) => {
 
-    if (nuevo?.error === null) {
-      router.push(`dashboard`);
-    }
+		setLoading(true)
+		const resRedis = await sesionClient()
+
+		if (resRedis.code === 0) {
+			const resLogin = await signIn('credentials', { redirect: false, email, password })
+			if (resLogin?.error === null) {
+				const date = new Date
+				localStorage.setItem('sessionTime', date.toString())
+      	router.push(`dashboard`);
+			} else {
+				setmsgModal('Invalid username or password. Please try again.')
+				setShowModal(true);
+			}
+		} else {
+			setmsgModal('We are unable to process your request at this time')
+			setLoading(false)
+			setShowModal(true)
+		}
   };
 
   return (
@@ -73,17 +81,19 @@ export default function LoginPage({ params }: any) {
             <InputText name='email' control={control} optional />
             <InputPass name='password' control={control} additionalInfo />
 
-            <Button variant='contained' type='submit' fullWidth>
-              {t('buttons.accept')}
+						<Button variant='contained' type='submit' disabled={loading} fullWidth>
+							{loading && <CircularProgress color='secondary' size={20} />}
+              {!loading && t('buttons.accept')}
             </Button>
           </Grid>
         </Grid>
       </Box>
 
-      <Modals msgModal={'We are unable to process your request at this time'} buttons={1} showModal={showModal}>
+      <Modals msgModal={msgModal} buttons={1} showModal={showModal}>
         <Button
           variant='contained'
-          onClick={() => {
+					onClick={() => {
+						setLoading(false);
             setShowModal(false);
           }}
         >
