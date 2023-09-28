@@ -14,20 +14,20 @@ export const options: NextAuthOptions = {
         password: { label: 'Password', type: 'password' },
       },
       async authorize(credentials, req): Promise<any> {
-        const response = await authenticate(credentials!.email, credentials!.password, req);
+				const response = await authenticate(credentials!.email, credentials!.password, req);
 
         if (response.code === 0) {
           return { ...response.user, ip: response.ipAddress };
-        } else {
-          throw new Error(JSON.stringify({ errors: 'Error en crdenciales', status: false, code: 1 }));
+				} else {
+          throw new Error(JSON.stringify({ errors: 'Error en credenciales', status: false, code: 1 }));
         }
       },
     }),
   ],
-  session: { strategy: 'jwt', maxAge: 24 * 60 * 60 },
+  session: { strategy: 'jwt', maxAge: parseInt(process.env.NEXTAUTH_EXPIRE || '300') + 5  },
   jwt: {
     secret: process.env.NEXTAUTH_SECRET,
-    maxAge: 60 * 60 * 24,
+    maxAge: parseInt(process.env.NEXTAUTH_EXPIRE || '300') + 5,
     encode: async ({ token }) => {
       const encodedToken = await signToken(token);
       return encodedToken;

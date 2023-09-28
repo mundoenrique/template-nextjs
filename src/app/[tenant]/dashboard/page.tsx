@@ -1,12 +1,19 @@
 'use client';
 
 import dayjs from 'dayjs';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Box, Typography, Grid, Button } from '@mui/material';
+import {
+	Box,
+	Typography,
+	Grid,
+	Button,
+	Stack,
+	CircularProgress,
+} from '@mui/material';
 //Internal App
-import { log_message } from '@/utils';
+import { log_message, requestGet } from '@/utils';
 import { useTranslation } from '@/app/i18n/client';
 import { getSchema } from '@/config/validation/validationConfig';
 
@@ -24,15 +31,20 @@ import {
 	InputRadio,
 	InputCheck,
 	Modals,
+	TimmerSession,
+	Table,
 } from '@/components/UI';
-import TablePagination from '@/components/UI/table/TablePagination';
+import connectApi from '@/services/connectApi';
+import { set } from 'date-fns';
 
 export default function Signin({ params }: any) {
 	log_message('info', 'Access the Components page');
 	const [showModal, setShowModal] = useState(false);
 	const [showModal200, setShowModal200] = useState(false);
+	const [loading, setLoading] = useState(false);
+	const [result, setResult] = useState('');
 	const [formData, setFormData] = useState<any>({});
-	const { t } = useTranslation(`${params.tenant}-general`);
+	const { t } = useTranslation();
 	const schema = getSchema(
 		['email', 'password', 'programs', 'initialDate', 'roles', 'term'],
 		params.tenant
@@ -49,6 +61,33 @@ export default function Signin({ params }: any) {
 		},
 		resolver: yupResolver(schema),
 	});
+
+	const servicePost = async () => {
+		setLoading(true);
+		setResult('');
+		const { payload }: any = await connectApi.post('/connectService', {
+			url: 'movements',
+			data: {
+				cardId: 3,
+				amount: 185000,
+				date: '2022-09-17',
+				description: 'Pay service...',
+				type: 'D',
+			},
+		});
+
+		setLoading(false);
+		setResult(payload);
+		setLoading(false);
+	};
+
+	const serviceGet = async () => {
+		setLoading(true);
+		setResult('');
+		const { payload } = await requestGet('cards/4/movements?_limit=10&_page=1');
+		setResult(payload);
+		setLoading(false);
+	};
 
 	const selectOptions = [
 		{
@@ -85,222 +124,8 @@ export default function Signin({ params }: any) {
 		{ id: 'amount', label: 'Amount' },
 	];
 
-	const infoTable = [
-		{
-			cardId: 4,
-			amount: 185000,
-			date: '2022-09-17',
-			description: 'Pay 1 service Disney Plus',
-			type: 'D',
-			options: ['edit'],
-			id: 8,
-		},
-		{
-			cardId: 4,
-			amount: 185000,
-			date: '2022-09-17',
-			description: 'Pay 2 service Disney Plus',
-			type: 'D',
-			id: 9,
-		},
-		{
-			cardId: 4,
-			amount: 185000,
-			date: '2022-09-17',
-			description: 'Pay 3 service Disney Plus',
-			type: 'D',
-			id: 10,
-		},
-		{
-			cardId: 4,
-			amount: 185000,
-			date: '2022-09-17',
-			description: 'Pay 4 service Disney Plus',
-			type: 'D',
-			options: ['edit', 'delete', 'create'],
-			id: 11,
-		},
-		{
-			cardId: 4,
-			amount: 185000,
-			date: '2022-09-17',
-			description: 'Pay 5 service Disney Plus',
-			type: 'D',
-			options: ['edit', 'delete'],
-			id: 12,
-		},
-		{
-			cardId: 4,
-			amount: 185000,
-			date: '2022-09-17',
-			description: 'Pay 6 service Disney Plus',
-			type: 'D',
-			options: ['edit', 'delete'],
-			id: 13,
-		},
-		{
-			cardId: 4,
-			amount: 185000,
-			date: '2022-09-17',
-			description: 'Pay 7 service Disney Plus',
-			type: 'D',
-			options: ['edit'],
-			id: 14,
-		},
-		{
-			cardId: 4,
-			amount: 185000,
-			date: '2022-09-17',
-			description: 'Pay 8 service Disney Plus',
-			type: 'D',
-			options: ['edit'],
-			id: 15,
-		},
-		{
-			cardId: 4,
-			amount: 185000,
-			date: '2022-09-17',
-			description: 'Pay 9 service Disney Plus',
-			type: 'D',
-			options: ['edit'],
-			id: 16,
-		},
-		{
-			cardId: 4,
-			amount: 185000,
-			date: '2022-09-17',
-			description: 'Pay 10 service Disney Plus',
-			type: 'D',
-			id: 17,
-		},
-		{
-			cardId: 4,
-			amount: 185000,
-			date: '2022-09-17',
-			description: 'Pay 11 service Disney Plus',
-			type: 'D',
-			id: 18,
-		},
-		{
-			cardId: 4,
-			amount: 185000,
-			date: '2022-09-17',
-			description: 'Pay 12 service Disney Plus',
-			type: 'D',
-			options: ['edit', 'delete', 'create'],
-			id: 19,
-		},
-		{
-			cardId: 4,
-			amount: 185000,
-			date: '2022-09-17',
-			description: 'Pay 13 service Disney Plus',
-			type: 'D',
-			options: ['edit', 'delete'],
-			id: 20,
-		},
-		{
-			cardId: 4,
-			amount: 185000,
-			date: '2022-09-17',
-			description: 'Pay 14 service Disney Plus',
-			type: 'D',
-			options: ['edit', 'delete'],
-			id: 21,
-		},
-		{
-			cardId: 4,
-			amount: 185000,
-			date: '2022-09-17',
-			description: 'Pay 15 service Disney Plus',
-			type: 'D',
-			options: ['edit'],
-			id: 22,
-		},
-		{
-			cardId: 4,
-			amount: 185000,
-			date: '2022-09-17',
-			description: 'Pay 16 service Disney Plus',
-			type: 'D',
-			options: ['edit'],
-			id: 23,
-		},
-		{
-			cardId: 4,
-			amount: 185000,
-			date: '2022-09-17',
-			description: 'Pay 17 service Disney Plus',
-			type: 'D',
-			options: ['edit'],
-			id: 24,
-		},
-		{
-			cardId: 4,
-			amount: 185000,
-			date: '2022-09-17',
-			description: 'Pay 18 service Disney Plus',
-			type: 'D',
-			id: 25,
-		},
-		{
-			cardId: 4,
-			amount: 185000,
-			date: '2022-09-17',
-			description: 'Pay 19 service Disney Plus',
-			type: 'D',
-			id: 26,
-		},
-		{
-			cardId: 4,
-			amount: 185000,
-			date: '2022-09-17',
-			description: 'Pay 20 service Disney Plus',
-			type: 'D',
-			options: ['edit', 'delete', 'create'],
-			id: 27,
-		},
-		{
-			cardId: 4,
-			amount: 185000,
-			date: '2022-09-17',
-			description: 'Pay 21 service Disney Plus',
-			type: 'D',
-			options: ['edit', 'delete'],
-			id: 28,
-		},
-		{
-			cardId: 4,
-			amount: 185000,
-			date: '2022-09-17',
-			description: 'Pay 22 service Disney Plus',
-			type: 'D',
-			options: ['edit', 'delete'],
-			id: 29,
-		},
-		{
-			cardId: 4,
-			amount: 185000,
-			date: '2022-09-17',
-			description: 'Pay 23 service Disney Plus',
-			type: 'D',
-			options: ['edit'],
-			id: 30,
-		},
-		{
-			cardId: 4,
-			amount: 185000,
-			date: '2022-09-17',
-			description: 'Pay 24 service Disney Plus',
-			type: 'D',
-			options: ['edit'],
-			id: 31,
-		},
-	];
-
-	// const infoTable = [];
 	const handleChangePage = async (newPage: number) => {
-		console.log('Llamar al servicio, en la pagina:', newPage + 1);
+		setPage(newPage);
 	};
 
 	const actionOptions = [
@@ -324,8 +149,35 @@ export default function Signin({ params }: any) {
 		},
 	];
 
+	const [movements, setMovements] = useState([]);
+	const [page, setPage] = useState<number>(0);
+	const [limit, setLimit] = useState<number>(10);
+	const [totalRows, setTotalRows] = useState<number>(0);
+
+	const serviceGetMovements = async () => {
+		const { payload } = await requestGet('cards/4/movements');
+		setTotalRows(payload.data.length);
+	};
+
+	const serviceGetMovementsPagination = async () => {
+		setLoading(true);
+		setMovements([]);
+		await serviceGetMovements();
+		const { payload } = await requestGet(
+			`cards/4/movements?_limit=${limit}&_page=${page + 1}`
+		);
+		const { data } = payload;
+		setMovements(data);
+		setLoading(false);
+	};
+
+	useEffect(() => {
+		serviceGetMovementsPagination();
+	}, [page]);
+
 	return (
 		<>
+			<TimmerSession tenant={params.tenant} />
 			<NavBar />
 
 			<Box sx={{ m: 5 }} component="form" onSubmit={handleSubmit(onSubmit)}>
@@ -343,41 +195,24 @@ export default function Signin({ params }: any) {
 						<Button variant="contained">Variant `Contained`</Button>
 					</Grid>
 					<Grid item xs={2}>
-						<InputText
-							name="email"
-							control={control}
-							tenant={params.tenant}
-							optional
-						/>
-						<InputPass
-							name="password"
-							control={control}
-							tenant={params.tenant}
-							additionalInfo
-						/>
+						<InputText name="email" control={control} optional />
+						<InputPass name="password" control={control} additionalInfo />
 						<InputSelect
 							name="programs"
 							control={control}
-							tenant={params.tenant}
 							options={selectOptions}
 						/>
-						<InputDatePicker
-							name="initialDate"
-							control={control}
-							tenant={params.tenant}
-						/>
+						<InputDatePicker name="initialDate" control={control} />
 						<InputRadio
 							name="roles"
 							control={control}
 							label="Seleciona el tipo de usuario"
-							tenant={params.tenant}
 							options={RadioOptions}
 						/>
 						<InputCheck
 							name="term"
 							control={control}
 							label="Seleciona el tipo de usuario"
-							tenant={params.tenant}
 						/>
 					</Grid>
 					<Grid item xs={1}>
@@ -387,61 +222,70 @@ export default function Signin({ params }: any) {
 							</Button>
 						</Box>
 					</Grid>
+					<Grid item xs={1}>
+						<Typography variant="h3" sx={{ mb: 3 }}>
+							Peticiones a servicios
+						</Typography>
+
+						<Stack direction="row" spacing={2}>
+							<Button
+								variant="contained"
+								onClick={() => servicePost()}
+								disabled={loading}
+								fullWidth
+							>
+								{loading && <CircularProgress color="secondary" size={20} />}
+								{!loading && 'Post'}
+							</Button>
+
+							<Button
+								variant="contained"
+								onClick={() => serviceGet()}
+								disabled={loading}
+								fullWidth
+							>
+								{loading && <CircularProgress color="secondary" size={20} />}
+								{!loading && 'Get'}
+							</Button>
+						</Stack>
+						<Box sx={{ mt: 2 }}>
+							<code>{JSON.stringify(result, null, 2)}</code>
+						</Box>
+					</Grid>
+				</Grid>
+				<Grid container columns={3} spacing={2}>
+					<Grid item xs={1}>
+						<Typography variant="h3" sx={{ mb: 3 }}>
+							Table
+						</Typography>
+						<Stack direction="row" spacing={2}>
+							<Button
+								variant="contained"
+								onClick={() => serviceGetMovementsPagination()}
+								disabled={loading}
+								fullWidth
+							>
+								{loading && <CircularProgress color="secondary" size={20} />}
+								{!loading && 'Movimientos'}
+							</Button>
+						</Stack>
+					</Grid>
+					<Grid item xs={3}>
+						{movements.length > 0 && (
+							<Table
+								data={movements}
+								columns={columns}
+								actionOptions={actionOptions}
+								rowPages={limit}
+								page={page}
+								isByService={true}
+								totalRows={totalRows}
+								handleChangePage={handleChangePage}
+							/>
+						)}
+					</Grid>
 				</Grid>
 			</Box>
-
-			<Modals
-				msgModal={
-					<>
-						<Typography>
-							{t('dataForm.email', { email: formData.email })}
-						</Typography>
-						<Typography>
-							{t('dataForm.password', { password: formData.password })}
-						</Typography>
-						<Typography>
-							{t('dataForm.programs', { programs: formData.programs })}
-						</Typography>
-						<Typography>
-							{t('dataForm.initialDate', { initialDate: formData.initialDate })}
-						</Typography>
-						<Typography>
-							{t('dataForm.roles', { roles: formData.roles })}
-						</Typography>
-					</>
-				}
-				buttons={2}
-				showModal={showModal}
-			>
-				<Button variant="text" onClick={() => setShowModal(false)}>
-					{t('buttons.cancel')}
-				</Button>
-				<Button
-					variant="contained"
-					onClick={() => {
-						setShowModal(false);
-						setShowModal200(true);
-						reset();
-					}}
-				>
-					{t('buttons.accept')}
-				</Button>
-			</Modals>
-
-			<Modals msgModal="Formulario enviado" showModal={showModal200}>
-				<Button variant="contained" onClick={() => setShowModal200(false)}>
-					{t('buttons.accept')}
-				</Button>
-			</Modals>
-
-			<TablePagination
-				data={infoTable}
-				columns={columns}
-				actionOptions={actionOptions}
-				rowPages={10}
-				isByService={true}
-				handleChangePage={handleChangePage}
-			/>
 		</>
 	);
 }

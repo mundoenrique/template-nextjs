@@ -20,6 +20,7 @@ import {
 	ActionOption,
 	InfoRow,
 } from '@/interfaces';
+import { set } from 'date-fns';
 
 const PaginationTable = ({
 	columns,
@@ -27,6 +28,8 @@ const PaginationTable = ({
 	actionOptions,
 	rowPages,
 	isByService,
+	totalRows,
+	page,
 	handleChangePage,
 }: DataTable) => {
 	const verify_option = (options: string[], field: string) => {
@@ -45,9 +48,6 @@ const PaginationTable = ({
 		console.log('Ejecutar funcion', row);
 	};
 
-	const totalRows = data.length;
-
-	const [page, setPage] = useState<number>(0);
 	const [dataTable, setDataTable] = useState<InfoRow[]>([]);
 	const [countColumns, setCountColumns] = useState<number>(0);
 
@@ -58,6 +58,14 @@ const PaginationTable = ({
 			rowPages * (page + 1)
 		);
 		setDataTable(rows);
+	};
+
+	const getRows = () => {
+		if (isByService) {
+			setDataTable(data);
+		} else {
+			pagedData();
+		}
 	};
 
 	const getColumns = () => {
@@ -72,11 +80,10 @@ const PaginationTable = ({
 		if (isByService) {
 			handleChangePage(newPage);
 		}
-		setPage(newPage);
 	};
 
 	useEffect(() => {
-		pagedData();
+		getRows();
 		getColumns();
 	}, [page]);
 

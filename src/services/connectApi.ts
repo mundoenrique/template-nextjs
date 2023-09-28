@@ -1,3 +1,4 @@
+'use client'
 import axios, { AxiosInstance, AxiosError } from 'axios';
 //Internal app
 import { decrypt, encrypt } from '@/utils';
@@ -13,26 +14,37 @@ const connectApi: AxiosInstance = axios.create({
 });
 
 connectApi.interceptors.request.use(
-  async (config) => {
+	async (config) => {
+		config.url != '/redisSesion' && localStorage.setItem("sessionTime", (new Date().toString()));
     const payload = encrypt(JSON.stringify(config.data));
-    config.data = config.data ? { payload } : '';
+		config.data = config.data ? { payload } : '';
+		config.headers['Content-Type'] = 'application/json';
     config.timeout = parseInt(process.env.TIMEOUT_API || '50000');
     return config;
   },
-  (err) => Error(err)
+  (error) => {
+		return Promise.reject({
+			data: {
+				status: -1,
+				data: `Error configuring the request: ${error.message}`
+			}
+		});
+  }
 );
 
 // Interceptor to handle response errors
 connectApi.interceptors.response.use(
-  (response): any => {
+	(response): any => {
     const resDecrypt = decrypt(response.data.payload, response.data.code);
     return JSON.parse(resDecrypt);
   },
   (error: AxiosError) => {
-    return Promise.resolve({
-      code: -1,
-      data: 'At this time we are unable to accommodate your request, please try again later.',
-    });
+		return Promise.resolve({
+			data: {
+				code: -1,
+				data: 'At this time we are unable to accommodate your request, please try again later.'
+			}
+		});
   }
 );
 

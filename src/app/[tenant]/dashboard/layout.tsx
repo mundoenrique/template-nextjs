@@ -4,10 +4,10 @@ import { Metadata } from 'next';
 import { RootLayout } from '@/interfaces';
 
 export const metadata: Metadata = {
-  title: 'Signin',
+  title: 'Dashboard',
   description: '...',
 };
 
-export default function Signinlayout({ children }: RootLayout) {
+export default function Dashboardlayout({ children }: RootLayout) {
   return <>{children}</>;
 }

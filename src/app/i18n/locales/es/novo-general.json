@@ -48,5 +48,10 @@
     "programs": "Programa: {{programs}}",
     "initialDate": "Fecha: {{initialDate}}",
     "roles": "Rol: {{roles}}"
-  }
+  },
+  "mode": "Modo {{mode}}",
+  "modeLight": "claro",
+  "modeDark": "oscuro",
+  "textIncrease": "Aumentar texto",
+  "textDecrease": "Disminuir texto"
 }

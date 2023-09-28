@@ -6,6 +6,8 @@ export interface DataTable {
 	actionOptions?: ActionOption[];
 	rowPages: number;
 	isByService?: boolean;
+	totalRows: number;
+	page: number;
 	handleChangePage: (newPage: number) => void;
 }
 
