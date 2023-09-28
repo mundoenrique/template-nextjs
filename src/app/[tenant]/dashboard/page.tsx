@@ -17,6 +17,7 @@ import { log_message, requestGet } from '@/utils';
 import { useTranslation } from '@/app/i18n/client';
 import { getSchema } from '@/config/validation/validationConfig';
 
+import { RowTable } from '@/interfaces';
 //Icons
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
@@ -124,8 +125,24 @@ export default function Signin({ params }: any) {
 		{ id: 'amount', label: 'Amount' },
 	];
 
-	const handleChangePage = async (newPage: number) => {
+	const handleChangePage = (newPage: number) => {
 		setPage(newPage);
+	};
+
+	const onAction = (row: RowTable, action: number) => {
+		switch (action) {
+			case 1:
+				console.log('Abrir modal', row);
+				break;
+			case 2:
+				console.log('Redirect', row);
+				break;
+			case 3:
+				console.log('Ejecutar funcion', row);
+				break;
+			default:
+				break;
+		}
 	};
 
 	const actionOptions = [
@@ -281,6 +298,7 @@ export default function Signin({ params }: any) {
 								isByService={true}
 								totalRows={totalRows}
 								handleChangePage={handleChangePage}
+								onAction={onAction}
 							/>
 						)}
 					</Grid>

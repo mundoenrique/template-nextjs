@@ -9,6 +9,7 @@ export interface DataTable {
 	totalRows: number;
 	page: number;
 	handleChangePage: (newPage: number) => void;
+	onAction: (row: RowTable, action: number) => void;
 }
 
 export interface Movements {
@@ -40,6 +41,7 @@ export interface ActionOption {
 	label: string;
 	icon: React.ReactElement<SvgIconProps>;
 	action: number;
+	onAction?: (action: number) => void;
 }
 
 export interface IPaginationActions {

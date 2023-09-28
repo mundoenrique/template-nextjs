@@ -1,34 +1,17 @@
 import React from 'react';
 import IconButton from '@mui/material/IconButton';
 import { SvgIconProps, Tooltip } from '@mui/material';
+import { RowTable, ActionOption } from '@/interfaces';
 
-interface Props {
-	field: string;
-	label: string;
-	icon: React.ReactElement<SvgIconProps>;
-	action: number;
-	onModal?: () => void;
-	onRedirect?: () => void;
-	onFunction: () => void;
-}
-
-const ActionOptions: React.FC<Props> = ({
+const ActionOptions = ({
 	field,
 	label,
 	icon,
 	action,
-	onModal,
-	onRedirect,
-	onFunction,
-}) => {
+	onAction,
+}: ActionOption) => {
 	const handleContinue = () => {
-		if (action === 1 && onModal) {
-			onModal();
-		} else if (action === 2 && onRedirect) {
-			onRedirect();
-		} else {
-			onFunction();
-		}
+		onAction(action);
 	};
 
 	return (

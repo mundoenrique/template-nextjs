@@ -31,21 +31,14 @@ const PaginationTable = ({
 	totalRows,
 	page,
 	handleChangePage,
+	onAction,
 }: DataTable) => {
 	const verify_option = (options: string[], field: string) => {
 		return options?.includes(field) ? true : false;
 	};
 
-	const onModal = (row: RowTable) => {
-		console.log('Abrir modal', row);
-	};
-
-	const onRedirect = (row: RowTable) => {
-		console.log('Redireccionar', row);
-	};
-
-	const onFunction = (row: RowTable) => {
-		console.log('Ejecutar funcion', row);
+	const onFunction = (row: RowTable, action: number) => {
+		onAction(row, action);
 	};
 
 	const [dataTable, setDataTable] = useState<InfoRow[]>([]);
@@ -116,9 +109,7 @@ const PaginationTable = ({
 												label={option.label}
 												icon={option.icon}
 												action={option.action}
-												onFunction={() => onFunction(row)}
-												onRedirect={() => onRedirect(row)}
-												onModal={() => onModal(row)}
+												onAction={() => onFunction(row, option.action)}
 											/>
 										) : null
 									)}
