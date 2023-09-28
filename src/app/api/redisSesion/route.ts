@@ -68,7 +68,7 @@ async function connectRedis(token: string) {
     });
 	} catch (error) {
     redis.quit();
-    const cifrado = encryptToView({ code: 1, msg: 'Error in connection to Redis' });
+    const cifrado = encryptToView({ code: 1, msg: 'Error in connection to Redis from to sesion client' });
     Logger.info(`No oauth record in redis`);
     return new NextResponse(JSON.stringify(cifrado), {
       status: 200,

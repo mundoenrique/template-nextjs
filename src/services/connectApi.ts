@@ -15,8 +15,10 @@ const connectApi: AxiosInstance = axios.create({
 
 connectApi.interceptors.request.use(
 	async (config) => {
+		config.url != '/redisSesion' && localStorage.setItem("sessionTime", (new Date().toString()));
     const payload = encrypt(JSON.stringify(config.data));
-    config.data = config.data ? { payload } : '';
+		config.data = config.data ? { payload } : '';
+		config.headers['Content-Type'] = 'application/json';
     config.timeout = parseInt(process.env.TIMEOUT_API || '50000');
     return config;
   },
@@ -24,7 +26,7 @@ connectApi.interceptors.request.use(
 		return Promise.reject({
 			data: {
 				status: -1,
-				data: `Error configuring the request: ${error.message}`,
+				data: `Error configuring the request: ${error.message}`
 			}
 		});
   }
@@ -40,7 +42,7 @@ connectApi.interceptors.response.use(
 		return Promise.resolve({
 			data: {
 				code: -1,
-				data: 'At this time we are unable to accommodate your request, please try again later.',
+				data: 'At this time we are unable to accommodate your request, please try again later.'
 			}
 		});
   }
