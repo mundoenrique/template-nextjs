@@ -1,9 +1,10 @@
-import { RootLayout } from '@/interfaces';
-import { Metadata } from 'next';
 import React from 'react';
+import { Metadata } from 'next';
+//Internal app
+import { RootLayout } from '@/interfaces';
 
 export const metadata: Metadata = {
-  title: 'Signin - Admin Console',
+  title: 'Signin',
   description: '...',
 };
 

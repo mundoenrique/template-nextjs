@@ -68,5 +68,10 @@
     "account_status": "Estados de cuenta",
     "income_reports": "Reporte de Ingresos",
     "closing_balance": "Estados de cuenta"
-  }
+  },
+  "mode": "Modo {{mode}}",
+  "modeLight": "claro",
+  "modeDark": "oscuro",
+  "textIncrease": "Aumentar texto",
+  "textDecrease": "Disminuir texto"
 }

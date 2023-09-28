@@ -1,25 +1,21 @@
 import { Metadata } from 'next';
-import dynamic from 'next/dynamic';
+import { Container } from '@mui/material';
 //Internal App
-import { configTenant } from '@/config';
-import { Footer } from '@/components/UI';
-import { handleConfigTenant } from '@/utils';
-import MuiProvider from '../Providers/MuiProvider';
+import { handleConfigTenant } from '@/config';
 import { GenerateMetadataProps, RootLayoutProps } from '@/interfaces';
-import { Container, Box } from '@mui/material';
-const Widget = dynamic(() => import('@/components/UI/SupportButton'), {
-  ssr: false,
-});
+import { AuthProvider, MuiProvider, HydrationContainerProvider } from '../Providers';
 
 export async function generateMetadata({ params }: GenerateMetadataProps): Promise<Metadata> {
-  const { title, description, favicon } = handleConfigTenant(params.tenant);
+  const { favicon } = handleConfigTenant(params.tenant);
   const faviconDefault = handleConfigTenant('novo');
-
-  const urlFavicon = params.tenant in configTenant && favicon !== '' ? favicon : faviconDefault?.favicon;
+  const urlFavicon = params.tenant && favicon !== '' ? favicon : faviconDefault?.favicon;
 
   return {
-    title: title || 'Admin Console',
-    description: description,
+    title: {
+      template: '%s | Consola administrativa',
+      default: 'Consola administrativa',
+    },
+    description: 'Consola para el manejo de efectivo...',
     icons: [
       {
         rel: 'icon',
@@ -34,18 +30,11 @@ export async function generateMetadata({ params }: GenerateMetadataProps): Promi
 export default async function SigninLayout({ children, params }: RootLayoutProps) {
   return (
     <MuiProvider theme={params.tenant}>
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          flexWrap: 'nowrap',
-          height: '100vh',
-        }}
-      >
-        <Container>{children}</Container>
-        <Footer tenant={params.tenant} />
-        <Widget tenant={params.tenant} />
-      </Box>
+      <HydrationContainerProvider theme={params.tenant}>
+        <AuthProvider>
+          <Container>{children}</Container>
+        </AuthProvider>
+      </HydrationContainerProvider>
     </MuiProvider>
   );
 }

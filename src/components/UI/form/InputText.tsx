@@ -4,13 +4,11 @@ import { Controller } from 'react-hook-form';
 import { FormControl, FormHelperText, InputAdornment, InputLabel, OutlinedInput } from '@mui/material';
 //Internal app
 import { TextFieldProps } from '@/interfaces';
-import { useLangStore } from '@/store/langStore';
 import { useTranslation } from '@/app/i18n/client';
 
 function InputMUI(props: TextFieldProps): JSX.Element {
-  const { name, label, labelError, type, optional, error, value, tenant, onChange } = props;
-  const { lang } = useLangStore();
-  const { t } = useTranslation(lang, `${tenant}-general`);
+  const { name, label, labelError, type, optional, error, value, onChange } = props;
+  const { t } = useTranslation();
   const textLabel = label ?? t(`form.${name}_label`);
 
   return (
@@ -34,7 +32,7 @@ function InputMUI(props: TextFieldProps): JSX.Element {
 }
 
 export default function InputText(props: TextFieldProps) {
-  const { name, control, tenant, onChange, ...restProps } = props;
+  const { name, control, onChange, ...restProps } = props;
 
   return (
     <>
@@ -46,7 +44,6 @@ export default function InputText(props: TextFieldProps) {
             <InputMUI
               name={name}
               value={field.value}
-              tenant={tenant}
               onChange={(e) => {
                 field.onChange(e);
                 onChange && onChange(e);
@@ -57,7 +54,7 @@ export default function InputText(props: TextFieldProps) {
           )}
         />
       ) : (
-        <InputMUI name={name} onChange={onChange} tenant={tenant} />
+        <InputMUI name={name} onChange={onChange} />
       )}
     </>
   );

@@ -3,17 +3,17 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useTheme } from '@mui/material/styles';
-import { Box, Divider, Grid } from '@mui/material';
+import { Box, Divider, Grid, Typography } from '@mui/material';
 //Internal App
-import { UtilsProps } from '@/interfaces';
-import { useLangStore } from '@/store/langStore';
+import { getImages } from '@/utils';
+import { useTenantStore } from '@/store';
+import { handleConfigTenant } from '@/config';
 import { useTranslation } from '@/app/i18n/client';
-import { getImages, handleConfigTenant } from '@/utils';
 
-export default function Footer({ tenant }: UtilsProps): JSX.Element {
+export default function Footer(): JSX.Element {
   const theme = useTheme();
-  const { lang } = useLangStore();
-  const { t } = useTranslation(lang, `${tenant}-general`);
+  const { t } = useTranslation();
+  const { tenant } = useTenantStore();
   const { imagesFooter, networks } = handleConfigTenant(tenant);
 
   return (
@@ -68,7 +68,7 @@ export default function Footer({ tenant }: UtilsProps): JSX.Element {
 
           <Box sx={{ display: networks !== '' ? 'flex' : 'contents', m: { xs: 1, sm: 0 } }}>
             {Object.keys(networks).map((img, i) => (
-              <Link href={networks[img]} key={i} style={{ height: '20px' }}>
+              <Link href={networks[img as keyof typeof networks]} key={i} style={{ height: '20px' }}>
                 <Image
                   src={getImages(tenant, `${img}.svg`)}
                   style={{
@@ -85,9 +85,11 @@ export default function Footer({ tenant }: UtilsProps): JSX.Element {
           </Box>
         </Grid>
         <Grid item xs={12} sx={{ display: { xs: 'none', sm: 'block' } }}>
-          {t('copyright', {
-            year: new Date().getFullYear(),
-          })}
+          <Typography>
+            {t('copyright', {
+              year: new Date().getFullYear(),
+            })}
+          </Typography>
         </Grid>
       </Grid>
     </Box>

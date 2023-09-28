@@ -68,5 +68,10 @@
     "account_status": "Account status",
     "income_reports": "Income reports",
     "closing_balance": "Balances at closing"
-  }
+  },
+  "mode": "{{mode}} mode",
+  "modeLight": "Light",
+  "modeDark": "Dark",
+  "textIncrease": "Text increase",
+  "textDecrease": "Text decrease"
 }

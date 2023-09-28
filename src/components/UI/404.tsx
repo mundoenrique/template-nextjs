@@ -1,21 +1,48 @@
 'use client';
 
-import styles from '@/styles/not-found.module.scss';
+import { Button, Typography, Box } from '@mui/material';
 
 export default function PageNotFound({ params }: any) {
-
   return (
-    <div id="notfound">
-      <div className={styles.notfound}>
-        <div className={styles['notfound-404']}>
-          <h1>{ params.status }</h1>
-        </div>
-        <h2>{ params.title }</h2>
-        <p> { params.description } </p>
-        <a href="/" className={styles['notfound-a']}>
-          { params.btnName }
-        </a>
-      </div>
-    </div>
+    <Box
+      sx={{
+        alignItems: 'center',
+        display: 'flex',
+        height: '100%',
+        justifyContent: 'center',
+        position: 'relative',
+        width: '100%',
+      }}
+    >
+      <Box sx={{ maxWidth: '500px', width: '100%' }}>
+        <Box
+          sx={{
+            height: '100px',
+            position: 'absolute',
+            top: 40,
+            zIndex: -1,
+          }}
+        >
+          <Typography
+            sx={{
+              fontSize: '270px',
+              fontWeight: 'bold',
+              textAlign: 'center',
+              opacity: '0.15',
+            }}
+            variant='h1'
+          >
+            {params.status}
+          </Typography>
+        </Box>
+        <Typography variant='h2' sx={{ mb: 3 }}>
+          {params.title}
+        </Typography>
+        <Typography sx={{ mb: 3 }}>{params.description}</Typography>
+        <Button variant='contained' onClick={() => window.history.back()} fullWidth>
+          {params.btnName}
+        </Button>
+      </Box>
+    </Box>
   );
-};
+}

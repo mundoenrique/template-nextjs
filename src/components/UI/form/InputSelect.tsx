@@ -5,12 +5,10 @@ import { useTranslation } from '@/app/i18n/client';
 import { FormControl, FormHelperText, InputLabel, Select, MenuItem } from '@mui/material';
 //Internal App
 import { InputOptionsProps } from '@/interfaces';
-import { useLangStore } from '@/store/langStore';
 
 function SelectMUI(props: InputOptionsProps): JSX.Element {
-  const { name, label, options, labelError, error, value, tenant, onChange } = props;
-  const { lang } = useLangStore();
-  const { t } = useTranslation(lang, `${tenant}-general`);
+  const { name, label, options, labelError, error, value, onChange } = props;
+  const { t } = useTranslation();
   const textLabel = label ?? t(`form.${name}_label`);
 
   return (
@@ -31,7 +29,7 @@ function SelectMUI(props: InputOptionsProps): JSX.Element {
 }
 
 export default function InputSelect(props: InputOptionsProps) {
-  const { name, control, onChange, tenant, options } = props;
+  const { name, control, onChange, options } = props;
 
   return (
     <>
@@ -43,7 +41,6 @@ export default function InputSelect(props: InputOptionsProps) {
             <SelectMUI
               name={name}
               value={field.value}
-              tenant={tenant}
               options={options}
               onChange={(e) => {
                 field.onChange(e);
@@ -54,7 +51,7 @@ export default function InputSelect(props: InputOptionsProps) {
           )}
         />
       ) : (
-        <SelectMUI name={name} onChange={onChange} tenant={tenant} options={options} />
+        <SelectMUI name={name} onChange={onChange} options={options} />
       )}
     </>
   );

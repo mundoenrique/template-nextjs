@@ -13,7 +13,6 @@ import {
 	Paper,
 } from '@mui/material';
 
-import 'material-icons/iconfont/material-icons.css';
 //Internal App
 import { usePathname } from 'next/navigation';
 import { validateTenant } from '@/utils';
