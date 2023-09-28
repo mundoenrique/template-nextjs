@@ -21,21 +21,6 @@ import connectApi from '@/services/connectApi';
 import { useTranslation } from '@/app/i18n/client';
 import { getSchema } from '@/config/validation/validationConfig';
 
-type FormData = {
-  email: string;
-  password: string;
-};
-
-type resData = {
-  code: number;
-  msg: string;
-};
-
-const sesionClient = async () => {
-  const res: resData = await connectApi.get(`/redisSesion`);
-  return res;
-};
-
 export default function Signin({ params }: any) {
   const [showModal, setShowModal] = useState(false);
 	const [loading, setLoading] = useState(false);
@@ -47,8 +32,7 @@ export default function Signin({ params }: any) {
 
   log_message('info', 'Access the SIG-IN page');
   const router = useRouter();
-  log_message('info', 'Access the SIG-IN page');
-  const { t } = useTranslation(`${params.tenant}-general`);
+  const { t } = useTranslation();
   const schema = getSchema(['email', 'password'], params.tenant); //currentTenant
 
   type FormData = {
@@ -106,9 +90,13 @@ export default function Signin({ params }: any) {
 				showDialog = true
 				break
 			default:
-        let findState: any
-        findState = list.filter((item: any) => item.name === 'necessaryCookies');
-        showDialog = (findState[0].name === 'necessaryCookies') ? false : true;
+        list.map((option: any, i: number) => {
+          if (option.name === 'necessaryCookies') {
+            let findState: any
+            findState = list.filter((item: any) => item.name === 'necessaryCookies');
+            showDialog = (findState[0].name === 'necessaryCookies') ? false : true;
+          }
+        }) 
 				break
 		}
 		dialogAccept(showDialog)
@@ -269,7 +257,6 @@ export default function Signin({ params }: any) {
 					<InputSwitch
 						name="cookies"
 						control={control}
-						tenant={params.tenant}
 						options={cookiesList}
 					/>
 				</Dialogs>
