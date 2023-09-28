@@ -7,3 +7,4 @@ export * from './Modals';
 export * from './Buttons';
 export * from './Validation';
 export * from './Dialogs';
+export * from './Table';
