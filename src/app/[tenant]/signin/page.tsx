@@ -116,19 +116,6 @@ export default function Signin({ params }: any) {
 		}
 	}
 
-	// const acceptReject = async (type: number) => {
-	// 	cookiesList.map((option: any, i: number) => {
-	// 		if (option.required !== true) {
-	// 			if (option.value === false && type === 1) {
-	// 				cookiesList[i].value = true
-	// 			} else if (option.value === true && type === 2) { 
-	// 				cookiesList[i].value = false
-	// 			}
-	// 		}
-	// 	}) 
-	// 	setValue(cookiesList)
-	// }
-
   const { handleSubmit, control, reset } = useForm({
     defaultValues: {
       email: '',
@@ -161,12 +148,6 @@ export default function Signin({ params }: any) {
 
   useEffect(() => {
     getCookiesList()
-
-    sesionClient().then((data) => {
-      if (data.code != 0) {
-        setShowModal(true);
-      }
-    });
   }, []);
 
   return (
@@ -240,14 +221,7 @@ export default function Signin({ params }: any) {
 					info1={t('cookies.dialog2.info1')}
 					info2={<>{t('cookies.dialog2.info2')}<a href="/" target="_blank">{t('cookies.dialog2.info3')}</a></>}
 					maxWidth="sm"
-					buttonActions1={<>
-						{/* <Button variant="outlined" onClick={() => acceptReject(1)}>
-							{t('buttons.acceptAll')}
-						</Button>
-						<Button variant="outlined" onClick={() => acceptReject(2)}>
-							{t('buttons.rejectAll')}
-						</Button> */}
-					</>}
+					buttonActions1={<></>}
 					buttonActions2={<>
 						<Button variant="contained" onClick={() => setCookies(cookiesList, 2)}>
 							{t('buttons.saveAndExit')}
