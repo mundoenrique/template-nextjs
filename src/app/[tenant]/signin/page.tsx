@@ -25,7 +25,6 @@ export default function Signin({ params }: any) {
   const [showModal, setShowModal] = useState(false);
 	const [loading, setLoading] = useState(false);
 	const [msgModal, setmsgModal] = useState('');
-	const [showModal200, setShowModal200] = useState(false);
 	const [open, dialogAccept] = useState(false);
 	const [personalize, dialogPersonalize] = useState(false);
 	const [formData, setFormData] = useState<any>({});
@@ -182,11 +181,6 @@ export default function Signin({ params }: any) {
           {t('buttons.accept')}
         </Button>
       </Modals>
-      <Modals msgModal="Formulario enviado" showModal={showModal200}>
-				<Button variant="contained" onClick={() => setShowModal200(false)}>
-					{t('buttons.accept')}
-				</Button>
-			</Modals>
 
       <>
 				<Dialogs
