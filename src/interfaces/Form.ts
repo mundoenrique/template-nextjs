@@ -77,3 +77,16 @@ export type FormData = {
   email: string;
   password: string;
 };
+
+export interface SwitchListProps extends FormMUIProps {
+  checked?: boolean;
+  setValue?: any;
+  options: {
+    id: number,
+    name: string,
+    title: string,
+    info: string,
+    value: boolean,
+    required: boolean
+  }[];
+}
