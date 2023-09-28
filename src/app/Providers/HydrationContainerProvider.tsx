@@ -5,10 +5,10 @@ import { useEffect, useState } from 'react';
 import { Box, CircularProgress } from '@mui/material';
 //Internal app
 import { useTenantStore } from '@/store';
-import { ProviderProps } from '@/interfaces';
+import { ProviderProps, ThemeProviderProps } from '@/interfaces';
 import { Footer, SupportButton } from '@/components/UI';
 
-const HydrationContainerProvider = ({ children, theme }: ProviderProps & any) => {
+const HydrationContainerProvider = ({ children, theme }: ProviderProps & ThemeProviderProps) => {
   const [isHydrated, setIsHydrated] = useState(true);
 
   const handleCurrentTenant = () => {
@@ -21,16 +21,16 @@ const HydrationContainerProvider = ({ children, theme }: ProviderProps & any) =>
     setIsHydrated(false);
   }, []);
 
+  const boxContainet = {
+    display: 'flex',
+    flexDirection: 'column',
+    flexWrap: 'nowrap',
+    height: '100vh',
+  };
+
   if (isHydrated)
     return (
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          flexWrap: 'nowrap',
-          height: '100vh',
-        }}
-      >
+      <Box sx={boxContainet}>
         <Box
           sx={{
             alignItems: 'center',
@@ -57,14 +57,7 @@ const HydrationContainerProvider = ({ children, theme }: ProviderProps & any) =>
     );
 
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        flexWrap: 'nowrap',
-        height: '100vh',
-      }}
-    >
+    <Box sx={boxContainet}>
       {children}
       <SupportButton />
       <Footer />

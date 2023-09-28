@@ -7,10 +7,10 @@ import { useRouter } from 'next/navigation';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Box, Typography, Grid, Button } from '@mui/material';
 //Internal App
+import { getSchema } from '@/config';
 import { log_message } from '@/utils';
 import connectApi from '@/services/connectApi';
 import { useTranslation } from '@/app/i18n/client';
-import { getSchema } from '@/config/validation/validationConfig';
 import { InputPass, InputText, NavBar, Modals } from '@/components/UI';
 
 type FormData = {
