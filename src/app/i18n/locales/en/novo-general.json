@@ -3,6 +3,11 @@
     "accept": "Accept Novo",
     "close": "Close Novo",
     "cancel": "Cancel",
+    "acceptAllCookies": "Accept all cookies",
+    "personalizeCookies": "Personalize Cookies",
+    "acceptAll": "Allow all",
+    "rejectAll": "Reject All",
+    "saveAndExit": "Save and Exit",
     "homepage": "Go To Homepage",
     "return": "Return"
   },
@@ -48,6 +53,21 @@
     "programs": "Program: {{programs}}",
     "initialDate": "Date: {{initialDate}}",
     "roles": "Rol: {{roles}}"
+  },
+  "cookies": {
+    "titles": {
+      "privacy": "Privacy notice",
+      "config": "Cookie Settings"
+    },
+    "dialog1": {
+      "info1": "We use our own and third-party cookies to obtain statistical data on the navigation of our users and improve our services. If you accept, we consider that you accept their use. You can change the settings or obtain more information ",
+      "here": "here"
+    },
+    "dialog2": {
+      "info1": "Cookies and similar technologies collect certain information about how you are using our website. Some of them are essential, and without them you would not be able to use NEXTJS TEMPLATE. But others are optional, and you can choose whether or not we use them. ",
+      "info2": "Do you want to know more?",
+      "info3": "Read our complete Cookies Policy"
+    }
   },
   "mode": "{{mode}} mode",
   "modeLight": "Light",

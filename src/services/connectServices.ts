@@ -46,15 +46,16 @@ connectServices.interceptors.request.use(
 async function callOuth() {
   const redis = createRedisInstance();
 
-  try {
-    const cookieStore = cookies();
-    const uidvdo = cookieStore.get('uidvdo')?.value;
-    const OuthToken: any = await redis.get(`session:${uidvdo}`);
-    redis.quit();
-    return OuthToken.accesToken;
-  } catch (error) {
-    redis.quit();
-    Logger.error('Error in connection to Redis, access token was not obtained.');
+	try {
+		const cookieStore = cookies();
+  	const uidvdo = cookieStore.get('uidvdo')?.value;
+		const OuthToken: any = await redis.get(`session:${uidvdo}`);
+		await redis.expire(`session:${uidvdo}`, parseInt(process.env.REDIS_EXPIRE || '600'));
+		redis.quit();
+		return OuthToken.accesToken;
+
+	} catch (error) {
+		Logger.error('Error in connection to Redis, access token was not obtained.')
     throw new Error(JSON.stringify({ errors: 'Error in redis', code: -1 }));
   }
 }
