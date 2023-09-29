@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { signIn } from 'next-auth/react';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
@@ -10,9 +10,8 @@ import {
 	InputPass,
 	InputText,
 	NavBar,
-	InputSwitch,
 	Modals,
-	Dialogs
+	Cookies
 } from '@/components/UI';
 
 //Internal App
@@ -25,9 +24,7 @@ export default function Signin({ params }: any) {
   const [showModal, setShowModal] = useState(false);
 	const [loading, setLoading] = useState(false);
 	const [msgModal, setmsgModal] = useState('');
-	const [open, dialogAccept] = useState(false);
-	const [personalize, dialogPersonalize] = useState(false);
-	const [formData, setFormData] = useState<any>({});
+
 
   log_message('info', 'Access the SIG-IN page');
   const router = useRouter();
@@ -48,72 +45,6 @@ export default function Signin({ params }: any) {
     const res: resData = await connectApi.get(`/redisSesion`);
     return res;
   };
-
-	const cookiesList = [
-		{
-			id: 1,
-			name: 'necessaryCookies',
-			title: "Cookies necesarias",
-			info: "",
-			value: true,
-			required: true
-		},
-		{
-			id: 2,
-			name: 'functionalyCookies',
-			title: "Cookies funcionales",
-			info: "",
-			value: false,
-			required: false
-		},
-		{
-			id: 3,
-			name: 'performanceCookies',
-			title: "Cookies de rendimiento",
-			info: "",
-			value: false,
-			required: false
-		},
-	];
-
-	const getCookiesList = async () => {
-		const response = await fetch(process.env.NEXT_PUBLIC_PATH_URL + '/api/cookies', {
-			method: 'GET',
-		})
-		const data = await response.json()
-    const list = data.data
-    let showDialog: any
-
-		switch (list.length) {
-			case 0:
-				showDialog = true
-				break
-			default:
-        list.map((option: any, i: number) => {
-          if (option.name === 'necessaryCookies') {
-            let findState: any
-            findState = list.filter((item: any) => item.name === 'necessaryCookies');
-            showDialog = (findState[0].name === 'necessaryCookies') ? false : true;
-          }
-        }) 
-				break
-		}
-		dialogAccept(showDialog)
-	}
-
-	const setCookies = async (options: any, type: number) => {
-		const response = await fetch(process.env.NEXT_PUBLIC_PATH_URL + '/api/cookies', {
-			method: 'POST',
-			body: JSON.stringify({options, type})
-		})	
-		const data = await response.json()
-		const value = (data.code === 0) ? false : true
-		if (type === 1) {
-			dialogAccept(value)
-		} else {
-			dialogPersonalize(value)
-		}
-	}
 
   const { handleSubmit, control, reset } = useForm({
     defaultValues: {
@@ -145,12 +76,9 @@ export default function Signin({ params }: any) {
 		}
   };
 
-  useEffect(() => {
-    getCookiesList()
-  }, []);
-
   return (
     <>
+			<Cookies />
       <NavBar />
 
       <Box sx={{ m: 5 }} component='form' onSubmit={handleSubmit(onLoginUser)}>
@@ -181,54 +109,6 @@ export default function Signin({ params }: any) {
           {t('buttons.accept')}
         </Button>
       </Modals>
-
-      <>
-				<Dialogs
-					open={open}
-					title={t('cookies.titles.privacy')}
-					info1={<>{t('cookies.dialog1.info1')} <a href="/" target="_blank">{t('cookies.dialog1.here')}</a></>}
-					info2=""
-					maxWidth="xl"
-					buttonActions1=""
-					buttonActions2={<>
-						<Button
-							variant="contained"
-							onClick={() => {
-								setCookies(cookiesList, 1)
-							}
-						}>
-							{t('buttons.acceptAllCookies')}
-						</Button>
-						<Button variant="outlined" onClick={() => {
-								dialogAccept(false)
-								dialogPersonalize(true)
-							}
-						}>
-							{t('buttons.personalizeCookies')}
-						</Button>
-					</>}
-				>
-				</Dialogs>
-				<Dialogs
-					open={personalize}
-					title={t('cookies.titles.config')}
-					info1={t('cookies.dialog2.info1')}
-					info2={<>{t('cookies.dialog2.info2')}<a href="/" target="_blank">{t('cookies.dialog2.info3')}</a></>}
-					maxWidth="sm"
-					buttonActions1={<></>}
-					buttonActions2={<>
-						<Button variant="contained" onClick={() => setCookies(cookiesList, 2)}>
-							{t('buttons.saveAndExit')}
-						</Button>
-					</>}
-				>
-					<InputSwitch
-						name="cookies"
-						control={control}
-						options={cookiesList}
-					/>
-				</Dialogs>
-      </>
     </>
   );
 }

@@ -20,7 +20,7 @@ function SwitchMUI(props: SwitchListProps): JSX.Element {
   };
 
   return (
-    <FormControl component='fieldset' variant='standard' fullWidth>
+    <FormControl sx={{mt:2}} component='fieldset' variant='standard' fullWidth>
       <FormGroup >
         {options.map((option, index) => (
           <FormControlLabel
@@ -44,7 +44,7 @@ function SwitchMUI(props: SwitchListProps): JSX.Element {
 }
 
 export default function SwitchCheck(props: SwitchListProps) {
-  const { name, control, tenant, onChange, options, checked, ...restProps } = props;
+  const { name, control, onChange, options, checked, ...restProps } = props;
 
   return (
     <>
@@ -57,7 +57,6 @@ export default function SwitchCheck(props: SwitchListProps) {
               name={name}
               value={field.value}
               options={options}
-              tenant={tenant}
               checked={field.value === true ? false : true}
               onChange={(e) => {
                 field.onChange(e);
@@ -69,7 +68,7 @@ export default function SwitchCheck(props: SwitchListProps) {
           )}
         />
       ) : (
-        <SwitchMUI name={name} onChange={onChange} options={options} tenant={tenant} {...restProps} />
+        <SwitchMUI name={name} onChange={onChange} options={options} {...restProps} />
       )}
     </>
   );

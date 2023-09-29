@@ -9,5 +9,6 @@ export interface DialogProps {
   buttonActions2: any;
   children: React.ReactNode;
   open?: boolean | undefined;
-  params?: any;
+	params?: any;
+	position?: string
 }

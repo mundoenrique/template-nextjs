@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { TransitionProps } from '@mui/material/transitions';
-import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Slide } from '@mui/material';
+import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Slide, SxProps } from '@mui/material';
 //Internal app
 import { DialogProps } from '@/interfaces'
 
@@ -23,8 +23,16 @@ export default function Dialogs({
   children,
   open = true,
   buttonActions1,
-  buttonActions2
+	buttonActions2,
+	position
 }: DialogProps): JSX.Element {
+
+	const sx: SxProps = {
+   "& .MuiDialog-container": {
+     alignItems: position ? "flex-end" : 'center'
+   }
+	};
+
   return (
     <Dialog
       open={open}
@@ -32,23 +40,23 @@ export default function Dialogs({
       TransitionComponent={Transition}
       keepMounted
       aria-describedby="dialog-accept-cookies"
-      sx={{ m: 2 }}>
+      sx={sx}>
       <DialogTitle>{title}</DialogTitle>
       <DialogContent>
         <DialogContentText id="dialog-accept-cookies">
           {info1}
-        </DialogContentText>
-        <DialogContentText sx={{ mt: 1 }} id="dialog-accept-cookies">
-          {info2}
-        </DialogContentText>
-      </DialogContent>
-      <DialogActions>
-        {buttonActions1}
-      </DialogActions>
-      <DialogContent>
+				</DialogContentText>
+				{
+					info2 && (
+						<DialogContentText sx={{ mt: 1 }} id="dialog-accept-cookies">
+          		{info2}
+        		</DialogContentText>
+					)
+				}
         {children}
       </DialogContent>
       <DialogActions>
+        {buttonActions1}
         {buttonActions2}
       </DialogActions>
     </Dialog>
