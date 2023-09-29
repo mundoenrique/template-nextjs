@@ -41,7 +41,6 @@ export interface ActionOption {
 	label: string;
 	icon: React.ReactElement<SvgIconProps>;
 	action: number;
-	onAction?: (action: number) => void;
 }
 
 export interface IPaginationActions {

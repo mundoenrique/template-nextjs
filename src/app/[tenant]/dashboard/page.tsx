@@ -37,6 +37,7 @@ import {
 } from '@/components/UI';
 import connectApi from '@/services/connectApi';
 import { set } from 'date-fns';
+import { on } from 'events';
 
 export default function Signin({ params }: any) {
 	log_message('info', 'Access the Components page');
@@ -166,13 +167,19 @@ export default function Signin({ params }: any) {
 		},
 	];
 
+	const isByService = false;
 	const [movements, setMovements] = useState([]);
 	const [page, setPage] = useState<number>(0);
 	const [limit, setLimit] = useState<number>(10);
 	const [totalRows, setTotalRows] = useState<number>(0);
 
 	const serviceGetMovements = async () => {
+		setMovements([]);
 		const { payload } = await requestGet('cards/4/movements');
+		const { data } = payload;
+		if (!isByService) {
+			setMovements(data);
+		}
 		setTotalRows(payload.data.length);
 	};
 
@@ -189,7 +196,9 @@ export default function Signin({ params }: any) {
 	};
 
 	useEffect(() => {
-		serviceGetMovementsPagination();
+		if (isByService) {
+			serviceGetMovementsPagination();
+		}
 	}, [page]);
 
 	return (
@@ -283,7 +292,16 @@ export default function Signin({ params }: any) {
 								fullWidth
 							>
 								{loading && <CircularProgress color="secondary" size={20} />}
-								{!loading && 'Movimientos'}
+								{!loading && 'Movimientos paginados'}
+							</Button>
+							<Button
+								variant="contained"
+								onClick={() => serviceGetMovements()}
+								disabled={loading}
+								fullWidth
+							>
+								{loading && <CircularProgress color="secondary" size={20} />}
+								{!loading && 'Todos los movimientos'}
 							</Button>
 						</Stack>
 					</Grid>
@@ -295,7 +313,7 @@ export default function Signin({ params }: any) {
 								actionOptions={actionOptions}
 								rowPages={limit}
 								page={page}
-								isByService={true}
+								isByService={isByService}
 								totalRows={totalRows}
 								handleChangePage={handleChangePage}
 								onAction={onAction}

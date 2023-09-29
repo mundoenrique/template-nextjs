@@ -3,13 +3,7 @@ import IconButton from '@mui/material/IconButton';
 import { SvgIconProps, Tooltip } from '@mui/material';
 import { RowTable, ActionOption } from '@/interfaces';
 
-const ActionOptions = ({
-	field,
-	label,
-	icon,
-	action,
-	onAction,
-}: ActionOption) => {
+const ActionOptions = ({ field, label, icon, action, onAction }: any) => {
 	const handleContinue = () => {
 		onAction(action);
 	};

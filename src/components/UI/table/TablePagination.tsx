@@ -41,14 +41,15 @@ const PaginationTable = ({
 		onAction(row, action);
 	};
 
+	const [localPage, setLocalPage] = useState<number>(0);
 	const [dataTable, setDataTable] = useState<InfoRow[]>([]);
 	const [countColumns, setCountColumns] = useState<number>(0);
 
 	const pagedData = () => {
 		const copy = [...data];
 		const rows = copy.slice(
-			rowPages * (page + 1) - rowPages,
-			rowPages * (page + 1)
+			rowPages * (localPage + 1) - rowPages,
+			rowPages * (localPage + 1)
 		);
 		setDataTable(rows);
 	};
@@ -56,6 +57,7 @@ const PaginationTable = ({
 	const getRows = () => {
 		if (isByService) {
 			setDataTable(data);
+			setLocalPage(page);
 		} else {
 			pagedData();
 		}
@@ -72,13 +74,16 @@ const PaginationTable = ({
 	const changePaged = (event: unknown, newPage: number) => {
 		if (isByService) {
 			handleChangePage(newPage);
+		} else {
+			setLocalPage(newPage);
+			pagedData();
 		}
 	};
 
 	useEffect(() => {
 		getRows();
 		getColumns();
-	}, [page]);
+	}, [localPage]);
 
 	return (
 		<TableContainer component={Paper}>
@@ -101,7 +106,7 @@ const PaginationTable = ({
 							))}
 							{actionOptions ? (
 								<TableCell align="center">
-									{actionOptions.map((option: ActionOption, index) =>
+									{actionOptions.map((option, index) =>
 										verify_option(row?.options, option.field) ? (
 											<ActionOptions
 												field={option.field}
@@ -136,7 +141,7 @@ const PaginationTable = ({
 						<TableRow>
 							<TablePagination
 								count={totalRows}
-								page={page}
+								page={localPage}
 								rowsPerPage={rowPages}
 								onPageChange={changePaged}
 								ActionsComponent={PaginationActions}
