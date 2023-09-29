@@ -14,5 +14,8 @@ export interface MenuParentItem {
 	item: NavMenu | NavMenuChild;
 	depthLevel: number;
 }
-
+export interface menuList {
+	item: NavMenu | NavMenuChild;
+	depthLevel: number;
+}
 export interface NavMenuItems extends Array<NavMenu> {}

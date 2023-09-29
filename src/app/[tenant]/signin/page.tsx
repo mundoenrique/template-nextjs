@@ -13,7 +13,10 @@ import {
 	InputSwitch,
 	Modals,
 	Dialogs,
+	NavMenu,
 } from '@/components/UI';
+
+import { menuData } from '@/config';
 
 //Internal App
 import { log_message } from '@/utils';
@@ -264,6 +267,7 @@ export default function Signin({ params }: any) {
 					<InputSwitch name="cookies" control={control} options={cookiesList} />
 				</Dialogs>
 			</>
+			<NavMenu menuList={menuData}></NavMenu>
 		</>
 	);
 }

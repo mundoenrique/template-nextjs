@@ -1,5 +1,5 @@
 'use client';
-
+import { useState, useEffect } from 'react';
 import {
 	Avatar,
 	Box,
@@ -8,11 +8,9 @@ import {
 	List,
 	ListItem,
 	Typography,
-	Stack,
-	Item,
 	Paper,
 } from '@mui/material';
-
+import { isDesktop } from 'react-device-detect';
 //Internal App
 import { usePathname } from 'next/navigation';
 import { validateTenant } from '@/utils';
@@ -21,12 +19,12 @@ import { useTranslation } from '@/app/i18n/client';
 import { MenuParentItem } from '@/interfaces';
 
 import IconComponent from './Icon';
+
 /*
 
 */
-const StyleMenu = {
+const desktopStyle = {
 	display: 'flex',
-
 	flexDirection: 'column',
 	flexWrap: 'wrap',
 	height: '250px',
@@ -57,33 +55,61 @@ const StyleMenu = {
 	},
 };
 
-export default function NavMenu({ menuList }): JSX.Element {
+const responsiveStyle = {
+	display: 'flex',
+	flexDirection: 'column',
+	flexWrap: 'no-wrap',
+
+	'& ul li': {
+		p: 0,
+	},
+	'& h5': {
+		fontWeight: '600',
+	},
+	'& .level-1': {
+		fontSize: '18px',
+		fontWeight: '600',
+		lineHeight: '20px',
+		p: 0,
+
+		pl: '60px',
+	},
+	'& .level-2': {
+		py: '0px',
+		fontSize: '16px',
+		fontWeight: '400',
+	},
+	'& .level-2 li': {
+		py: '0px',
+	},
+	'& .level-3': {
+		pl: '12px',
+	},
+};
+
+export default function NavMenu({ menuList }: MenuParentItem): JSX.Element {
 	const depthLevel = 0;
+	const [desktop, setDesktop] = useState(true);
+	useEffect(() => {
+		setDesktop(isDesktop);
+	}, []);
 	return (
-		<Paper elevation={3} sx={{ padding: '16px', margin: '24px' }}>
-			<Box id="Menu" sx={StyleMenu}>
-				{menuList.map((menuItem) => {
-					return (
-						<Box key={menuItem.title}>
-							{menuItem.enable && (
-								<ParentItem
-									item={menuItem}
-									depthLevel={depthLevel}
-								></ParentItem>
-							)}
-						</Box>
-					);
-				})}
-			</Box>
-		</Paper>
+		<Box id="Menu" sx={desktop ? desktopStyle : responsiveStyle}>
+			{menuList.map((menuItem) => {
+				return (
+					<Box key={menuItem.title}>
+						{menuItem.enable && (
+							<ParentItem item={menuItem} depthLevel={depthLevel}></ParentItem>
+						)}
+					</Box>
+				);
+			})}
+		</Box>
 	);
 }
 
 function ParentItem({ item, depthLevel }: MenuParentItem): JSX.Element {
-	const router = usePathname();
-	const currentTenant = validateTenant(router.split('/')[1]);
-	const { lang } = useLangStore();
-	const { t } = useTranslation(lang, `${currentTenant}-general`);
+	const { t } = useTranslation();
 
 	return (
 		<>
