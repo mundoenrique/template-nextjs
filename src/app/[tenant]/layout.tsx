@@ -7,8 +7,6 @@ import { AuthProvider, MuiProvider, HydrationContainerProvider } from '../Provid
 
 export async function generateMetadata({ params }: GenerateMetadataProps): Promise<Metadata> {
   const { favicon } = handleConfigTenant(params.tenant);
-  const faviconDefault = handleConfigTenant('novo');
-  const urlFavicon = params.tenant && favicon !== '' ? favicon : faviconDefault?.favicon;
 
   return {
     title: {
@@ -21,7 +19,7 @@ export async function generateMetadata({ params }: GenerateMetadataProps): Promi
         rel: 'icon',
         type: 'image/x-icon',
         sizes: '32x32',
-        url: urlFavicon,
+        url: favicon,
       },
     ],
   };

@@ -2,7 +2,6 @@
 import { bdb, coop, novo } from '.';
 
 type ConfigProps = {
-  language: string;
   favicon: string;
   imagesFooter: string[];
   networks: { facebook?: string; instagram?: string; twitter?: string; youtube?: string; linkedin?: string } | string;

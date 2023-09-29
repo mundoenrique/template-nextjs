@@ -1,5 +1,6 @@
-export const tenantConfig = {
-  language: 'en',
+import { tenantConfig as novoConfig } from './tenantConfig-novo';
+
+let config = {
   favicon: `${process.env.NEXT_PUBLIC_PATH_URL}/images/bdb/favicon.ico`,
   imagesFooter: ['img-logo-color'],
   networks: {
@@ -8,3 +9,5 @@ export const tenantConfig = {
     twitter: '',
   },
 };
+
+export let tenantConfig = { ...novoConfig, ...config };
