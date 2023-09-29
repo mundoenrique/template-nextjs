@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from "react";
+import { useState } from 'react';
 import { Controller } from 'react-hook-form';
 import { FormControl, FormGroup, FormControlLabel, Switch } from '@mui/material';
 //Internal App
@@ -8,20 +8,20 @@ import { SwitchListProps } from '@/interfaces';
 
 function SwitchMUI(props: SwitchListProps): JSX.Element {
   const { name, options } = props;
-  let data: any = {}
+  let data: any = {};
   options.map((option: any) => {
     data[option.name] = option.value;
-  })
+  });
   const [checkedSwitch, setCheckedSwitch] = useState<any>(data);
 
   const handleSelect = (option: any, index: number) => {
-    options[index].value = option.value === true ? false : true
-    setCheckedSwitch({ ...checkedSwitch, [options[index].name]: options[index].value })
+    options[index].value = option.value === true ? false : true;
+    setCheckedSwitch({ ...checkedSwitch, [options[index].name]: options[index].value });
   };
 
   return (
-    <FormControl sx={{mt:2}} component='fieldset' variant='standard' fullWidth>
-      <FormGroup >
+    <FormControl sx={{ mt: 2 }} component='fieldset' variant='standard' fullWidth>
+      <FormGroup>
         {options.map((option, index) => (
           <FormControlLabel
             key={index}
@@ -31,11 +31,14 @@ function SwitchMUI(props: SwitchListProps): JSX.Element {
             checked
             disabled={option.required}
             sx={{ mb: 0, pl: 2 }}
-            control={<Switch
-              id={name + option.id}
-              disabled={option.required}
-              checked={option.value}
-              onChange={() => handleSelect(option, index)} />}
+            control={
+              <Switch
+                id={name + option.id}
+                disabled={option.required}
+                checked={option.value}
+                onChange={() => handleSelect(option, index)}
+              />
+            }
           />
         ))}
       </FormGroup>
@@ -64,7 +67,7 @@ export default function SwitchCheck(props: SwitchListProps) {
               }}
               error={error}
               {...restProps}
-              />
+            />
           )}
         />
       ) : (

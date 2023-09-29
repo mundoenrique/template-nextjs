@@ -1,62 +1,64 @@
 'use client';
 
-import { useEffect, useRef, useState } from "react";
-import { useSession, signOut, getSession } from "next-auth/react";
+import { Button } from '@mui/material';
+import { useEffect, useRef, useState } from 'react';
+import { useSession, signOut, getSession } from 'next-auth/react';
+//Internal app
 import { Modals } from '@/components/UI';
-import { Button } from "@mui/material";
-import { useTranslation } from "@/app/i18n/client";
+import { useTranslation } from '@/app/i18n/client';
 
-export default function TimmerSession(tenant:any) {
+export default function TimmerSession() {
+  const { update } = useSession();
+  const { t } = useTranslation();
+  const [showModal, setShowModal] = useState(false);
+  const ref: any = useRef(null);
 
-	const { update } = useSession();
-	const { t } = useTranslation();
-	const [showModal, setShowModal] = useState(false);
-	const ref: any = useRef(null);
+  const viewSesion = async () => {
+    const session = await getSession();
+    if (session === null) {
+      signOut();
+    } else {
+      update();
+    }
+  };
 
-	const viewSesion = async () => {
-		const session = await getSession()
-		if (session === null) {
-			signOut()
-		} else {
-			update()
-		}
-	}
+  useEffect(() => {
+    let intervalSession: any;
 
-	useEffect(() => {
+    const timerSession = () => {
+      if (!localStorage.sessionTime) {
+        signOut();
+      }
 
-		let intervalSession:any
+      const date = new Date(localStorage.sessionTime).getTime();
+      const now = new Date().getTime();
+      const time = Math.trunc(Math.abs((date - now) / 1000));
+      const timeRest = parseInt(process.env.NEXT_PUBLIC_SESS_EXPIRATION || '300') - time;
+      time.toString() === '1' && ref.current.click();
+      if (timeRest === 45) {
+        setShowModal(true);
+      } else if (timeRest <= 0) {
+        clearInterval(intervalSession);
+        localStorage.removeItem('sessionTime');
+        signOut();
+      }
+    };
 
-		const timerSession = () => {
-			if (!localStorage.sessionTime) {
-				signOut()
-			}
+    intervalSession = setInterval(timerSession, 1000);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-			const date = new Date(localStorage.sessionTime).getTime()
-			const now = new Date().getTime()
-			const time = Math.trunc(Math.abs((date - now) / 1000))
-			const timeRest = parseInt(process.env.NEXT_PUBLIC_SESS_EXPIRATION || '300') - time
-			time.toString() === '1' && ref.current.click();
-			if (timeRest === 45) {
-				setShowModal(true)
-			} else if (timeRest <= 0) {
-				clearInterval(intervalSession)
-				localStorage.removeItem('sessionTime')
-				signOut()
-			}
-		}
+  return (
+    <>
+      <Button sx={{ display: 'none' }} ref={ref} onClick={() => viewSesion()} />
 
-		intervalSession = setInterval(timerSession,1000)
-	}, [])// eslint-disable-line react-hooks/exhaustive-deps
-
-	return (
-		<>
-			<Button sx={{ display:'none' }} ref={ref} onClick={() => viewSesion()} />
-
-			<Modals msgModal={`Your session is about to expire. Do you want to continue using your App?`} showModal={showModal}>
-      	<Button variant='contained' onClick={() => setShowModal(false)}>
+      <Modals
+        msgModal={`Your session is about to expire. Do you want to continue using your App?`}
+        showModal={showModal}
+      >
+        <Button variant='contained' onClick={() => setShowModal(false)}>
           {t('buttons.accept')}
-      	</Button>
-			</Modals>
-		</>
+        </Button>
+      </Modals>
+    </>
   );
-};
+}

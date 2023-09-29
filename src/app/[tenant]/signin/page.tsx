@@ -1,19 +1,12 @@
 'use client';
 
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import { signIn } from 'next-auth/react';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Box, Typography, Grid, Button, CircularProgress } from '@mui/material';
-import {
-	InputPass,
-	InputText,
-	NavBar,
-	Modals,
-	Cookies
-} from '@/components/UI';
-
+import { InputPass, InputText, NavBar, Modals, Cookies } from '@/components/UI';
 //Internal App
 import { log_message } from '@/utils';
 import connectApi from '@/services/connectApi';
@@ -22,9 +15,8 @@ import { getSchema } from '@/config/validation/validationConfig';
 
 export default function Signin({ params }: any) {
   const [showModal, setShowModal] = useState(false);
-	const [loading, setLoading] = useState(false);
-	const [msgModal, setmsgModal] = useState('');
-
+  const [loading, setLoading] = useState(false);
+  const [msgModal, setmsgModal] = useState('');
 
   log_message('info', 'Access the SIG-IN page');
   const router = useRouter();
@@ -51,34 +43,33 @@ export default function Signin({ params }: any) {
       email: '',
       password: '',
     },
-    resolver: yupResolver(schema)
+    resolver: yupResolver(schema),
   });
 
-	const onLoginUser = async ({ email, password }: FormData) => {
+  const onLoginUser = async ({ email, password }: FormData) => {
+    setLoading(true);
+    const resRedis = await sesionClient();
 
-		setLoading(true)
-		const resRedis = await sesionClient()
-
-		if (resRedis.code === 0) {
-			const resLogin = await signIn('credentials', { redirect: false, email, password })
-			if (resLogin?.error === null) {
-				const date = new Date
-				localStorage.setItem('sessionTime', date.toString())
-      	router.push(`dashboard`);
-			} else {
-				setmsgModal('Invalid username or password. Please try again.')
-				setShowModal(true);
-			}
-		} else {
-			setmsgModal('We are unable to process your request at this time')
-			setLoading(false)
-			setShowModal(true)
-		}
+    if (resRedis.code === 0) {
+      const resLogin = await signIn('credentials', { redirect: false, email, password });
+      if (resLogin?.error === null) {
+        const date = new Date();
+        localStorage.setItem('sessionTime', date.toString());
+        router.push(`dashboard`);
+      } else {
+        setmsgModal('Invalid username or password. Please try again.');
+        setShowModal(true);
+      }
+    } else {
+      setmsgModal('We are unable to process your request at this time');
+      setLoading(false);
+      setShowModal(true);
+    }
   };
 
   return (
     <>
-			<Cookies />
+      <Cookies />
       <NavBar />
 
       <Box sx={{ m: 5 }} component='form' onSubmit={handleSubmit(onLoginUser)}>
@@ -90,8 +81,8 @@ export default function Signin({ params }: any) {
             <InputText name='email' control={control} optional />
             <InputPass name='password' control={control} additionalInfo />
 
-						<Button variant='contained' type='submit' disabled={loading} fullWidth>
-							{loading && <CircularProgress color='secondary' size={20} />}
+            <Button variant='contained' type='submit' disabled={loading} fullWidth>
+              {loading && <CircularProgress color='secondary' size={20} />}
               {!loading && t('buttons.accept')}
             </Button>
           </Grid>
@@ -101,8 +92,8 @@ export default function Signin({ params }: any) {
       <Modals msgModal={msgModal} buttons={1} showModal={showModal}>
         <Button
           variant='contained'
-					onClick={() => {
-						setLoading(false);
+          onClick={() => {
+            setLoading(false);
             setShowModal(false);
           }}
         >
