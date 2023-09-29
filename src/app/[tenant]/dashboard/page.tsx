@@ -11,6 +11,8 @@ import {
 	Button,
 	Stack,
 	CircularProgress,
+	FormControlLabel,
+	Switch,
 } from '@mui/material';
 //Internal App
 import { log_message, requestGet } from '@/utils';
@@ -167,13 +169,14 @@ export default function Signin({ params }: any) {
 		},
 	];
 
-	const isByService = false;
+	const [isByService, setIsByService] = useState<boolean>(false);
 	const [movements, setMovements] = useState([]);
 	const [page, setPage] = useState<number>(0);
 	const [limit, setLimit] = useState<number>(10);
 	const [totalRows, setTotalRows] = useState<number>(0);
 
 	const serviceGetMovements = async () => {
+		setLoading(true);
 		setMovements([]);
 		const { payload } = await requestGet('cards/4/movements');
 		const { data } = payload;
@@ -181,11 +184,11 @@ export default function Signin({ params }: any) {
 			setMovements(data);
 		}
 		setTotalRows(payload.data.length);
+		setLoading(false);
 	};
 
 	const serviceGetMovementsPagination = async () => {
 		setLoading(true);
-		setMovements([]);
 		await serviceGetMovements();
 		const { payload } = await requestGet(
 			`cards/4/movements?_limit=${limit}&_page=${page + 1}`
@@ -195,12 +198,18 @@ export default function Signin({ params }: any) {
 		setLoading(false);
 	};
 
+	const onChangeByService = (event: React.ChangeEvent<HTMLInputElement>) => {
+		setIsByService(event.target.checked);
+		setMovements([]);
+	};
+
 	useEffect(() => {
 		if (isByService) {
 			serviceGetMovementsPagination();
 		}
 	}, [page]);
 
+	console.log('movements', movements);
 	return (
 		<>
 			<TimmerSession tenant={params.tenant} />
@@ -284,11 +293,18 @@ export default function Signin({ params }: any) {
 						<Typography variant="h3" sx={{ mb: 3 }}>
 							Table
 						</Typography>
+
+						<FormControlLabel
+							control={
+								<Switch checked={isByService} onChange={onChangeByService} />
+							}
+							label="Paginación"
+						/>
 						<Stack direction="row" spacing={2}>
 							<Button
 								variant="contained"
 								onClick={() => serviceGetMovementsPagination()}
-								disabled={loading}
+								disabled={!isByService}
 								fullWidth
 							>
 								{loading && <CircularProgress color="secondary" size={20} />}
@@ -297,7 +313,7 @@ export default function Signin({ params }: any) {
 							<Button
 								variant="contained"
 								onClick={() => serviceGetMovements()}
-								disabled={loading}
+								disabled={isByService}
 								fullWidth
 							>
 								{loading && <CircularProgress color="secondary" size={20} />}
@@ -306,6 +322,9 @@ export default function Signin({ params }: any) {
 						</Stack>
 					</Grid>
 					<Grid item xs={3}>
+						{loading && movements.length === 0 && (
+							<CircularProgress color="secondary" size={20} />
+						)}
 						{movements.length > 0 && (
 							<Table
 								data={movements}
@@ -318,6 +337,11 @@ export default function Signin({ params }: any) {
 								handleChangePage={handleChangePage}
 								onAction={onAction}
 							/>
+						)}
+						{movements.length === 0 && !loading && (
+							<Typography variant="h6" sx={{ mb: 3 }}>
+								No hay movimientos registrados
+							</Typography>
 						)}
 					</Grid>
 				</Grid>
