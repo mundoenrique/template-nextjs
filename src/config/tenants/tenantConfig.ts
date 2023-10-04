@@ -14,7 +14,7 @@ const getConfigTenant: { [key: string]: ConfigProps } = {
 };
 
 export const handleConfigTenant = (tenant: string) => {
-  const configTenant = getConfigTenant[tenant];
+  const configTenant = !!getConfigTenant[tenant] ? getConfigTenant[tenant] : getConfigTenant['novo'];
 
   return configTenant;
 };
