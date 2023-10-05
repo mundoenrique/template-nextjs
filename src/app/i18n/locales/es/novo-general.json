@@ -22,6 +22,11 @@
   "message_not_found": "Es posible que la página que está buscando haya sido eliminada debido a un cambio de nombre o no esté disponible temporalmente.",
   "title_error_general": "Error General",
   "desc_error_general": "Ha ocurrido un problema técnico inesperado. Regrese a la página anterior e intenta nuevamente.",
+  "loading": "Cargando",
+  "puzzle_action": "Arrastra para completar el rompecabezas",
+  "puzzle_moving": "Deslizando",
+  "puzzle_verifying": "Validando",
+  "puzzle_error": "Verificación incorrecta",
   "form": {
     "email_label": "Correo Electrónico",
     "password_label": "Contraseña",

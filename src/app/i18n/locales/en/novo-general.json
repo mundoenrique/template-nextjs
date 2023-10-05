@@ -22,6 +22,11 @@
   "message_not_found": "The page you are looking for might have been removed had its name changed or is temporarily unavailable.",
   "title_error_general": "General error",
   "desc_error_general": "An unexpected technical problem has occurred. Go back to the previous page and try again.",
+  "loading": "Loading",
+  "puzzle_action": "Drag to complete the puzzle",
+  "puzzle_moving": "Sliding",
+  "puzzle_verifying": "Validating",
+  "puzzle_error": "Incorrect verification",
   "form": {
     "email_label": "Email",
     "password_label": "Password",
