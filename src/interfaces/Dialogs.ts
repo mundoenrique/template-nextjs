@@ -5,6 +5,8 @@ export interface DialogProps {
   maxWidth: any;
   msgDialog: React.ReactNode;
   buttonDialog: React.ReactNode;
-  open?: boolean | undefined;
   position?: string;
+  children?: React.ReactNode;
+  open?: boolean | undefined;
+  params?: any;
 }
