@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { Box, CircularProgress } from '@mui/material';
 //Internal app
+import { getImages } from '@/utils';
 import { useTenantStore } from '@/store';
 import { ProviderProps } from '@/interfaces';
 import { Footer, SupportButton } from '@/components/UI';
@@ -42,7 +43,7 @@ const HydrationContainerProvider = ({ children, theme }: ProviderProps & any) =>
         >
           <Box sx={{ alignItems: 'center', display: 'flex', flexDirection: 'column' }}>
             <Image
-              src={`/images/${theme}/img-logo-color.svg`}
+              src={getImages(theme, 'img-logo-color.svg')}
               width={300}
               height={60}
               alt='Picture of the author'
