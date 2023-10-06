@@ -109,6 +109,15 @@ export default function Signin({ tenant }: any) {
 							{loading && <CircularProgress color='secondary' size={20} />}
               {!loading && t('buttons.accept')}
 						</Button>
+
+						<Button
+          variant='contained'
+					onClick={() => {
+						setShowPuzzle(true);
+          }}
+        >
+          Puzzle
+      	</Button>
           </Grid>
         </Grid>
       </Box>
