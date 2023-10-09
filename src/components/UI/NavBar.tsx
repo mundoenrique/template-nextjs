@@ -13,6 +13,7 @@ import {
 	Popover,
 } from '@mui/material';
 
+import { useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
 import { menuData } from '@/config';
@@ -24,7 +25,8 @@ export default function NavBar(): JSX.Element {
 	const { data: session } = useSession();
 	const router = usePathname();
 	const currentTenant = router.split('/')[1] || 'novo';
-	const matches = useMediaQuery('(max-width:100px)');
+	const theme = useTheme();
+	const matches = useMediaQuery(theme.breakpoints.down('md'));
 
 	const [sideMenu, setSideMenu] = useState(false);
 	const [anchorEl, setAnchorEl] = useState(null);
@@ -61,7 +63,7 @@ export default function NavBar(): JSX.Element {
 					<Typography variant="h6" color="primary" component="div">
 						{` Bienvenido ${session.user?.name}`}
 					</Typography>
-					<IconButton color="primary">
+					<IconButton onClick={() => signOut()} color="primary">
 						<ExitToAppOutlined color="primary" />
 					</IconButton>
 				</Box>
@@ -118,7 +120,17 @@ export default function NavBar(): JSX.Element {
 						setSideMenu(false);
 					}}
 				>
-					<Box sx={{ width: 300 }}>
+					<Box sx={{ width: 300, pl: '16px' }}>
+						{session && (
+							<Box sx={{ display: 'flex', alignItems: 'center' }}>
+								<Typography variant="h6" color="primary" component="div">
+									{` Bienvenido ${session.user?.name}`}
+								</Typography>
+								<IconButton onClick={() => signOut()} color="primary">
+									<ExitToAppOutlined color="primary" />
+								</IconButton>
+							</Box>
+						)}
 						<NavMenu menuList={menuData} desktop={false}></NavMenu>
 					</Box>
 				</Drawer>
