@@ -1,32 +1,8 @@
 'use client';
 
-import { NavMenuItems } from '@/interfaces/NavMenu';
+import { MenuItem } from '@/interfaces/NavMenu';
 
-const profile = [
-	'manage_companies',
-	'create_company',
-	'manage_users',
-	'create_user',
-	'unnamed_emission',
-	'create_unnamed_emission',
-	'beneficiary_account',
-	'view_fixes',
-	'issued_cards',
-	'online_trasaccions',
-];
-
-/*
-const profile = {
-	user:[create,delete]
-}
-
-const profile = {
-	user:{create:enable, delete:diable}
-}
-
-*/
-
-export const menuData: NavMenuItems = [
+export const menuData: Array<MenuItem> = [
 	{
 		title: 'companies',
 		icon: 'HomeWorkOutlined',
@@ -41,6 +17,7 @@ export const menuData: NavMenuItems = [
 						title: 'create_company',
 						url: '/companies/create',
 						enable: true,
+						children: [],
 					},
 				],
 			},
@@ -60,6 +37,7 @@ export const menuData: NavMenuItems = [
 						title: 'create_user',
 						url: '/users/create',
 						enable: true,
+						children: [],
 					},
 				],
 			},
@@ -79,6 +57,7 @@ export const menuData: NavMenuItems = [
 						title: 'create_unnamed_emission',
 						url: '/unnamedemission/create',
 						enable: true,
+						children: [],
 					},
 				],
 			},
@@ -92,14 +71,16 @@ export const menuData: NavMenuItems = [
 			{
 				title: 'beneficiary_account',
 				url: '/cards/beneficiaryaccount',
-				icon: 'AccountBalanceWalletOutlined',
+
 				enable: true,
+				children: [],
 			},
 			{
 				title: 'view_fixes',
-				icon: 'AppSettingsAltOutlined',
+
 				url: '/cards/viewfixes',
 				enable: true,
+				children: [],
 			},
 		],
 	},
@@ -112,69 +93,32 @@ export const menuData: NavMenuItems = [
 				title: 'cards_emmited',
 				url: '/report/cards_emmited',
 				enable: true,
+				children: [],
 			},
 			{
 				title: 'online_trasanctions',
 				url: '/report/online_trasanctions',
 				enable: true,
+				children: [],
 			},
-			{ title: 'account_status', url: '/report/account_status', enable: true },
-			{ title: 'income_reports', url: '/report/income_reports', enable: true },
+			{
+				title: 'account_status',
+				url: '/report/account_status',
+				enable: true,
+				children: [],
+			},
+			{
+				title: 'income_reports',
+				url: '/report/income_reports',
+				enable: true,
+				children: [],
+			},
 			{
 				title: 'closing_balance',
 				url: '/report/closing_balance',
 				enable: true,
+				children: [],
 			},
 		],
 	},
-	/*{
-		title: 'Level 0',
-		children: [
-			{ title: 'Level 1a' },
-			{
-				title: 'Level 1b',
-				children: [
-					{ title: 'Level 2a' },
-					{
-						title: 'Level 2b',
-						children: [
-							{ title: 'Level 3a' },
-							{ title: 'Level 3b' },
-							{ title: 'Level 3c' },
-						],
-					},
-					{ title: 'Level 2c' },
-				],
-			},
-			{ title: 'Level 1c' },
-		],
-	},*/
 ];
-
-const getNestedPath = (arr, name) => {
-	for (let item of arr) {
-		if (item.title === name) return `/${name}`;
-		if (item.children) {
-			const child = getNestedPath(item.children, name);
-			if (child) return `/${item.title}${child}`;
-		}
-	}
-};
-
-const getIndex = (arr, name) => {
-	const idx = null;
-	for (let t of Object.entries(arr)) {
-		if (t[1].title == name) {
-			return t[0];
-		}
-	}
-};
-
-const parseArr = (arr, name) => {
-	let toParse = getNestedPath(arr, name);
-	let split = toParse.split('/');
-	split.shift();
-	split.unshift(getIndex(arr, split[0]));
-
-	console.log(split);
-};

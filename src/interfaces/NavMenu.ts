@@ -1,21 +1,25 @@
-export interface NavMenu {
+import * as Icons from '@mui/icons-material';
+
+export type MenuItem = {
 	title: string;
-	children: NavMenuChild[];
+	children: Array<MenuItemChild>;
+	icon: keyof typeof Icons;
+	enable: boolean;
+};
+
+export interface MenuItemChild extends Omit<MenuItem, 'icon'> {
+	title: string;
+	children: Array<MenuItemChild>;
+	url: string;
+	enable: boolean;
 }
 
-export interface NavMenuChild {
-	title: string;
-	url?: string;
-	icon?: string;
-	children: NavMenuChild[];
+export interface NavMenuProps {
+	menuList: Array<MenuItem>;
+	desktop: boolean;
 }
 
-export interface MenuParentItem {
-	item: NavMenu | NavMenuChild;
+export interface MenuChild {
+	menuItem: MenuItemChild;
 	depthLevel: number;
 }
-export interface menuList {
-	item: NavMenu | NavMenuChild;
-	depthLevel: number;
-}
-export interface NavMenuItems extends Array<NavMenu> {}

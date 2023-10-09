@@ -1,28 +1,13 @@
 'use client';
-import { useState, useEffect } from 'react';
-import {
-	Avatar,
-	Box,
-	Grid,
-	Link,
-	List,
-	ListItem,
-	Typography,
-	Paper,
-} from '@mui/material';
-import { isDesktop } from 'react-device-detect';
+
+import { Avatar, Box, Link, List, ListItem, Typography } from '@mui/material';
 //Internal App
-import { usePathname } from 'next/navigation';
-import { validateTenant } from '@/utils';
-import { useLangStore } from '@/store/langStore';
+
 import { useTranslation } from '@/app/i18n/client';
-import { MenuParentItem } from '@/interfaces';
+import { MenuChild, NavMenuProps } from '@/interfaces';
 
 import IconComponent from './Icon';
 
-/*
-
-*/
 const desktopStyle = {
 	display: 'flex',
 	flexDirection: 'column',
@@ -87,19 +72,22 @@ const responsiveStyle = {
 	},
 };
 
-export default function NavMenu({ menuList }: MenuParentItem): JSX.Element {
+export default function NavMenu({
+	menuList,
+	desktop,
+}: NavMenuProps): JSX.Element {
 	const depthLevel = 0;
-	const [desktop, setDesktop] = useState(true);
-	useEffect(() => {
-		setDesktop(isDesktop);
-	}, []);
+	const isDesktop = desktop;
 	return (
-		<Box id="Menu" sx={desktop ? desktopStyle : responsiveStyle}>
+		<Box id="Menu" sx={isDesktop ? desktopStyle : responsiveStyle}>
 			{menuList.map((menuItem) => {
 				return (
 					<Box key={menuItem.title}>
 						{menuItem.enable && (
-							<ParentItem item={menuItem} depthLevel={depthLevel}></ParentItem>
+							<ParentItem
+								menuItem={menuItem}
+								depthLevel={depthLevel}
+							></ParentItem>
 						)}
 					</Box>
 				);
@@ -108,7 +96,7 @@ export default function NavMenu({ menuList }: MenuParentItem): JSX.Element {
 	);
 }
 
-function ParentItem({ item, depthLevel }: MenuParentItem): JSX.Element {
+function ParentItem({ menuItem, depthLevel }: MenuChild): JSX.Element {
 	const { t } = useTranslation();
 
 	return (
@@ -119,33 +107,36 @@ function ParentItem({ item, depthLevel }: MenuParentItem): JSX.Element {
 						display: 'block',
 					}}
 				>
-					<Link href={item.url}>{t(`menu.${item.title}`)}</Link>
+					<Link href={menuItem.url}>{t(`menu.${menuItem.title}`)}</Link>
 				</ListItem>
 			) : (
 				<Box sx={{ display: 'flex', alignItems: 'center' }}>
 					<Box sx={{ width: 60 }}>
 						<Avatar sx={{ width: 44, height: 44 }}>
-							<IconComponent iconName={item.icon}></IconComponent>
+							<IconComponent iconName={menuItem.icon}></IconComponent>
 						</Avatar>
 					</Box>
-					<Typography variant="h5">{t(`menu.${item.title}`)}</Typography>
+					<Typography variant="h5">{t(`menu.${menuItem.title}`)}</Typography>
 				</Box>
 			)}
-			{item.hasOwnProperty('children') && (
-				<ChildrenItem item={item} depthLevel={depthLevel}></ChildrenItem>
+			{menuItem.hasOwnProperty('children') && (
+				<ChildrenItem
+					menuItem={menuItem}
+					depthLevel={depthLevel}
+				></ChildrenItem>
 			)}
 		</>
 	);
 }
 
-function ChildrenItem({ item, depthLevel }: MenuParentItem): JSX.Element {
+function ChildrenItem({ menuItem, depthLevel }: MenuChild): JSX.Element {
 	depthLevel = depthLevel + 1;
 
 	return (
 		<>
 			{depthLevel === 1 ? (
 				<>
-					{item.children.map((menuItem) => {
+					{menuItem.children.map((menuItem) => {
 						return (
 							<Box key={menuItem.title} sx={{ my: '8px' }}>
 								<Box>
@@ -157,7 +148,7 @@ function ChildrenItem({ item, depthLevel }: MenuParentItem): JSX.Element {
 										key={menuItem.title}
 									>
 										<ParentItem
-											item={menuItem}
+											menuItem={menuItem}
 											depthLevel={depthLevel}
 										></ParentItem>
 									</List>
@@ -174,10 +165,10 @@ function ChildrenItem({ item, depthLevel }: MenuParentItem): JSX.Element {
 							display: 'block',
 						}}
 					>
-						{item.children.map((menuSubItem) => {
+						{menuItem.children.map((menuSubItem) => {
 							return (
 								<ParentItem
-									item={menuSubItem}
+									menuItem={menuSubItem}
 									key={menuSubItem.title}
 									depthLevel={depthLevel}
 								></ParentItem>
