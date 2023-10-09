@@ -13,16 +13,15 @@ import {
 	InputSwitch,
 	Modals,
 	Dialogs,
-	NavMenu,
 } from '@/components/UI';
 
 import { menuData } from '@/config';
 
 //Internal App
+import { getSchema } from '@/config';
 import { log_message } from '@/utils';
 import connectApi from '@/services/connectApi';
 import { useTranslation } from '@/app/i18n/client';
-import { getSchema } from '@/config/validation/validationConfig';
 
 export default function Signin({ params }: any) {
 	const [showModal, setShowModal] = useState(false);
@@ -238,7 +237,7 @@ export default function Signin({ params }: any) {
 							</Button>
 						</>
 					}
-				></Dialogs>
+				/>
 				<Dialogs
 					open={personalize}
 					title={t('cookies.titles.config')}
@@ -267,7 +266,6 @@ export default function Signin({ params }: any) {
 					<InputSwitch name="cookies" control={control} options={cookiesList} />
 				</Dialogs>
 			</>
-			<NavMenu menuList={menuData}></NavMenu>
 		</>
 	);
 }

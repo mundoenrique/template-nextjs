@@ -7,7 +7,7 @@ export interface DialogProps {
   maxWidth: any;
   buttonActions1: any;
   buttonActions2: any;
-  children: React.ReactNode;
+  children?: React.ReactNode;
   open?: boolean | undefined;
   params?: any;
 }

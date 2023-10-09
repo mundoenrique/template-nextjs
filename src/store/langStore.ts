@@ -9,7 +9,7 @@ type LangState = {
 export const useLangStore = create<LangState>()(
   persist(
     (set) => ({
-      lang: 'es',
+      lang: process.env.LANGUAGE || 'es',
       changeLang: (lang) => set(() => ({ lang: lang })),
     }),
     {

@@ -6,9 +6,9 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Box, Typography, Grid, Button, Stack, CircularProgress } from '@mui/material';
 //Internal App
+import { getSchema } from '@/config';
 import { log_message, requestGet } from '@/utils';
 import { useTranslation } from '@/app/i18n/client';
-import { getSchema } from '@/config/validation/validationConfig';
 import {
   InputDatePicker,
   InputPass,
