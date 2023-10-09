@@ -1,14 +1,11 @@
 'use client';
 
 import * as Icons from '@mui/icons-material';
+//Internal app
+import { iconNameProps } from '@/interfaces';
 
-export type IconNames = keyof typeof Icons;
-export type IconProps = {
-	iconName: IconNames;
-};
+export default function IconComponent({ iconName }: iconNameProps): JSX.Element {
+  const Icon = Icons[iconName as keyof typeof Icons];
 
-export default function IconComponent({ iconName }: IconProps): JSX.Element {
-	const Icon = Icons[iconName];
-
-	return Icon ? <Icon /> : <></>;
+  return Icon ? <Icon /> : <></>;
 }

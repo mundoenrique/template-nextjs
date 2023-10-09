@@ -1,25 +1,23 @@
 import * as Icons from '@mui/icons-material';
 
 export type MenuItem = {
-	title: string;
-	children: Array<MenuItemChild>;
-	icon: keyof typeof Icons;
-	enable: boolean;
+  title: string;
+  children: Array<MenuItem>;
+  icon?: keyof typeof Icons;
+  enable: boolean;
+  url?: string;
 };
 
-export interface MenuItemChild extends Omit<MenuItem, 'icon'> {
-	title: string;
-	children: Array<MenuItemChild>;
-	url: string;
-	enable: boolean;
-}
-
 export interface NavMenuProps {
-	menuList: Array<MenuItem>;
-	desktop: boolean;
+  menuList: Array<MenuItem>;
+  desktop: boolean;
 }
 
 export interface MenuChild {
-	menuItem: MenuItemChild;
-	depthLevel: number;
+  menuItem: MenuItem;
+  depthLevel: number;
+}
+
+export interface iconNameProps {
+  iconName: string | undefined;
 }
