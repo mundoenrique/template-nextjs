@@ -1,18 +1,17 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
 import { signIn } from 'next-auth/react';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
+import React, { useEffect, useState } from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Box, Typography, Grid, Button, CircularProgress } from '@mui/material';
-import { InputPass, InputText, NavBar, InputSwitch, Modals, Dialogs } from '@/components/UI';
-
 //Internal App
 import { getSchema } from '@/config';
 import { log_message } from '@/utils';
 import connectApi from '@/services/connectApi';
 import { useTranslation } from '@/app/i18n/client';
+import { InputPass, InputText, NavBar, InputSwitch, Modals, Dialogs } from '@/components/UI';
 
 export default function Signin({ params }: any) {
   const [showModal, setShowModal] = useState(false);
@@ -121,7 +120,11 @@ export default function Signin({ params }: any) {
     const resRedis = await sesionClient();
 
     if (resRedis.code === 0) {
-      const resLogin = await signIn('credentials', { redirect: false, email, password });
+      const resLogin = await signIn('credentials', {
+        redirect: false,
+        email,
+        password,
+      });
       if (resLogin?.error === null) {
         const date = new Date();
         localStorage.setItem('sessionTime', date.toString());
