@@ -31,6 +31,8 @@ export default function Dialogs({
       keepMounted
       aria-describedby='dialog-accept-cookies'
       sx={{
+        minWidth: 300,
+        width: '100%',
         '& .MuiDialog-container': {
           alignItems: position ? 'flex-end' : 'center',
         },

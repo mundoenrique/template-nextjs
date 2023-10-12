@@ -23,7 +23,7 @@
   "title_error_general": "Error General",
   "desc_error_general": "Ha ocurrido un problema técnico inesperado. Regrese a la página anterior e intenta nuevamente.",
   "loading": "Cargando",
-  "puzzle_action": "Arrastra para completar el rompecabezas",
+  "puzzle_action": "Completar el rompecabezas",
   "puzzle_moving": "Deslizando",
   "puzzle_verifying": "Validando",
   "puzzle_error": "Verificación incorrecta",

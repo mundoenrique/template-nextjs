@@ -23,7 +23,7 @@
   "title_error_general": "General error",
   "desc_error_general": "An unexpected technical problem has occurred. Go back to the previous page and try again.",
   "loading": "Loading",
-  "puzzle_action": "Drag to complete the puzzle",
+  "puzzle_action": "Complete the puzzle",
   "puzzle_moving": "Sliding",
   "puzzle_verifying": "Validating",
   "puzzle_error": "Incorrect verification",
