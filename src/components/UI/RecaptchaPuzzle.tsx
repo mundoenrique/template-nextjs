@@ -1,7 +1,6 @@
 'use client';
 
 import { useRef } from 'react';
-import { Button } from '@mui/material';
 import createPuzzle from 'create-puzzle';
 import SliderCaptcha, { ActionType } from 'rc-slider-captcha';
 //Internal app
@@ -9,7 +8,7 @@ import { usePuzzleStore } from '@/store';
 import { Dialogs } from '@/components/UI';
 import { useTranslation } from '@/app/i18n/client';
 
-export default function RecaptchaPuzzle({ showPuzzle, setShowPuzzle }: any): JSX.Element {
+export default function RecaptchaPuzzle({ open, close, children }: any): JSX.Element {
   const { t } = useTranslation();
   const offsetXRef = useRef(0);
   const actionRef = useRef<ActionType>();
@@ -17,7 +16,7 @@ export default function RecaptchaPuzzle({ showPuzzle, setShowPuzzle }: any): JSX
 
   return (
     <Dialogs
-      open={showPuzzle}
+      open={open}
       maxWidth='xs'
       title={'verificación de seguridad'}
       msgDialog={
@@ -39,8 +38,8 @@ export default function RecaptchaPuzzle({ showPuzzle, setShowPuzzle }: any): JSX
           }
           onVerify={async (data) => {
             if (data.x >= offsetXRef.current - 15 && data.x < offsetXRef.current + 15) {
-              usePuzzleStore.setState(() => ({ status: 'true' }));
-              setShowPuzzle(false);
+              usePuzzleStore.setState(() => ({ puzzle: 'true' }));
+              close(false);
               return Promise.resolve();
             }
             return Promise.reject();
@@ -60,17 +59,7 @@ export default function RecaptchaPuzzle({ showPuzzle, setShowPuzzle }: any): JSX
           }}
         />
       }
-      buttonDialog={
-        <Button
-          variant='text'
-          onClick={() => {
-            actionRef.current?.refresh();
-            setShowPuzzle(false);
-          }}
-        >
-          {t('buttons.close')}
-        </Button>
-      }
+      buttonDialog={children}
     />
   );
 }
