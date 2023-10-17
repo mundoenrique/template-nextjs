@@ -28,7 +28,7 @@ export async function POST(req: NextRequest) {
     const encryption = encryptToView({ code: 1, payload: res.data });
     Logger.error('Recaptcha score failed');
     return new NextResponse(JSON.stringify(encryption), {
-      status: 400,
+      status: 200,
     });
   }
 
