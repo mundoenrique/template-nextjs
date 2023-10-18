@@ -19,7 +19,7 @@ export async function generateMetadata({
 			template: '%s | Consola administrativa',
 			default: 'Consola administrativa',
 		},
-		manifest: `/api/manifest`,
+		manifest: `/api/manifest.webmanifest`,
 		description: 'Consola para el manejo de efectivo...',
 		icons: [
 			{

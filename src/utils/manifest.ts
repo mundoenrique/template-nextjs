@@ -6,7 +6,6 @@ const fileIcons = [48, 72, 96, 144, 192, 512];
 
 export function generateManifest(tenant: string) {
 	const { PWA } = handleConfigTenant(tenant);
-	console.log('********', tenant);
 	const manifestParams = {
 		name: PWA?.name,
 		short_name: PWA?.short_name,
@@ -19,15 +18,11 @@ export function generateManifest(tenant: string) {
 			sizes: `${icon}x${icon}`,
 			type: `image/png`,
 		})),
-		screenshots: () => {
-			try {
-				PWA?.screenshots.map((e: any) => {
-					let obj: any = Object.assign({}, e);
-					obj['src'] = `/images/${tenant}/pwa_screenshots/${e.src}`;
-					return obj;
-				});
-			} catch (error) {}
-		},
+		screenshots: PWA?.screenshots.map((e: any) => {
+			let obj: any = Object.assign({}, e);
+			obj['src'] = `/images/${tenant}/pwa_screenshots/${e.src}`;
+			return obj;
+		}),
 		display: 'standalone',
 		orientation: 'portrait',
 	};

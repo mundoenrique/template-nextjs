@@ -13,3 +13,4 @@ export { default as SupportButton } from './SupportButton';
 export { default as InputSelect } from './form/InputSelect';
 export { default as InputDatePicker } from './form/InputDatePicker';
 export { default as TimmerSession } from './TimmerSession';
+export { default as installPWA } from './InstallPWA';
