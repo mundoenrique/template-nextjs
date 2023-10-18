@@ -177,7 +177,6 @@ export default function Signin({ params }: any) {
 
 	const serviceGetMovements = async () => {
 		setLoading(true);
-		setMovements([]);
 		const { payload } = await requestGet('cards/4/movements');
 		const { data } = payload;
 		if (!isByService) {
@@ -204,12 +203,13 @@ export default function Signin({ params }: any) {
 	};
 
 	useEffect(() => {
-		if (isByService) {
-			serviceGetMovementsPagination();
-		}
+		if (isByService) serviceGetMovementsPagination();
 	}, [page]);
 
-	console.log('movements', movements);
+	const toggleRows = (rows: number[]) => {
+		console.log('toggleRows-ids:', rows);
+	};
+
 	return (
 		<>
 			<TimmerSession tenant={params.tenant} />
@@ -333,9 +333,11 @@ export default function Signin({ params }: any) {
 								rowPages={limit}
 								page={page}
 								isByService={isByService}
+								isCheckbox={true}
 								totalRows={totalRows}
 								handleChangePage={handleChangePage}
 								onAction={onAction}
+								toggleRows={toggleRows}
 							/>
 						)}
 						{movements.length === 0 && !loading && (

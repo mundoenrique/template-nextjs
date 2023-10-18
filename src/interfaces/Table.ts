@@ -6,10 +6,12 @@ export interface DataTable {
 	actionOptions?: ActionOption[];
 	rowPages: number;
 	isByService?: boolean;
+	isCheckbox?: boolean;
 	totalRows: number;
 	page: number;
 	handleChangePage: (newPage: number) => void;
 	onAction: (row: RowTable, action: number) => void;
+	toggleRows: (id: number[]) => void;
 }
 
 export interface Movements {

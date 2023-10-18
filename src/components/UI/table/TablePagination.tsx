@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -8,7 +8,7 @@ import TableFooter from '@mui/material/TableFooter';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { Typography } from '@mui/material';
+import { Checkbox, Typography } from '@mui/material';
 
 //Internal App
 import ActionOptions from './ActionOptions';
@@ -28,10 +28,12 @@ const PaginationTable = ({
 	actionOptions,
 	rowPages,
 	isByService,
+	isCheckbox,
 	totalRows,
 	page,
 	handleChangePage,
 	onAction,
+	toggleRows,
 }: DataTable) => {
 	const verify_option = (options: string[], field: string) => {
 		return options?.includes(field) ? true : false;
@@ -42,26 +44,7 @@ const PaginationTable = ({
 	};
 
 	const [localPage, setLocalPage] = useState<number>(0);
-	const [dataTable, setDataTable] = useState<InfoRow[]>([]);
 	const [countColumns, setCountColumns] = useState<number>(0);
-
-	const pagedData = () => {
-		const copy = [...data];
-		const rows = copy.slice(
-			rowPages * (localPage + 1) - rowPages,
-			rowPages * (localPage + 1)
-		);
-		setDataTable(rows);
-	};
-
-	const getRows = () => {
-		if (isByService) {
-			setDataTable(data);
-			setLocalPage(page);
-		} else {
-			pagedData();
-		}
-	};
 
 	const getColumns = () => {
 		if (actionOptions) {
@@ -76,20 +59,68 @@ const PaginationTable = ({
 			handleChangePage(newPage);
 		} else {
 			setLocalPage(newPage);
-			pagedData();
 		}
 	};
 
-	useEffect(() => {
-		getRows();
+	const rowsTable = useMemo(() => {
 		getColumns();
-	}, [localPage]);
+		if (isByService) {
+			setLocalPage(page);
+			return data;
+		} else {
+			const copy = [...data];
+			const rows = copy.slice(
+				rowPages * (localPage + 1) - rowPages,
+				rowPages * (localPage + 1)
+			);
+			return rows;
+		}
+	}, [data, localPage]);
 
+	//SELECTED ROWS
+	const [selectedRows, setSelectedRows] = useState<number[]>([]);
+
+	const toggleRow = (id: number) => {
+		const selectedIndex = selectedRows.indexOf(id);
+		let newSelected = [...selectedRows];
+
+		if (selectedIndex === -1) {
+			newSelected = newSelected.concat(id);
+		} else {
+			newSelected.splice(selectedIndex, 1);
+		}
+		setSelectedRows(newSelected);
+	};
+	const isSelected = (id: number) => selectedRows.indexOf(id) !== -1;
+
+	useEffect(() => {
+		toggleRows(selectedRows);
+	}, [selectedRows]);
+
+	//END SELECTED ROWS
 	return (
 		<TableContainer component={Paper}>
 			<Table aria-label="pagination table">
 				<TableHead>
 					<TableRow>
+						{isCheckbox && (
+							<TableCell padding="checkbox">
+								<Checkbox
+									indeterminate={
+										selectedRows.length > 0 &&
+										selectedRows.length < rowsTable.length
+									}
+									checked={selectedRows.length === rowsTable.length}
+									onChange={() => {
+										if (selectedRows.length === rowsTable.length) {
+											setSelectedRows([]);
+										} else {
+											setSelectedRows(rowsTable.map((item) => item.id));
+										}
+									}}
+								/>
+							</TableCell>
+						)}
 						{columns.map((column: ColumnTable) => (
 							<TableCell key={column.id}>{column.label}</TableCell>
 						))}
@@ -99,30 +130,43 @@ const PaginationTable = ({
 					</TableRow>
 				</TableHead>
 				<TableBody>
-					{dataTable.map((row: RowTable) => (
-						<TableRow key={row.id}>
-							{columns.map((column: ColumnTable) => (
-								<TableCell key={column.id}>{row[column.id]}</TableCell>
-							))}
-							{actionOptions ? (
-								<TableCell align="center">
-									{actionOptions.map((option, index) =>
-										verify_option(row?.options, option.field) ? (
-											<ActionOptions
-												field={option.field}
-												key={index}
-												label={option.label}
-												icon={option.icon}
-												action={option.action}
-												onAction={() => onFunction(row, option.action)}
-											/>
-										) : null
-									)}
-								</TableCell>
-							) : null}
-						</TableRow>
-					))}
-					{dataTable.length === 0 && (
+					{rowsTable.map((row: RowTable) => {
+						const isItemSelected = isSelected(row.id);
+						return (
+							<TableRow
+								key={row.id}
+								selected={isItemSelected}
+								onClick={() => toggleRow(row.id)}
+							>
+								{isCheckbox && (
+									<TableCell padding="checkbox">
+										<Checkbox checked={isItemSelected} />
+									</TableCell>
+								)}
+								{columns.map((column: ColumnTable) => (
+									<TableCell key={column.id}>{row[column.id]}</TableCell>
+								))}
+
+								{actionOptions ? (
+									<TableCell align="center">
+										{actionOptions.map((option, index) =>
+											verify_option(row?.options, option.field) ? (
+												<ActionOptions
+													field={option.field}
+													key={index}
+													label={option.label}
+													icon={option.icon}
+													action={option.action}
+													onAction={() => onFunction(row, option.action)}
+												/>
+											) : null
+										)}
+									</TableCell>
+								) : null}
+							</TableRow>
+						);
+					})}
+					{rowsTable.length === 0 && (
 						<TableRow>
 							<TableCell colSpan={countColumns}>
 								<Typography
@@ -136,7 +180,7 @@ const PaginationTable = ({
 						</TableRow>
 					)}
 				</TableBody>
-				{dataTable.length !== 0 && (
+				{rowsTable.length !== 0 && (
 					<TableFooter>
 						<TableRow>
 							<TablePagination
