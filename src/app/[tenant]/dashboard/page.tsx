@@ -15,10 +15,9 @@ import {
 	Switch,
 } from '@mui/material';
 //Internal App
+import { getSchema } from '@/config';
 import { log_message, requestGet } from '@/utils';
 import { useTranslation } from '@/app/i18n/client';
-import { getSchema } from '@/config/validation/validationConfig';
-
 import { RowTable } from '@/interfaces';
 //Icons
 import DeleteIcon from '@mui/icons-material/Delete';

@@ -54,16 +54,36 @@
     "initialDate": "Fecha: {{initialDate}}",
     "roles": "Rol: {{roles}}"
   },
-  "cookies": { 
+  "menu": {
+    "companies": "Empresas",
+    "manage_companies": "Administrar empresas",
+    "create_company": "Crear Empresa",
+    "users": "Usuarios",
+    "manage_users": "Administrar Usuarios",
+    "create_user": "Crear Usuario",
+    "requests": "Solicitudes",
+    "unnamed_emission": "Emision Innominada",
+    "create_unnamed_emission": "Crear emision innominada",
+    "cards": "Tarjetas",
+    "beneficiary_account": "Cuenta beneficiario",
+    "view_fixes": "Consulta de ajustes",
+    "reports": "Reportes",
+    "cards_emmited": "Tarjetas emitidas",
+    "online_trasanctions": "Transacciones en linea",
+    "account_status": "Estados de cuenta",
+    "income_reports": "Reporte de Ingresos",
+    "closing_balance": "Estados de cuenta"
+  },
+  "cookies": {
     "titles": {
       "privacy": "Aviso de privacidad",
       "config": "Configuración de cookies"
     },
-    "dialog1": { 
+    "dialog1": {
       "info1": "Utilizamos cookies propias y de terceros para obtener datos estadísticos de la navegación de nuestros usuarios y mejorar nuestros servicios. Si acepta, consideramos que acepta su uso. Puede cambiar la configuración u obtener más información ",
       "here": "aquí "
     },
-    "dialog2": { 
+    "dialog2": {
       "info1": "Las cookies y tecnologías similares recopilan cierta información sobre cómo está utilizando nuestro sitio web. Algunos de ellos son esenciales, y sin ellos no podrías usar NEXTJS TEMPLATE. Pero otros son opcionales, y puedes elegir si los usamos o no.",
       "info2": "Quieres saber más?  ",
       "info3": " Lea nuestra Política de Cookies completa "
