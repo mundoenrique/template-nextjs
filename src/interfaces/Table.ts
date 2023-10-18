@@ -9,6 +9,7 @@ export interface DataTable {
 	isCheckbox?: boolean;
 	totalRows: number;
 	page: number;
+	loading?: boolean;
 	handleChangePage: (newPage: number) => void;
 	onAction: (row: RowTable, action: number) => void;
 	toggleRows: (id: number[]) => void;

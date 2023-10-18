@@ -335,6 +335,7 @@ export default function Signin({ params }: any) {
 								isByService={isByService}
 								isCheckbox={true}
 								totalRows={totalRows}
+								loading={loading}
 								handleChangePage={handleChangePage}
 								onAction={onAction}
 								toggleRows={toggleRows}

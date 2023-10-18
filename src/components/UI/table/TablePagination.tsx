@@ -8,19 +8,12 @@ import TableFooter from '@mui/material/TableFooter';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { Checkbox, Typography } from '@mui/material';
+import { Checkbox, CircularProgress, Typography } from '@mui/material';
 
 //Internal App
 import ActionOptions from './ActionOptions';
 import PaginationActions from './ActionPagination';
-import {
-	DataTable,
-	RowTable,
-	ColumnTable,
-	ActionOption,
-	InfoRow,
-} from '@/interfaces';
-import { set } from 'date-fns';
+import { DataTable, RowTable, ColumnTable } from '@/interfaces';
 
 const PaginationTable = ({
 	columns,
@@ -31,6 +24,7 @@ const PaginationTable = ({
 	isCheckbox,
 	totalRows,
 	page,
+	loading,
 	handleChangePage,
 	onAction,
 	toggleRows,
@@ -98,104 +92,126 @@ const PaginationTable = ({
 	}, [selectedRows]);
 
 	//END SELECTED ROWS
-	return (
-		<TableContainer component={Paper}>
-			<Table aria-label="pagination table">
-				<TableHead>
-					<TableRow>
-						{isCheckbox && (
-							<TableCell padding="checkbox">
-								<Checkbox
-									indeterminate={
-										selectedRows.length > 0 &&
-										selectedRows.length < rowsTable.length
-									}
-									checked={selectedRows.length === rowsTable.length}
-									onChange={() => {
-										if (selectedRows.length === rowsTable.length) {
-											setSelectedRows([]);
-										} else {
-											setSelectedRows(rowsTable.map((item) => item.id));
-										}
-									}}
-								/>
-							</TableCell>
-						)}
-						{columns.map((column: ColumnTable) => (
-							<TableCell key={column.id}>{column.label}</TableCell>
-						))}
-						{actionOptions ? (
-							<TableCell align="center">Opciones</TableCell>
-						) : null}
-					</TableRow>
-				</TableHead>
-				<TableBody>
-					{rowsTable.map((row: RowTable) => {
-						const isItemSelected = isSelected(row.id);
-						return (
-							<TableRow
-								key={row.id}
-								selected={isItemSelected}
-								onClick={() => toggleRow(row.id)}
-							>
-								{isCheckbox && (
-									<TableCell padding="checkbox">
-										<Checkbox checked={isItemSelected} />
-									</TableCell>
-								)}
-								{columns.map((column: ColumnTable) => (
-									<TableCell key={column.id}>{row[column.id]}</TableCell>
-								))}
 
-								{actionOptions ? (
-									<TableCell align="center">
-										{actionOptions.map((option, index) =>
-											verify_option(row?.options, option.field) ? (
-												<ActionOptions
-													field={option.field}
-													key={index}
-													label={option.label}
-													icon={option.icon}
-													action={option.action}
-													onAction={() => onFunction(row, option.action)}
-												/>
-											) : null
-										)}
-									</TableCell>
-								) : null}
-							</TableRow>
-						);
-					})}
-					{rowsTable.length === 0 && (
-						<TableRow>
-							<TableCell colSpan={countColumns}>
-								<Typography
-									variant="h5"
-									color="custom.tertiary"
-									style={{ textAlign: 'center' }}
-								>
-									No data available
-								</Typography>
-							</TableCell>
-						</TableRow>
-					)}
-				</TableBody>
-				{rowsTable.length !== 0 && (
-					<TableFooter>
-						<TableRow>
-							<TablePagination
-								count={totalRows}
-								page={localPage}
-								rowsPerPage={rowPages}
-								onPageChange={changePaged}
-								ActionsComponent={PaginationActions}
-								rowsPerPageOptions={[]}
-							/>
-						</TableRow>
-					</TableFooter>
+	return (
+		<>
+			<TableContainer component={Paper} sx={{ position: 'relative' }}>
+				{loading && (
+					<div
+						style={{
+							position: 'absolute',
+							top: 0,
+							left: 0,
+							width: '100%',
+							height: '100%',
+							background: 'rgba(255, 255, 255, 0.8)',
+							display: 'flex',
+							justifyContent: 'center',
+							alignItems: 'center',
+							zIndex: 999,
+						}}
+					>
+						<CircularProgress color="primary" />
+					</div>
 				)}
-			</Table>
-		</TableContainer>
+
+				<Table aria-label="pagination table">
+					<TableHead>
+						<TableRow>
+							{isCheckbox && (
+								<TableCell padding="checkbox">
+									<Checkbox
+										indeterminate={
+											selectedRows.length > 0 &&
+											selectedRows.length < rowsTable.length
+										}
+										checked={selectedRows.length === rowsTable.length}
+										onChange={() => {
+											if (selectedRows.length === rowsTable.length) {
+												setSelectedRows([]);
+											} else {
+												setSelectedRows(rowsTable.map((item) => item.id));
+											}
+										}}
+									/>
+								</TableCell>
+							)}
+							{columns.map((column: ColumnTable) => (
+								<TableCell key={column.id}>{column.label}</TableCell>
+							))}
+							{actionOptions ? (
+								<TableCell align="center">Opciones</TableCell>
+							) : null}
+						</TableRow>
+					</TableHead>
+					<TableBody>
+						{rowsTable.map((row: RowTable) => {
+							const isItemSelected = isSelected(row.id);
+							return (
+								<TableRow
+									key={row.id}
+									selected={isItemSelected}
+									onClick={() => toggleRow(row.id)}
+								>
+									{isCheckbox && (
+										<TableCell padding="checkbox">
+											<Checkbox checked={isItemSelected} />
+										</TableCell>
+									)}
+									{columns.map((column: ColumnTable) => (
+										<TableCell key={column.id}>{row[column.id]}</TableCell>
+									))}
+
+									{actionOptions ? (
+										<TableCell align="center">
+											{actionOptions.map((option, index) =>
+												verify_option(row?.options, option.field) ? (
+													<ActionOptions
+														field={option.field}
+														key={index}
+														label={option.label}
+														icon={option.icon}
+														action={option.action}
+														onAction={() => onFunction(row, option.action)}
+													/>
+												) : null
+											)}
+										</TableCell>
+									) : null}
+								</TableRow>
+							);
+						})}
+						{rowsTable.length === 0 && (
+							<TableRow>
+								<TableCell colSpan={countColumns}>
+									<Typography
+										variant="h5"
+										color="custom.tertiary"
+										style={{ textAlign: 'center' }}
+									>
+										No data available
+									</Typography>
+								</TableCell>
+							</TableRow>
+						)}
+					</TableBody>
+					{rowsTable.length !== 0 && (
+						<TableFooter>
+							<TableRow>
+								<TablePagination
+									count={totalRows}
+									page={localPage}
+									rowsPerPage={rowPages}
+									onPageChange={changePaged}
+									ActionsComponent={PaginationActions}
+									rowsPerPageOptions={[]}
+								/>
+							</TableRow>
+						</TableFooter>
+					)}
+				</Table>
+			</TableContainer>
+		</>
 	);
 };
 
