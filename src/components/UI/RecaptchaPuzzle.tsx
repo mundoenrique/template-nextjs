@@ -29,7 +29,6 @@ export default function RecaptchaPuzzle({ open, close, handlePuzzleVerify, child
               imageWidth: 260,
               imageHeight: 160,
 						}).then((res: any) => {
-							console.log('CREATE PUZZLE ', res.x)
               offsetXRef.current = res.x;
               return {
                 bgUrl: res.bgUrl,
@@ -38,7 +37,6 @@ export default function RecaptchaPuzzle({ open, close, handlePuzzleVerify, child
             })
           }
 					onVerify={async (data) => {
-							console.log('VERIFY PUZZLE ', data.x,' ** ',offsetXRef.current - 5 ,' ** ', offsetXRef.current + 5)
             if (data.x >= offsetXRef.current - 5 && data.x < offsetXRef.current + 5) {
               handlePuzzleVerify()
               close(false);
