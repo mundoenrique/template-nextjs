@@ -15,7 +15,7 @@ Antes de comenzar, asegúrate de tener instalado lo siguiente:
 - Next.js
 
 ```bash
-[`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+[create-next-app](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 ```
 
 - React.js
