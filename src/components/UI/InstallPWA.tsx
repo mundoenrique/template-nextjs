@@ -14,19 +14,24 @@ import {
 import CloseIcon from '@mui/icons-material/Close';
 import IosShare from '@mui/icons-material/IosShare';
 
+import { useTranslation } from '@/app/i18n/client';
+import { Trans } from 'react-i18next';
+
 export default function InstallPWA() {
+	const { t } = useTranslation();
+
 	const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
-	const [openBar, setOpenBar] = useState(false);
-	const [openDialog, setOpenDialog] = useState(false);
-	const [iOS, setIOS] = useState(false);
+	const [iOSDevice, setIOSDevice] = useState<boolean>(false);
+	const [openBar, setOpenBar] = useState<boolean>(false);
+
 	useEffect(() => {
-		setIOS(isIOS);
+		setIOSDevice(isIOS);
 		window.addEventListener('beforeinstallprompt', (e) => {
 			e.preventDefault();
 			setDeferredPrompt(e);
 			setOpenBar(true);
 		});
-		if (isIOS && !(window as any).navigator.standalone) {
+		if (iOSDevice && !(window as any).navigator.standalone) {
 			setOpenBar(true);
 		}
 	}, []);
@@ -41,10 +46,7 @@ export default function InstallPWA() {
 	};
 
 	const toggleCloseBar = () => {
-		setOpenBar(!openBar);
-	};
-	const toggleCloseDialog = () => {
-		setOpenDialog(!openDialog);
+		setOpenBar(false);
 	};
 
 	return (
@@ -72,17 +74,26 @@ export default function InstallPWA() {
 							width: '100%',
 						}}
 					>
-						{iOS ? (
+						{iOSDevice ? (
 							<>
 								<Typography>
-									Para Instalar, hacer click en el botón <IosShare /> y luego seleccionar
-									"agregar a pantalla de inicio"
+									<Trans
+										i18nKey="pwaInstallDialog"
+										components={{ icon: <IosShare /> }}
+									/>
 								</Typography>
+								<IconButton
+									size="large"
+									onClick={toggleCloseBar}
+									color="inherit"
+								>
+									<CloseIcon />
+								</IconButton>
 							</>
 						) : (
 							<>
 								<Button variant="contained" onClick={intallPrompt}>
-									Instalar
+									{t('pwaInstallButton')}
 								</Button>
 
 								<IconButton
