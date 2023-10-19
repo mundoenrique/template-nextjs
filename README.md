@@ -1,6 +1,6 @@
 ## Template Web Next
 
-¡Bienvenido a esta plantilla increíble! En este archivo [README] encontrarás todo lo necesario para comenzar a trabajar y contribuir a este proyecto emocionante.
+¡Bienvenido a esta plantilla increíble! En este archivo [`README`] encontrarás todo lo necesario para comenzar a trabajar y contribuir a este proyecto emocionante.
 
 ## Que hace el proyecto?
 
@@ -14,10 +14,16 @@ Antes de comenzar, asegúrate de tener instalado lo siguiente:
 
 ```bash
 - Next.js [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+```
+
+```bash
 - React.js
+```
+
 - Node.js
 - Yarn
-```
+
+````
 
 ## Instalación
 
@@ -35,7 +41,7 @@ Una vez que hayas completado la instalación, puedes ejecutar el proyecto utiliz
 `yarn dev`
 # or
 `pnpm dev`
-```
+````
 
 <!-- First, run the development server: -->
 
