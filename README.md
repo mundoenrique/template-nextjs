@@ -1,23 +1,27 @@
 ## Template Web Next
 
-¡Bienvenido a esta plantilla increíble! En este archivo [`README`] encontrarás todo lo necesario para comenzar a trabajar y contribuir a este proyecto emocionante.
+¡Bienvenido a esta plantilla increíble! En este archivo `README` encontrarás todo lo necesario para comenzar a trabajar y contribuir a este proyecto emocionante.
 
-## Que hace el proyecto?
+## Que hace la plantilla?
 
-Esta plantilla está orientada a proporcionar una estructura web que permite a los usuarios gestionar aplicaciones web para propósitos de desarrollo y pruebas de manera eficiente.
+Esta plantilla está orientada a proporcionar una estructura web que permite a los usuarios gestionar aplicaciones web para propósitos de desarrollo y pruebas.
 
 <!-- This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app). -->
 
-## Getting Started Cómo pueden comenzar los usuarios con el proyecto?.
+## Getting Started Cómo pueden comenzar los usuarios con la plantilla?.
 
 Antes de comenzar, asegúrate de tener instalado lo siguiente:
 
-```bash
-- Next.js [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-```
+- Next.js
 
 ```bash
+[`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+```
+
 - React.js
+
+```bash
+
 ```
 
 - Node.js
@@ -30,6 +34,15 @@ Antes de comenzar, asegúrate de tener instalado lo siguiente:
 1. Clona este repositorio en tu máquina local.
 2. Navega hasta el directorio de la plantilla.
 3. Ejecuta el comando `npm install` para instalar las dependencias.
+
+## Dependencias
+
+| Dependencia    | Versión   |
+| -------------- | --------- |
+| React          | 18.2.0    |
+| Next.js        | 13.4.7    |
+| Node.js        |           |
+| Yarn           |           |
 
 ## Uso
 
