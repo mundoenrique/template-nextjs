@@ -1,18 +1,47 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Template Web Next
 
-## Getting Started
+¡Bienvenido a esta plantilla increíble! En este archivo [README] encontrarás todo lo necesario para comenzar a trabajar y contribuir a este proyecto emocionante.
 
-First, run the development server:
+## Que hace el proyecto?
+
+Esta plantilla está orientada a proporcionar una estructura web que permite a los usuarios gestionar aplicaciones web para propósitos de desarrollo y pruebas de manera eficiente.
+
+<!-- This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app). -->
+
+## Getting Started Cómo pueden comenzar los usuarios con el proyecto?.
+
+Antes de comenzar, asegúrate de tener instalado lo siguiente:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+- Next.js [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+- React.js
+- Node.js
+- Yarn
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Instalación
+
+1. Clona este repositorio en tu máquina local.
+2. Navega hasta el directorio de la plantilla.
+3. Ejecuta el comando `npm install` para instalar las dependencias.
+
+## Uso
+
+Una vez que hayas completado la instalación, puedes ejecutar el proyecto utilizando los siguientes comandos:
+
+```bash
+`npm run dev`
+# or
+`yarn dev`
+# or
+`pnpm dev`
+```
+
+<!-- First, run the development server: -->
+
+Esto iniciará el servidor y podrás acceder a la aplicación en tu navegador utilizando la siguiente URL: [http://localhost:3000](http://localhost:3000).
+
+<!-- Open [http://localhost:3000](http://localhost:3000) with your browser to see the result. -->
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
