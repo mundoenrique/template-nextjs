@@ -93,5 +93,7 @@
   "modeLight": "claro",
   "modeDark": "oscuro",
   "textIncrease": "Aumentar texto",
-  "textDecrease": "Disminuir texto"
+  "textDecrease": "Disminuir texto",
+  "pwaInstallButton": "Instalar",
+  "pwaInstallDialog": "Para Instalar, hacer click en el botón <icon/> y luego seleccionar agregar a pantalla de inicio"
 }
