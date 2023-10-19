@@ -30,13 +30,13 @@ export default function Signin({ params }: any) {
   const { t } = useTranslation();
   const schema = getSchema(['email', 'password'], params.tenant);
 
-  const { handleSubmit, control, reset } = useForm({
-    defaultValues: {
-      email: '',
-      password: '',
-    },
-    resolver: yupResolver(schema),
-  });
+	const { handleSubmit, control, reset } = useForm({
+		defaultValues: {
+			email: '',
+			password: '',
+		},
+		resolver: yupResolver(schema),
+	});
 
   const sesionClient = async ({ email, password }: FormData) => {
     setLoading(true);
@@ -111,13 +111,18 @@ export default function Signin({ params }: any) {
             <InputText name='email' control={control} optional />
             <InputPass name='password' control={control} additionalInfo />
 
-            <Button variant='contained' type='submit' disabled={loading} fullWidth>
-              {loading && <CircularProgress color='secondary' size={20} />}
-              {!loading && t('buttons.accept')}
-            </Button>
-          </Grid>
-        </Grid>
-      </Box>
+						<Button
+							variant="contained"
+							type="submit"
+							disabled={loading}
+							fullWidth
+						>
+							{loading && <CircularProgress color="secondary" size={20} />}
+							{!loading && t('buttons.accept')}
+						</Button>
+					</Grid>
+				</Grid>
+			</Box>
 
       <Modals msgModal={msgModal} buttons={1} showModal={showModal}>
         <Button

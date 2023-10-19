@@ -15,3 +15,4 @@ export { default as InputDatePicker } from './form/InputDatePicker';
 export { default as TimmerSession } from './TimmerSession';
 export { default as Cookies } from './Cookies';
 export { default as RecaptchaPuzzle } from './RecaptchaPuzzle';
+export { default as installPWA } from './InstallPWA';
