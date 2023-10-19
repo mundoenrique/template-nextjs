@@ -14,15 +14,8 @@ Antes de comenzar, asegúrate de tener instalado lo siguiente:
 
 - [Next.js](https://github.com/vercel/next.js/tree/canary/packages/create-next-app): `create-next-app`
 - React.js
-
-```bash
-
-```
-
 - Node.js
 - Yarn
-
-````
 
 ## Instalación
 
@@ -32,12 +25,18 @@ Antes de comenzar, asegúrate de tener instalado lo siguiente:
 
 ## Dependencias
 
-| Dependencia    | Versión   |
-| -------------- | --------- |
-| React          | 18.2.0    |
-| Next.js        | 13.4.7    |
-| Node.js        |           |
-| Yarn           |           |
+|                               Dependencias                               | Versión |
+| :----------------------------------------------------------------------: | :-----: |
+|        [React](https://react.dev/learn/start-a-new-react-project)        | 18.2.0  |
+|     [Next.js](https://nextjs.org/docs/getting-started/installation)      | 13.4.7  |
+|        [Node.js](https://nodejs.org/en/download/package-manager)         | ------  |
+| [Yarn](https://classic.yarnpkg.com/lang/en/docs/install/#windows-stable) | ------  |
+|       [i18next](https://www.i18next.com/overview/getting-started)        | 23.2.6  |
+|        [react-hook-form](https://react-hook-form.com/get-started)        | 7.45.1  |
+| [Material UI](https://mui.com/material-ui/getting-started/installation/) | 5.14.0  |
+|      [next Auth](https://next-auth.js.org/getting-started/example)       | 4.23.1  |
+|         [axios](https://www.npmjs.com/package//axios#installing)         |  1.5.0  |
+|             [zustand](https://www.npmjs.com/package/zustand)             |  4.3.8  |
 
 ## Uso
 
@@ -49,7 +48,7 @@ Una vez que hayas completado la instalación, puedes ejecutar el proyecto utiliz
 `yarn dev`
 # or
 `pnpm dev`
-````
+```
 
 <!-- First, run the development server: -->
 
