@@ -91,8 +91,7 @@ export function changeMode(mode: string, count: number) {
         },
       },
       // Global component styles
-			MuiCssBaseline: {
-
+      MuiCssBaseline: {
         styleOverrides: `
           @font-face {
             font-family: 'Prelo';

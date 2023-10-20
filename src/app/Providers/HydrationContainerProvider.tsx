@@ -6,8 +6,8 @@ import { Box, CircularProgress } from '@mui/material';
 //Internal app
 import { getImages } from '@/utils';
 import { useTenantStore } from '@/store';
-import { ProviderProps, ThemeProviderProps } from '@/interfaces';
 import { Footer, SupportButton } from '@/components/UI';
+import { ProviderProps, ThemeProviderProps } from '@/interfaces';
 
 const HydrationContainerProvider = ({ children, theme }: ProviderProps & ThemeProviderProps) => {
   const [isHydrated, setIsHydrated] = useState(true);
