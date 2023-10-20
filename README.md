@@ -135,6 +135,19 @@ Asegúrate de tener Node.js instalado antes de proceder con la instalación de Y
 
 ## Descripción de las dependencias
 
+```bash
+**React.js**: Una biblioteca de JavaScript para construir interfaces de usuario.
+**Next.js**: Un framework de JavaScript para construir aplicaciones React renderizadas del lado del servidor listas para la producción.
+**Node.js**: Es un entorno de tiempo de ejecución de JavaScript que se utiliza para crear aplicaciones escalables del lado del servidor.
+**Yarn**: Es un gestor dependencias de JavaScript, que está enfocado en la velocidad y la seguridad.
+**i18next**: Es un framework de internalización escrito en y para JavaScript.
+**react-hook-form**: Es una librería que nos permite hacer formularios no-controlados, manteniendo el estándar HTML, reduciendo el número de re-renders y generando una mejor experiencia de usuario.
+**material UI**: Es una biblioteca de componentes de interfaz de usuario para React, diseñada para ayudar a los desarrolladores a construir aplicaciones web modernas
+**next Auth**: Es una excelente solución para incorporar la complejidad de la seguridad sin la molestia de tener que crearla por tu cuenta.
+**axios**: Es un paquete que encontraremos en npm y que nos permite hacer peticiones o llamadas al contenido de un enlace HTTP.
+**zustand**: Es una solución de gestión de estados pequeña, rápida y escalable.
+```
+
 ## Uso
 
 Una vez que hayas completado la instalación, puedes ejecutar el proyecto utilizando los siguientes comandos:
