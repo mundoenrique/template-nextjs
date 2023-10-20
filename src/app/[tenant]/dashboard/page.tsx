@@ -7,6 +7,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Box, Typography, Grid, Button, Stack, CircularProgress } from '@mui/material';
 //Internal App
 import { getSchema } from '@/config';
+import connectApi from '@/services/connectApi';
 import { log_message, requestGet } from '@/utils';
 import { useTranslation } from '@/app/i18n/client';
 import {
@@ -20,7 +21,6 @@ import {
   Modals,
   TimmerSession,
 } from '@/components/UI';
-import connectApi from '@/services/connectApi';
 
 export default function Signin({ params }: any) {
   log_message('info', 'Access the Components page');

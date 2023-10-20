@@ -11,16 +11,16 @@ export default function TimmerSession() {
   const { t } = useTranslation();
   const { data: session } = useSession();
   const [showModal, setShowModal] = useState(false);
-	const [inactive, setInactive] = useState(false);
-	const { update } = useSession();
+  const [inactive, setInactive] = useState(false);
+  const { update } = useSession();
 
   useEffect(() => {
     let inactiveTime: any;
     const inactiveTimeLimit = 30000;
 
-		if (!localStorage.sessionTime) {
-			signOut();
-		}
+    if (!localStorage.sessionTime) {
+      signOut();
+    }
 
     const resetInactive = () => {
       clearTimeout(inactiveTime);
@@ -29,8 +29,7 @@ export default function TimmerSession() {
           setShowModal(true);
           setInactive(true);
           if (showModal) {
-						localStorage.removeItem('sessionTime');
-						signOut();
+            signOut();
           }
         }, inactiveTimeLimit);
       }
@@ -66,8 +65,8 @@ export default function TimmerSession() {
         variant='contained'
         onClick={() => {
           setInactive(false);
-					setShowModal(false);
-					update();
+          setShowModal(false);
+          update();
         }}
       >
         {t('buttons.accept')}

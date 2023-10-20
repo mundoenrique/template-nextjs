@@ -7,14 +7,15 @@ import { AppBar, Box, Toolbar, Typography, IconButton, Drawer, Popover } from '@
 //Internal app
 import { menuData } from '@/config';
 import { getImages } from '@/utils';
+import { useTenantStore } from '@/store';
 import { NavMenu } from '@/components/UI';
 import { useSession, signOut } from 'next-auth/react';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
 export default function NavBar(): JSX.Element {
+  const { tenant } = useTenantStore();
   const { data: session } = useSession();
   const router = usePathname();
-  const currentTenant = router.split('/')[1] || 'novo'; // Homologar en con el manejo de imagenes en el branch del recaptcha
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.down('md'));
   const [sideMenu, setSideMenu] = useState(false);
@@ -29,7 +30,7 @@ export default function NavBar(): JSX.Element {
     <>
       <Toolbar disableGutters>
         <Image
-          src={getImages(currentTenant, 'img-logo-color.svg')}
+          src={getImages(tenant, 'img-logo-color.svg')}
           alt='Picture of the author'
           priority
           style={{
@@ -66,7 +67,7 @@ export default function NavBar(): JSX.Element {
     <>
       <Toolbar disableGutters>
         <Image
-          src={getImages(currentTenant, 'img-logo-color.svg')}
+          src={getImages(tenant, 'img-logo-color.svg')}
           alt='Picture of the author'
           priority
           style={{

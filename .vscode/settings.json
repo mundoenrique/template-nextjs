@@ -10,11 +10,5 @@
   "prettier.singleQuote": true,
   "prettier.printWidth": 120,
   "prettier.semi": true,
-  "material-icon-theme.activeIconPack": "react",
-  "[typescript]": {
-    "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
-  },
-  "[typescriptreact]": {
-    "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
-  }
+  "material-icon-theme.activeIconPack": "react"
 }

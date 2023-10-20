@@ -1,10 +1,10 @@
 'use client';
 
+import { useState } from 'react';
+import dynamic from 'next/dynamic';
 import { signIn } from 'next-auth/react';
 import { useForm } from 'react-hook-form';
-import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import { Box, Typography, Grid, Button, CircularProgress } from '@mui/material';
@@ -12,10 +12,10 @@ import { Box, Typography, Grid, Button, CircularProgress } from '@mui/material';
 import { getSchema } from '@/config';
 import { log_message } from '@/utils';
 import connectApi from '@/services/connectApi';
+import { FormData, resData } from '@/interfaces';
 import { useTranslation } from '@/app/i18n/client';
 import { InputPass, InputText, NavBar, Modals, Cookies } from '@/components/UI';
-import { FormData, resData } from '@/interfaces';
-const RecaptchaPuzzle:any = dynamic(() => import('@/components/UI/RecaptchaPuzzle'));
+const RecaptchaPuzzle: any = dynamic(() => import('@/components/UI/RecaptchaPuzzle'));
 
 export default function Signin({ params }: any) {
   const [credential, setCredential] = useState({ email: '', password: '' });
@@ -30,13 +30,13 @@ export default function Signin({ params }: any) {
   const { t } = useTranslation();
   const schema = getSchema(['email', 'password'], params.tenant);
 
-	const { handleSubmit, control, reset } = useForm({
-		defaultValues: {
-			email: '',
-			password: '',
-		},
-		resolver: yupResolver(schema),
-	});
+  const { handleSubmit, control, reset } = useForm({
+    defaultValues: {
+      email: '',
+      password: '',
+    },
+    resolver: yupResolver(schema),
+  });
 
   const sesionClient = async ({ email, password }: FormData) => {
     setLoading(true);
@@ -64,7 +64,7 @@ export default function Signin({ params }: any) {
     });
 
     if (code == 0) {
-      processSignin({email, password})
+      processSignin({ email, password });
     } else {
       setShowPuzzle(true);
       setCredential({
@@ -75,20 +75,20 @@ export default function Signin({ params }: any) {
   };
 
   const handlePuzzleVerify = async () => {
-		setShowPuzzle(false);
-		const { email, password } = credential
-		processSignin({email, password})
-	};
+    setShowPuzzle(false);
+    const { email, password } = credential;
+    processSignin({ email, password });
+  };
 
-	const processSignin = async ({ email, password }: FormData) => {
-		const resLogin = await signIn('credentials', { redirect: false, email, password });
-      if (resLogin?.error === null) {
-        sesionRouter();
-      } else {
-        setmsgModal('Invalid username or password. Please try again.');
-        setShowModal(true);
-      }
-	}
+  const processSignin = async ({ email, password }: FormData) => {
+    const resLogin = await signIn('credentials', { redirect: false, email, password });
+    if (resLogin?.error === null) {
+      sesionRouter();
+    } else {
+      setmsgModal('Invalid username or password. Please try again.');
+      setShowModal(true);
+    }
+  };
 
   const sesionRouter = () => {
     const date = new Date();
@@ -109,18 +109,13 @@ export default function Signin({ params }: any) {
             <InputText name='email' control={control} optional />
             <InputPass name='password' control={control} additionalInfo />
 
-						<Button
-							variant="contained"
-							type="submit"
-							disabled={loading}
-							fullWidth
-						>
-							{loading && <CircularProgress color="secondary" size={20} />}
-							{!loading && t('buttons.accept')}
-						</Button>
-					</Grid>
-				</Grid>
-			</Box>
+            <Button variant='contained' type='submit' disabled={loading} fullWidth>
+              {loading && <CircularProgress color='secondary' size={20} />}
+              {!loading && t('buttons.accept')}
+            </Button>
+          </Grid>
+        </Grid>
+      </Box>
 
       <Modals msgModal={msgModal} buttons={1} showModal={showModal}>
         <Button
@@ -132,20 +127,20 @@ export default function Signin({ params }: any) {
         >
           {t('buttons.accept')}
         </Button>
-			</Modals>
-			{showPuzzle &&
-				<RecaptchaPuzzle open={showPuzzle} close={setShowPuzzle} handlePuzzleVerify={handlePuzzleVerify} >
-					<Button
-							variant='text'
-							onClick={() => {
-								setShowPuzzle(false);
-								setLoading(false);
-							}}
-						>
-							{t('buttons.close')}
-						</Button>
-      	</RecaptchaPuzzle>
-			}
+      </Modals>
+      {showPuzzle && (
+        <RecaptchaPuzzle open={showPuzzle} close={setShowPuzzle} handlePuzzleVerify={handlePuzzleVerify}>
+          <Button
+            variant='text'
+            onClick={() => {
+              setShowPuzzle(false);
+              setLoading(false);
+            }}
+          >
+            {t('buttons.close')}
+          </Button>
+        </RecaptchaPuzzle>
+      )}
     </>
   );
 }
