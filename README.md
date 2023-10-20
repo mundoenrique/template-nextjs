@@ -194,28 +194,21 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 
 ## Contribuciones
 
-```bash
-¡Gracias por considerar contribuir a este proyecto! Aquí hay algunas formas en las que puedes contribuir:
+Aquí hay algunas formas en las que puedes contribuir:
 
 - Reportar errores o problemas: Si encuentras algún error o problema, por favor crea un issue en el repositorio para que podamos abordarlo.
-
 - Mejoras de funcionalidad: Si tienes ideas para mejorar la funcionalidad de la plantilla, siéntete libre de proponerlas y enviar solicitudes de extracción.
-
 - Corrección de errores: Si encuentras algún error en el código o en la documentación, estaremos encantados de recibir tus correcciones.
-
 - Mejoras de rendimiento: Si tienes ideas para optimizar el rendimiento de la plantilla, nos encantaría escuchar tus sugerencias.
-```
 
-## Cómo contribuir
+## Cómo contribuir?
 
-```bash
 1. Clona el repositorio en tu máquina local utilizando el comando `git clone <URL del repositorio>`.
 2. Crea una nueva rama para tus contribuciones utilizando el comando `git checkout -b nombre-de-tu-rama`.
 3. Realiza los cambios necesarios en los archivos de la plantilla.
 4. Guarda los cambios y haz un commit utilizando el comando `git commit -m "Descripción de tus cambios"`.
 5. Envía tus cambios al repositorio remoto utilizando el comando `git push origin nombre-de-tu-rama`.
 6. Crea una solicitud de extracción (pull request) en el repositorio para que podamos revisar tus cambios y fusionarlos.
-```
 
 Recuerda seguir las pautas de contribución establecidas por el proyecto y asegurarte de que tus cambios sean relevantes y estén bien documentados.
 
