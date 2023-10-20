@@ -164,20 +164,62 @@ Una vez que hayas completado la instalación, puedes ejecutar el proyecto utiliz
 
 Esto iniciará el servidor y podrás acceder a la aplicación en tu navegador utilizando la siguiente URL: [http://localhost:3000](http://localhost:3000).
 
+Puede empezar a editar la página modificando `app/page.tsx`. La página se actualiza automáticamente a medida que editas el archivo.
+
+Este proyecto utiliza [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) para optimizar y cargar automáticamente Inter, una fuente personalizada de Google.
+
 <!-- Open [http://localhost:3000](http://localhost:3000) with your browser to see the result. -->
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+<!-- You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file. -->
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+<!-- This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font. -->
 
-## Learn More
+## Más información
+
+Para obtener más información sobre Next.js, consulta los siguientes recursos:
+
+- [Documentación de Next.js](https://nextjs.org/docs): información sobre las funciones y la API de Next.js.
+- [Learn Next.js](https://nextjs.org/learn) - un tutorial interactivo de Next.js.
+
+Puedes consultar [el repositorio GitHub de Next.js](https://github.com/vercel/next.js/) - ¡tus comentarios y contribuciones son bienvenidos!
+
+<!-- ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
 
 - [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
 - [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome! -->
+
+## Contribuciones
+
+```bash
+¡Gracias por considerar contribuir a este proyecto! Aquí hay algunas formas en las que puedes contribuir:
+
+- Reportar errores o problemas: Si encuentras algún error o problema, por favor crea un issue en el repositorio para que podamos abordarlo.
+
+- Mejoras de funcionalidad: Si tienes ideas para mejorar la funcionalidad de la plantilla, siéntete libre de proponerlas y enviar solicitudes de extracción.
+
+- Corrección de errores: Si encuentras algún error en el código o en la documentación, estaremos encantados de recibir tus correcciones.
+
+- Mejoras de rendimiento: Si tienes ideas para optimizar el rendimiento de la plantilla, nos encantaría escuchar tus sugerencias.
+```
+
+## Cómo contribuir
+
+```bash
+1. Clona el repositorio en tu máquina local utilizando el comando `git clone <URL del repositorio>`.
+2. Crea una nueva rama para tus contribuciones utilizando el comando `git checkout -b nombre-de-tu-rama`.
+3. Realiza los cambios necesarios en los archivos de la plantilla.
+4. Guarda los cambios y haz un commit utilizando el comando `git commit -m "Descripción de tus cambios"`.
+5. Envía tus cambios al repositorio remoto utilizando el comando `git push origin nombre-de-tu-rama`.
+6. Crea una solicitud de extracción (pull request) en el repositorio para que podamos revisar tus cambios y fusionarlos.
+```
+
+Recuerda seguir las pautas de contribución establecidas por el proyecto y asegurarte de que tus cambios sean relevantes y estén bien documentados.
+
+¡Esperamos tus contribuciones y agradecemos tu apoyo!
 
 ## Deploy on Vercel
 
