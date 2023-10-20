@@ -1,23 +1,118 @@
-## Template Web Next
+## Plantilla Web Next
 
 ¡Bienvenido a esta plantilla increíble! En este archivo `README` encontrarás todo lo necesario para comenzar a trabajar y contribuir a este proyecto emocionante.
 
-## Que hace la plantilla?
+## Que hace la plantilla Web Next?
 
 Esta plantilla está orientada a proporcionar una estructura web que permite a los usuarios gestionar aplicaciones web para propósitos de desarrollo y pruebas.
 
+## Importancia de la plantilla Web Next
+
+Esta plantilla es útil porque te permite ahorrar tiempo proporcionando un diseño y estructura predefinida, lo que significa que no tienes que comenzar desde cero. Puedes utilizar esta plantilla y personalizarla según tus necesidades. También te permite obtener un diseño profesional ya que mantiene una consistencia visual porque tiene una experiencia de usuario consistente y atractiva, aprovechando funcionalidades preestablecidas con caracterícticas como formularios, -------------------, entre otros. Por último, la plantilla Web Next garantiza la adaptabilidad a diferentes dispositivos ya que está diseñada para ser responsive.
+
 <!-- This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app). -->
 
-## Getting Started Cómo pueden comenzar los usuarios con la plantilla?.
+## <!-- Getting Started  -->Cómo pueden iniciar los usuarios con la plantilla Web Next?.
 
 Antes de comenzar, asegúrate de tener instalado lo siguiente:
 
-- [Next.js](https://github.com/vercel/next.js/tree/canary/packages/create-next-app): `create-next-app`
-- React.js
+- Next.js
+
+Para instalar Next, ejecuta los siguientes comandos en tu terminal:
+
+```bash
+npx create-next-app
+```
+
+- React.js:
+
+Para instalar React, ejecuta los siguientes comandos en tu terminal:
+
+```bash
+npm install -g create-react-app
+```
+
+```bash
+create-react-app nombre-app
+```
+
+```bash
+cd nombre-app
+```
+
+```bash
+npm start
+```
+
+Para instalar React usando NPM , ejecuta:
+
+```bash
+npm install react
+```
+
+```bash
+npm install react-dom
+```
+
+Dependiendo de tu entorno, puede que necesites instalar nodejs primero.
+
+Una vez instaladas las dependencias, puedes importar React en tus archivos .js de la siguiente forma:
+
+```bash
+import React from 'react';
+```
+
+```bash
+import ReactDOM from 'react-dom';
+```
+
 - Node.js
+
+Para instalar Node.js en diferentes sistemas operativos, puedes seguir estos pasos:
+
+# Windows:
+
+- Ve al sitio web oficial de [Node.js](https://nodejs.org/).
+- Haz clic en el botón `Descargar` para la versión recomendada de Node.js.
+- Selecciona el instalador adecuado para tu sistema operativo (32 o 64 bits).
+- Ejecuta el archivo descargado y sigue las instrucciones del instalador.
+- Una vez completada la instalación, abre la línea de comandos y verifica la instalación ejecutando el siguiente comando:
+
+```bash
+node -v
+```
+
+# Mac:
+
+- Ve al sitio web oficial de [Node.js](https://nodejs.org/).
+- Haz clic en el botón `Descargar` para la versión recomendada de Node.js.
+- Selecciona el instalador adecuado para tu sistema operativo (macOS).
+- Ejecuta el archivo descargado y sigue las instrucciones del instalador.
+- Una vez completada la instalación, abre la Terminal y verifica la instalación ejecutando el siguiente comando:
+
+```bash
+node -v
+```
+
 - Yarn
 
-## Instalación
+Para instalar Yarn, puede utilizar npm para realizar la instalación. Aquí está el comando para instalar Yarn:
+
+```bash
+npm install --global yarn
+```
+
+Después de ejecutar este comando, Yarn se instalará globalmente en tu sistema. Puedes comprobar que la instalación se ha realizado correctamente ejecutando el siguiente comando:
+
+```bash
+yarn --version
+```
+
+Esto mostrará la versión de Yarn instalada en su sistema.
+
+Asegúrate de tener Node.js instalado antes de proceder con la instalación de Yarn.
+
+## Instalación de la plantilla Web Next
 
 1. Clona este repositorio en tu máquina local.
 2. Navega hasta el directorio de la plantilla.
@@ -37,6 +132,8 @@ Antes de comenzar, asegúrate de tener instalado lo siguiente:
 |      [next Auth](https://next-auth.js.org/getting-started/example)       | 4.23.1  |
 |         [axios](https://www.npmjs.com/package//axios#installing)         |  1.5.0  |
 |             [zustand](https://www.npmjs.com/package/zustand)             |  4.3.8  |
+
+## Descripción de las dependencias
 
 ## Uso
 
