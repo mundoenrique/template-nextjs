@@ -16,7 +16,7 @@ Esta plantilla es útil porque te permite ahorrar tiempo proporcionando un dise�
 
 Antes de comenzar, asegúrate de tener instalado lo siguiente:
 
-- Next.js
+- ### Next.js
 
 Para instalar Next, ejecuta los siguientes comandos en tu terminal:
 
@@ -24,7 +24,7 @@ Para instalar Next, ejecuta los siguientes comandos en tu terminal:
 npx create-next-app
 ```
 
-- React.js:
+- ### React.js:
 
 Para instalar React, ejecuta los siguientes comandos en tu terminal:
 
@@ -66,11 +66,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 ```
 
-- Node.js
+- ### Node.js
 
 Para instalar Node.js en diferentes sistemas operativos, puedes seguir estos pasos:
 
-# Windows:
+## Windows:
 
 - Ve al sitio web oficial de [Node.js](https://nodejs.org/).
 - Haz clic en el botón `Descargar` para la versión recomendada de Node.js.
@@ -82,7 +82,7 @@ Para instalar Node.js en diferentes sistemas operativos, puedes seguir estos pas
 node -v
 ```
 
-# Mac:
+## Mac:
 
 - Ve al sitio web oficial de [Node.js](https://nodejs.org/).
 - Haz clic en el botón `Descargar` para la versión recomendada de Node.js.
@@ -94,7 +94,7 @@ node -v
 node -v
 ```
 
-- Yarn
+- ### Yarn
 
 Para instalar Yarn, puede utilizar npm para realizar la instalación. Aquí está el comando para instalar Yarn:
 
