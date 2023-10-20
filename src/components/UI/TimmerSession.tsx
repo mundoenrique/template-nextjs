@@ -2,7 +2,7 @@
 
 import { Button } from '@mui/material';
 import { useEffect, useState } from 'react';
-import { useSession, signOut } from 'next-auth/react';
+import { useSession, signOut, getSession } from 'next-auth/react';
 //Internal app
 import { Modals } from '@/components/UI';
 import { useTranslation } from '@/app/i18n/client';
@@ -11,40 +11,46 @@ export default function TimmerSession() {
   const { t } = useTranslation();
   const { data: session } = useSession();
   const [showModal, setShowModal] = useState(false);
-  const [inactive, setInactive] = useState(false);
+	const [inactive, setInactive] = useState(false);
+	const { update } = useSession();
 
   useEffect(() => {
     let inactiveTime: any;
-    const inactiveTimeLimit = 30000;
+    const inactiveTimeLimit = parseInt(process.env.NEXT_PUBLIC_SESS_EXPIRATION || '30000');
 
-    const restablecerinactive = () => {
+		if (!localStorage.sessionTime) {
+			signOut();
+		}
+
+    const resetInactive = () => {
       clearTimeout(inactiveTime);
       if (session?.user) {
         inactiveTime = setTimeout(() => {
           setShowModal(true);
           setInactive(true);
           if (showModal) {
-            signOut();
+						signOut();
+						localStorage.removeItem('sessionTime');
           }
         }, inactiveTimeLimit);
       }
     };
 
-    const actividadDetectada = () => {
+    const detectedActivity = () => {
       if (inactive) {
         setInactive(false);
       }
-      restablecerinactive();
+      resetInactive();
     };
 
-    document.addEventListener('mousemove', actividadDetectada);
-    document.addEventListener('keydown', actividadDetectada);
+    document.addEventListener('mousemove', detectedActivity);
+    document.addEventListener('keydown', detectedActivity);
 
-    restablecerinactive();
+    resetInactive();
 
     return () => {
-      document.removeEventListener('mousemove', actividadDetectada);
-      document.removeEventListener('keydown', actividadDetectada);
+      document.removeEventListener('mousemove', detectedActivity);
+      document.removeEventListener('keydown', detectedActivity);
       clearTimeout(inactiveTime);
     };
   }, [inactive, showModal]);
@@ -54,67 +60,14 @@ export default function TimmerSession() {
     localStorage.clear();
   });
 
-  //   if (!localStorage.sessionTime) {
-  //     signOut();
-  //   }
-  //   return () => clearInterval(myInterval.current);
-  // }, []);
-
-  // useEffect(() => {
-  //   if (!isRunning) {
-  //     console.log('entre aqui');
-
-  //     myInterval.current = setInterval(() => setCounter((counter) => counter + 1), 10000);
-  //     if (counter == 1 && session?.user) {
-  //       console.log('Abri modal');
-  //       setShowModal(true);
-  //       setIsRunning(true);
-  //     }
-
-  //     if (counter == 2 && showModal === true) {
-  //       console.log('Cerrar sesion');
-  //       signOut();
-  //     }
-  //   }
-
-  //   document.addEventListener('mousemove', () => {
-  //     console.log('ejecuto eventos');
-  //     clearInterval(myInterval.current);
-  //     setCounter(0);
-  //     setIsRunning(true);
-  //     const timer = setTimeout(() => {
-  //       setIsRunning(false);
-  //     }, 1000);
-  //     return () => clearTimeout(timer);
-  //   });
-
-  //   // document.addEventListener('keypress', () => {
-  //   //   clearInterval(myInterval.current);
-  //   //   myInterval.current = null;
-  //   //   setCounter(0);
-  //   // });
-
-  //   // beforeunload;
-  //   // window.addEventListener('unload', () => {
-  //   //   localStorage.clear();
-  //   // });
-  // }, [isRunning, setIsRunning]);
-
-  // const handleResetCounter = () => {
-  //   clearInterval(myInterval.current);
-  //   myInterval.current = null;
-  //   setCounter(0);
-  //   setShowModal(false);
-  //   setIsRunning(false);
-  // };
-
   return (
     <Modals msgModal={`Your session is about to expire. Do you want to continue using your App?`} showModal={showModal}>
       <Button
         variant='contained'
         onClick={() => {
           setInactive(false);
-          setShowModal(false);
+					setShowModal(false);
+					update();
         }}
       >
         {t('buttons.accept')}

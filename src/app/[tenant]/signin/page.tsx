@@ -82,8 +82,6 @@ export default function Signin({ params }: any) {
 
 	const processSignin = async ({ email, password }: FormData) => {
 		const resLogin = await signIn('credentials', { redirect: false, email, password });
-		console.log('CREDENCIALES -> ', email,'  -- ',password)
-		console.log('RESULT LOGIN', resLogin)
       if (resLogin?.error === null) {
         sesionRouter();
       } else {
