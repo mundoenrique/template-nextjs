@@ -16,7 +16,7 @@ export default function TimmerSession() {
 
   useEffect(() => {
     let inactiveTime: any;
-    const inactiveTimeLimit = parseInt(process.env.NEXT_PUBLIC_SESS_EXPIRATION || '30000');
+    const inactiveTimeLimit = 30000;
 
 		if (!localStorage.sessionTime) {
 			signOut();
@@ -29,8 +29,8 @@ export default function TimmerSession() {
           setShowModal(true);
           setInactive(true);
           if (showModal) {
-						signOut();
 						localStorage.removeItem('sessionTime');
+						signOut();
           }
         }, inactiveTimeLimit);
       }
