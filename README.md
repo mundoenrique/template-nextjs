@@ -155,4 +155,4 @@ Recuerda seguir las pautas de contribución establecidas por el proyecto y asegu
 
 ## Autor
 
-![NovoPayment Inc.](https://public/images/novo/novopayment.svg)
+![NovoPayment Inc.](public/images/novo/novopayment.svg)
