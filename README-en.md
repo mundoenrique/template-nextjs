@@ -2,6 +2,8 @@
 
 Welcome to this amazing template! In this `README.md` file you will find everything you need to get started and contribute to this exciting project.
 
+[**Spanish**](https://code.novopayment.com/novopayment/web-nextjs-template/tree/feature-readme_description)
+
 ## What does the Web Next template do?
 
 This template is oriented to provide a web structure that allows users to manage multi-client web applications for future projects and/or developments.

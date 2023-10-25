@@ -2,6 +2,8 @@
 
 ¡Bienvenido a esta plantilla increíble! En este archivo `README.md` encontrarás todo lo necesario para comenzar a trabajar y contribuir a este proyecto emocionante.
 
+[**Inglés**](https://code.novopayment.com/novopayment/web-nextjs-template/blob/feature-readme_description/README-en.md)
+
 ## Que hace la plantilla Web Next?
 
 Esta plantilla está orientada a proporcionar una estructura web que permite a los usuarios gestionar aplicaciones web multicliente para futuros proyectos y/o desarrollos.
@@ -10,23 +12,23 @@ Esta plantilla está orientada a proporcionar una estructura web que permite a l
 
 Esta plantilla es útil porque te permite ahorrar tiempo proporcionando un diseño y estructura predefinida, lo que significa que no tienes que comenzar desde cero. Puedes utilizar esta plantilla y personalizarla según tus necesidades. También te permite obtener un diseño profesional ya que mantiene una consistencia visual porque tiene una experiencia de usuario consistente y atractiva, aprovechando funcionalidades preestablecidas con caracterícticas como material ui, integración con el recaptcha y ventajas como SSR, entre otros. Por último, la plantilla Web Next garantiza la adaptabilidad a diferentes dispositivos ya que está diseñada como una PWA.
 
-## <!-- Getting Started  -->Cómo pueden iniciar los usuarios con la plantilla Web Next?.
+## Primeros pasos.
 
 Antes de comenzar, asegúrate de tener instalado lo siguiente:
 
-- ### Next.js
+- ## Next.js
 
 Para instalar Next, ejecuta los siguientes comandos en tu terminal:
 
-```bash
+```javascript
 npx create-next-app
 ```
 
-- ### Node.js
+- ## Node.js
 
 Para instalar Node.js en diferentes sistemas operativos, puedes seguir estos pasos:
 
-## Windows:
+### Windows:
 
 - Ve al sitio web oficial de [Node.js](https://nodejs.org/).
 - Haz clic en el botón `Descargar` para la versión recomendada de Node.js.
@@ -34,11 +36,11 @@ Para instalar Node.js en diferentes sistemas operativos, puedes seguir estos pas
 - Ejecuta el archivo descargado y sigue las instrucciones del instalador.
 - Una vez completada la instalación, abre la línea de comandos y verifica la instalación ejecutando el siguiente comando:
 
-```bash
-node -v
+```javascript
+node - v;
 ```
 
-## Mac:
+### Mac:
 
 - Ve al sitio web oficial de [Node.js](https://nodejs.org/).
 - Haz clic en el botón `Descargar` para la versión recomendada de Node.js.
@@ -46,28 +48,28 @@ node -v
 - Ejecuta el archivo descargado y sigue las instrucciones del instalador.
 - Una vez completada la instalación, abre la Terminal y verifica la instalación ejecutando el siguiente comando:
 
-```bash
-node -v
+```javascript
+node - v;
 ```
 
-- ### Yarn
+- ## Yarn
 
 Para instalar Yarn, puede utilizar npm para realizar la instalación. Aquí está el comando para instalar Yarn:
 
-```bash
+```javascript
 npm install --global yarn
 ```
 
 Después de ejecutar este comando, Yarn se instalará globalmente en tu sistema. Puedes comprobar que la instalación se ha realizado correctamente ejecutando el siguiente comando:
 
-```bash
+```javascript
 yarn --version
 ```
 
 Esto mostrará la versión de Yarn instalada en su sistema.
 Asegúrate de tener Node.js instalado antes de proceder con la instalación de Yarn.
 
-NOTA: Para las instalaciones de dependencias de la plantilla web se debe utilizar Yarn.
+> [!NOTA] Para las instalaciones de dependencias de la plantilla web se debe utilizar Yarn.
 
 ## Instalación de la plantilla Web Next
 
@@ -93,7 +95,7 @@ NOTA: Para las instalaciones de dependencias de la plantilla web se debe utiliza
 
 ## Descripción de las dependencias
 
-```bash
+```
 React.js: Una biblioteca de JavaScript para construir interfaces de usuario.
 Next.js: Un framework de JavaScript para construir aplicaciones React renderizadas del lado del servidor listas para la producción.
 Node.js: Es un entorno de tiempo de ejecución de JavaScript que se utiliza para crear aplicaciones escalables del lado del servidor.
@@ -110,11 +112,9 @@ zustand: Es una solución de gestión de estados pequeña, rápida y escalable.
 
 Una vez que hayas completado la instalación, puedes ejecutar el proyecto utilizando los siguientes comandos:
 
-```bash
-`yarn dev`
+```javascript
+`yarn dev`;
 ```
-
-<!-- First, run the development server: -->
 
 Esto iniciará el servidor y podrás acceder a la aplicación en tu navegador utilizando la siguiente URL: [http://localhost:3000](http://localhost:3000).
 
@@ -135,10 +135,6 @@ Aquí hay algunas formas en las que puedes contribuir:
 - Mejoras de funcionalidad: Si tienes ideas para mejorar la funcionalidad de la plantilla, siéntete libre de proponerlas y enviar solicitudes de extracción.
 - Corrección de errores: Si encuentras algún error en el código o en la documentación, estaremos encantados de recibir tus correcciones.
 - Mejoras de rendimiento: Si tienes ideas para optimizar el rendimiento de la plantilla, nos encantaría escuchar tus sugerencias.
-
-<!-- <div style="text-align: justify;">
-Este es un párrafo de ejemplo que se justifica utilizando estilos CSS en un elemento div.
-</div> -->
 
 ## Cómo contribuir?
 
