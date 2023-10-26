@@ -1,6 +1,6 @@
 ## Plantilla Web Next
 
-|**[Inglés](#English)** |
+| **[Inglés](#English)** |
 
 ### Español
 

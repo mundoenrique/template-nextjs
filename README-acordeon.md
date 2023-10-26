@@ -3,10 +3,6 @@
 
 ## Plantilla Web Next
 
-|**[Inglés](#English)** |
-
-### Español
-
 (¡Bienvenido a esta plantilla increíble! En este archivo `README.md` encontrarás todo lo necesario para comenzar a trabajar y contribuir a este proyecto emocionante.
 
 ## Que hace la plantilla Web Next?
@@ -161,13 +157,9 @@ Recuerda seguir las pautas de contribución establecidas por el proyecto y asegu
 </details>
 
 <details>
-  <summary>Inglés</summary>
+  <summary>Inglés - English</summary>
 
 ## Next Web Template
-
-| **[Spanish](#Español)** |
-
-### English
 
 (Welcome to this amazing template! In this `README.md` file you will find everything you need to get started and contribute to this exciting project.
 
