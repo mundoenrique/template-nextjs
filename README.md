@@ -1,7 +1,7 @@
-## Plantilla Web Next {.tabset .tabset-fade .tabset-pills}
+## Plantilla Web Next
 
-| **[Español](#Español)** |**[Inglés](#English)** |
-| **[Spanish](#Spanish)** | **[English](#English)** |
+| **[Español](#Español)** |
+|**[Inglés](#English)** |
 
 ### Español
 
