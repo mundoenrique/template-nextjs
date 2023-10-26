@@ -1,19 +1,19 @@
 <!-- Tabset -->
 <div class="tabset">
   <!-- Tab 1 -->
-  <input type="radio" name="tabset" id="tab1" aria-controls="tab1-content" checked>
+  <input type="radio" name="tabset" id="español" aria-controls="tab1-content" checked>
   <label for="español">Español</label>
   <!-- Tab 2 -->
-  <input type="radio" name="tabset" id="tab2" aria-controls="tab2-content">
+  <input type="radio" name="tabset" id="ingles" aria-controls="tab2-content">
   <label for="ingles">Inglés</label>
 
   <!-- Tab 1 Content -->
-  <div class="tab-content" id="tab1-content">
+  <div class="español-content" id="español-content">
 ## Plantilla Web Next
 
-|**[Inglés](#English)** |
+<!-- |**[Inglés](#English)** |
 
-### Spanish
+### Spanish -->
 
 ¡Bienvenido a esta plantilla increíble! En este archivo `README.md` encontrarás todo lo necesario para comenzar a trabajar y contribuir a este proyecto emocionante.
 
@@ -168,12 +168,12 @@ Recuerda seguir las pautas de contribución establecidas por el proyecto y asegu
 
   </div>
   <!-- Tab 2 Content -->
-  <div class="tab-content" id="tab2-content">
+  <div class="ingles-content" id="ingles-content">
     ## Next Web Template
 
-| **[Español](#Spanish)** |
+<!-- | **[Español](#Spanish)** |
 
-### English
+### English -->
 
 Welcome to this amazing template! In this `README.md` file you will find everything you need to get started and contribute to this exciting project.
 
