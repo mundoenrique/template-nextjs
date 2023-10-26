@@ -1,9 +1,6 @@
-## Plantilla Web Next
-
-| **[Español](#Español)** |
 |**[Inglés](#English)** |
 
-### Español
+## Plantilla Web Next
 
 (¡Bienvenido a esta plantilla increíble! En este archivo `README.md` encontrarás todo lo necesario para comenzar a trabajar y contribuir a este proyecto emocionante.
 
@@ -156,7 +153,9 @@ Recuerda seguir las pautas de contribución establecidas por el proyecto y asegu
 
 ![NovoPayment Inc.](public/images/novo/novopayment.svg))
 
-## Next Web Template {.tabset .tabset-fade .tabset-pills}
+| **[Spanish](#Spanish)** |
+
+## Next Web Template
 
 ### English
 
