@@ -1,4 +1,4 @@
-|**[Inglés](#English)** |
+|**[Inglés](#Next Web Template)** |
 
 ## Plantilla Web Next
 
@@ -153,11 +153,9 @@ Recuerda seguir las pautas de contribución establecidas por el proyecto y asegu
 
 ![NovoPayment Inc.](public/images/novo/novopayment.svg))
 
-| **[Spanish](#Spanish)** |
+| **[Spanish](#Plantilla Web Next)** |
 
 ## Next Web Template
-
-### English
 
 (Welcome to this amazing template! In this `README.md` file you will find everything you need to get started and contribute to this exciting project.
 
