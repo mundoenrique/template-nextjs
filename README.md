@@ -1,6 +1,6 @@
 ## Plantilla Web Next {.tabset .tabset-fade .tabset-pills}
 
-| **[Español](#Español)** | **[Inglés](#Inglés)** |:---:|:---:|:---:|
+| **[Español](#Español)** |
 
 ### Español
 
@@ -157,7 +157,7 @@ Recuerda seguir las pautas de contribución establecidas por el proyecto y asegu
 
 ## Next Web Template {.tabset .tabset-fade .tabset-pills}
 
-| **[Spanish](#Spanish)** | **[English](#English)** |:---:|:---:|:---:|
+| **[English](#English)** |
 
 ### English
 
