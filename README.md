@@ -1,6 +1,9 @@
-| **[Español](#Plantilla Web Next) {.tabset .tabset-fade .tabset-pills}** |
+## Plantilla Web Next {.tabset .tabset-fade .tabset-pills}
 
-### Plantilla Web Next
+| **[Español](#Español)** |**[Inglés](#English)** |
+| **[Spanish](#Spanish)** | **[English](#English)** |
+
+### Español
 
 (¡Bienvenido a esta plantilla increíble! En este archivo `README.md` encontrarás todo lo necesario para comenzar a trabajar y contribuir a este proyecto emocionante.
 
@@ -153,9 +156,9 @@ Recuerda seguir las pautas de contribución establecidas por el proyecto y asegu
 
 ![NovoPayment Inc.](public/images/novo/novopayment.svg))
 
-| **[English](#Next Web Template) {.tabset .tabset-fade .tabset-pills}** |
+## Next Web Template {.tabset .tabset-fade .tabset-pills}
 
-### Next Web Template
+### English
 
 (Welcome to this amazing template! In this `README.md` file you will find everything you need to get started and contribute to this exciting project.
 
