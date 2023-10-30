@@ -7,6 +7,7 @@ export interface DataTable {
 	rowPages: number;
 	isByService?: boolean;
 	isCheckbox?: boolean;
+	isUniqueSelection?: boolean;
 	totalRows: number;
 	page: number;
 	loading?: boolean;

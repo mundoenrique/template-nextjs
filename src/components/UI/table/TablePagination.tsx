@@ -22,6 +22,7 @@ const PaginationTable = ({
 	rowPages,
 	isByService,
 	isCheckbox,
+	isUniqueSelection,
 	totalRows,
 	page,
 	loading,
@@ -29,10 +30,12 @@ const PaginationTable = ({
 	onAction,
 	toggleRows,
 }: DataTable) => {
+	//Verificar la opcion
 	const verify_option = (options: string[], field: string) => {
 		return options?.includes(field) ? true : false;
 	};
 
+	//Ejecutar la accion de la opcion
 	const onFunction = (row: RowTable, action: number) => {
 		onAction(row, action);
 	};
@@ -40,6 +43,7 @@ const PaginationTable = ({
 	const [localPage, setLocalPage] = useState<number>(0);
 	const [countColumns, setCountColumns] = useState<number>(0);
 
+	//Agregar una columna si viene con opciones
 	const getColumns = () => {
 		if (actionOptions) {
 			setCountColumns(columns.length + 1);
@@ -56,6 +60,7 @@ const PaginationTable = ({
 		}
 	};
 
+	//La data de la tabla
 	const rowsTable = useMemo(() => {
 		getColumns();
 		if (isByService) {
@@ -71,27 +76,31 @@ const PaginationTable = ({
 		}
 	}, [data, localPage]);
 
-	//SELECTED ROWS
+	//Multiselect
 	const [selectedRows, setSelectedRows] = useState<number[]>([]);
 
 	const toggleRow = (id: number) => {
 		const selectedIndex = selectedRows.indexOf(id);
 		let newSelected = [...selectedRows];
 
+		console.log({ selectedIndex });
+
 		if (selectedIndex === -1) {
+			if (isUniqueSelection) {
+				newSelected = [];
+			}
 			newSelected = newSelected.concat(id);
 		} else {
 			newSelected.splice(selectedIndex, 1);
 		}
 		setSelectedRows(newSelected);
 	};
+
 	const isSelected = (id: number) => selectedRows.indexOf(id) !== -1;
 
 	useEffect(() => {
 		toggleRows(selectedRows);
 	}, [selectedRows]);
-
-	//END SELECTED ROWS
 
 	return (
 		<>
@@ -118,7 +127,7 @@ const PaginationTable = ({
 				<Table aria-label="pagination table">
 					<TableHead>
 						<TableRow>
-							{isCheckbox && (
+							{isCheckbox && !isUniqueSelection && (
 								<TableCell padding="checkbox">
 									<Checkbox
 										indeterminate={
@@ -135,6 +144,9 @@ const PaginationTable = ({
 										}}
 									/>
 								</TableCell>
+							)}
+							{isCheckbox && isUniqueSelection && (
+								<TableCell padding="checkbox"></TableCell>
 							)}
 							{columns.map((column: ColumnTable) => (
 								<TableCell key={column.id}>{column.label}</TableCell>
