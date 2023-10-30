@@ -1,10 +1,24 @@
 ## Plantilla Web Next
 
+¡Bienvenido a esta plantilla increíble! En este archivo `README.md` encontrarás todo lo necesario para comenzar a trabajar y contribuir a este proyecto emocionante.
+
+1. [Introducción](#Que hace la plantilla Web Next?)
+2. [Importancia](#Importancia de la plantilla Web Next)
+3. [Primeros_pasos](#Primeros pasos)
+4. [Instalación_de_Plantilla_Web_Next](#Instalación de la plantilla Web Next)
+5. [Dependencias](#Dependencias)
+6. [Descripción_de_las_dependencias](#Descripción de las dependencias)
+7. [Uso_de_la_plantilla_Web_Next](#Uso de la plantilla Web Next)
+8. [Más_información](#Más información)
+9. [Contribución](#contribuciones)
+10. [Cómo_contribuir?](#Cómo contribuir?)
+11. [Autor](#Autor)
+
+## Plantilla Web Next
+
 | **[Inglés](#English)** |
 
 ### Español
-
-(¡Bienvenido a esta plantilla increíble! En este archivo `README.md` encontrarás todo lo necesario para comenzar a trabajar y contribuir a este proyecto emocionante.
 
 ## Que hace la plantilla Web Next?
 
@@ -153,7 +167,7 @@ Recuerda seguir las pautas de contribución establecidas por el proyecto y asegu
 
 ## Autor
 
-![NovoPayment Inc.](public/images/novo/novopayment.svg))
+![NovoPayment Inc.](public/images/novo/novopayment.svg)
 
 ## Next Web Template
 
@@ -161,7 +175,7 @@ Recuerda seguir las pautas de contribución establecidas por el proyecto y asegu
 
 ### English
 
-(Welcome to this amazing template! In this `README.md` file you will find everything you need to get started and contribute to this exciting project.
+Welcome to this amazing template! In this `README.md` file you will find everything you need to get started and contribute to this exciting project.
 
 ## What does the Web Next template do?
 
@@ -310,4 +324,4 @@ We look forward to your contributions and thank you for your support!
 
 ## Autor
 
-![NovoPayment Inc.](public/images/novo/novopayment.svg))
+![NovoPayment Inc.](public/images/novo/novopayment.svg)
