@@ -334,6 +334,7 @@ export default function Signin({ params }: any) {
 								isByService={isByService}
 								isCheckbox={true}
 								isUniqueSelection={false}
+								isSearch={true}
 								totalRows={totalRows}
 								loading={loading}
 								handleChangePage={handleChangePage}

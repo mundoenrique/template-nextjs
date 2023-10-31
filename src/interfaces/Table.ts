@@ -8,6 +8,7 @@ export interface DataTable {
 	isByService?: boolean;
 	isCheckbox?: boolean;
 	isUniqueSelection?: boolean;
+	isSearch?: boolean;
 	totalRows: number;
 	page: number;
 	loading?: boolean;

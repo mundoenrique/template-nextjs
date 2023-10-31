@@ -8,7 +8,14 @@ import TableFooter from '@mui/material/TableFooter';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { Checkbox, CircularProgress, Typography } from '@mui/material';
+import {
+	Box,
+	Checkbox,
+	CircularProgress,
+	Grid,
+	TextField,
+	Typography,
+} from '@mui/material';
 
 //Internal App
 import ActionOptions from './ActionOptions';
@@ -23,6 +30,7 @@ const PaginationTable = ({
 	isByService,
 	isCheckbox,
 	isUniqueSelection,
+	isSearch,
 	totalRows,
 	page,
 	loading,
@@ -60,6 +68,28 @@ const PaginationTable = ({
 		}
 	};
 
+	//Multiselect
+	const [selectedRows, setSelectedRows] = useState<number[]>([]);
+
+	const toggleRow = (id: number) => {
+		const selectedIndex = selectedRows.indexOf(id);
+		const newSelected = isUniqueSelection ? [id] : [...selectedRows];
+
+		if (selectedIndex === -1) {
+			newSelected.push(id);
+		} else {
+			newSelected.splice(selectedIndex, 1);
+		}
+
+		setSelectedRows(newSelected);
+	};
+
+	const isSelected = (id: number) => selectedRows.indexOf(id) !== -1;
+
+	useEffect(() => {
+		toggleRows(selectedRows);
+	}, [selectedRows]);
+
 	//La data de la tabla
 	const rowsTable = useMemo(() => {
 		getColumns();
@@ -72,38 +102,40 @@ const PaginationTable = ({
 				rowPages * (localPage + 1) - rowPages,
 				rowPages * (localPage + 1)
 			);
+
 			return rows;
 		}
 	}, [data, localPage]);
 
-	//Multiselect
-	const [selectedRows, setSelectedRows] = useState<number[]>([]);
+	//Search
+	const [searchTerm, setSearchTerm] = useState<string>('');
 
-	const toggleRow = (id: number) => {
-		const selectedIndex = selectedRows.indexOf(id);
-		let newSelected = [...selectedRows];
-
-		console.log({ selectedIndex });
-
-		if (selectedIndex === -1) {
-			if (isUniqueSelection) {
-				newSelected = [];
-			}
-			newSelected = newSelected.concat(id);
-		} else {
-			newSelected.splice(selectedIndex, 1);
-		}
-		setSelectedRows(newSelected);
-	};
-
-	const isSelected = (id: number) => selectedRows.indexOf(id) !== -1;
-
-	useEffect(() => {
-		toggleRows(selectedRows);
-	}, [selectedRows]);
+	const filteredData = rowsTable
+		? rowsTable.filter((row: RowTable) => {
+				for (const key in row) {
+					if (row[key].toString().toLowerCase().includes(searchTerm)) {
+						return true;
+					}
+				}
+				return false;
+		  })
+		: [];
 
 	return (
 		<>
+			{isSearch && !isByService && (
+				<Grid item xs={12}>
+					<Box sx={{ width: '100%', textAlign: 'right', marginBottom: 1 }}>
+						<TextField
+							label="Search"
+							variant="outlined"
+							size="small"
+							onChange={(e) => setSearchTerm(e.target.value)}
+							value={searchTerm}
+						/>
+					</Box>
+				</Grid>
+			)}
 			<TableContainer component={Paper} sx={{ position: 'relative' }}>
 				{loading && (
 					<div
@@ -157,7 +189,7 @@ const PaginationTable = ({
 						</TableRow>
 					</TableHead>
 					<TableBody>
-						{rowsTable.map((row: RowTable) => {
+						{filteredData.map((row: RowTable) => {
 							const isItemSelected = isSelected(row.id);
 							return (
 								<TableRow
@@ -193,7 +225,7 @@ const PaginationTable = ({
 								</TableRow>
 							);
 						})}
-						{rowsTable.length === 0 && (
+						{filteredData.length === 0 && (
 							<TableRow>
 								<TableCell colSpan={countColumns}>
 									<Typography
@@ -207,20 +239,21 @@ const PaginationTable = ({
 							</TableRow>
 						)}
 					</TableBody>
-					{rowsTable.length !== 0 && (
-						<TableFooter>
-							<TableRow>
-								<TablePagination
-									count={totalRows}
-									page={localPage}
-									rowsPerPage={rowPages}
-									onPageChange={changePaged}
-									ActionsComponent={PaginationActions}
-									rowsPerPageOptions={[]}
-								/>
-							</TableRow>
-						</TableFooter>
-					)}
+					{filteredData.length !== 0 &&
+						filteredData.length === rowsTable.length && (
+							<TableFooter>
+								<TableRow>
+									<TablePagination
+										count={totalRows}
+										page={localPage}
+										rowsPerPage={rowPages}
+										onPageChange={changePaged}
+										ActionsComponent={PaginationActions}
+										rowsPerPageOptions={[]}
+									/>
+								</TableRow>
+							</TableFooter>
+						)}
 				</Table>
 			</TableContainer>
 		</>
