@@ -21,6 +21,9 @@ import {
 import ActionOptions from './ActionOptions';
 import PaginationActions from './ActionPagination';
 import { DataTable, RowTable, ColumnTable } from '@/interfaces';
+import { set } from 'date-fns';
+import { log } from 'console';
+import { is } from 'date-fns/locale';
 
 const PaginationTable = ({
 	columns,
@@ -38,6 +41,13 @@ const PaginationTable = ({
 	onAction,
 	toggleRows,
 }: DataTable) => {
+	//Estado global
+	const [dataResult, setDataResult] = useState<RowTable[]>(data);
+	const [totalRowsGlobal, setTotalRowsGlobal] = useState<number>(totalRows);
+
+	//Estado de busqueda
+	const [dataSearch, setDataSearch] = useState<RowTable[]>(data);
+
 	//Verificar la opcion
 	const verify_option = (options: string[], field: string) => {
 		return options?.includes(field) ? true : false;
@@ -73,7 +83,7 @@ const PaginationTable = ({
 
 	const toggleRow = (id: number) => {
 		const selectedIndex = selectedRows.indexOf(id);
-		const newSelected = isUniqueSelection ? [id] : [...selectedRows];
+		let newSelected = isUniqueSelection ? [id] : [...selectedRows];
 
 		if (selectedIndex === -1) {
 			newSelected.push(id);
@@ -81,8 +91,15 @@ const PaginationTable = ({
 			newSelected.splice(selectedIndex, 1);
 		}
 
-		setSelectedRows(newSelected);
+		if (isUniqueSelection) {
+			const unique = removeDuplicates(newSelected);
+			setSelectedRows(unique);
+		} else {
+			setSelectedRows(newSelected);
+		}
 	};
+
+	const removeDuplicates = (arr: number[]) => [...new Set(arr)];
 
 	const isSelected = (id: number) => selectedRows.indexOf(id) !== -1;
 
@@ -97,29 +114,41 @@ const PaginationTable = ({
 			setLocalPage(page);
 			return data;
 		} else {
-			const copy = [...data];
-			const rows = copy.slice(
+			const rows = dataSearch.slice(
 				rowPages * (localPage + 1) - rowPages,
 				rowPages * (localPage + 1)
 			);
 
 			return rows;
 		}
-	}, [data, localPage]);
+	}, [data, localPage, dataSearch, dataResult]);
 
 	//Search
 	const [searchTerm, setSearchTerm] = useState<string>('');
 
-	const filteredData = rowsTable
-		? rowsTable.filter((row: RowTable) => {
-				for (const key in row) {
-					if (row[key].toString().toLowerCase().includes(searchTerm)) {
-						return true;
-					}
+	const filterDataSearch = (text: string) => {
+		const data = dataResult.filter((row: RowTable) => {
+			for (const key in row) {
+				if (row[key].toString().toLowerCase().includes(text.toLowerCase())) {
+					return true;
 				}
-				return false;
-		  })
-		: [];
+			}
+			return false;
+		});
+
+		setTotalRowsGlobal(data.length);
+		setDataSearch(data);
+	};
+
+	const changeSearchTerm = (value: string) => {
+		setSearchTerm(value);
+		if (searchTerm.length === 0) {
+			setDataSearch(dataResult);
+			setLocalPage(0);
+		} else {
+			filterDataSearch(value);
+		}
+	};
 
 	return (
 		<>
@@ -130,7 +159,7 @@ const PaginationTable = ({
 							label="Search"
 							variant="outlined"
 							size="small"
-							onChange={(e) => setSearchTerm(e.target.value)}
+							onChange={(e) => changeSearchTerm(e.target.value)}
 							value={searchTerm}
 						/>
 					</Box>
@@ -189,7 +218,7 @@ const PaginationTable = ({
 						</TableRow>
 					</TableHead>
 					<TableBody>
-						{filteredData.map((row: RowTable) => {
+						{rowsTable.map((row: RowTable) => {
 							const isItemSelected = isSelected(row.id);
 							return (
 								<TableRow
@@ -225,7 +254,7 @@ const PaginationTable = ({
 								</TableRow>
 							);
 						})}
-						{filteredData.length === 0 && (
+						{rowsTable.length === 0 && (
 							<TableRow>
 								<TableCell colSpan={countColumns}>
 									<Typography
@@ -239,21 +268,20 @@ const PaginationTable = ({
 							</TableRow>
 						)}
 					</TableBody>
-					{filteredData.length !== 0 &&
-						filteredData.length === rowsTable.length && (
-							<TableFooter>
-								<TableRow>
-									<TablePagination
-										count={totalRows}
-										page={localPage}
-										rowsPerPage={rowPages}
-										onPageChange={changePaged}
-										ActionsComponent={PaginationActions}
-										rowsPerPageOptions={[]}
-									/>
-								</TableRow>
-							</TableFooter>
-						)}
+					{totalRowsGlobal > 10 && (
+						<TableFooter>
+							<TableRow>
+								<TablePagination
+									count={totalRowsGlobal}
+									page={localPage}
+									rowsPerPage={rowPages}
+									onPageChange={changePaged}
+									ActionsComponent={PaginationActions}
+									rowsPerPageOptions={[]}
+								/>
+							</TableRow>
+						</TableFooter>
+					)}
 				</Table>
 			</TableContainer>
 		</>
