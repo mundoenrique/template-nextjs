@@ -1,4 +1,4 @@
-| **[Inglés](#English)** |
+| **[Inglés](#Next-Web-Template)** |
 
 ## Plantilla Web Next
 
@@ -165,7 +165,7 @@ Recuerda seguir las pautas de contribución establecidas por el proyecto y asegu
 
 ![NovoPayment Inc.](public/images/novo/novopayment.svg)
 
-| **[Spanish](#Español)** |
+| **[Spanish](#Plantilla-Web-Next)** |
 
 ## Next Web Template
 
