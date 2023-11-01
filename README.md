@@ -28,14 +28,6 @@ Esta plantilla es útil porque te permite ahorrar tiempo proporcionando un dise�
 
 Antes de comenzar, asegúrate de tener instalado lo siguiente:
 
-- ## Next.js
-
-Para instalar Next, ejecuta los siguientes comandos en tu terminal:
-
-```javascript
-npx create-next-app
-```
-
 - ## Node.js
 
 Para instalar Node.js en diferentes sistemas operativos, puedes seguir estos pasos:
@@ -83,6 +75,14 @@ Asegúrate de tener Node.js instalado antes de proceder con la instalación de Y
 
 > [!NOTA] Para las instalaciones de dependencias de la plantilla web se debe utilizar Yarn.
 
+- ## Next.js
+
+Para instalar Next, ejecuta los siguientes comandos en tu terminal:
+
+```javascript
+npx create-next-app
+```
+
 ## Instalación de la plantilla Web Next
 
 1. Clona este repositorio en tu máquina local.
@@ -94,10 +94,10 @@ Asegúrate de tener Node.js instalado antes de proceder con la instalación de Y
 
 |                               Dependencias                               | Versión |
 | :----------------------------------------------------------------------: | :-----: |
+|        [Node.js](https://nodejs.org/en/download/package-manager)         | 16.20.2 |
+| [Yarn](https://classic.yarnpkg.com/lang/en/docs/install/#windows-stable) | 1.22.18 |
 |        [React](https://react.dev/learn/start-a-new-react-project)        | 18.2.0  |
 |     [Next.js](https://nextjs.org/docs/getting-started/installation)      | 13.4.7  |
-|        [Node.js](https://nodejs.org/en/download/package-manager)         | ------  |
-| [Yarn](https://classic.yarnpkg.com/lang/en/docs/install/#windows-stable) | ------  |
 |       [i18next](https://www.i18next.com/overview/getting-started)        | 23.2.6  |
 |        [react-hook-form](https://react-hook-form.com/get-started)        | 7.45.1  |
 | [Material UI](https://mui.com/material-ui/getting-started/installation/) | 5.14.0  |
