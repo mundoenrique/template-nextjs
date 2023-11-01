@@ -1,24 +1,36 @@
-## Plantilla Web Next
+[Que hace la plantilla Web Next?](#que-hace-la-plantilla-web-next)
 
-¡Bienvenido a esta plantilla increíble! En este archivo `README.md` encontrarás todo lo necesario para comenzar a trabajar y contribuir a este proyecto emocionante.
+[Importancia de la plantilla Web Next](#importancia-de-la-plantilla-web-next)
 
-1. [Introducción](#Que hace la plantilla Web Next?)
-2. [Importancia](#Importancia de la plantilla Web Next)
-3. [Primeros_pasos](#Primeros pasos)
-4. [Instalación_de_Plantilla_Web_Next](#Instalación de la plantilla Web Next)
-5. [Dependencias](#Dependencias)
-6. [Descripción_de_las_dependencias](#Descripción de las dependencias)
-7. [Uso_de_la_plantilla_Web_Next](#Uso de la plantilla Web Next)
-8. [Más_información](#Más información)
-9. [Contribución](#contribuciones)
-10. [Cómo_contribuir?](#Cómo contribuir?)
-11. [Autor](#Autor)
+[Primeros pasos.](#primeros-pasos)
+
+[Instalación de la plantilla Web Next](#instalación-de-la-plantilla-web-next)
+
+[Dependencias](#dependencias)
+
+[Descripción de las dependencias](#descripción-de-las-dependencias)
+
+[Uso de la plantilla Web Next](#uso-de-la-plantilla-web-next)
+
+[Más información](#más-información)
+
+[Contribuciones](#contribuciones)
+
+[Cómo contribuir?](#cómo-contribuir)
+
+[Autor](#autor)
+
+<!-- [Next Web Template](#next-web-template)auto - [English](#english)auto- [What does the Web Next template do?](#what-does-the-web-next-template-do)auto- [Importance of the Web Next template](#importance-of-the-web-next-template)auto- [Getting Started](#getting-started)auto - [Windows:](#windows-1)auto - [Mac:](#mac-1)auto- [Installing the Web Next template](#installing-the-web-next-template)auto- [Dependencies](#dependencies)auto- [Description of the dependencies](#description-of-the-dependencies)auto- [Use the Web Next template](#use-the-web-next-template)auto- [More information](#more-information)auto- [Contributions](#contributions)auto- [How to contribute?](#how-to-contribute)auto- [Autor](#autor) -->
 
 ## Plantilla Web Next
 
 | **[Inglés](#English)** |
 
 ### Español
+
+## Plantilla Web Next
+
+¡Bienvenido a esta plantilla increíble! En este archivo `README.md` encontrarás todo lo necesario para comenzar a trabajar y contribuir a este proyecto emocionante.
 
 ## Que hace la plantilla Web Next?
 
