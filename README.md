@@ -1,36 +1,20 @@
-[Que hace la plantilla Web Next?](#que-hace-la-plantilla-web-next)
-
-[Importancia de la plantilla Web Next](#importancia-de-la-plantilla-web-next)
-
-[Primeros pasos.](#primeros-pasos)
-
-[Instalación de la plantilla Web Next](#instalación-de-la-plantilla-web-next)
-
-[Dependencias](#dependencias)
-
-[Descripción de las dependencias](#descripción-de-las-dependencias)
-
-[Uso de la plantilla Web Next](#uso-de-la-plantilla-web-next)
-
-[Más información](#más-información)
-
-[Contribuciones](#contribuciones)
-
-[Cómo contribuir?](#cómo-contribuir)
-
-[Autor](#autor)
-
-<!-- [Next Web Template](#next-web-template)auto - [English](#english)auto- [What does the Web Next template do?](#what-does-the-web-next-template-do)auto- [Importance of the Web Next template](#importance-of-the-web-next-template)auto- [Getting Started](#getting-started)auto - [Windows:](#windows-1)auto - [Mac:](#mac-1)auto- [Installing the Web Next template](#installing-the-web-next-template)auto- [Dependencies](#dependencies)auto- [Description of the dependencies](#description-of-the-dependencies)auto- [Use the Web Next template](#use-the-web-next-template)auto- [More information](#more-information)auto- [Contributions](#contributions)auto- [How to contribute?](#how-to-contribute)auto- [Autor](#autor) -->
-
-## Plantilla Web Next
-
 | **[Inglés](#English)** |
-
-### Español
 
 ## Plantilla Web Next
 
 ¡Bienvenido a esta plantilla increíble! En este archivo `README.md` encontrarás todo lo necesario para comenzar a trabajar y contribuir a este proyecto emocionante.
+
+- [Que hace la plantilla Web Next?](#que-hace-la-plantilla-web-next)
+- [Importancia de la plantilla Web Next](#importancia-de-la-plantilla-web-next)
+- [Primeros pasos.](#primeros-pasos)
+- [Instalación de la plantilla Web Next](#instalación-de-la-plantilla-web-next)
+- [Dependencias](#dependencias)
+- [Descripción de las dependencias](#descripción-de-las-dependencias)
+- [Uso de la plantilla Web Next](#uso-de-la-plantilla-web-next)
+- [Más información](#más-información)
+- [Contribuciones](#contribuciones)
+- [Cómo contribuir?](#cómo-contribuir)
+- [Autor](#autor)
 
 ## Que hace la plantilla Web Next?
 
@@ -181,13 +165,23 @@ Recuerda seguir las pautas de contribución establecidas por el proyecto y asegu
 
 ![NovoPayment Inc.](public/images/novo/novopayment.svg)
 
-## Next Web Template
-
 | **[Spanish](#Español)** |
 
-### English
+## Next Web Template
 
 Welcome to this amazing template! In this `README.md` file you will find everything you need to get started and contribute to this exciting project.
+
+- [What does the Web Next template do?](#what-does-the-web-next-template-do)
+- [Importance of the Web Next template](#importance-of-the-web-next-template)
+- [Getting Started](#getting-started)
+- [Installing the Web Next template](#installing-the-web-next-template)
+- [Dependencies](#dependencies)
+- [Description of the dependencies](#description-of-the-dependencies)
+- [Use the Web Next template](#use-the-web-next-template)
+- [More information](#more-information)
+- [Contributions](#contributions)
+- [How to contribute?](#how-to-contribute)
+- [Autor](#autor)
 
 ## What does the Web Next template do?
 
