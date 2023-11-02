@@ -18,9 +18,8 @@ import {
 	InputSwitch,
 	Modals,
 	Dialogs,
-	installPWA,
+	InstallPWA,
 } from '@/components/UI';
-import InstallPWA from '@/components/UI/InstallPWA';
 
 export default function Signin({ params }: any) {
 	const [showModal, setShowModal] = useState(false);
