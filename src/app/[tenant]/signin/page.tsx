@@ -18,6 +18,7 @@ import {
 	InputSwitch,
 	Modals,
 	Dialogs,
+	InstallPWA,
 } from '@/components/UI';
 
 export default function Signin({ params }: any) {
@@ -263,6 +264,7 @@ export default function Signin({ params }: any) {
 					<InputSwitch name="cookies" control={control} options={cookiesList} />
 				</Dialogs>
 			</>
+			<InstallPWA />
 		</>
 	);
 }

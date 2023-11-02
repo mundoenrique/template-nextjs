@@ -14,3 +14,4 @@ export { default as InputSelect } from './form/InputSelect';
 export { default as InputDatePicker } from './form/InputDatePicker';
 export { default as TimmerSession } from './TimmerSession';
 export { default as Table } from './table/TablePagination';
+export { default as InstallPWA } from './InstallPWA';
