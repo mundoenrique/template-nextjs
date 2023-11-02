@@ -32,7 +32,7 @@ Before you start, make sure you have the following installed:
 
 To install Next, run the following commands in your terminal:
 
-```javascript
+```
 npx create-next-app
 ```
 
@@ -48,8 +48,8 @@ To install Node.js on different operating systems, you can follow these steps:
 - Run the downloaded file and follow the installer instructions.
 - Once the installation is complete, open the command line and verify the installation by executing the following command:
 
-```javascript
-node - v;
+```
+node -v
 ```
 
 ### Mac:
@@ -60,22 +60,22 @@ node - v;
 - Run the downloaded file and follow the installer instructions.
 - Once the installation is complete, open the command line and verify the installation by executing the following command:
 
-```javascript
-node - v;
+```
+node -v
 ```
 
 - ## Yarn
 
 To install Yarn, you can use npm to perform the installation. Here is the command to install Yarn:
 
-```javascript
+```
 npm install --global yarn
 ```
 
 After executing this command, Yarn will be installed globally on your system. You can check that the installation was successful by running the following command:
 
-```javascript
-yarn --version
+```
+yarn -v
 ```
 
 This will display the version of Yarn installed on your system.
@@ -124,8 +124,8 @@ zustand: It is a small, fast and scalable state management solution.
 
 Once you have completed the installation, you can run the project using the following commands:
 
-```javascript
-`yarn dev`;
+```
+yarn dev
 ```
 
 This will start the server and you will be able to access the application in your browser using the following URL: [http://localhost:3000](http://localhost:3000).
@@ -134,13 +134,17 @@ You can start editing the page by modifying `src/app.tsx`. The page is automatic
 
 To build the Web Next template for production, you can run the following command:
 
-`yarn run build`
+```
+yarn run build
+```
 
 This command will generate an optimized compilation of the template for production.
 
 Once the compilation is ready, you can start the template in production mode by running the following command:
 
-`yarn start`
+```
+yarn start
+```
 
 This will start the Web Next template in production mode.
 
@@ -219,8 +223,8 @@ Para instalar Node.js en diferentes sistemas operativos, puedes seguir estos pas
 - Ejecuta el archivo descargado y sigue las instrucciones del instalador.
 - Una vez completada la instalación, abre la línea de comandos y verifica la instalación ejecutando el siguiente comando:
 
-```javascript
-node - v;
+```
+node -v
 ```
 
 ### Mac:
@@ -231,22 +235,22 @@ node - v;
 - Ejecuta el archivo descargado y sigue las instrucciones del instalador.
 - Una vez completada la instalación, abre la Terminal y verifica la instalación ejecutando el siguiente comando:
 
-```javascript
-node - v;
+```
+node -v
 ```
 
 - ## Yarn
 
 Para instalar Yarn, puede utilizar npm para realizar la instalación. Aquí está el comando para instalar Yarn:
 
-```javascript
+```
 npm install --global yarn
 ```
 
 Después de ejecutar este comando, Yarn se instalará globalmente en tu sistema. Puedes comprobar que la instalación se ha realizado correctamente ejecutando el siguiente comando:
 
-```javascript
-yarn --version
+```
+yarn -v
 ```
 
 Esto mostrará la versión de Yarn instalada en su sistema.
@@ -258,7 +262,7 @@ Asegúrate de tener Node.js instalado antes de proceder con la instalación de Y
 
 Para instalar Next, ejecuta los siguientes comandos en tu terminal:
 
-```javascript
+```
 npx create-next-app
 ```
 
@@ -303,8 +307,8 @@ zustand: Es una solución de gestión de estados pequeña, rápida y escalable.
 
 Una vez que hayas completado la instalación, puedes ejecutar el proyecto utilizando los siguientes comandos:
 
-```javascript
-`yarn dev`;
+```
+yarn dev
 ```
 
 Esto iniciará el servidor y podrás acceder a la aplicación en tu navegador utilizando la siguiente URL: [http://localhost:3000](http://localhost:3000).
@@ -313,13 +317,17 @@ Puede empezar a editar la página modificando `src/app.tsx`. La página se actua
 
 Para construir la plantilla Web Next para producción, puedes ejecutar el siguiente comando:
 
-`yarn run build`
+```
+yarn run build
+```
 
 Este comando generará una compilación optimizada de la plantilla para producción.
 
 Una vez que la compilación esté lista, puedes iniciar la plantilla en modo de producción ejecutando el siguiente comando:
 
-`yarn start`
+```
+yarn start
+```
 
 Esto iniciará la plantilla Web Next en modo de producción.
 
