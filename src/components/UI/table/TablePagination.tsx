@@ -21,9 +21,6 @@ import {
 import ActionOptions from './ActionOptions';
 import PaginationActions from './ActionPagination';
 import { DataTable, RowTable, ColumnTable } from '@/interfaces';
-import { set } from 'date-fns';
-import { log } from 'console';
-import { is } from 'date-fns/locale';
 
 const PaginationTable = ({
 	columns,
@@ -128,8 +125,12 @@ const PaginationTable = ({
 
 	const filterDataSearch = (text: string) => {
 		const data = dataResult.filter((row: RowTable) => {
+			const columnsFilter = columns.map((item) => item.id);
 			for (const key in row) {
-				if (row[key].toString().toLowerCase().includes(text.toLowerCase())) {
+				if (
+					row[key].toString().toLowerCase().includes(text.toLowerCase()) &&
+					columnsFilter.includes(key)
+				) {
 					return true;
 				}
 			}
