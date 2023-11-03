@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { signIn } from 'next-auth/react';
 import { useForm } from 'react-hook-form';
@@ -14,7 +14,7 @@ import { log_message } from '@/utils';
 import connectApi from '@/services/connectApi';
 import { FormData, resData } from '@/interfaces';
 import { useTranslation } from '@/app/i18n/client';
-import { InputPass, InputText, NavBar, Modals, Cookies } from '@/components/UI';
+import { InputPass, InputText, NavBar, Modals, Cookies, InstallPWA } from '@/components/UI';
 const RecaptchaPuzzle: any = dynamic(() => import('@/components/UI/RecaptchaPuzzle'));
 
 export default function Signin({ params }: any) {
@@ -25,10 +25,13 @@ export default function Signin({ params }: any) {
   const [loading, setLoading] = useState(false);
   const [msgModal, setmsgModal] = useState('');
 
-  log_message('info', 'Access the SIG-IN page');
   const router = useRouter();
   const { t } = useTranslation();
   const schema = getSchema(['email', 'password'], params.tenant);
+
+  useEffect(() => {
+    log_message('info', `Access the SIG-IN page`);
+  },[])
 
   const { handleSubmit, control, reset } = useForm({
     defaultValues: {
@@ -100,6 +103,7 @@ export default function Signin({ params }: any) {
     <>
       <Cookies />
       <NavBar />
+      <InstallPWA />
       <Box sx={{ m: 5 }} component='form' onSubmit={handleSubmit(sesionClient)}>
         <Typography variant='h3' sx={{ mb: 3 }}>
           Sign-in
