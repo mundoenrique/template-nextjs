@@ -28,14 +28,6 @@ This template is useful because it allows you to save time by providing a predef
 
 Before you start, make sure you have the following installed:
 
-- ## Next.js
-
-To install Next, run the following commands in your terminal:
-
-```
-npx create-next-app
-```
-
 - ## Node.js
 
 To install Node.js on different operating systems, you can follow these steps:
@@ -82,6 +74,14 @@ This will display the version of Yarn installed on your system.
 Make sure you have Node.js installed before proceeding with the Yarn installation.
 
 > [!NOTE] Yarn must be used for web template dependency installations.
+
+- ## Next.js
+
+To install Next, run the following commands in your terminal:
+
+```
+npx create-next-app
+```
 
 ## Installing the Web Next template
 
