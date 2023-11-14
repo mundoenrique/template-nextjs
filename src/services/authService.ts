@@ -3,7 +3,7 @@ import connectServices from "./connectServices"
 export const authenticate = async (email: string, password: string, req: any) => {
 
 	const ipAddress = req.headers['x-forwarded-for'];
-	const response: any = await connectServices.get(`/users?user=${email}&password=${password}`);
+	const response = await connectServices.get(`/users?user=${email}&password=${password}`);
 
 	switch (response.data.code) {
       case 0:

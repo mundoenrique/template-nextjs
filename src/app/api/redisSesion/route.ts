@@ -6,6 +6,15 @@ import { accessToken } from '@/services/oauth';
 import { encryptToView, ramdomData } from '@/utils';
 import { createRedisInstance } from '@/services/redis';
 
+type ResOauth = {
+  data: {
+    accessToken: string;
+    refreshToken: string;
+  };
+  status: number;
+  code: number;
+}
+
 export async function GET() {
   const uid = cookies().get('uidvdo')?.value;
 

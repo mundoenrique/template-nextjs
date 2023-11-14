@@ -6,12 +6,16 @@ import { Modals } from '@/components/UI';
 import { Button } from "@mui/material";
 import { useTranslation } from "@/app/i18n/client";
 
-export default function TimmerSession(tenant:any) {
+interface RefType<T> {
+  current: T | null;
+}
+
+export default function TimmerSession(tenant: {tenant: string}) {
 
 	const { update } = useSession();
 	const { t } = useTranslation();
 	const [showModal, setShowModal] = useState(false);
-	const ref: any = useRef(null);
+	const ref: RefType<any> = useRef(null);
 
 	const viewSesion = async () => {
 		const session = await getSession()
@@ -24,7 +28,7 @@ export default function TimmerSession(tenant:any) {
 
 	useEffect(() => {
 
-		let intervalSession:any
+		let intervalSession:NodeJS.Timeout
 
 		const timerSession = () => {
 			if (!localStorage.sessionTime) {

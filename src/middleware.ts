@@ -7,6 +7,16 @@ const validTenants = access_url?.split(',');
 const defaultTenant = validTenants?.[0];
 const SIGNIN_ROUTE = '/signin';
 
+type PayloadType = {
+  name: string;
+  email: string;
+  sub: string;
+  ip: string;
+  iat: number;
+  iss: string;
+  aud: string;
+  exp: number;
+}
 export async function middleware(req: NextRequest) {
   const url = req.nextUrl.clone();
   const tenant = getPathName(url);
@@ -33,8 +43,8 @@ function redirectTo(url: URL, path: string, cookies: string[] = []): NextRespons
   url.pathname = path;
   const response = NextResponse.redirect(url);
 
-  if (cookies.length > 0) {
-    cookies.forEach((element: any) => {
+	if (cookies.length > 0) {
+		cookies.forEach((element) => {
       response.cookies.set(element, '', { expires: new Date(Date.now()) });
     });
   }
@@ -46,7 +56,7 @@ async function validateSession(url: URL, tenant: string, req: NextRequest) {
   log_message('debug', `Validating the user session`);
 
   const token = req.cookies.get('next-auth.session-token');
-  const payload: any = await validToken(token?.value);
+	const payload: any = await validToken(token?.value);
   const ip = req.headers.get('x-forwarded-for');
 
   if (!token || payload.ip != ip) {

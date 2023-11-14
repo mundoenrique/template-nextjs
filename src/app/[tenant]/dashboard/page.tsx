@@ -40,13 +40,34 @@ import connectApi from '@/services/connectApi';
 import { set } from 'date-fns';
 import { on } from 'events';
 
-export default function Signin({ params }: any) {
+interface SubData {
+	email: string
+	password: string
+	programs: string
+	initialDate: string
+	roles: string
+	term: string
+}
+
+interface ApiResponse<T> { payload: T }
+interface PayloadDataProps {
+	url: string,
+      data: {
+        cardId: number,
+        amount: number,
+        date: string,
+        description: string,
+        type: string,
+      },
+}
+
+export default function Signin({ params }: { params: {tenant: string;} }) {
 	log_message('info', 'Access the Components page');
 	const [showModal, setShowModal] = useState(false);
 	const [showModal200, setShowModal200] = useState(false);
 	const [loading, setLoading] = useState(false);
-	const [result, setResult] = useState('');
-	const [formData, setFormData] = useState<any>({});
+	const [result, setResult] = useState<string | object>('');
+	const [formData, setFormData] = useState<SubData|{}>({});
 	const { t } = useTranslation();
 	const schema = getSchema(
 		['email', 'password', 'programs', 'initialDate', 'roles', 'term'],
@@ -68,7 +89,7 @@ export default function Signin({ params }: any) {
 	const servicePost = async () => {
 		setLoading(true);
 		setResult('');
-		const { payload }: any = await connectApi.post('/connectService', {
+		const { payload }: ApiResponse<PayloadDataProps> = await connectApi.post('/connectService', {
 			url: 'movements',
 			data: {
 				cardId: 3,
@@ -87,7 +108,7 @@ export default function Signin({ params }: any) {
 	const serviceGet = async () => {
 		setLoading(true);
 		setResult('');
-		const { payload } = await requestGet('cards/4/movements?_limit=10&_page=1');
+		const { payload }: any = await requestGet('cards/4/movements?_limit=10&_page=1');
 		setResult(payload);
 		setLoading(false);
 	};
@@ -114,7 +135,7 @@ export default function Signin({ params }: any) {
 		},
 	];
 
-	const onSubmit = async (data: any) => {
+	const onSubmit = async (data: SubData) => {
 		data.initialDate = dayjs(data.initialDate).format('DD/MM/YYYY');
 		setFormData(data);
 		setShowModal(true);
@@ -176,7 +197,7 @@ export default function Signin({ params }: any) {
 
 	const serviceGetMovements = async () => {
 		setLoading(true);
-		const { payload } = await requestGet('cards/4/movements');
+		const { payload }: any = await requestGet('cards/4/movements');
 		const { data } = payload;
 		if (!isByService) {
 			setMovements(data);
@@ -188,7 +209,7 @@ export default function Signin({ params }: any) {
 	const serviceGetMovementsPagination = async () => {
 		setLoading(true);
 		await serviceGetMovements();
-		const { payload } = await requestGet(
+		const { payload }: any = await requestGet(
 			`cards/4/movements?_limit=${limit}&_page=${page + 1}`
 		);
 		const { data } = payload;

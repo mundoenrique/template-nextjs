@@ -20,14 +20,26 @@ import {
 	Dialogs,
 	InstallPWA,
 } from '@/components/UI';
+interface Option {
+  name: string;
+  value: string;
+  path: string;
+}
+interface OtpCookie {
+  id: number;
+  name: string;
+  title: string;
+  info: string;
+  value: boolean;
+  required: boolean;
+}
 
-export default function Signin({ params }: any) {
+export default function Signin({ params }: { params: {tenant: string;} }) {
 	const [showModal, setShowModal] = useState(false);
 	const [loading, setLoading] = useState(false);
 	const [msgModal, setmsgModal] = useState('');
 	const [open, dialogAccept] = useState(false);
 	const [personalize, dialogPersonalize] = useState(false);
-	const [formData, setFormData] = useState<any>({});
 
 	log_message('info', 'Access the SIG-IN page');
 	const router = useRouter();
@@ -85,19 +97,21 @@ export default function Signin({ params }: any) {
 		);
 		const data = await response.json();
 		const list = data.data;
-		let showDialog: any;
+		let showDialog: boolean = false;
 
 		switch (list.length) {
 			case 0:
 				showDialog = true;
 				break;
 			default:
-				list.map((option: any, i: number) => {
+				list.map((option: Option, i: number) => {
 					if (option.name === 'necessaryCookies') {
-						let findState: any;
+						let findState;
+
 						findState = list.filter(
-							(item: any) => item.name === 'necessaryCookies'
-						);
+							(item: { name: string; value: string; path: string; }) => {
+								item.name === 'necessaryCookies'
+							});
 						showDialog =
 							findState[0].name === 'necessaryCookies' ? false : true;
 					}
@@ -107,7 +121,7 @@ export default function Signin({ params }: any) {
 		dialogAccept(showDialog);
 	};
 
-	const setCookies = async (options: any, type: number) => {
+	const setCookies = async (options: OtpCookie[], type: number) => {
 		const response = await fetch(
 			process.env.NEXT_PUBLIC_PATH_URL + '/api/cookies',
 			{

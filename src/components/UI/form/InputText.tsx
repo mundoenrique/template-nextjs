@@ -7,7 +7,7 @@ import { TextFieldProps } from '@/interfaces';
 import { useTranslation } from '@/app/i18n/client';
 
 function InputMUI(props: TextFieldProps): JSX.Element {
-  const { name, label, labelError, type, optional, error, value, onChange } = props;
+	const { name, label, labelError, type, optional, error, value, onChange } = props;
   const { t } = useTranslation();
   const textLabel = label ?? t(`form.${name}_label`);
 

@@ -1,5 +1,18 @@
 import { NextRequest, NextResponse } from "next/server"
 import { cookies } from 'next/headers'
+type Option = {
+  id: number;
+  name: string;
+  title: string;
+  info: string;
+  value: boolean;
+  required: boolean;
+}
+
+type Data = {
+  options: Option[];
+  type: number;
+}
 
 export async function GET(req: NextRequest, res: NextResponse) {
   try {
@@ -29,17 +42,18 @@ export async function POST(req: NextRequest, res: NextResponse) {
     return new NextResponse(JSON.stringify({ code: 1, msg: 'Error' }), { status: 200 });
   }
 
-  async function setCookies(data: any) {
+	async function setCookies(data: Data) {
+
     const options = []
     try {
       for (let i = 0; i < data.options.length; i++) {
-        if (data.type === 1) { 
+        if (data.type === 1) {
           options.push(` ${data.options[i].name}=accepted; HttpOnly=true; Path=/; Secure=true; SameSite=strict`)
         } else if (data.type === 2 && data.options[i].value === true) {
           options.push(` ${data.options[i].name}=accepted; HttpOnly=true; Path=/; Secure=true; SameSite=strict`)
         }
       }
-      
+
       return new NextResponse(JSON.stringify({ code: 0, msg: 'Proceso Ok' }), {
         status: 200,
         headers: {

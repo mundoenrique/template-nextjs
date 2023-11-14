@@ -8,13 +8,14 @@ import { SwitchListProps } from '@/interfaces';
 
 function SwitchMUI(props: SwitchListProps): JSX.Element {
   const { name, options } = props;
-  let data: any = {}
-  options.map((option: any) => {
-    data[option.name] = option.value;
+	let data: {[key: string]: boolean;} = {}
+  options.map((option: SwitchListProps['options'][number]) => {
+		data[option.name] = option.value;
   })
-  const [checkedSwitch, setCheckedSwitch] = useState<any>(data);
+  const [checkedSwitch, setCheckedSwitch] = useState<{[key: string]: boolean}>(data);
 
-  const handleSelect = (option: any, index: number) => {
+	const handleSelect = (option: SwitchListProps['options'][number], index: number) => {
+
     options[index].value = option.value === true ? false : true
     setCheckedSwitch({ ...checkedSwitch, [options[index].name]: options[index].value })
   };
