@@ -27,7 +27,7 @@ export default function InputPassField(props: TextFieldProps): JSX.Element {
   const { t } = useTranslation();
   const [passwordShown, setPasswordShown] = useState(false);
   const [openPopper, setOpenPopper] = useState(false);
-  const [arrowRef, setArrowRef] = useState<any>(null);
+  const [arrowRef, setArrowRef] = useState<HTMLSpanElement | null>(null);
   const [anchorEl, setAnchorEl] = useState(null);
   const inputLabel = label ?? t(`form.${name}_label`);
 

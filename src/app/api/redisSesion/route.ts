@@ -6,15 +6,6 @@ import { accessToken } from '@/services/oauth';
 import { encryptToView, ramdomData } from '@/utils';
 import { createRedisInstance } from '@/services/redis';
 
-type ResOauth = {
-  data: {
-    accessToken: string;
-    refreshToken: string;
-  };
-  status: number;
-  code: number;
-}
-
 export async function GET() {
   const uid = cookies().get('uidvdo')?.value;
 
@@ -27,28 +18,28 @@ export async function GET() {
 
 		if (!oauthUser) {
 			Logger.info('Request Oauth service');
-			const resOauth: any = await accessToken();
+			const resOauth = await accessToken();
 
 			switch (resOauth.code) {
 				case 0:
 					return await connectRedis(resOauth.data.accessToken);
 				default:
-					const cifrado = encryptToView({ code: 1, msg: 'Oauth request error' });
-					return new NextResponse(JSON.stringify(cifrado), {
+					const encryption = encryptToView({ code: 1, msg: 'Oauth request error' });
+					return new NextResponse(JSON.stringify(encryption), {
 						status: 200,
 					});
 			}
 		} else {
-			const cifrado = encryptToView({ code: 0, msg: 'Oauth session exists' });
+			const encryption = encryptToView({ code: 0, msg: 'Oauth session exists' });
 			Logger.info(`Existe sesion en redis UID: ${uid}`);
-			return new NextResponse(JSON.stringify(cifrado), {
+			return new NextResponse(JSON.stringify(encryption), {
 				status: 200,
 			});
 		}
 	} catch (error) {
-    const cifrado = encryptToView({ code: 1, msg: 'Error in connection to Redis' });
+    const encryption = encryptToView({ code: 1, msg: 'Error in connection to Redis' });
     Logger.info(`Error in connection to Redis`);
-    return new NextResponse(JSON.stringify(cifrado), {
+    return new NextResponse(JSON.stringify(encryption), {
       status: 200,
     });
 	}
@@ -68,8 +59,8 @@ async function connectRedis(token: string) {
     redis.quit();
 
     const strict = process.env.NODE_ENV != 'production' ? 'lax' : 'strict';
-    const cifrado = encryptToView({ code: 0, msg: 'Successful Redis registration process' });
-    return new NextResponse(JSON.stringify(cifrado), {
+    const encryption = encryptToView({ code: 0, msg: 'Successful Redis registration process' });
+    return new NextResponse(JSON.stringify(encryption), {
       status: 200,
       headers: {
         'Set-Cookie': `uidvdo=${uid}; HttpOnly=true; Path=/; Secure=true; SameSite=${strict}`,
@@ -77,9 +68,9 @@ async function connectRedis(token: string) {
     });
 	} catch (error) {
     redis.quit();
-    const cifrado = encryptToView({ code: 1, msg: 'Error in connection to Redis from to sesion client' });
+    const encryption = encryptToView({ code: 1, msg: 'Error in connection to Redis from to sesion client' });
     Logger.info(`No oauth record in redis`);
-    return new NextResponse(JSON.stringify(cifrado), {
+    return new NextResponse(JSON.stringify(encryption), {
       status: 200,
     });
   }

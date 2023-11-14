@@ -20,7 +20,7 @@ import { Trans } from 'react-i18next';
 export default function InstallPWA() {
 	const { t } = useTranslation();
 
-	const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
+	const [deferredPrompt, setDeferredPrompt] = useState<string | Event | null | any>(null);
 	const [iOSDevice, setIOSDevice] = useState<boolean>(false);
 	const [openBar, setOpenBar] = useState<boolean>(false);
 
@@ -31,7 +31,7 @@ export default function InstallPWA() {
 			setDeferredPrompt(e);
 			setOpenBar(true);
 		});
-		if (iOSDevice && !(window as any).navigator.standalone) {
+		if (iOSDevice) {
 			setOpenBar(true);
 		}
 	}, []);

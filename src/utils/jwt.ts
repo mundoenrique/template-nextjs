@@ -1,17 +1,5 @@
 import * as jose from 'jose'
 
-interface JWT {
-  // name: string;
-  // email: string;
-  // sub: string;
-  // ip: string;
-  // iat: number;
-  // iss: string;
-  // aud: string;
-	// exp: number;
-	// [key: string]: string | number;
-}
-
 export async function signToken(token: any) {
 
 	const secret = jose.base64url.decode(process.env.NEXTAUTH_SECRET || '')
