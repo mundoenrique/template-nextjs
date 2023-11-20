@@ -1,11 +1,13 @@
 import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 //Internal app
-import { encryptToView } from '@/utils';
+import { log_message, encryptToView } from '@/utils';
 
 export async function GET(req: NextRequest, res: NextResponse) {
   const cookie = cookies().get('necessaryCookies')?.value || '';
+  log_message('info',`Inicia cifrado a la vista ->  ${cookie}`)
   const encryption = encryptToView({ code: 0, msg: cookie });
+  log_message('info', JSON.stringify(encryption))
   return new NextResponse(JSON.stringify(encryption), { status: 200 });
 }
 

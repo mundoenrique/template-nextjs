@@ -46,7 +46,7 @@ export default function Cookies() {
   const [personalize, dialogPersonalize] = useState(false);
 
   const getCookiesList = async () => {
-    const res: resData = await connectApi.get('cookies');
+    let res: resData = await connectApi.get('/cookies');
 
     if (res.msg != 'accepted') {
       dialogAccept(true);

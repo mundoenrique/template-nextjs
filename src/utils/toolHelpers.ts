@@ -18,7 +18,7 @@ export function log_message(type: string, msg: string) {
 	const data = { type, msg };
 	fetch(`${process.env.NEXT_PUBLIC_PATH_URL}/api/logger`, {
 		method: 'POST',
-		body: JSON.stringify({ payload: encrypt(JSON.stringify(data)) }),
+		body: JSON.stringify({ payload: encrypt({ data: JSON.stringify(data )}) }),
 	});
 }
 
@@ -54,43 +54,59 @@ export function ramdomData(
 	return result;
 }
 
-export const encrypt = (
-	data: any,
-	secret: string = process.env.NEXT_PUBLIC_SECRET_KEY || ''
+export const encrypt = ({
+	data,
+  secret = process.env.NEXT_PUBLIC_SECRET_KEY || '',
+  safety = process.env.NEXT_PUBLIC_ACTIVE_SAFETY
+} : any & string
 ) => {
-	const key = CryptoJS.enc.Base64.parse(secret);
-	const iv = CryptoJS.enc.Base64.parse(process.env.NEXT_PUBLIC_SECRET_IV || '');
-	var ciphertext = CryptoJS.AES.encrypt(data, key, { iv });
-	return ciphertext.toString();
+
+  if (safety === 'ON') {
+    const key = CryptoJS.enc.Base64.parse(secret);
+    const iv = CryptoJS.enc.Base64.parse(process.env.NEXT_PUBLIC_SECRET_IV || '');
+    var ciphertext = CryptoJS.AES.encrypt(data, key, { iv });
+    return ciphertext.toString();
+  }
+
+	return data
 };
 
-export const decrypt = (
-	crypted: any,
-	secret: string = process.env.NEXT_PUBLIC_SECRET_KEY || ''
+export const decrypt = ({
+  data,
+  secret = process.env.NEXT_PUBLIC_SECRET_KEY || '',
+  safety = process.env.NEXT_PUBLIC_ACTIVE_SAFETY
+ } : any & string
 ) => {
-	const key = CryptoJS.enc.Base64.parse(secret);
-	const iv = CryptoJS.enc.Base64.parse(process.env.NEXT_PUBLIC_SECRET_IV || '');
-	var bytes = CryptoJS.AES.decrypt(crypted, key, { iv });
-	var decryptedData = bytes.toString(CryptoJS.enc.Utf8);
-	return decryptedData;
+  if (safety === 'ON') {
+    const key = CryptoJS.enc.Base64.parse(secret);
+    const iv = CryptoJS.enc.Base64.parse(process.env.NEXT_PUBLIC_SECRET_IV || '');
+    var bytes = CryptoJS.AES.decrypt(data, key, { iv });
+    var decryptedData = bytes.toString(CryptoJS.enc.Utf8);
+    return decryptedData
+  }
+	return data;
 };
 
 export const encryptToView = (data: any) => {
-	try {
-		const decode = ramdomData(22).toString();
-		const encryptData = encrypt(JSON.stringify(data), decode);
+
+  try {
+    const decode = ramdomData(22).toString();
+    const reqData = process.env.NEXT_PUBLIC_ACTIVE_SAFETY === 'ON' ? JSON.stringify(data) : data
+		const encryptData = encrypt({ data: reqData, secret: decode });
 		const encryptResponse = {
 			payload: encryptData,
 			code: decode,
-		};
-		return encryptResponse;
+    };
+    const resData = process.env.NEXT_PUBLIC_ACTIVE_SAFETY === 'ON' ? JSON.stringify(encryptResponse) : encryptResponse
+    const response = encrypt({ data: resData});
+		return response;
 	} catch (e) {
 		log_message('error', `Error encrypt to view ${e}`);
 	}
 };
 
-export const requestGet = async (data: any) => {
-	const params = encrypt(data);
+export const requestGet = async (url: string) => {
+	const params = encrypt( {data: url} );
 
 	const response: any = await connectApi.get('/connectService', {
 		params: {
