@@ -19,9 +19,9 @@ export async function POST(req: NextRequest) {
     logger[reqData.type]({ message: reqData.msg });
   }
 
-  const cifrado = encryptToView({ code: 0, msg: 'ok' });
+  const encryption = encryptToView({ code: 0, msg: 'ok' });
 
-  return new NextResponse(JSON.stringify(cifrado), {
+  return new NextResponse(JSON.stringify(encryption), {
     status: 200,
   });
 }

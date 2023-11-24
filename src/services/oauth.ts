@@ -9,7 +9,7 @@ type Oauth = {
 };
 
 type Data = {
-  accesToken: string;
+  accessToken: string;
   refreshToken: string;
 };
 

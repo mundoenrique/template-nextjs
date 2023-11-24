@@ -55,7 +55,7 @@ export function ramdomData(
 }
 
 export const encrypt = (
-	data: any,
+	data: string,
 	secret: string = process.env.NEXT_PUBLIC_SECRET_KEY || ''
 ) => {
 	const key = CryptoJS.enc.Base64.parse(secret);
@@ -65,7 +65,7 @@ export const encrypt = (
 };
 
 export const decrypt = (
-	crypted: any,
+	crypted: any ,
 	secret: string = process.env.NEXT_PUBLIC_SECRET_KEY || ''
 ) => {
 	const key = CryptoJS.enc.Base64.parse(secret);
@@ -75,7 +75,7 @@ export const decrypt = (
 	return decryptedData;
 };
 
-export const encryptToView = (data: any) => {
+export const encryptToView = (data: { code: number; payload: string } | { code: number; msg: string }) => {
 	try {
 		const decode = ramdomData(22).toString();
 		const encryptData = encrypt(JSON.stringify(data), decode);
@@ -89,10 +89,10 @@ export const encryptToView = (data: any) => {
 	}
 };
 
-export const requestGet = async (data: any) => {
+export const requestGet = async (data: string) => {
 	const params = encrypt(data);
 
-	const response: any = await connectApi.get('/connectService', {
+	const response = await connectApi.get('/connectService', {
 		params: {
 			url: params,
 		},

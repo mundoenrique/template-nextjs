@@ -25,6 +25,15 @@ const timezoned = () => {
  return [year, month, day].join('-') + ' ' + time
 }
 
+type LogData = {
+  level: string;
+  message: string;
+  user?: string;
+  ip?: string;
+  tenant?: string;
+  timestamp: string;
+}
+
 // Config structure log output
 const myFormat = printf(({
  level,
@@ -33,7 +42,7 @@ const myFormat = printf(({
 	ip,
  tenant,
  timestamp
-}: any) => {
+}: LogData) => {
  if (user) {
   return `${level} - ${timestamp} --> [${user}] IP: ${ip}, TENANT: ${tenant},  ${message}`;
  } else {

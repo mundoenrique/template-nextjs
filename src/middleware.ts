@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 //Internal app
 import { log_message, validToken } from '@/utils';
+import { JWTPayload } from 'jose';
 
 const access_url = process.env.NEXT_PUBLIC_ACCESS_URL;
 const validTenants = access_url?.split(',');
@@ -33,8 +34,8 @@ function redirectTo(url: URL, path: string, cookies: string[] = []): NextRespons
   url.pathname = path;
   const response = NextResponse.redirect(url);
 
-  if (cookies.length > 0) {
-    cookies.forEach((element: any) => {
+	if (cookies.length > 0) {
+		cookies.forEach((element) => {
       response.cookies.set(element, '', { expires: new Date(Date.now()) });
     });
   }
@@ -46,10 +47,10 @@ async function validateSession(url: URL, tenant: string, req: NextRequest) {
   log_message('debug', `Validating the user session`);
 
   const token = req.cookies.get('next-auth.session-token');
-  const payload: any = await validToken(token?.value);
+	const payload: JWTPayload | null = await validToken(token?.value);
   const ip = req.headers.get('x-forwarded-for');
 
-  if (!token || payload.ip != ip) {
+  if (!token || payload?.ip != ip) {
     log_message('debug', `The session is not valid`);
     return redirectTo(url, `/${tenant}${SIGNIN_ROUTE}`, ['next-auth.session-token']);
   }

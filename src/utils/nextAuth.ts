@@ -4,6 +4,12 @@ import { authenticate } from '@/services/authService';
 import CredentialsProvider from 'next-auth/providers/credentials';
 //Internal app
 import { signToken, validToken } from './jwt';
+interface User {
+  id: number;
+  name: string;
+  email: string;
+  ip?: string;
+}
 
 export const options: NextAuthOptions = {
   providers: [
@@ -58,7 +64,7 @@ export const options: NextAuthOptions = {
     },
   },
   callbacks: {
-    async jwt({ token, user }: any) {
+		async jwt({ token, user }: any) {
       if (user) {
         token.ip = user.ip;
       }

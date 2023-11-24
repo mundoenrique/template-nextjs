@@ -1,18 +1,24 @@
 import { NextRequest, NextResponse } from 'next/server';
 //Internal app
-const logger = require('@/utils/logger');
 import { decrypt, encryptToView } from '@/utils';
 import connectServices from '@/services/connectServices';
 
-export async function GET(req: NextRequest, { params }: any) {
+type ResponseData = {
+  code: number;
+  data: string;
+  status: number;
+}
+
+export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
 
   const url = decrypt(searchParams.get('url'));
 
-  const res: any = await connectServices.get(`/${url}`);
-  const cifrado = encryptToView({ code: res.code, payload: res.data });
+	const res: ResponseData  = await connectServices.get(`/${url}`);
 
-  return new NextResponse(JSON.stringify(cifrado), {
+  const encryption = encryptToView({ code: res.code, payload: res.data });
+
+  return new NextResponse(JSON.stringify(encryption), {
     status: 200,
   });
 }
@@ -20,11 +26,11 @@ export async function GET(req: NextRequest, { params }: any) {
 export async function POST(req: NextRequest) {
   const { payload } = await req.json();
   const { url, data } = JSON.parse(decrypt(payload));
+	const res: ResponseData = await connectServices.post(`/${url}`, data);
 
-  const res: any = await connectServices.post(`/${url}`, data);
-  const cifrado = encryptToView({ code: res.code, payload: res.data });
+  const encryption = encryptToView({ code: res.code, payload: res.data });
 
-  return new NextResponse(JSON.stringify(cifrado), {
+  return new NextResponse(JSON.stringify(encryption), {
     status: res.status,
   });
 }

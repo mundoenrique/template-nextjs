@@ -1,5 +1,5 @@
 'use client'
-import axios, { AxiosInstance, AxiosError } from 'axios';
+import axios, { AxiosInstance, AxiosError, AxiosResponse } from 'axios';
 //Internal app
 import { decrypt, encrypt } from '@/utils';
 
@@ -34,7 +34,8 @@ connectApi.interceptors.request.use(
 
 // Interceptor to handle response errors
 connectApi.interceptors.response.use(
-	(response): any => {
+	(response): AxiosResponse<any, any> | Promise<AxiosResponse<any, any>> => {
+
     const resDecrypt = decrypt(response.data.payload, response.data.code);
     return JSON.parse(resDecrypt);
   },

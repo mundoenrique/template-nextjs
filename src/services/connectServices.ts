@@ -1,5 +1,5 @@
 import { cookies } from 'next/headers';
-import axios, { AxiosInstance, AxiosError } from 'axios';
+import axios, { AxiosInstance, AxiosError, AxiosResponse } from 'axios';
 //Internal app
 const Logger = require('@/utils/logger');
 import { createRedisInstance } from '@/services/redis';
@@ -11,7 +11,7 @@ const connectServices: AxiosInstance = axios.create({
 
 // Interceptor to handle response errors
 connectServices.interceptors.response.use(
-  (response): any => {
+	(response): any => {
     return { data: response.data, status: response.status };
   },
   (error: AxiosError) => {
@@ -50,6 +50,7 @@ async function callOuth() {
 		const cookieStore = cookies();
   	const uidvdo = cookieStore.get('uidvdo')?.value;
 		const OuthToken: any = await redis.get(`session:${uidvdo}`);
+
 		await redis.expire(`session:${uidvdo}`, parseInt(process.env.REDIS_EXPIRE || '600'));
 		redis.quit();
 		return OuthToken.accesToken;
@@ -61,3 +62,4 @@ async function callOuth() {
 }
 
 export default connectServices;
+

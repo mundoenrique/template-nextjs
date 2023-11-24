@@ -1,6 +1,7 @@
 import * as jose from 'jose'
 
 export async function signToken(token: any) {
+
 	const secret = jose.base64url.decode(process.env.NEXTAUTH_SECRET || '')
 	const jwt = await new jose.EncryptJWT(token)
   	.setProtectedHeader({ alg: 'dir', enc: 'A128CBC-HS256' })
@@ -13,7 +14,7 @@ export async function signToken(token: any) {
 	return jwt
 }
 
-export async function validToken(token: any) {
+export async function validToken(token: string | undefined) {
 
 	if(token === undefined) return null
 

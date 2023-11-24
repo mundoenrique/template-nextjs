@@ -21,12 +21,13 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { TextFieldProps } from '@/interfaces';
 import { useTranslation } from '@/app/i18n/client';
 
+
 export default function InputPassField(props: TextFieldProps): JSX.Element {
   const { name, control, label, labelError, onChange, additionalInfo = false } = props;
   const { t } = useTranslation();
   const [passwordShown, setPasswordShown] = useState(false);
   const [openPopper, setOpenPopper] = useState(false);
-  const [arrowRef, setArrowRef] = useState<any>(null);
+  const [arrowRef, setArrowRef] = useState<HTMLSpanElement | null>(null);
   const [anchorEl, setAnchorEl] = useState(null);
   const inputLabel = label ?? t(`form.${name}_label`);
 
@@ -39,7 +40,8 @@ export default function InputPassField(props: TextFieldProps): JSX.Element {
     return null;
   };
 
-  function PassStrength(props: any) {
+	function PassStrength(props: { object: {[key: string]: string;} } ) {
+
     return (
       <Fade in={openPopper} timeout={450}>
         <Box
@@ -51,7 +53,7 @@ export default function InputPassField(props: TextFieldProps): JSX.Element {
             p: 2,
           }}
         >
-          {Object.entries(props.object).map(([key, value]: any) => (
+          {Object.entries(props.object).map(([key, value]: [string, string]) => (
             <Typography key={key} component='li'>
               {value}
             </Typography>
