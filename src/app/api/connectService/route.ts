@@ -12,7 +12,7 @@ export async function GET(req: NextRequest, { params }: any) {
 
   const res: any = await connectServices.get(`/${url}`);
   const encryption: any = encryptToView({ code: res.code, payload: res.data });
-  log_message('info',JSON.stringify(encryption))
+  log_message('info',JSON.stringify(res))
 
   return new NextResponse(JSON.stringify(encryption), {
     status: 200,
@@ -26,7 +26,7 @@ export async function POST(req: NextRequest) {
 
   const res: any = await connectServices.post(`/${url}`, data);
   const encryption = encryptToView({ code: res.code, payload: res.data });
-  log_message('info',JSON.stringify(encryption))
+  log_message('info',JSON.stringify(res))
 
   return new NextResponse(JSON.stringify(encryption), {
     status: res.status,

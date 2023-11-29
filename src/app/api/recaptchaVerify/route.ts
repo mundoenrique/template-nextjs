@@ -8,7 +8,6 @@ export async function POST(req: NextRequest) {
   const { payload } = await req.json();
   const { data } = process.env.NEXT_PUBLIC_ACTIVE_SAFETY === 'ON' ?
     JSON.parse(decrypt({ data: payload })) : decrypt({ data: payload })
-  console.log('DATAINFO ->  ', data)
 
   const res = await axios.post(
     process.env.URL_RECAPTCHA || '',

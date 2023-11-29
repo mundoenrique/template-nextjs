@@ -5,9 +5,9 @@ import { log_message, encryptToView } from '@/utils';
 
 export async function GET(req: NextRequest, res: NextResponse) {
   const cookie = cookies().get('necessaryCookies')?.value || '';
-  log_message('info',`Inicia cifrado a la vista ->  ${cookie}`)
+  log_message('info',`get value from  necessaryCookies ${cookie}`)
   const encryption = encryptToView({ code: 0, msg: cookie });
-  log_message('info', JSON.stringify(encryption))
+  log_message('info', `Reponse to view ${JSON.stringify({ code: 0, msg: cookie })}`)
   return new NextResponse(JSON.stringify(encryption), { status: 200 });
 }
 
