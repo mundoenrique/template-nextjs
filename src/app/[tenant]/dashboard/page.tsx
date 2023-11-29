@@ -28,7 +28,10 @@ import {
 } from '@/components/UI';
 
 export default function Signin({ params }: any) {
-  log_message('info', 'Access the Components page');
+
+  useEffect(() => {
+    log_message('info', 'Access the Components page');
+  },[])
   const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState('');
