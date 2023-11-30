@@ -2,7 +2,14 @@
 
 import { Button, Typography, Box } from '@mui/material';
 
-export default function PageNotFound({ params }: any) {
+interface Params {
+  status: string;
+  title: string;
+  description: string;
+  btnName: string;
+}
+
+export default function PageNotFound({ params }: { params: Params }) {
   return (
     <Box
       sx={{

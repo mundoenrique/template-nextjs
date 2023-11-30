@@ -12,21 +12,21 @@ import { useTranslation } from '@/app/i18n/client';
 export default function InstallPWA() {
   const { t } = useTranslation();
 
-  const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
-  const [iOSDevice, setIOSDevice] = useState<boolean>(false);
-  const [openBar, setOpenBar] = useState<boolean>(false);
+	const [deferredPrompt, setDeferredPrompt] = useState<string | Event | null | any>(null);
+	const [iOSDevice, setIOSDevice] = useState<boolean>(false);
+	const [openBar, setOpenBar] = useState<boolean>(false);
 
-  useEffect(() => {
-    setIOSDevice(isIOS);
-    window.addEventListener('beforeinstallprompt', (e) => {
-      e.preventDefault();
-      setDeferredPrompt(e);
-      setOpenBar(true);
-    });
-    if (iOSDevice && !(window as any).navigator.standalone) {
-      setOpenBar(true);
-    }
-  }, []);
+	useEffect(() => {
+		setIOSDevice(isIOS);
+		window.addEventListener('beforeinstallprompt', (e) => {
+			e.preventDefault();
+			setDeferredPrompt(e);
+			setOpenBar(true);
+		});
+		if (iOSDevice) {
+			setOpenBar(true);
+		}
+	}, []);
 
   const intallPrompt = async () => {
     if (!deferredPrompt) {

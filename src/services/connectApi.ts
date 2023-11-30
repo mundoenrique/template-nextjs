@@ -1,6 +1,5 @@
-'use client';
-
-import axios, { AxiosInstance, AxiosError } from 'axios';
+'use client'
+import axios, { AxiosInstance, AxiosError, AxiosResponse } from 'axios';
 //Internal app
 import { decrypt, encrypt } from '@/utils';
 
@@ -35,7 +34,7 @@ connectApi.interceptors.request.use(
 
 // Interceptor to handle response errors
 connectApi.interceptors.response.use(
-  (response): any => {
+  (response): AxiosResponse<any, any> | Promise<AxiosResponse<any, any>> => {
     let resDecrypt = decrypt({ data: response.data })
     resDecrypt = process.env.NEXT_PUBLIC_ACTIVE_SAFETY === 'ON' ? JSON.parse(resDecrypt) : resDecrypt
     const res = decrypt({ data: resDecrypt.payload, secret: resDecrypt.code })

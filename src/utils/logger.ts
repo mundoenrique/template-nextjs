@@ -25,13 +25,29 @@ const timezoned = () => {
   return `${[year, month, day].join('-')} ${time}`;
 };
 
+type LogData = {
+  level: string;
+  message: string;
+  user?: string;
+  ip?: string;
+  tenant?: string;
+  timestamp: string;
+}
+
 // Config structure log output
-const myFormat = printf(({ level, message, user, ip, tenant, timestamp }: any) => {
-  if (user) {
-    return `${level} - ${timestamp} --> [${user}] IP: ${ip}, TENANT: ${tenant},  ${message}`;
-  } else {
-    return `${level} - ${timestamp} --> ${message}`;
-  }
+const myFormat = printf(({
+ level,
+ message,
+ user,
+	ip,
+ tenant,
+ timestamp
+}: LogData) => {
+ if (user) {
+  return `${level} - ${timestamp} --> [${user}] IP: ${ip}, TENANT: ${tenant},  ${message}`;
+ } else {
+  return `${level} - ${timestamp} --> ${message}`;
+ }
 });
 
 // Config bot log in single files date

@@ -27,17 +27,44 @@ import {
   Table,
 } from '@/components/UI';
 
-export default function Signin({ params }: any) {
+interface SubData {
+	email: string
+	password: string
+	programs: string
+	initialDate: string
+	roles: string
+	term: string
+}
+
+interface ApiResponse<T> { payload: T }
+interface PayloadDataProps {
+	url: string,
+      data: {
+        cardId: number,
+        amount: number,
+        date: string,
+        description: string,
+        type: string,
+      },
+}
+
+export default function Signin({ params }: { params: {tenant: string;} }) {
+	log_message('info', 'Access the Components page');
+	const [showModal, setShowModal] = useState(false);
+	const [showModal200, setShowModal200] = useState(false);
+	const [loading, setLoading] = useState(false);
+	const [result, setResult] = useState<string | object>('');
+	const [formData, setFormData] = useState<SubData|{}>({});
+	const { t } = useTranslation();
+	const schema = getSchema(
+		['email', 'password', 'programs', 'initialDate', 'roles', 'term'],
+		params.tenant
+	);
 
   useEffect(() => {
     log_message('info', 'Access the Components page');
   },[])
-  const [showModal, setShowModal] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [result, setResult] = useState('');
-  const [formData, setFormData] = useState<any>({});
-  const { t } = useTranslation();
-  const schema = getSchema(['email', 'password', 'programs', 'initialDate', 'roles', 'term'], params.tenant);
+
 
   const { handleSubmit, control, reset } = useForm({
     defaultValues: {
@@ -50,33 +77,32 @@ export default function Signin({ params }: any) {
     },
     resolver: yupResolver(schema),
   });
+	const servicePost = async () => {
+		setLoading(true);
+		setResult('');
+		const { payload }: ApiResponse<PayloadDataProps> = await connectApi.post('/connectService', {
+			url: 'movements',
+			data: {
+				cardId: 4,
+				amount: 185000,
+				date: '2022-09-17',
+				description: 'Pay service...',
+				type: 'D',
+			},
+		});
 
-  const servicePost = async () => {
-    setLoading(true);
-    setResult('');
-    const { payload }: any = await connectApi.post('/connectService', {
-      url: 'movements',
-      data: {
-        cardId: 3,
-        amount: 185000,
-        date: '2022-09-17',
-        description: 'Pay service...',
-        type: 'D',
-      },
-    });
+      setLoading(false);
+      setResult(payload);
+      setLoading(false);
+    }
 
-    setLoading(false);
-    setResult(payload);
-    setLoading(false);
-  };
-
-  const serviceGet = async () => {
-    setLoading(true);
-    setResult('');
-    const { payload } = await requestGet('cards/3/movements?_limit=10&_page=1');
-    setResult(payload);
-    setLoading(false);
-  };
+	const serviceGet = async () => {
+		setLoading(true);
+		setResult('');
+		const { payload }: any = await requestGet('cards/4/movements?_limit=10&_page=1');
+		setResult(payload);
+		setLoading(false);
+	};
 
   const selectOptions = [
     {
@@ -99,12 +125,11 @@ export default function Signin({ params }: any) {
       value: 'O',
     },
   ];
-
-  const onSubmit = async (data: any) => {
-    data.initialDate = dayjs(data.initialDate).format('DD/MM/YYYY');
-    setFormData(data);
-    setShowModal(true);
-  };
+	const onSubmit = async (data: SubData) => {
+		data.initialDate = dayjs(data.initialDate).format('DD/MM/YYYY');
+		setFormData(data);
+		setShowModal(true);
+	};
 
   // Table
   const columns = [
@@ -152,33 +177,35 @@ export default function Signin({ params }: any) {
       action: 3,
       icon: <AddIcon />,
     },
-  ];
+    ];
 
-  const [isByService, setIsByService] = useState<boolean>(false);
-  const [movements, setMovements] = useState([]);
-  const [page, setPage] = useState<number>(0);
-  const [limit, setLimit] = useState<number>(10);
-  const [totalRows, setTotalRows] = useState<number>(0);
+    const [isByService, setIsByService] = useState<boolean>(false);
+    const [movements, setMovements] = useState([]);
+    const [page, setPage] = useState<number>(0);
+    const [limit, setLimit] = useState<number>(10);
+    const [totalRows, setTotalRows] = useState<number>(0);
 
-  const serviceGetMovements = async () => {
-    setLoading(true);
-    const { payload } = await requestGet('cards/3/movements');
-    const { data } = payload;
-    if (!isByService) {
-      setMovements(data);
-    }
-    setTotalRows(payload.data.length);
-    setLoading(false);
-  };
+	const serviceGetMovements = async () => {
+		setLoading(true);
+		const { payload }: any = await requestGet('cards/4/movements');
+		const { data } = payload;
+		if (!isByService) {
+			setMovements(data);
+		}
+		setTotalRows(payload.data.length);
+		setLoading(false);
+	};
 
-  const serviceGetMovementsPagination = async () => {
-    setLoading(true);
-    await serviceGetMovements();
-    const { payload } = await requestGet(`cards/3/movements?_limit=${limit}&_page=${page + 1}`);
-    const { data } = payload;
-    setMovements(data);
-    setLoading(false);
-  };
+	const serviceGetMovementsPagination = async () => {
+		setLoading(true);
+		await serviceGetMovements();
+		const { payload }: any = await requestGet(
+			`cards/4/movements?_limit=${limit}&_page=${page + 1}`
+		);
+		const { data } = payload;
+		setMovements(data);
+		setLoading(false);
+	};
 
   const onChangeByService = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIsByService(event.target.checked);

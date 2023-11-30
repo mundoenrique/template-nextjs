@@ -8,5 +8,7 @@ export interface DialogProps {
   position?: string;
   children?: React.ReactNode;
   open?: boolean | undefined;
-  params?: any;
+  params?: {
+    tenant: string;
+  };
 }

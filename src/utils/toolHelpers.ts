@@ -2,6 +2,12 @@ import CryptoJS from 'crypto-js';
 //Internal app
 import connectApi from '@/services/connectApi';
 
+interface OptionsCrypted {
+  data: any;
+  secret?: string;
+  safety?: string;
+}
+
 export function getImages(tenant: string, file: string) {
 	let validateImage;
 
@@ -55,11 +61,10 @@ export function ramdomData(
 }
 
 export const encrypt = ({
-	data,
+  data,
   secret = process.env.NEXT_PUBLIC_SECRET_KEY || '',
-  safety = process.env.NEXT_PUBLIC_ACTIVE_SAFETY
-} : any & string
-) => {
+  safety = process.env.NEXT_PUBLIC_ACTIVE_SAFETY || 'ON'
+} : OptionsCrypted ) => {
 
   if (safety === 'ON') {
     const key = CryptoJS.enc.Base64.parse(secret);
@@ -74,9 +79,8 @@ export const encrypt = ({
 export const decrypt = ({
   data,
   secret = process.env.NEXT_PUBLIC_SECRET_KEY || '',
-  safety = process.env.NEXT_PUBLIC_ACTIVE_SAFETY
- } : any & string
-) => {
+  safety = process.env.NEXT_PUBLIC_ACTIVE_SAFETY || 'ON'
+} : OptionsCrypted) => {
   if (safety === 'ON') {
     const key = CryptoJS.enc.Base64.parse(secret);
     const iv = CryptoJS.enc.Base64.parse(process.env.NEXT_PUBLIC_SECRET_IV || '');
@@ -87,11 +91,11 @@ export const decrypt = ({
 	return data;
 };
 
-export const encryptToView = (data: any) => {
+export const encryptToView = (request: { code: number; payload: string } | { code: number; msg: string }) => {
 
   try {
     const decode = ramdomData(22).toString();
-    const reqData = process.env.NEXT_PUBLIC_ACTIVE_SAFETY === 'ON' ? JSON.stringify(data) : data
+    const reqData = process.env.NEXT_PUBLIC_ACTIVE_SAFETY === 'ON' ? JSON.stringify(request) : request
 		const encryptData = encrypt({ data: reqData, secret: decode });
 		const encryptResponse = {
 			payload: encryptData,
@@ -108,7 +112,7 @@ export const encryptToView = (data: any) => {
 export const requestGet = async (url: string) => {
 	const params = encrypt( {data: url} );
 
-	const response: any = await connectApi.get('/connectService', {
+	const response = await connectApi.get('/connectService', {
 		params: {
 			url: params,
 		},

@@ -17,13 +17,30 @@ import { useTranslation } from '@/app/i18n/client';
 import { InputPass, InputText, NavBar, Modals, Cookies, InstallPWA } from '@/components/UI';
 const RecaptchaPuzzle: any = dynamic(() => import('@/components/UI/RecaptchaPuzzle'));
 
-export default function Signin({ params }: any) {
+
+interface Option {
+  name: string;
+  value: string;
+  path: string;
+}
+interface OtpCookie {
+  id: number;
+  name: string;
+  title: string;
+  info: string;
+  value: boolean;
+  required: boolean;
+}
+
+export default function Signin({ params }: { params: {tenant: string;} }) {
+	const [showModal, setShowModal] = useState(false);
+	const [loading, setLoading] = useState(false);
+	const [msgModal, setmsgModal] = useState('');
+	const [open, dialogAccept] = useState(false);
+  const [personalize, dialogPersonalize] = useState(false);
   const [credential, setCredential] = useState({ email: '', password: '' });
   const { executeRecaptcha } = useGoogleReCaptcha();
-  const [showModal, setShowModal] = useState(false);
   const [showPuzzle, setShowPuzzle] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [msgModal, setmsgModal] = useState('');
 
   const router = useRouter();
   const { t } = useTranslation();

@@ -4,12 +4,13 @@ export interface FormMUIProps {
   name: string;
   label?: string;
   labelError?: string;
-  error?: any;
+	error?: any;
   value?: any;
   onChange?: (...e: any[]) => void;
   type?: string;
   control?: any;
 }
+
 
 export interface TextFieldProps extends FormMUIProps {
   optional?: boolean;
@@ -46,8 +47,8 @@ export type CardSubmitForm = {
 
 export interface SelectProps {
   onChange?: (...e: any[]) => void;
-  label?: any;
-  labelError?: any;
+  label?: string;
+  labelError?: string;
   error?: boolean | undefined;
   value?: any;
   options: { value: string; text: string }[];
@@ -55,8 +56,8 @@ export interface SelectProps {
 }
 
 export interface DatePickerProps {
-  label?: any;
-  labelError?: any;
+  label?: string;
+  labelError?: string;
   error?: boolean | undefined;
   value?: any;
   onChange?: (...e: any[]) => void;
@@ -64,12 +65,12 @@ export interface DatePickerProps {
 }
 
 export interface RadioProps {
-  label?: any;
+  label?: string;
   options: { value: string; label: string }[];
   error?: boolean | undefined;
   value?: any;
   onChange?: (...e: any[]) => void;
-  labelError?: any;
+  labelError?: string;
   id: string;
 }
 
@@ -80,7 +81,8 @@ export type FormData = {
 
 export interface SwitchListProps extends FormMUIProps {
   checked?: boolean;
-  setValue?: any;
+	setValue?: any;
+	tenant?: string;
   options: {
     id: number;
     name: string;

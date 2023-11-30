@@ -15,7 +15,7 @@ function SelectMUI(props: InputOptionsProps): JSX.Element {
     <FormControl error={!!error} variant='outlined' sx={{ mb: 2 }} fullWidth>
       <InputLabel id={name}>{textLabel}</InputLabel>
       <Select labelId={name} value={value} label={textLabel} onChange={onChange}>
-        {options.map((option: any, i: number) => (
+        {options.map((option: InputOptionsProps['options'][number], i: number) => (
           <MenuItem value={option.value} key={i}>
             {option.text}
           </MenuItem>
