@@ -4,9 +4,10 @@ import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { Box, CircularProgress } from '@mui/material';
 //Internal app
+import { getImages } from '@/utils';
 import { useTenantStore } from '@/store';
-import { ProviderProps, ThemeProviderProps } from '@/interfaces';
 import { Footer, SupportButton } from '@/components/UI';
+import { ProviderProps, ThemeProviderProps } from '@/interfaces';
 
 const HydrationContainerProvider = ({ children, theme }: ProviderProps & ThemeProviderProps) => {
   const [isHydrated, setIsHydrated] = useState(true);
@@ -42,7 +43,7 @@ const HydrationContainerProvider = ({ children, theme }: ProviderProps & ThemePr
         >
           <Box sx={{ alignItems: 'center', display: 'flex', flexDirection: 'column' }}>
             <Image
-              src={`/images/${theme}/img-logo-color.svg`}
+              src={getImages(theme, 'img-logo-color.svg')}
               width={300}
               height={60}
               alt='Picture of the author'

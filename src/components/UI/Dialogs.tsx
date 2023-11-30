@@ -2,28 +2,26 @@
 
 import React from 'react';
 import { TransitionProps } from '@mui/material/transitions';
-import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Slide } from '@mui/material';
+import { Dialog, DialogActions, DialogContent, DialogTitle, Slide } from '@mui/material';
 //Internal app
-import { DialogProps } from '@/interfaces'
+import { DialogProps } from '@/interfaces';
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
     children: React.ReactElement<any, any>;
   },
-  ref: React.Ref<unknown>,
+  ref: React.Ref<unknown>
 ) {
-  return <Slide direction="up" ref={ref} {...props} />;
+  return <Slide direction='up' ref={ref} {...props} />;
 });
 
 export default function Dialogs({
   title,
-  info1,
-  info2,
   maxWidth,
-  children,
+  msgDialog,
+  buttonDialog,
   open = true,
-  buttonActions1,
-  buttonActions2
+  position,
 }: DialogProps): JSX.Element {
   return (
     <Dialog
@@ -31,26 +29,18 @@ export default function Dialogs({
       maxWidth={maxWidth}
       TransitionComponent={Transition}
       keepMounted
-      aria-describedby="dialog-accept-cookies"
-      sx={{ m: 2 }}>
+      aria-describedby='dialog-accept-cookies'
+      sx={{
+        minWidth: 300,
+        width: '100%',
+        '& .MuiDialog-container': {
+          alignItems: position ? 'flex-end' : 'center',
+        },
+      }}
+    >
       <DialogTitle>{title}</DialogTitle>
-      <DialogContent>
-        <DialogContentText id="dialog-accept-cookies">
-          {info1}
-        </DialogContentText>
-        <DialogContentText sx={{ mt: 1 }} id="dialog-accept-cookies">
-          {info2}
-        </DialogContentText>
-      </DialogContent>
-      <DialogActions>
-        {buttonActions1}
-      </DialogActions>
-      <DialogContent>
-        {children}
-      </DialogContent>
-      <DialogActions>
-        {buttonActions2}
-      </DialogActions>
+      <DialogContent>{msgDialog}</DialogContent>
+      <DialogActions>{buttonDialog}</DialogActions>
     </Dialog>
   );
 }

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from "react";
+import { useState } from 'react';
 import { Controller } from 'react-hook-form';
 import { FormControl, FormGroup, FormControlLabel, Switch } from '@mui/material';
 //Internal App
@@ -21,8 +21,8 @@ function SwitchMUI(props: SwitchListProps): JSX.Element {
   };
 
   return (
-    <FormControl component='fieldset' variant='standard' fullWidth>
-      <FormGroup >
+    <FormControl sx={{ mt: 2 }} component='fieldset' variant='standard' fullWidth>
+      <FormGroup>
         {options.map((option, index) => (
           <FormControlLabel
             key={index}
@@ -32,11 +32,14 @@ function SwitchMUI(props: SwitchListProps): JSX.Element {
             checked
             disabled={option.required}
             sx={{ mb: 0, pl: 2 }}
-            control={<Switch
-              id={name + option.id}
-              disabled={option.required}
-              checked={option.value}
-              onChange={() => handleSelect(option, index)} />}
+            control={
+              <Switch
+                id={name + option.id}
+                disabled={option.required}
+                checked={option.value}
+                onChange={() => handleSelect(option, index)}
+              />
+            }
           />
         ))}
       </FormGroup>
@@ -45,7 +48,7 @@ function SwitchMUI(props: SwitchListProps): JSX.Element {
 }
 
 export default function SwitchCheck(props: SwitchListProps) {
-  const { name, control, tenant, onChange, options, checked, ...restProps } = props;
+  const { name, control, onChange, options, checked, ...restProps } = props;
 
   return (
     <>
@@ -58,7 +61,6 @@ export default function SwitchCheck(props: SwitchListProps) {
               name={name}
               value={field.value}
               options={options}
-              tenant={tenant}
               checked={field.value === true ? false : true}
               onChange={(e) => {
                 field.onChange(e);
@@ -66,11 +68,11 @@ export default function SwitchCheck(props: SwitchListProps) {
               }}
               error={error}
               {...restProps}
-              />
+            />
           )}
         />
       ) : (
-        <SwitchMUI name={name} onChange={onChange} options={options} tenant={tenant} {...restProps} />
+        <SwitchMUI name={name} onChange={onChange} options={options} {...restProps} />
       )}
     </>
   );

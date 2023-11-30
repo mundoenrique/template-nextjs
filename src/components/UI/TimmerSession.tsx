@@ -1,66 +1,112 @@
 'use client';
 
-import { useEffect, useRef, useState } from "react";
-import { useSession, signOut, getSession } from "next-auth/react";
+import { Button } from '@mui/material';
+import { useEffect, useRef, useState } from 'react';
+import { useSession, signOut, getSession } from 'next-auth/react';
+//Internal app
 import { Modals } from '@/components/UI';
-import { Button } from "@mui/material";
-import { useTranslation } from "@/app/i18n/client";
+import { useTranslation } from '@/app/i18n/client';
 
-interface RefType<T> {
-  current: T | null;
-}
+export default function TimmerSession() {
+  const { t } = useTranslation();
+  const [showModal, setShowModal] = useState(false);
+  const [inactive, setInactive] = useState(false);
+  const { update, data: session } = useSession();
+  const ref: any = useRef(null);
 
-export default function TimmerSession(tenant: {tenant: string}) {
+  useEffect(() => {
+    let inactiveTime: any;
+    const inactiveTimeLimit = 30000;
 
-	const { update } = useSession();
-	const { t } = useTranslation();
-	const [showModal, setShowModal] = useState(false);
-	const ref: RefType<any> = useRef(null);
+    const resetInactive = () => {
+      clearTimeout(inactiveTime);
+      if (session?.user) {
+        inactiveTime = setTimeout(() => {
+          setShowModal(true);
+          setInactive(true);
+          if (showModal) {
+            signOut();
+          }
+        }, inactiveTimeLimit);
+      }
+    };
 
-	const viewSesion = async () => {
-		const session = await getSession()
-		if (session === null) {
-			signOut()
-		} else {
-			update()
-		}
-	}
+    const detectedActivity = () => {
+      if (inactive) {
+        setInactive(false);
+      }
+      resetInactive();
+    };
 
-	useEffect(() => {
+    document.addEventListener('mousemove', detectedActivity);
+    document.addEventListener('keydown', detectedActivity);
 
-		let intervalSession:NodeJS.Timeout
+    resetInactive();
 
-		const timerSession = () => {
-			if (!localStorage.sessionTime) {
-				signOut()
-			}
+    return () => {
+      document.removeEventListener('mousemove', detectedActivity);
+      document.removeEventListener('keydown', detectedActivity);
+      clearTimeout(inactiveTime);
+    };
+  }, [inactive, showModal]);
 
-			const date = new Date(localStorage.sessionTime).getTime()
-			const now = new Date().getTime()
-			const time = Math.trunc(Math.abs((date - now) / 1000))
-			const timeRest = parseInt(process.env.NEXT_PUBLIC_SESS_EXPIRATION || '300') - time
-			time.toString() === '1' && ref.current.click();
-			if (timeRest === 45) {
-				setShowModal(true)
-			} else if (timeRest <= 0) {
-				clearInterval(intervalSession)
-				localStorage.removeItem('sessionTime')
-				signOut()
-			}
-		}
+  useEffect(() => {
+    let intervalSession: any;
 
-		intervalSession = setInterval(timerSession,1000)
-	}, [])// eslint-disable-line react-hooks/exhaustive-deps
+    const timerSession = () => {
+      if (!localStorage.sessionTime) {
+        signOut();
+      }
 
-	return (
-		<>
-			<Button sx={{ display:'none' }} ref={ref} onClick={() => viewSesion()} />
+      const date = new Date(localStorage.sessionTime).getTime();
+      const now = new Date().getTime();
+      const time = Math.trunc(Math.abs((date - now) / 1000));
+      const timeRest = parseInt(process.env.NEXT_PUBLIC_SESS_EXPIRATION || '300') - time;
+      time.toString() === '1' && ref.current.click();
+      if (timeRest === 45) {
+        setShowModal(true);
+      } else if (timeRest <= 0) {
+        clearInterval(intervalSession);
+        localStorage.removeItem('sessionTime');
+        signOut();
+      }
+    };
 
-			<Modals msgModal={`Your session is about to expire. Do you want to continue using your App?`} showModal={showModal}>
-      	<Button variant='contained' onClick={() => setShowModal(false)}>
+    intervalSession = setInterval(timerSession, 1000);
+  }, []);
+
+  // beforeunload;
+  // window.addEventListener('unload', () => {
+  //   localStorage.clear();
+  // });
+
+  const viewSession = async () => {
+    const session = await getSession();
+    if (session === null) {
+      signOut();
+    } else {
+      update();
+    }
+  };
+
+  return (
+    <>
+      <Button sx={{ display: 'none' }} ref={ref} onClick={() => viewSession()} />
+
+      <Modals
+        msgModal={`Your session is about to expire. Do you want to continue using your App?`}
+        showModal={showModal}
+      >
+        <Button
+          variant="contained"
+          onClick={() => {
+            setShowModal(false);
+            setInactive(false);
+          }}
+        >
           {t('buttons.accept')}
-      	</Button>
-			</Modals>
-		</>
+        </Button>
+      </Modals>
+    </>
   );
-};
+}

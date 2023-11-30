@@ -22,6 +22,11 @@
   "message_not_found": "Es posible que la página que está buscando haya sido eliminada debido a un cambio de nombre o no esté disponible temporalmente.",
   "title_error_general": "Error General",
   "desc_error_general": "Ha ocurrido un problema técnico inesperado. Regrese a la página anterior e intenta nuevamente.",
+  "loading": "Cargando",
+  "puzzle_action": "Completar el rompecabezas",
+  "puzzle_moving": "Deslizando",
+  "puzzle_verifying": "Validando",
+  "puzzle_error": "Verificación incorrecta",
   "form": {
     "email_label": "Correo Electrónico",
     "password_label": "Contraseña",
@@ -79,14 +84,12 @@
       "privacy": "Aviso de privacidad",
       "config": "Configuración de cookies"
     },
-    "dialog1": {
-      "info1": "Utilizamos cookies propias y de terceros para obtener datos estadísticos de la navegación de nuestros usuarios y mejorar nuestros servicios. Si acepta, consideramos que acepta su uso. Puede cambiar la configuración u obtener más información ",
-      "here": "aquí "
-    },
-    "dialog2": {
-      "info1": "Las cookies y tecnologías similares recopilan cierta información sobre cómo está utilizando nuestro sitio web. Algunos de ellos son esenciales, y sin ellos no podrías usar NEXTJS TEMPLATE. Pero otros son opcionales, y puedes elegir si los usamos o no.",
-      "info2": "Quieres saber más?  ",
-      "info3": " Lea nuestra Política de Cookies completa "
+    "dialogs": {
+      "1": "Utilizamos cookies propias y de terceros para obtener datos estadísticos de la navegación de nuestros usuarios y mejorar nuestros servicios. Si acepta, consideramos que acepta su uso. Puede cambiar la configuración u obtener más información ",
+      "2": "Las cookies y tecnologías similares recopilan cierta información sobre cómo está utilizando nuestro sitio web. Algunos de ellos son esenciales, y sin ellos no podrías usar NEXTJS TEMPLATE. Pero otros son opcionales, y puedes elegir si los usamos o no.",
+      "3": "Quieres saber más? ",
+      "policy": "Lea nuestra Política de Cookies completa",
+      "here": "aquí"
     }
   },
   "mode": "Modo {{mode}}",

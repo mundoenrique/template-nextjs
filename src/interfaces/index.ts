@@ -1,6 +1,6 @@
 export * from './Layout';
 export * from './Providers';
-export * from './Utils';
+export * from './Apis';
 export * from './NavBar';
 export * from './Form';
 export * from './Modals';

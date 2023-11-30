@@ -15,6 +15,7 @@ import {
 //Internal app
 import { menuData } from '@/config';
 import { getImages } from '@/utils';
+import { useTenantStore } from '@/store';
 import { NavMenu } from '@/components/UI';
 import { useSession, signOut } from 'next-auth/react';
 import useMediaQuery from '@mui/material/useMediaQuery';

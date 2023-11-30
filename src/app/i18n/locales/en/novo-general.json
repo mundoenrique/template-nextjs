@@ -22,6 +22,11 @@
   "message_not_found": "The page you are looking for might have been removed had its name changed or is temporarily unavailable.",
   "title_error_general": "General error",
   "desc_error_general": "An unexpected technical problem has occurred. Go back to the previous page and try again.",
+  "loading": "Loading",
+  "puzzle_action": "Complete the puzzle",
+  "puzzle_moving": "Sliding",
+  "puzzle_verifying": "Validating",
+  "puzzle_error": "Incorrect verification",
   "form": {
     "email_label": "Email",
     "password_label": "Password",
@@ -79,14 +84,12 @@
       "privacy": "Privacy notice",
       "config": "Cookie Settings"
     },
-    "dialog1": {
-      "info1": "We use our own and third-party cookies to obtain statistical data on the navigation of our users and improve our services. If you accept, we consider that you accept their use. You can change the settings or obtain more information ",
+    "dialogs": {
+      "1": "We use our own and third-party cookies to obtain statistical data on the navigation of our users and improve our services. If you accept, we consider that you accept their use. You can change the settings or obtain more information ",
+      "2": "Cookies and similar technologies collect certain information about how you are using our website. Some of them are essential, and without them you would not be able to use NEXTJS TEMPLATE. But others are optional, and you can choose whether or not we use them. ",
+      "3": "Do you want to know more? ",
+      "policy": "Read our complete Cookies Policy",
       "here": "here"
-    },
-    "dialog2": {
-      "info1": "Cookies and similar technologies collect certain information about how you are using our website. Some of them are essential, and without them you would not be able to use NEXTJS TEMPLATE. But others are optional, and you can choose whether or not we use them. ",
-      "info2": "Do you want to know more?",
-      "info3": "Read our complete Cookies Policy"
     }
   },
   "mode": "{{mode}} mode",

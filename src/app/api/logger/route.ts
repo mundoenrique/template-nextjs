@@ -7,7 +7,7 @@ import { decrypt, encryptToView } from '@/utils';
 
 export async function POST(req: NextRequest) {
   const { payload } = await req.json();
-  const reqData = JSON.parse(decrypt(payload));
+  const reqData = JSON.parse(decrypt({ data:payload }));
   const session = await getServerSession(options);
   const url = req.headers.get('referer') || '';
   const tenant = url.split('/')[3];

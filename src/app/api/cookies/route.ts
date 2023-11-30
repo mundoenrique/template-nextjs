@@ -1,5 +1,8 @@
-import { NextRequest, NextResponse } from "next/server"
-import { cookies } from 'next/headers'
+import { cookies } from 'next/headers';
+import { NextRequest, NextResponse } from 'next/server';
+//Internal app
+import { log_message, encryptToView } from '@/utils';
+
 type Option = {
   id: number;
   name: string;
@@ -15,29 +18,17 @@ type Data = {
 }
 
 export async function GET(req: NextRequest, res: NextResponse) {
-  try {
-    return await getCookies()
-  } catch (error) {
-    return new NextResponse(JSON.stringify({ code: 1, msg: 'Error' }), { status: 200 });
-  }
-
-  async function getCookies() {
-    const cookieStore = cookies()
-    try {
-      const listCookies = cookieStore.getAll()
-      return new NextResponse(JSON.stringify({ code: 0, msg: 'Proceso Ok', data: listCookies }))
-    } catch (error) {
-      return new NextResponse(JSON.stringify({ code: 1, msg: 'Error en seteo de cookies' }), {
-        status: 200
-      });
-    }
-  }
+  const cookie = cookies().get('necessaryCookies')?.value || '';
+  log_message('info',`get value from  necessaryCookies ${cookie}`)
+  const encryption = encryptToView({ code: 0, msg: cookie });
+  log_message('info', `Reponse to view ${JSON.stringify({ code: 0, msg: cookie })}`)
+  return new NextResponse(JSON.stringify(encryption), { status: 200 });
 }
 
 export async function POST(req: NextRequest, res: NextResponse) {
   const data = await req.json();
   try {
-    return await setCookies(data)
+    return await setCookies(data);
   } catch (error) {
     return new NextResponse(JSON.stringify({ code: 1, msg: 'Error' }), { status: 200 });
   }
@@ -50,19 +41,19 @@ export async function POST(req: NextRequest, res: NextResponse) {
         if (data.type === 1) {
           options.push(` ${data.options[i].name}=accepted; HttpOnly=true; Path=/; Secure=true; SameSite=strict`)
         } else if (data.type === 2 && data.options[i].value === true) {
-          options.push(` ${data.options[i].name}=accepted; HttpOnly=true; Path=/; Secure=true; SameSite=strict`)
+          options.push(` ${data.options[i].name}=accepted; HttpOnly=true; Path=/; Secure=true; SameSite=strict`);
         }
       }
 
       return new NextResponse(JSON.stringify({ code: 0, msg: 'Proceso Ok' }), {
         status: 200,
         headers: {
-          'Set-Cookie': options.toString()
-        }
-      })
+          'Set-Cookie': options.toString(),
+        },
+      });
     } catch (error) {
-      return new NextResponse(JSON.stringify({ code: 1, msg: 'Error en seteo de cookies' }), {
-        status: 200
+      return new NextResponse(JSON.stringify({ code: 1, msg: 'Cookie setting error' }), {
+        status: 200,
       });
     }
   }

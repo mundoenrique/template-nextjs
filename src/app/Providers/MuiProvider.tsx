@@ -6,6 +6,7 @@ import { log_message } from '@/utils';
 import useGetFormStore from '@/hooks/zustanHooks';
 import { useModeStore, useFontSizeStore } from '@/store';
 import { ProviderProps, ThemeProviderProps } from '@/interfaces';
+import { useEffect } from 'react';
 
 export default function MuiProvider({ children, theme }: ProviderProps & ThemeProviderProps) {
   const currentMode = useGetFormStore(useModeStore, (state) => state.mode);
@@ -18,7 +19,10 @@ export default function MuiProvider({ children, theme }: ProviderProps & ThemePr
     theTheme = require(`../../themes/theme-novo`);
   }
 
-  log_message('debug', `Load the theme ${theme}`);
+  useEffect(() => {
+    log_message('debug', `Load the theme ${theme}`);
+  },[])
+
 
   return (
     <ThemeProvider theme={theTheme.changeMode(currentMode || 'light', currentSizeFont)}>

@@ -36,7 +36,7 @@ export function accessToken() {
       data: args.data,
     })
       .then(function (responseBody) {
-        Logger.info(`Obtiene data Oauth ${JSON.stringify(responseBody.data)}`);
+        Logger.info(`Get Oauth data ${JSON.stringify(responseBody.data)}`);
         resolve({
           data: responseBody.data,
           status: 200,
@@ -44,7 +44,7 @@ export function accessToken() {
         });
       })
       .catch((error) => {
-        Logger.error(`Error al obtener Oauth ${JSON.stringify(error)}`);
+        Logger.error(`Error getting Oauth ${JSON.stringify(error)}`);
         resolve({
           data: error,
           status: 200,

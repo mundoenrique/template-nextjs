@@ -13,7 +13,9 @@ const getValidationTenant: {
 
 // Generates a yup validation schema based on an array of form fields.
 export const getSchema = (fields: Field[], tenant: string): yup.ObjectSchema<any> => {
-  const validationRulesTenant = getValidationTenant[tenant];
+  const validationRulesTenant = !!getValidationTenant[tenant]
+    ? getValidationTenant[tenant]
+    : getValidationTenant['novo'];
 
   const shape = fields.reduce<ValidationShape>((acc, field) => {
     if (typeof field === 'string') {

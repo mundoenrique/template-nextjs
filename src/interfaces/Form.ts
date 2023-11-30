@@ -84,11 +84,11 @@ export interface SwitchListProps extends FormMUIProps {
 	setValue?: any;
 	tenant?: string;
   options: {
-    id: number,
-    name: string,
-    title: string,
-    info: string,
-    value: boolean,
-    required: boolean
+    id: number;
+    name: string;
+    title: string;
+    info: string;
+    value: boolean;
+    required: boolean;
   }[];
 }
