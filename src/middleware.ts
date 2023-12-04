@@ -34,8 +34,8 @@ function redirectTo(url: URL, path: string, cookies: string[] = []): NextRespons
   url.pathname = path;
   const response = NextResponse.redirect(url);
 
-	if (cookies.length > 0) {
-		cookies.forEach((element) => {
+  if (cookies.length > 0) {
+    cookies.forEach((element) => {
       response.cookies.set(element, '', { expires: new Date(Date.now()) });
     });
   }
@@ -47,7 +47,7 @@ async function validateSession(url: URL, tenant: string, req: NextRequest) {
   log_message('debug', `Validating the user session`);
 
   const token = req.cookies.get('next-auth.session-token');
-	const payload: JWTPayload | null = await validToken(token?.value);
+  const payload: JWTPayload | null = await validToken(token?.value);
   const ip = req.headers.get('x-forwarded-for');
 
   if (!token || payload?.ip != ip) {
@@ -57,5 +57,5 @@ async function validateSession(url: URL, tenant: string, req: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/:tenant/signin', '/:tenant/dashboard', '/:tenant/dashboard/:path*'],
+  matcher: ['/:tenant/signin', '/:tenant/dashboard', '/:tenant/dashboard/:path*', '/:tenant/socket/:path*'],
 };
