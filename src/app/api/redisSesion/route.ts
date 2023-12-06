@@ -51,7 +51,9 @@ async function connectRedis(token: string) {
 
   try {
     Logger.info('Start connection to Redis');
-    const uid = ramdomData(70);
+    const { v4: uuidv4 } = require('uuid');
+
+    const uid = uuidv4()
     await redis.set(`session:${uid}`, JSON.stringify({ accesToken: token }));
     Logger.info(`Register oauth in Redis UID: ${uid}`);
     await redis.expire(`session:${uid}`, expireSesion);
