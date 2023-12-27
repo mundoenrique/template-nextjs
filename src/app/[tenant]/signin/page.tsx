@@ -14,7 +14,7 @@ import { log_message } from '@/utils';
 import connectApi from '@/services/connectApi';
 import { FormData, resData } from '@/interfaces';
 import { useTranslation } from '@/app/i18n/client';
-import { InputPass, InputText, NavBar, Modals, Cookies, InstallPWA } from '@/components/UI';
+import { InputPass, InputText, NavBar, Modals, Cookies, InstallPWA, BigModal } from '@/components/UI';
 const RecaptchaPuzzle: any = dynamic(() => import('@/components/UI/RecaptchaPuzzle'));
 
 
@@ -34,7 +34,7 @@ interface OtpCookie {
 
 export default function Signin({ params }: { params: {tenant: string;} }) {
 	const [showModal, setShowModal] = useState(false);
-	const [loading, setLoading] = useState(false);
+	const [loading, setLoading] = useState<boolean>(false);
 	const [msgModal, setmsgModal] = useState('');
 	const [open, dialogAccept] = useState(false);
   const [personalize, dialogPersonalize] = useState(false);
@@ -86,6 +86,7 @@ export default function Signin({ params }: { params: {tenant: string;} }) {
     if (code == 0) {
       processSignin({ email, password });
     } else {
+      setLoading(false);
       setShowPuzzle(true);
       setCredential({
         email,
@@ -96,6 +97,7 @@ export default function Signin({ params }: { params: {tenant: string;} }) {
 
   const handlePuzzleVerify = async () => {
     setShowPuzzle(false);
+    setLoading(true);
     const { email, password } = credential;
     processSignin({ email, password });
   };
@@ -105,6 +107,7 @@ export default function Signin({ params }: { params: {tenant: string;} }) {
     if (resLogin?.error === null) {
       sesionRouter();
     } else {
+      setLoading(false);
       setmsgModal('Invalid username or password. Please try again.');
       setShowModal(true);
     }
@@ -120,6 +123,8 @@ export default function Signin({ params }: { params: {tenant: string;} }) {
     <>
       <Cookies />
       <NavBar />
+      <BigModal open={loading} />
+
       <InstallPWA />
       <Box sx={{ m: 5 }} component='form' onSubmit={handleSubmit(sesionClient)}>
         <Typography variant='h3' sx={{ mb: 3 }}>
@@ -131,8 +136,7 @@ export default function Signin({ params }: { params: {tenant: string;} }) {
             <InputPass name='password' control={control} additionalInfo />
 
             <Button variant='contained' type='submit' disabled={loading} fullWidth>
-              {loading && <CircularProgress color='secondary' size={20} />}
-              {!loading && t('buttons.accept')}
+              {t('buttons.accept')}
             </Button>
           </Grid>
         </Grid>
@@ -142,7 +146,6 @@ export default function Signin({ params }: { params: {tenant: string;} }) {
         <Button
           variant='contained'
           onClick={() => {
-            setLoading(false);
             setShowModal(false);
           }}
         >
