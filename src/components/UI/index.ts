@@ -17,3 +17,4 @@ export { default as Cookies } from './Cookies';
 export { default as RecaptchaPuzzle } from './RecaptchaPuzzle';
 export { default as Table } from './table/TablePagination';
 export { default as InstallPWA } from './InstallPWA';
+export { default as QRCodeReader } from './pwa/QRCodeReader';

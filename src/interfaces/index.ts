@@ -9,3 +9,4 @@ export * from './Validation';
 export * from './Table';
 export * from './NavMenu';
 export * from './Dialogs';
+export * from './QRCodeReader';
