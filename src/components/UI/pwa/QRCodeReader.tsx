@@ -1,87 +1,92 @@
 'use client';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import jsQR, { QRCode } from 'jsqr';
-//Typado
-import { Point } from 'jsqr/dist/locator';
+//Internal
 import { IQRCodeReader } from '@/interfaces';
 
 const decoder = (imageData: ImageData): Promise<QRCode> => {
-  return new Promise((resolve) => {
+  return new Promise((resolve, reject) => {
     const decoded = jsQR(imageData?.data, imageData?.width, imageData?.height);
     if (decoded) {
       resolve(decoded);
+    } else {
+      reject();
     }
   });
 };
 
-function drawLine(begin: Point, end: Point, color: string, el: CanvasRenderingContext2D | null) {
-  el?.beginPath();
-  el?.moveTo(begin.x, begin.y);
-  el?.lineTo(end.x, end.y);
-  el ? (el.lineWidth = 4) : null;
-  el ? (el.strokeStyle = color) : null;
-  el?.stroke();
-}
+const drawLine = (code: QRCode, color: string, el: CanvasRenderingContext2D | null) => {
+  if (el) {
+    const { topLeftCorner, topRightCorner, bottomLeftCorner } = code.location;
+
+    el.beginPath();
+    el.strokeStyle = color;
+    el.lineWidth = 4;
+
+    el.roundRect(
+      topLeftCorner.x,
+      topLeftCorner.y,
+      topRightCorner.x - topLeftCorner.x,
+      bottomLeftCorner.y - topLeftCorner.y,
+      20
+    );
+
+    el.stroke();
+  }
+};
 
 export default function QRCodeReader({ readCode }: IQRCodeReader) {
-  let videoElement: HTMLVideoElement;
-  let canvasElement: HTMLCanvasElement;
+  const videoElement = useRef<HTMLVideoElement>(null);
+  const canvasElement = useRef<HTMLCanvasElement>(null);
+
   let canvasContext: CanvasRenderingContext2D | null;
 
-  function runTime() {
-    if (videoElement?.readyState === videoElement?.HAVE_ENOUGH_DATA) {
-      canvasElement.height = videoElement?.videoHeight;
-      canvasElement.width = videoElement?.videoWidth;
-      canvasContext?.drawImage(videoElement, 0, 0, canvasElement?.width, canvasElement?.height);
-      const imageData = canvasContext?.getImageData(0, 0, canvasElement?.width, canvasElement?.height);
-      if (imageData) {
-        decoder(imageData).then((code) => {
-          if (code) {
-            drawLine(code.location.topLeftCorner, code.location.topRightCorner, '#FF3B58', canvasContext);
-            drawLine(code.location.topRightCorner, code.location.bottomRightCorner, '#FF3B58', canvasContext);
-            drawLine(code.location.bottomRightCorner, code.location.bottomLeftCorner, '#FF3B58', canvasContext);
-            drawLine(code.location.bottomLeftCorner, code.location.topLeftCorner, '#FF3B58', canvasContext);
+  const runTime = () => {
+    if (
+      videoElement.current &&
+      canvasElement.current &&
+      videoElement.current?.readyState === videoElement.current?.HAVE_ENOUGH_DATA
+    ) {
+      canvasElement.current.height = videoElement.current?.videoHeight || 0;
+      canvasElement.current.width = videoElement.current?.videoWidth || 0;
+      canvasContext?.drawImage(videoElement.current, 0, 0, canvasElement.current?.width, canvasElement.current?.height);
+      const imageData = canvasContext?.getImageData(0, 0, canvasElement.current?.width, canvasElement.current?.height);
+      imageData &&
+        decoder(imageData)
+          .then((code) => {
+            console.log(code);
+            drawLine(code, '#5F3F98', canvasContext);
             console.log('decoder:', code);
             const data = JSON.stringify(code.data);
             readCode(data);
-          }
-        });
-      }
+          })
+          .catch(() => {});
     }
     requestAnimationFrame(runTime);
-  }
+  };
 
-  function init() {
+  const init = () => {
     navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } }).then((stream) => {
-      videoElement.srcObject = stream;
+      videoElement.current && (videoElement.current.srcObject = stream);
 
-      videoElement.play().then(() => {
-        canvasContext = canvasElement.getContext('2d', { willReadFrequently: true });
-        requestAnimationFrame(runTime);
-      });
+      videoElement.current &&
+        videoElement.current.play().then(() => {
+          canvasElement.current &&
+            (canvasContext = canvasElement.current.getContext('2d', { willReadFrequently: true }));
+          requestAnimationFrame(runTime);
+        });
     });
-  }
+  };
 
   useEffect(() => {
     init();
-  });
+  }, []);
 
   return (
     <>
-      <canvas
-        ref={(el: HTMLCanvasElement) => {
-          canvasElement = el;
-        }}
-        style={{ display: 'block' }}
-      ></canvas>
+      <canvas ref={canvasElement} style={{ display: 'block' }}></canvas>
 
-      <video
-        ref={(el: HTMLVideoElement) => {
-          videoElement = el;
-        }}
-        hidden
-        playsInline
-      ></video>
+      <video ref={videoElement} hidden playsInline></video>
     </>
   );
 }
