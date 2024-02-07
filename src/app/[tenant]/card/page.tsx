@@ -1,8 +1,11 @@
 'use client';
 import { Modals } from '@/components/UI';
 import { Box, Grid } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useQRCode } from 'next-qrcode';
+import { io } from 'socket.io-client';
+
+let socket: any;
 
 export default function Card() {
   const { SVG } = useQRCode();
@@ -10,7 +13,25 @@ export default function Card() {
   const [showModal, setShowModal] = useState(true);
   const [msgModal, setmsgModal] = useState('Escanear el codigo QR');
   const [loading, setLoading] = useState(false);
-  const [url, setUrl] = useState('https://0e04-38-56-214-167.ngrok-free.app/novo/qr');
+  const [url, setUrl] = useState('https://g868630t-3000.brs.devtunnels.ms/novo/qr');
+
+  useEffect(() => {
+    const socketInit = async () => {
+      await fetch('/api/socket');
+      socket = io('', {
+        path: '/api/my_socket',
+      });
+
+      socket.on('connect', () => {
+        console.log('Connected', socket.id);
+      });
+
+      socket.on('msjServer', (data: any) => {
+        console.log('msjServer', data);
+      });
+    };
+    socketInit();
+  }, []);
 
   return (
     <>

@@ -11,6 +11,7 @@ export default function Card() {
   const [msgModal, setmsgModal] = useState('Informacion del usuario');
 
   const userData = JSON.stringify({ username: 'elazaro', password: 'lazaro123' });
+
   return (
     <>
       <Box sx={{ m: 5 }}>
